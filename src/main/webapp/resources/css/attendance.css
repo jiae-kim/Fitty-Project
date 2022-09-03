@@ -1,0 +1,106 @@
+@charset "UTF-8";
+
+
+/*myAttendance*/
+.card-body{
+  padding-bottom: 10px;
+}
+
+.vacDetailDiv{
+  height: 759px;
+}
+
+.card-header{
+  padding: 35px 25px 20px 25px;
+  text-align: center;
+  justify-content: center;
+  margin: auto;
+  align-items: center;
+}
+
+
+
+#todayWork{
+  width: 90%;
+  margin-top: 20px;
+  font-size: 12px;
+  text-align: center;
+  justify-content: center;
+  margin: auto;
+  align-items: center;
+}
+
+
+.card-header{
+  color: #696CFF;
+}
+
+.vacSimple{
+    display: flex;
+    height: 130px;
+    width: 95%;
+    margin: auto;
+}
+
+.vacSimple *{
+  line-height:1.1;
+  align-items: center;
+  margin: auto;
+  text-align: center;
+}
+
+.bxs-user-circle{
+  font-size: 70px;
+  color: #696CFF;
+  margin-bottom: 5px;
+}
+
+.profileName{
+  font-size: 12px;
+}
+
+
+#workTime{
+  font-size: 48px;
+  color: #696CFF;
+}
+
+#todayWork th{
+  text-align: left;
+}
+
+#todayWork td{
+  text-align: right;
+}
+
+.workChange{
+  margin-top: 30px;
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: center;
+  justify-content: center;
+  margin: auto;
+  align-items: center;
+}
+
+.modifyBtn, .exelDownBtn{
+  width: 90%;
+  margin: auto;
+  justify-content: center;
+}
+
+.vacation{
+  display: flex;
+  margin-top:20px;
+}
+
+.vacation *{
+  width:48%;
+  height: 140px;
+  background-color:#F5F5F9;
+  font-size: 12px;
+  border-radius: 10px;
+  align-items: center;
+  text-align: center;
+
+/*myAttendance*/
