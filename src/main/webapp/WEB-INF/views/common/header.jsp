@@ -203,7 +203,7 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-calendar'></i>
-                <div data-i18n="Authentications"  class="big-menu-label">스케쥴관리</div>
+                <div data-i18n="Authentications"  class="big-menu-label">스케줄관리</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
@@ -231,12 +231,12 @@
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="pages-misc-error.html" class="menu-link">
-                    <div data-i18n="Error" class="small-menu-label">회원관리 소메뉴 1</div>
+                    <div data-i18n="Error" class="small-menu-label">회원 조회</div>
                   </a>
                 </li>
                 <li class="menu-item">
                   <a href="pages-misc-under-maintenance.html" class="menu-link">
-                    <div data-i18n="Under Maintenance" class="small-menu-label">회원관리 소메뉴 2</div>
+                    <div data-i18n="Under Maintenance" class="small-menu-label">회원 등록</div>
                   </a>
                 </li>
               </ul>
@@ -273,6 +273,19 @@
                 <li class="menu-item">
                   <a href="ui-alerts.html" class="menu-link">
                     <div data-i18n="Alerts" class="small-menu-label">시설관리 소메뉴 2</div>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="menu-item">
+              <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <i class="menu-icon tf-icons bx bx-box"></i>
+                <div data-i18n="User interface"  class="big-menu-label">상품관리</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="ui-accordion.html" class="menu-link">
+                    <div data-i18n="Accordion" class="small-menu-label">헬스장 이용권</div>
                   </a>
                 </li>
               </ul>
