@@ -194,7 +194,7 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="managerManagement.html" class="menu-link">
+                  <a href="centerAtt.att" class="menu-link">
                     <div data-i18n="Notifications" class="small-menu-label">센터 근태관리</div>
                   </a>
                 </li>

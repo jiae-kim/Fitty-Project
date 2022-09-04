@@ -11,5 +11,24 @@ public class AttendanceController {
 	public String goMyAtt() {
 		return "attendance/myAttendance";
 	}
+	
+	
+	
+	@RequestMapping("centerAtt.att")
+	public String goCenterAtt() {
+		return "attendance/centerAllAttendance";
+	}
+	
+	@RequestMapping("vacControl.att")
+	public String goVacControlAtt() {
+		return "attendance/centerVacControl";
+	}
+
+	
+	@RequestMapping("modifyAtt.att")
+	public String goModifyAtt() {
+		return "attendance/modifyAttendance";
+	}
+
 
 }
