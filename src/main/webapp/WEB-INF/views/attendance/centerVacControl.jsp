@@ -89,7 +89,7 @@
                 <div style="height : 5px"></div>
                     <div class="card-body">
                       <div class="table-responsive">
-                        <table class="table table-bordered memberListTable table-hover" id="dataTable" width="100%" cellspacing="0">
+                        <table class="table memberListTable table-hover" id="dataTable" width="100%" cellspacing="0">
                           <thead>
                               <tr>
                                 <th><input type="checkbox" name="choiceAll" id="choiceAll" onclick="checkAll();"></th>

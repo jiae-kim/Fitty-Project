@@ -12,6 +12,10 @@ public class AttendanceController {
 		return "attendance/myAttendance";
 	}
 	
+	@RequestMapping("attModiftForm.att")
+	public String goMyModifyForm() {
+		return "attendance/myAttendanceModify";
+	}
 	
 	
 	@RequestMapping("centerAtt.att")
@@ -30,5 +34,13 @@ public class AttendanceController {
 		return "attendance/modifyAttendance";
 	}
 
+	
+	@RequestMapping("enrollForm.emp")
+	public String goEnrollForm() {
+		return "attendance/employeeEnrollForm";
+	}
+	
+	
+	
 
 }

@@ -70,7 +70,7 @@
                               <span class="profileName">트레이너</span>
                             </div>
                             <div>
-                              <table class="modifyList">
+                              <table class="table modifyList">
                                 <tr>
                                   <th>변경요청일</th>
                                   <td>2022.08.16</td>
@@ -138,14 +138,14 @@
                 
                   <!-- 휴가관리 -->
                   <div class="col-md-10 ">
-                    <div class="card mb-4 modifyDiv">
+                    <div class="card mb-4 modifyDiv" style="height: 680px;">
                         <h5 class="card-header"><b>📝 근태 수정요청안</b></h5>
                         <div class="card-body" style="width: 95%;">
                           <form id="formAccountSettings" method="POST" onsubmit="return false">
                             <table class="table table-hover modifyTable">
                               <thead>
                                 <tr>
-                                  <td colspan="6" class="profileTd">
+                                  <td colspan="6" class="profileTd" style="background-color:white;">
                                     <i class='bx bxs-user-circle'></i>
                                     <span class="profileName"><b>홍길동</b></span>
                                     <span class="profileName">트레이너</span>
@@ -177,7 +177,7 @@
                             <textarea class="textarea" autofocus readonly>이미 작성된 구차한 변명</textarea>
                             <h5 class="card-header" style="margin-bottom : 15px"><b>📋 수정의견</b></h5>
                             <textarea class="textarea" autofocus required>수정 의견을 적어주세요</textarea>
-                            <div class="row submitDiv">
+                            <div class="row submitDiv" style="margin-left: 90px;">
                               <div class="mt-2 btnDiv col-md-7">
                                 <label for="address" class="form-label" style="font-size: 10px; width:50px">수정시간</label>
                                 <input type="time" class="form-control" id="birth" name="birth" />

@@ -18,7 +18,7 @@
     />
 <title>Fitty</title>
 <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="sneat-1.0.0/assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="resources/bootTemplate/sneat-1.0.0/assets/img/favicon/favicon.ico" />
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

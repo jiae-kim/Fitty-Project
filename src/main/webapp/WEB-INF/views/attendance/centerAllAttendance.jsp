@@ -73,7 +73,7 @@
                             <td><input type="text" class="form-control" placeholder="검색어 입력" name="searchText" id="searchText"  maxlength="30" style="height: 35px;"></td>
                             <td><button type="button" id="searchBtn" class="btn btn-primary" onclick="changeSelect();">검색</button></td>
                             <td width="555px"></td>
-                            <td><button class="btn btn-primary" onclick="generalChange();">신규직원등록</button></td>
+                            <td><button class="btn btn-primary" onclick="go('enrollForm.emp')">신규직원등록</button></td>
                             <td><button class="btn btn-secondary" onclick="generalChange();">직원퇴사</button></td>
                             <td><button class="btn btn btn-info" onclick="generalChange();">근태초기화</button></td>
                         </tr>        
