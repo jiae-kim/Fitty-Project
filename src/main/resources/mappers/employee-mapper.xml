@@ -2,6 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="employeeMapper">
 
+<resultMap id="employeeResult" type="Employee">
+		<result column="emp_no" property="empNo"/>
+		<result column="emp_name" property="empName"/>
+		<result column="emp_grade" property="empGrade"/>
+		<result column="emp_gender" property="empGender"/>
+		<result column="emp_mail" property="empMail"/>
+		<result column="emp_phone" property="empPhone"/>
+		<result column="emp_birth" property="empBirth"/>
+		<result column="emp_photo" property="empPhoto"/>
+		<result column="emp_enroll_date" property="empEnrollDate"/>
+		<result column="emp_modify_date" property="empModifyDate"/>
+</resultMap>
+
 	<select id="selectNextEmpNo" resultType="string">
 		SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_EMP_NO'
 	</select>
@@ -35,5 +48,12 @@
 		   , sysdate
 		     )
 	</insert>
+	
+	<select id="selectEmpList" resultMap="employeeResult">
+		select emp_no
+			 , emp_name
+			 , emp_grade
+		  from tb_emp
+	</select>
 	
 </mapper>

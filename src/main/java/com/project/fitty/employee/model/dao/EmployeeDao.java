@@ -1,5 +1,7 @@
 package com.project.fitty.employee.model.dao;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -16,6 +18,10 @@ public class EmployeeDao {
 	
 	public int insertEmployee(Employee e, SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("employeeMapper.insertEmployee", e);
+	}
+	
+	public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession){
+		return  (ArrayList)sqlSession.selectList("employeeMapper.selectEmpList");
 	}
 	
 }

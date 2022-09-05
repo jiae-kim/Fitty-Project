@@ -1,6 +1,9 @@
 package com.project.fitty.employee.model.vo;
 
 import java.sql.Date;
+import java.util.ArrayList;
+
+import com.project.fitty.attendance.model.vo.Attendance;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -29,6 +32,7 @@ public class Employee {
 	
 	// db에는 없지만 편의상 추가된 필드
 	private String gradeString;
+	private ArrayList<Attendance> attList;
 	
 
 }

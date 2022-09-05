@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>Fitty 전직원근태확인</title>
 <link type="text/css" rel="stylesheet" href="resources/css/attendance.css" />
-<script type="text/javascript" src="resources/js/attendance.js"></script>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -66,8 +65,8 @@
                             <td width="22px"></td>
                             <td>
                                 <select class="form-control mr-sm-0" name="searchType" id="searchType" style="height: 35px;">                                        
-                                    <option value="userId">트레이너</option>
-                                    <option value="gradeName">관리자</option>
+                                    <option value="T">트레이너</option>
+                                    <option value="A">관리자</option>
                                 </select>
                             </td>
                             <td><input type="text" class="form-control" placeholder="검색어 입력" name="searchText" id="searchText"  maxlength="30" style="height: 35px;"></td>
@@ -162,10 +161,7 @@
                                 </tfoot>
                                 
                                 <tbody id="memListTBody">
-                                    <tr>
-                                    <th><input type="checkbox" name="choiceAll" id="choiceAll" onclick="checkAll();"></th>
-                                    <th>이소희</th>
-                                    </tr>
+                                    
                                 </tbody>
                                 </table>
                             </div>
@@ -206,33 +202,29 @@
                             <!-- Basic Pagination -->
                             <nav aria-label="Page navigation pageNav">
                                 <ul class="pagination">
-                                <li class="page-item first">
-                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
-                                </li>
-                                <li class="page-item prev">
-                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0);">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0);">2</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="javascript:void(0);">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0);">4</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0);">5</a>
-                                </li>
-                                <li class="page-item next">
-                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>
-                                </li>
-                                <li class="page-item last">
-                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
-                                </li>
+                                <!--
+	                                <li class="page-item prev">
+	                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>
+	                                </li>
+	                                <li class="page-item">
+	                                    <a class="page-link" href="javascript:void(0);">1</a>
+	                                </li>
+	                                <li class="page-item">
+	                                    <a class="page-link" href="javascript:void(0);">2</a>
+	                                </li>
+	                                <li class="page-item active">
+	                                    <a class="page-link" href="javascript:void(0);">3</a>
+	                                </li>
+	                                <li class="page-item">
+	                                    <a class="page-link" href="javascript:void(0);">4</a>
+	                                </li>
+	                                <li class="page-item">
+	                                    <a class="page-link" href="javascript:void(0);">5</a>
+	                                </li>
+	                                <li class="page-item next">
+	                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>
+	                                </li>
+	                            -->
                                 </ul>
                             </nav>
                             <!--/ Basic Pagination -->
@@ -246,6 +238,6 @@
 </div>
 
 
-
+<script type="text/javascript" src="resources/js/attendance.js"></script>
 </body>
 </html>

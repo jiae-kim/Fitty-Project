@@ -1,5 +1,7 @@
 package com.project.fitty.employee.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +37,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return eDao.insertEmployee(e, sqlSession);
 	}
 	
-	
+	@Override
+	public ArrayList<Employee> selectEmpList() {
+		return eDao.selectEmpList(sqlSession);
+	}
 	
 
 	@Override
@@ -47,6 +52,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int uploadProfileImg(Employee e) {
 		return 0;
 	}
+
+
+	
 
 	
 
