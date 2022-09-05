@@ -48,7 +48,8 @@
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="resources/bootTemplate/sneat-1.0.0/assets/js/config.js"></script>
-    
+        <!-- jQuery 라이브러리 -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     
     <style>
         #helloMan, #about-time {
