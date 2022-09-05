@@ -235,7 +235,7 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="pages-misc-under-maintenance.html" class="menu-link">
+                  <a href="enrollForm.ur" class="menu-link">
                     <div data-i18n="Under Maintenance" class="small-menu-label">회원 등록</div>
                   </a>
                 </li>
