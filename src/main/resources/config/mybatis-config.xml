@@ -10,6 +10,7 @@
 	<typeAliases>
 		<typeAlias type="com.project.fitty.attendance.model.vo.Attendance" alias="Attendance"/>
 		<typeAlias type="com.project.fitty.user.model.vo.User" alias="User"/>
+		<typeAlias type="com.project.fitty.product.model.vo.Product" alias="Product" />
 	</typeAliases>
 	
 	<!-- environment
@@ -21,6 +22,7 @@
 	 <mappers>
 	 	<mapper resource="/mappers/employee-mapper.xml"/>
 	 	<mapper resource="/mappers/user-mapper.xml"/>
+	 	<mapper resource="/mappers/product-mapper.xml"/>
 	 </mappers>
 	 
 </configuration>
