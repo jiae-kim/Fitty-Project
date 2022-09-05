@@ -359,6 +359,17 @@ textarea{
   margin-top: 15px;
   margin-bottom: 100px;
 }
+
+#roundPhoto{
+	height:150px;
+	width:150px;
+	pading : 30px;
+	align-items: center;
+  	margin: auto;
+	justify-content: center;
+	margin-bottom:60px;
+	border-radius : 100px;
+}
 /*employeeEnrollForm*/
 
 

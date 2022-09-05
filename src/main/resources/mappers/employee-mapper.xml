@@ -6,4 +6,34 @@
 		SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_EMP_NO'
 	</select>
 	
+	<insert id="insertEmployee">
+		insert into tb_emp
+		    (
+		     emp_no
+		   , emp_name
+		   , emp_grade
+		   , emp_gender
+		   , emp_mail
+		   , emp_phone
+		   , emp_birth
+		   , emp_status
+		   , emp_photo
+		   , emp_enroll_date
+		   , emp_modify_date
+		    )
+		values
+		    ( #{gradeString} || seq_emp_no.nextval
+		   , #{empName}
+		   , #{empGrade}
+		   , #{empGender}
+		   , lower(#{gradeString})|| seq_emp_no.CURRVAL || '@fitty.com'
+		   , #{empPhone}
+		   , #{empBirth}
+		   , 'Y'
+		   , #{empPhoto}
+		   , sysdate
+		   , sysdate
+		     )
+	</insert>
+	
 </mapper>

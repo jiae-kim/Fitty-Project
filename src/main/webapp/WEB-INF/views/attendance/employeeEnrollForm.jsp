@@ -7,8 +7,6 @@
 <meta charset="UTF-8">
 <title>Fitty 신규 직원 등록</title>
 <link type="text/css" rel="stylesheet" href="resources/css/attendance.css" />
-
-
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -19,19 +17,23 @@
             <div class="card mb-4 profileEnrollDiv">
               <!-- Account -->
               <div class="card-body">
-                <form id="formAccountSettings" action="insert.emp" method="POST" onsubmit="return false">
+                <form id="formAccountSettings" action="insert.emp" method="POST">
                   <h5 class="card-header secondHeader" style="margin-bottom: 50px;">🏋️‍♂️ 신규직원 인적정보 작성</h5>
                   <div class="row">
-	                  <div class="d-flex align-items-start align-items-sm-center gap-4">
-		                  <img id="empPhoto" src="<c:out value='${ loginUser.profileImg }' default='resources/profile_images/defaultProfile.png'/>" alt="user-avatar" class="d-block rounded" height="70" width="70" id="empPhoto" name="empPhoto"  >
-		                  <div class="button-wrapper">
-		                      <button type="button" class="btn btn-outline-primary" id="profileImgFile" onclick="$('#empPhoto').click();">프로필사진 등록</button>
-		                      <input type="file" id="empPhoto" name="empPhoto" style="display:none;">
-		                  </div>
+	                <div class="d-flex align-items-start align-items-sm-center gap-4">
+	                  <c:choose>
+	                  	<c:when test="${empty e.empPhoto }">
+	                  		<img  id="roundPhoto" src='resources/profile_images/defaultProfile.png' onclick="$('#empPhoto').click();"  name="roundPhoto" value="">
+	                  	</c:when>
+	                  	<c:otherwise>
+	                  		<img  id="roundPhoto" src='${ e.empPhoto }' onclick="$('#empPhoto').click();"  name="roundPhoto" value="${ e.empPhoto }">
+	                  	</c:otherwise>
+	                  </c:choose>
+                	  <input type="file" id="empPhoto" style="display:none;" name="empPhoto">
 	                </div>
                     <div class="mb-3 col-md-6">
                       <label for="empName" class="form-label">이름</label>
-                      <input class="form-control" type="text" id="empName" name="empName" value="신규 직원 이름 작성" autofocus required/>
+                      <input class="form-control" type="text" id="empName" name="empName" placeholder="신규 직원 이름 작성" autofocus required/>
                     </div>
                     <div class="mb-3 col-md-3">
                       <label for="empGrade" class="form-label">직급</label>

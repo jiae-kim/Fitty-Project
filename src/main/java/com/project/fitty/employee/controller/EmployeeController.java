@@ -1,13 +1,16 @@
 package com.project.fitty.employee.controller;
 
+import java.io.File;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.project.fitty.common.template.FileUpload;
 import com.project.fitty.employee.model.service.EmployeeService;
 import com.project.fitty.employee.model.vo.Employee;
 
@@ -24,8 +27,43 @@ public class EmployeeController {
 		return eService.selectNextEmpNo();
 	}
 	
+	
+	
+	
+	@ResponseBody
+	@RequestMapping("uploadProfile.emp")
+	public Employee ajaxUploadProfile(MultipartFile uploadFile, Employee e, String originalFile, HttpSession session) {
+		
+		
+		if(uploadFile != null) {
+			
+			if(!originalFile.equals("")) {
+				// 기존의 프사가 있었을경우 해당 파일 삭제
+				new File(session.getServletContext().getRealPath(originalFile)).delete();
+			} 
+			// 넘어온 파일이 있을 경우
+			String saveFilePath = FileUpload.saveFile(uploadFile, session, "resources/profile_images/");
+			e.setEmpPhoto(saveFilePath);
+			
+			
+				// session 에 profileImg 가 업데이트된 새 로그인객체 담기!
+				session.setAttribute("e", e);
+			}
+		return e;
+				
+		}
+		
+	
+	
+	
 	@RequestMapping("insert.emp")
 	public String insertMember(Employee e, HttpSession session) {
+		
+		if (e.getEmpGrade().equals("T")) {
+			e.setGradeString("TRN");
+		} else {
+			e.setGradeString("ADM");
+		}
 		
 		int result = eService.insertEmployee(e);
 		if(result > 0) {
@@ -36,7 +74,5 @@ public class EmployeeController {
 			return "redirect:enrollForm.emp";
 		}
 	}
-	
-	
 	
 }

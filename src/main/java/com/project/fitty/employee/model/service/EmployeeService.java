@@ -12,6 +12,8 @@ public interface EmployeeService {
 	// 다음 회원번호 미리 알아오기 (select)
 	String selectNextEmpNo();
 	
+	// 신규직원 프로필 등
+	
 	// 신규직원 가입 서비스 (insert)
 	int insertEmployee(Employee e);
 	

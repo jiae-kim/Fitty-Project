@@ -26,5 +26,9 @@ public class Employee {
 	private Date empEnrollDate;
 	private Date empModifyDate;
 	
+	
+	// db에는 없지만 편의상 추가된 필드
+	private String gradeString;
+	
 
 }
