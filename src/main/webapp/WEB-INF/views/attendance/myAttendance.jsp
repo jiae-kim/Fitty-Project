@@ -9,7 +9,7 @@
 
 <!-- 해당페이지 css 외부로딩 : 새로고침시 컨트롤 + f5로 강력새로고침 하세요 -->
 <link type="text/css" rel="stylesheet" href="resources/css/attendance.css" />
-
+<script type="text/javascript" src="resources/js/attendance.js"></script>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -56,7 +56,7 @@
               </select>
             </form>
         
-            <button class="btn btn-primary modifyBtn">근태수정요청</button>
+            <button class="btn btn-primary modifyBtn" onclick="go('attModiftForm.att')">근태수정요청</button>
             <button class="btn btn-secondary exelDownBtn">엑셀다운로드</button>
 
             <div class="vacation">
