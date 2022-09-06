@@ -15,6 +15,22 @@
 		<result column="emp_modify_date" property="empModifyDate"/>
 </resultMap>
 
+	<select id="loginEmployee" resultMap="employeeResult">
+		select   emp_no
+			   , emp_name
+			   , emp_grade
+			   , emp_gender
+			   , emp_mail
+			   , emp_phone
+			   , emp_birth
+			   , emp_status
+			   , emp_photo
+			   , emp_enroll_date
+			   , emp_modify_date
+		  from   tb_emp
+		 where   emp_no = #{empNo} 
+	</select>
+
 	<select id="selectNextEmpNo" resultType="string">
 		SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_EMP_NO'
 	</select>

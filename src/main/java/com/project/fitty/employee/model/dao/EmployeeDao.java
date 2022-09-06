@@ -10,6 +10,11 @@ import com.project.fitty.employee.model.vo.Employee;
 @Repository
 public class EmployeeDao {
 	
+	
+	public Employee loginEmployee(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.selectOne("employeeMapper.loginEmployee", e);
+	}
+	
 	public String selectNextEmpNo(SqlSessionTemplate sqlSession) {
 		return  sqlSession.selectOne("employeeMapper.selectNextEmpNo");
 		

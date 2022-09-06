@@ -24,5 +24,16 @@
 	<context:component-scan base-package="com.project.fitty" />
 	
 	
+	<!-- 인터셉터 등록 -->
+	   <interceptors>
+	      <interceptor>
+	         <!-- 인터셉터 적용시킬 url -->
+	         <mapping path="/main.fitty" />
+	         <mapping path="/myAtt.att" />
+	         <!-- 사용할 인터셉터 -->
+	         <beans:bean class="com.project.fitty.common.interceptor.LoginInterceptor" />
+	      </interceptor>
+	   </interceptors>
+	
 	
 </beans:beans>

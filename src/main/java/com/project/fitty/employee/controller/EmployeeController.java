@@ -20,6 +20,33 @@ public class EmployeeController {
 	@Autowired	
 	private EmployeeService eService;
 	
+	
+	
+	@RequestMapping("login.emp")
+	public String loginEmployee(Employee e, HttpSession session) {
+		
+		Employee loginUser = eService.loginEmployee(e);
+		
+		if(loginUser != null) {
+			System.out.println(loginUser.getEmpNo());
+			session.setAttribute("loginUser", loginUser);
+			return "common/mainPage";
+		} else {
+			session.setAttribute("alertMsg", "사번을 다시 확인해주세요.");
+			return "main";
+		}
+	}
+	
+	
+	@RequestMapping("logout.me")
+	public String logoutEmployee(HttpSession session) {
+		session.invalidate();
+		// 메인페이지 url 재요청
+		// 그리고 퇴근시간 update 문도 실행해야함!
+		return "common/login";
+	}
+	
+	
 	@ResponseBody
 	@RequestMapping("nextEmpNo.emp")
 	public String selectNextEmpNo() {

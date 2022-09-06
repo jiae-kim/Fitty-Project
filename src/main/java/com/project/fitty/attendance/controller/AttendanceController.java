@@ -23,6 +23,11 @@ public class AttendanceController {
 	private EmployeeService eService;
 	
 	
+	@RequestMapping("main.fitty")
+	public String goMain() {
+		return "common/mainPage";
+	}
+	
 	@RequestMapping("myAtt.att")
 	public String goMyAtt() {
 		return "attendance/myAttendance";
@@ -52,7 +57,7 @@ public class AttendanceController {
 				e.setAttList(aService.selectAllAttList(e.getEmpNo()));
 				System.out.println(e.getAttList());
 				if(e.getAttList() == null) {
-					session.setAttribute("alertMsg", "근태 초기화가 덜 된 직원 있습니다.");
+					session.setAttribute("alertMsg", "근태 초기화가 미완료");
 					mv.setViewName("attendance/employeeEnrollForm");
 				}
 			}

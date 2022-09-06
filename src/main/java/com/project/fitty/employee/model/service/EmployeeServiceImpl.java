@@ -21,7 +21,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public Employee loginEmployee(Employee e) {
-		return null;
+		return eDao.loginEmployee(sqlSession, e);
 	}
 	
 

@@ -172,7 +172,7 @@
                   </g>
                 </svg>
               </span>
-              <a class="app-brand-text demo menu-text fw-bolder ms-2" href="${ pageContext.servletContext.contextPath }">Fitty</span>
+              <a class="app-brand-text demo menu-text fw-bolder ms-2" href="main.fitty">Fitty</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -374,8 +374,17 @@
                                 </div>
                                 </div>
                                 <div class="flex-grow-1">
-                                <span class="fw-semibold d-block">John Doe</span>
-                                <small class="text-muted">Admin</small>
+                                <span class="fw-semibold d-block">${ loginUser.empName }</span>
+                                <small class="text-muted">
+                                	<c:choose>
+				                  		<c:when test="${ loginUser.empGrade eq 'T' }">
+				                  			트레이너님💜
+				                  		</c:when>
+				                  		<c:otherwise>
+				                  			관리자님💜
+				                  		</c:otherwise>
+				                  	</c:choose>
+                                </small>
                                 </div>
                             </div>
                             </a>
@@ -416,9 +425,18 @@
                         </ul>
                     </li>
                   <!--/ User -->
-                  <span id="helloMan"><b>홍길동</b> 트레이너님 환영합니다!</span>
+                  <span id="helloMan"><b>${ loginUser.empName }</b>
+                  	<c:choose>
+                  		<c:when test="${ loginUser.empGrade eq 'T' }">
+                  			트레이너님 오늘도 힘내요💜
+                  		</c:when>
+                  		<c:otherwise>
+                  			관리자님 오늘도 힘내요💜
+                  		</c:otherwise>
+                  	</c:choose>
+                  </span>
                   <button class="btn btn-sm btn-primary" id="init-btn">출근</button>
-                  <button class="btn btn-sm btn-secondary" id="out-btn">퇴근</button>
+                  <button class="btn btn-sm btn-secondary" id="out-btn" onclick="logout()">퇴근</button>
                 </div>
               </div>
               <!-- /Search -->
@@ -437,7 +455,25 @@
                 <li class="nav-item lh-1 me-3">
                     <i class='bx bx-bell' ></i>
                 </li>
-
+				
+				<script>
+				 function go(address){
+						console.log(address);
+						location.href = address;
+					}
+				 
+				
+				 
+				 function logout(){
+					 alertify.confirm("정말 퇴근하시겠습니까?",
+							  function(){
+							    go('logout.me');
+							  },
+							  function(){
+							    
+							  });
+				 }
+				</script>
 
                 
               </ul>
