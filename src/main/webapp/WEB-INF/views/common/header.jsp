@@ -318,22 +318,10 @@
             </li>
 
             <li class="menu-item">
-                <a href="javascript:void(0)" class="menu-link menu-toggle">
+                <a href="apprMain.ap" class="menu-link">
                     <i class='menu-icon tf-icons bx bx-paste'></i>
                   <div data-i18n="Extended UI"  class="big-menu-label">결재</div>
                 </a>
-                <ul class="menu-sub">
-                  <li class="menu-item">
-                    <a href="extended-ui-perfect-scrollbar.html" class="menu-link">
-                      <div data-i18n="Perfect Scrollbar" class="small-menu-label">결재 소메뉴 1</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="extended-ui-text-divider.html" class="menu-link">
-                      <div data-i18n="Text Divider" class="small-menu-label">결재 소메뉴 2</div>
-                    </a>
-                  </li>
-                </ul>
               </li>
           </ul>
         </aside>
