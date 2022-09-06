@@ -13,10 +13,18 @@ public class MachineController {
 	private MachineService mService;
 	
 	@RequestMapping("list.mc")
-	String selectMachineList() {
+	public String selectMachineList() {
 		
 		
 		return "machine/machineList";
 	}
 	
+	@RequestMapping("enrollForm.mc")
+	public String selectEnrollForm() {
+		
+		return "machine/machineEnrollForm";
+	}
+	
 }
+
+

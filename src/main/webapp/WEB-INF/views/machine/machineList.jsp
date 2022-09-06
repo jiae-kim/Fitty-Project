@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
 	
@@ -56,10 +56,7 @@
 	<div class="content-wrapper">
       <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
-
-          <!-- <h5 class="py-3 my-4">근태관리 페이지</h5> -->
           <div class="col-xl-12">
-            <!-- <h6 class="text-muted">Filled Pills</h6> -->
             <div class="nav-align-top mb-4">
               <ul class="nav nav-pills mb-3 nav-fill" role="tablist">
                 <li class="nav-item">
@@ -70,9 +67,7 @@
                     data-bs-toggle="tab"
                     data-bs-target="#navs-pills-justified-home"
                     aria-controls="navs-pills-justified-home"
-                    aria-selected="true"
-                  >
-                    <!-- <i class="tf-icons bx bx-home"></i> Home -->
+                    aria-selected="true">
                     🏋️‍♀️ 전체&nbsp기구
                   </button>
                 </li>
@@ -116,7 +111,7 @@
                         </td>
                         
                         <td width="1050px"></td>
-                        <td><button class="btn btn-primary" onclick="generalChange();">기구등록</button></td>
+                        <td><a class="btn btn-primary" href="enrollForm.mc">기구등록</a></td>
                     </tr>        
                   </table>
 
