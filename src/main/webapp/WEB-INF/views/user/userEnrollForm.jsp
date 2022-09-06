@@ -102,14 +102,50 @@
 						-->
 						
                         <!-- 프로필 -->
-                        <div class="mb-3 row">
-                          <label for="formFile" class="col-md-2 col-form-label">회원 프로필</label>
-                          <div class="col-md-3">
-                            <input class="form-control" type="file" name="userProfileUrl" id="formFile" />
-                          </div>
-                        </div>
-
-                        <br><br><br>
+						<div class="mb-3 row">
+						  <label for="formFile" class="col-md-2 col-form-label">회원 프로필</label>
+						  <div class="col-md-3">
+							<input type="file" id="userProfile" name="userProfile" class="form-control" style="display:none;">
+							<c:choose>
+							<c:when test="${empty u.userProfileUrl}">
+								<img id="roundPhoto" src='resources/profile_images/defaultProfile.png' onclick="$('#userProfile').click();" name="roundPhoto" value=""  style="height: 150px;">
+							</c:when>
+							<c:otherwise>
+								<img id="roundPhoto" src='${u.userProfileUrl}' onclick="$('#userProfile').click();" name="roundPhoto" value="${u.userProfileUrl}"  style="height: 150px;">
+							</c:otherwise>
+							</c:choose>
+						  </div>
+						</div>
+						
+						<script>
+							$(function(){
+								$("#userProfile").change(function(){
+									console.log("jjj");
+									let roundPhoto = $('#roundPhoto');
+									let formData = new FormData();
+									let uploadFile = this.files[0];
+									console.log(roundPhoto.val());
+									formData.append("uploadFile", uploadFile);
+									formData.append("originalFile", "${u.userProfileUrl}.val()"); 
+									
+								$.ajax({
+									url:"uploadProfile.ur",
+									data:formData,
+									processData: false,
+									contentType: false,
+									type:"POST",
+									success:function(u){
+										location.reload();
+									},
+									error:function(){
+										console.log("회원 프로필 이미지 등록을 위한 ajax 통신 실패");
+									}
+								})
+								})
+							})
+						</script>
+						
+                        <br>
                         <!-- 버튼 -->
                         <div class="mb-3" style="text-align: center;">
                           <button type="button" class="btn btn-primary" style="display: inline-block;" data-bs-toggle="modal" data-bs-target="#UserEnroll">회원등록</button>

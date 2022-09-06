@@ -29,9 +29,14 @@ public class UserServiceImpl implements UserService{
 		return uDao.selectListCount(sqlSession);
 	}
 	
-	@Override // [김지애] 회원 전체조회 서비스 (페이징)
+	@Override // [김지애] 2. 회원 전체조회 서비스 (페이징)
 	public ArrayList<User> selectList(PageInfo pi) {
 		return uDao.selectList(sqlSession, pi);
+	}
+	
+	@Override // [김지애] 3. 회원 프로필이미지 변경 서비스 - ajax
+	public int uploadProfileImg(User u) {
+		return 0;
 	}
 	
 	@Override // [김지애] 회원 상세조회 서비스
@@ -49,10 +54,6 @@ public class UserServiceImpl implements UserService{
 		return 0;
 	}
 
-	@Override // [김지애] 회원 프로필이미지 변경 서비스 - ajax
-	public int uploadProfileImg(User u) {
-		return 0;
-	}
 	
 	
 }

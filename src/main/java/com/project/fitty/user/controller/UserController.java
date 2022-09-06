@@ -1,5 +1,6 @@
 package com.project.fitty.user.controller;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
@@ -9,9 +10,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.project.fitty.common.model.vo.PageInfo;
+import com.project.fitty.common.template.FileUpload;
 import com.project.fitty.common.template.Pagination;
 import com.project.fitty.user.model.service.UserService;
 import com.project.fitty.user.model.vo.User;
@@ -35,10 +39,10 @@ public class UserController {
 		
 		if(result > 0) {// 회원등록 성공
 			session.setAttribute("alertMsg", "성공적으로 회원등록 되었습니다.");
-			return "user/userListView";
+			return "redirect:list.ur";
 		}else {// 회원등록 실패
 			model.addAttribute("errorMsg", "회원등록 실패");
-			return "common/errorPage";
+			return "redirect:";
 		}
 	}
 	
@@ -56,5 +60,40 @@ public class UserController {
 		
 		return mv;
 	}
+
+	// [김지애] 3. 회원 프로필이미지 변경 서비스 - ajax
+	@ResponseBody
+	@RequestMapping("uploadProfile.ur")
+	public User ajaxUploadProfile(MultipartFile uploadFile, User u, String originalFile, HttpSession session) {
+		if(uploadFile != null) {
+			if(!originalFile.equals("")) {
+				new File(session.getServletContext().getRealPath(originalFile)).delete();
+			}
+			
+			String saveFilePath = FileUpload.saveFile(uploadFile, session, "resources/profile_images/");
+			u.setUserProfileUrl(saveFilePath);
+			
+			session.setAttribute("u", u);
+		}
+	return u;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }
