@@ -24,19 +24,19 @@ function selectAllAttList(page){
 		data:{
 		    searchType:$("#searchType").val(),
 		    searchText:$("#searchText").val(),
-			// booktype: $("#booktype").val(),
-		    // bookOrderBy: $("#bookOrderBy").val(),
 		  	cpage:page 
 		},
 		type:"post",
-		success:function(mv){
-			// let contextPath = "<%= contextPath %>"
-			console.log(mv);
+		success:function(result){
 			let value = "";
 			let pageValue = "";
 			
-			let empList = mv.empList; // [{}, {}, {}, ...]
-			let pi = mv.pi; // { }
+			
+			let empList = result.empList;
+			let pi = result.pi;
+			
+			
+			
 			
 			if(empList.length == 0){
 				value += "<tr>"
@@ -50,22 +50,26 @@ function selectAllAttList(page){
 					   +    "<th><input type='checkbox' name='choiceAll' id='choiceAll' onclick='checkAll();'></th>"
                        +  	"<td>" +  empList[i].empName + "</td>"
                        
-                	for(let k=0; i<empList[i].attList[k].length; k++){
-                value += 	"<td>" +  empList[i].attList[k].attStatus + "</td>"
-                	}
-                       
+                	  for(var k in empList[i].attList) {
+						    value += 	"<td>" + empList[i].attList[k].attStatus + "</td>"
+						}
+			            
+              
                        
                 value += "</tr>";
                      
 				}
 				
-				if(pi.currentPage != 1){
-        			pageValue += "<li class='page-item prev'><button class='page-link' onclick='selectAllAttList(" + (pi.currentPage - 1) + ")'><i class='tf-icon bx bx-chevron-left'></i></button></li>"
+				if(pi.currentPage == 1){
+        			// 현재페이지가 1페이지면 < 버튼 disabled
+        			pageValue += "<li class='page-item prev'><button disabled class='page-link'><i class='tf-icon bx bx-chevron-left'></i></button></li>";
         				
+        		} else {
+        			// 현재 페이지가 1페이지가 아니면
+        			pageValue += "<li class='page-item prev'><button class='page-link' onclick='selectAllAttList(" + (pi.currentPage - 1) + ")'><i class='tf-icon bx bx-chevron-left'></i></button></li>";
         		}
         		
         		for(let p=pi.startPage; p<=pi.endPage; p++) { 
-				   
 		   			if(p == pi.currentPage) { 
 				   			pageValue += "<li class='page-item'><button class='page-link' disabled>"  + p  + "</button></li>"
 				   	}else {
@@ -73,8 +77,10 @@ function selectAllAttList(page){
 		           	} 
 		         }     
          
-		         if(pi.currentPage != pi.maxPage) {
-		        	  pageValue +=	"<li class='page-item next'><button class='page-link' onclick='selectAllAttList(" + (pi.currentPage + 1) + ")'><i class='tf-icon bx bx-chevron-left'></i></button></li>"
+		         if(pi.currentPage == pi.maxPage) {
+		         	pageValue += "<li class='page-item prev'><button disabled class='page-link'><i class='tf-icon bx bx-chevron-right'></i></button></li>"
+		         } else {
+		        	  pageValue +=	"<li class='page-item next'><button class='page-link' onclick='selectAllAttList(" + (pi.currentPage + 1) + ")'><i class='tf-icon bx bx-chevron-right'></i></button></li>"
 		        	  
 		         } 
 			}

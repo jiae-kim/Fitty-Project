@@ -15,11 +15,22 @@
 </resultMap>
   
   <select id="selectAllAttList" resultMap="attendanceResult">
-  	select emp_no
+  	 select emp_no
   	     , att_date
   	     , att_status
   	  from tb_att
   	 where emp_no = #{empNo}
+  	   and att_date BETWEEN TO_DATE('22/08/01', 'YY/MM/DD') 
+                        AND TO_DATE('22/08/31', 'YY/MM/DD')
   </select>
+  
+  <select id="aaaaa" resultType="_int">
+  	select count(*)
+  	  from tb_att
+  	 where emp_no = 'TRN103'
+  </select>
+  
+  
+
 
 </mapper>

@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>Fitty 직원 근태 상세</title>
 <link type="text/css" rel="stylesheet" href="resources/css/attendance.css" />
-<script type="text/javascript" src="resources/js/attendance.js"></script>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -114,6 +113,6 @@
 
 
 </div>
-
+<script type="text/javascript" src="resources/js/attendance.js"></script>
 </body>
 </html>

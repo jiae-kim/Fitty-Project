@@ -196,6 +196,8 @@
                                     </tr>
                                 </tbody>
                                 </table>
+                                <input type="hidden" value=" ${ empList }" id="empList">
+                                <input type="hidden" value="${ pi }" id="pi">
                             </div>
                             <div style="height : 20px"></div>
                             </div>

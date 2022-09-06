@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>Fitty 개인 근태 수정</title>
 <link type="text/css" rel="stylesheet" href="resources/css/attendance.css" />
-<script type="text/javascript" src="resources/js/attendance.js"></script>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -123,6 +122,6 @@
     </div>
   </div>
 </div>
-
+<script type="text/javascript" src="resources/js/attendance.js"></script>
 </body>
 </html>
