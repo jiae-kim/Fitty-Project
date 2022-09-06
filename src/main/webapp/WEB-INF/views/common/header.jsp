@@ -274,13 +274,13 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="ui-accordion.html" class="menu-link">
-                    <div data-i18n="Accordion" class="small-menu-label">시설관리 소메뉴 1</div>
+                  <a href="list.mc" class="menu-link">
+                    <div data-i18n="Accordion" class="small-menu-label">기구 관리</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="ui-alerts.html" class="menu-link">
-                    <div data-i18n="Alerts" class="small-menu-label">시설관리 소메뉴 2</div>
+                  <a href="list.lk" class="menu-link">
+                    <div data-i18n="Alerts" class="small-menu-label">락커 관리</div>
                   </a>
                 </li>
               </ul>
