@@ -70,6 +70,15 @@
 			 , emp_name
 			 , emp_grade
 		  from tb_emp
+		where emp_status = 'Y'
 	</select>
+	
+	  <select id="selectEmpListCount" resultType="_int">
+	  	select count(*)
+	  	  from tb_emp
+	  	 where emp_status = 'Y'
+	  </select>
+	  
+	
 	
 </mapper>

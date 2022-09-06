@@ -2,6 +2,7 @@ package com.project.fitty.employee.model.service;
 
 import java.util.ArrayList;
 
+import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
 
 public interface EmployeeService {
@@ -15,7 +16,7 @@ public interface EmployeeService {
 	String selectNextEmpNo();
 	
 	// 직원 전체조회
-	ArrayList<Employee> selectEmpList();
+	ArrayList<Employee> selectEmpList(PageInfo pi);
 	
 	// 신규직원 가입 서비스 (insert)
 	int insertEmployee(Employee e);
@@ -25,4 +26,8 @@ public interface EmployeeService {
 	
 	// 프로필 이미지 변경 서비스 (update)
 	int uploadProfileImg(Employee e);
+	
+	
+	// 전체 회원수 알아오기
+	int selectEmpListCount();
 }

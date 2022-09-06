@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.dao.EmployeeDao;
 import com.project.fitty.employee.model.vo.Employee;
 
@@ -27,8 +27,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public String selectNextEmpNo() {
-		String nextEmpNo = eDao.selectNextEmpNo(sqlSession);
-		return nextEmpNo;
+		return eDao.selectNextEmpNo(sqlSession);
 		
 	}
 	
@@ -38,10 +37,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Override
-	public ArrayList<Employee> selectEmpList() {
-		return eDao.selectEmpList(sqlSession);
+	public ArrayList<Employee> selectEmpList(PageInfo pi) {
+		return eDao.selectEmpList(sqlSession, pi);
 	}
 	
+	@Override
+	public int selectEmpListCount() {
+		return eDao.selectEmpListCount(sqlSession);
+	}
+
 
 	@Override
 	public int deleteEmployee(String empNo) {
@@ -52,6 +56,12 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int uploadProfileImg(Employee e) {
 		return 0;
 	}
+
+
+	
+
+
+	
 
 
 	

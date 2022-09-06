@@ -68,7 +68,7 @@ $(function(){
 			contentType: false,
 			type:"POST",
 			success:function(e){
-				location.reload();
+				location.reload(e);
 				roundPhoto.attr( 'class', 'd-block rounded');
 			},
 			error:function(){

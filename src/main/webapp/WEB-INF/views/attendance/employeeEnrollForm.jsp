@@ -23,10 +23,11 @@
 	                <div class="d-flex align-items-start align-items-sm-center gap-4">
 	                  <c:choose>
 	                  	<c:when test="${empty e.empPhoto }">
-	                  		<img  id="roundPhoto" src='resources/profile_images/defaultProfile.png' onclick="$('#empPhoto').click();"  name="roundPhoto" value="">
+	                  		<img  id="roundPhoto" src='resources/profile_images/defaultProfile.png' onclick="$('#empPhoto').click();" >
 	                  	</c:when>
 	                  	<c:otherwise>
-	                  		<img  id="roundPhoto" src='${ e.empPhoto }' onclick="$('#empPhoto').click();"  name="roundPhoto" value="${ e.empPhoto }">
+	                  		<input type="hidden"  name="empPhoto" value="${ e.empPhoto }">
+	                  		<img  id="roundPhoto" src='${ e.empPhoto }' onclick="$('#empPhoto').click();" >
 	                  	</c:otherwise>
 	                  </c:choose>
                 	  <input type="file" id="empPhoto" style="display:none;" name="empPhoto">

@@ -28,7 +28,6 @@ public class EmployeeController {
 		Employee loginUser = eService.loginEmployee(e);
 		
 		if(loginUser != null) {
-			System.out.println(loginUser.getEmpNo());
 			session.setAttribute("loginUser", loginUser);
 			return "common/mainPage";
 		} else {
