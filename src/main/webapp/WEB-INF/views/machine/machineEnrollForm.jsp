@@ -50,7 +50,7 @@
                   
                   <h3>기구 등록</h3>
 
-                  <form>
+                  <form id="enrollForm" method="post" action="insert.mc" enctype="multipart/form-data">
                     <br>
                     <table>
                       <tr>
@@ -61,15 +61,21 @@
                           <td width="100%">
                             <div class="mb-3">
                               <label for="formFile" class="form-label">사진등록</label>
-                              <input class="form-control" type="file" id="formFile">
+                              <input class="form-control" type="file" id="formFile" name="upfile">
                             </div>
+                            
+                            <script>
+                            	$(function(){
+                            		
+                            	})
+                            </script>
                           </td>
                         </tr>
                         <tr>
                           <td>
                             <div class="mb-3">
                               <label for="defaultFormControlInput" class="form-label">기구이름</label>
-                              <input type="text" class="form-control" id="defaultFormControlInput" placeholder="Jphn Doe">
+                              <input type="text" class="form-control" id="defaultFormControlInput" placeholder="기구이름을 입력하세요" name="mcName">
                             </div>
                           </td>
                         </tr>

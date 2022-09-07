@@ -27,4 +27,24 @@
 		  order
 		     by mc_no	
 	</select>
+	
+	<insert id="insertMachine">
+		insert
+		  into tb_machine
+		  (
+		  	mc_no
+		  , mc_name
+		  , mc_status
+		  , mc_img
+		  , mc_enroll_date
+		  )
+		  values
+		  (
+		  	seq_mc_no.nextval
+		  , #{mcName}
+		  , '1'
+		  , #{mcImg}
+		  , sysdate
+		  )
+	</insert>
 </mapper>

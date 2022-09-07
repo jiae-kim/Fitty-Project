@@ -13,15 +13,16 @@ import lombok.ToString;
 @ToString
 public class User {
 
-	private String userNo; // DB에는 int형임
+	private int userNo; 
 	private String userName;
 	private String userPhone;
 	private String userGender;
 	private String userBirth;
 	private String userType;
-	private String userProfileUrl;
+	private String userProfileUrl; // DB컬럼명 : USER_PROFILE_URL
 	private String userSdate;
 	private String userMonth;
 	private String userEdate;
 	private String userPt;
+	private String userStatus;
 }

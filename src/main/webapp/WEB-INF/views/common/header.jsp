@@ -292,7 +292,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="ui-accordion.html" class="menu-link">
+                  <a href="list.pr" class="menu-link">
                     <div data-i18n="Accordion" class="small-menu-label">헬스장 이용권</div>
                   </a>
                 </li>
