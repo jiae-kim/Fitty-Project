@@ -1,2 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="machineMapper">
+
+	<resultMap id="MachineResult" type="Machine">
+		<result column="mc_no" property="mcNo" />
+		<result column="mc_name" property="mcName" />
+		<result column="mc_status" property="mcStatus" />
+		<result column="mc_img" property="mcImg" />
+		<result column="mc_enroll_date" property="mcEnrollDate" />
+	</resultMap>
+	
+	<select id="selectListCount" resultType="_int">
+		select 
+				count(*)
+		   from tb_machine
+	</select>
+	
+	<select id="selectList" resultMap="MachineResult">
+		select
+				mc_no
+			  , mc_name
+			  , mc_status
+			  , mc_img
+			  , to_char(mc_enroll_date, 'YY-MM-DD') AS "mc_enroll_date"
+		   from tb_machine
+		  order
+		     by mc_no	
+	</select>
+</mapper>

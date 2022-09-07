@@ -14,6 +14,9 @@
 		<typeAlias type="com.project.fitty.schedule.model.vo.Booking" alias="Booking" />
 		<typeAlias type="com.project.fitty.employee.model.vo.Employee" alias="Employee"/>
 		<typeAlias type="com.project.fitty.employee.model.vo.Employee" alias="Approval"/>
+		<typeAlias type="com.project.fitty.machine.model.vo.Machine" alias="Machine"/>
+		<typeAlias type="com.project.fitty.locker.model.vo.Locker" alias="Locker"/>
+		<typeAlias type="com.project.fitty.alert.model.vo.Alert" alias="Alert"/>
 	</typeAliases>
 	
 	<!-- environment
@@ -29,6 +32,10 @@
 	 	<mapper resource="/mappers/schedule-mapper.xml"/>
 	 	<mapper resource="/mappers/attendance-mapper.xml"/>
 	 	<mapper resource="/mappers/approval-mapper.xml"/>
+	 	<mapper resource="/mappers/machine-mapper.xml"/>
+	 	<!-- <mapper resource="/mappers/locker-mapper.xml"/> -->
+	 	<!-- <mapper resource="/mappers/alert-mapper.xml"/> -->
+	 	
 	 </mappers>
 	 
 </configuration>

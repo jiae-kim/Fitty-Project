@@ -120,6 +120,7 @@
                   <div id="machine-area" style="width:100%; height:100%">
 
                     <table>
+                    
                       <tr>
                         <td>
                           <div class="card h-100" data-bs-toggle="modal">
@@ -168,53 +169,6 @@
                            
                       </tr>
   
-                      <tr>
-                        <td>
-                          <div class="card h-100">
-                            <img class="card-img-top" src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template-free/assets/img/elements/2.jpg" art="Card image cap">
-                            <div class="card-body">
-                              <h5 class="card-title" style="display:inline">Card title</h5>
-                            </div>
-                          </div>   
-                        </td>
-  
-                        <td>
-                          <div class="card h-100">
-                            <img class="card-img-top" src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template-free/assets/img/elements/2.jpg" art="Card image cap">
-                            <div class="card-body">
-                              <h5 class="card-title" style="display:inline">Card title</h5>
-                            </div>
-                          </div>   
-                        </td>
-  
-                        <td>
-                          <div class="card h-100">
-                            <img class="card-img-top" src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template-free/assets/img/elements/2.jpg" art="Card image cap">
-                            <div class="card-body">
-                              <h5 class="card-title" style="display:inline">Card title</h5>
-                            </div>
-                          </div>   
-                        </td>
-  
-                        <td>
-                          <div class="card h-100">
-                            <img class="card-img-top" src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template-free/assets/img/elements/2.jpg" art="Card image cap">
-                            <div class="card-body">
-                              <h5 class="card-title" style="display:inline">Card title</h5>
-                            </div>
-                          </div>   
-                        </td>
-  
-                        <td>
-                          <div class="card h-100">
-                            <img class="card-img-top" src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template-free/assets/img/elements/2.jpg" art="Card image cap">
-                            <div class="card-body">
-                              <h5 class="card-title" style="display:inline">Card title</h5>
-                            </div>
-                          </div>   
-                        </td>
-                           
-                      </tr>
                     </table>
 
                    
