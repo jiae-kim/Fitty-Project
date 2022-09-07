@@ -64,6 +64,15 @@ table thead, table tfoot {
 	background-color:#696cff;
 	color:white;
 }
+
+.mc-div{
+          position: relative;
+        }
+.mc-ck{
+    position:absolute;
+    top:5px;
+    right: 5px;
+}
 </style>
 </head>
 <body>
@@ -117,7 +126,10 @@ table thead, table tfoot {
 										</td>
 
 										<!--<td width="760px"></td> -->
-										<td style="width:87%; text-align:right"><a class="btn btn-primary" href="enrollForm.mc">기구등록</a></td>
+										<td style="width:87%; text-align:right">
+											<a class="btn btn-primary" href="enrollForm.mc">기구등록</a>
+											<a class="btn btn-secondary" href="delete.mc">기구삭제</a>
+										</td>
 									</tr>
 								</table>
 
@@ -139,6 +151,7 @@ table thead, table tfoot {
 													<td style="width:20%; margin-right:10px">
 														<c:if test="${not empty list[i] }">
 															<div class="card h-100" data-bs-toggle="modal">
+																<input class="form-check-input mc-ck" type="checkbox" name="ckMachine" value="${ list[i].mcNo }" id="defaultCheck1">
 																<img class="card-img-top"
 																	src="${list[i].mcImg }"
 																	art="Card image cap">
@@ -158,6 +171,7 @@ table thead, table tfoot {
 													<td style="width:20%; margin-right:10px">
 														<c:if test="${not empty list[i] }">
 															<div class="card h-100" data-bs-toggle="modal">
+																<input class="form-check-input mc-ck" type="checkbox" value="" id="defaultCheck1">
 																<img class="card-img-top"
 																	src="${list[i].mcImg }"
 																	art="Card image cap">

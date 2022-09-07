@@ -65,9 +65,20 @@
                             </div>
                             
                             <script>
-                            	$(function(){
-                            		
-                            	})
+                            	$("#formFile").click(this){
+                            		console.log(inputFile);
+                            		if(inputFile.files.length == 1){
+                            			const reader = new FileReader();
+                            			
+                            			reader.readAsDataURL(inputFiles.files[0])
+                            			
+                            			reader.onload = function(e){
+                            				$("#uploadedAvatar").attr("src", e.target.result);
+                            			}
+                            		}else{
+                            			$("#uploadedAvatar").attr("src", null);
+                            		}
+                            	}
                             </script>
                           </td>
                         </tr>

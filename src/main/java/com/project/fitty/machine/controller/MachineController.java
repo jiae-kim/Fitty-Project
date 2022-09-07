@@ -77,6 +77,10 @@ public class MachineController {
 		}
 	}
 	
+	@RequestMapping("delete.mc")
+	public String deleteMachine(@RequestParam(value="ckMachine")int mcNo ) {
+		return null;
+	}
 }
 
 
