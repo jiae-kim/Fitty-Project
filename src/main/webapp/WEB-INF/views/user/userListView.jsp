@@ -6,6 +6,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Fitty 회원전체조회</title>
+<style>
+#userList>tbody>tr:hover{
+    	background:aqua;
+    	cursor:pointer;
+    }
+</style>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -33,13 +39,13 @@
                         <!-- Hoverable Table rows -->
                         <div class="card row">
                             <div class="table-responsive text-nowrap">
-                            <table class="table table-hover">
+                            <table class="table table-hover" id="userList">
                                 <thead>
                                 <tr>
                                     <th>이름</th>
                                     <th>회원번호</th>
                                     <th>프로필</th>
-                                    <th>성별</th>
+                                    <th>전화번호</th>
                                     <th>등록일</th>
                                     <th>만료일</th>
                                     <th>이용권 구분</th>
@@ -65,13 +71,13 @@
 		                                    <!-- 프로필 -->
 		                                    <td>
 		                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-		                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="Lilian Fuller">
-		                                            <img src="" alt="Avatar" class="rounded-circle" />
+		                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="${u.userGender}">
+		                                            <img src="<c:out value='${u.userProfileUrl}' default='resources/profile_images/defaultProfile.png' />" alt="Avatar" class="rounded-circle" />
 		                                            </li>
 		                                        </ul>
 		                                    </td>
-		                                    <!-- 성별 -->
-		                                    <td>${u.userGender}</td>
+		                                    <!-- 핸드폰번호 -->
+		                                    <td>${u.userPhone}</td>
 		                                    <!-- 등록일 -->
 		                                    <td>${u.userSdate}</td>
 		                                    <!-- 만료일 -->
@@ -95,6 +101,15 @@
                                 </tr>
                                 </tbody>
                             </table>
+                            <script>
+                            	$(function(){
+                            		$("#userList>tbody>tr").click(function(){
+                            			location.href = "uDetail.ur?no=" + $(this).children(".no").text();
+                            			<!--$(this).children("").eq(1).text();-->
+                            		})
+                            	})
+                            </script>
+                            
                             </div>
                         </div>
 
