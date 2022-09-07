@@ -52,7 +52,7 @@
         }
 
         .locker-td{
-          padding-left: 12px;
+          padding-right: 12px;
           padding-bottom: 12px;
         }
 
@@ -75,7 +75,7 @@
 
         .bt-text{
           width:100px;
-          height:100px;
+          height:95px;
           text-align: center;
           vertical-align: center;
           background-color: #f7f6f8;
@@ -112,7 +112,7 @@
                   <br>
                   <table align="center">
                     <tr>
-                      <td style="padding-left:20px;padding-right:970px">
+                      <td style="padding-right:670px">
                         <button type="submit" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#moveLocker">자리이동</button>
                       </td>
                       <td>
@@ -187,6 +187,45 @@
                             </button>
                           </div>
                         </td>
+                        
+                      </tr>
+                      <tr>
+                        <td class="locker-td">
+                          <div class="locker">
+                            <input type="checkbox" class="lk-ck form-check-input">
+                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
+                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
+                              
+                            </button>
+                          </div>
+                        </td>
+                        <td class="locker-td">
+                          <div class="locker">
+                            <input type="checkbox" class="lk-ck form-check-input">
+                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
+                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
+                              
+                            </button>
+                          </div>
+                        </td>
+                        <td class="locker-td">
+                          <div class="locker">
+                            <input type="checkbox" class="lk-ck form-check-input">
+                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
+                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
+                              
+                            </button>
+                          </div>
+                        </td>
+                        <td class="locker-td">
+                          <div class="locker">
+                            <input type="checkbox" class="lk-ck form-check-input">
+                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
+                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
+                              
+                            </button>
+                          </div>
+                        </td>
                         <td class="locker-td">
                           <div class="locker">
                             <input type="checkbox" class="lk-ck form-check-input">
@@ -252,107 +291,7 @@
                             </button>
                           </div>
                         </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
+               
                       </tr>
                     </table>
 

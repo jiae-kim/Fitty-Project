@@ -22,13 +22,13 @@ public class MachineController {
 	@RequestMapping("list.mc")
 	public String selectMachineList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
 		
-//		int listCount = mService.selectListCount();
-//		
-//		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
-//		ArrayList<Machine> list = mService.selectList(pi);
-//		
-//		model.addAttribute("pi", pi);
-//		model.addAttribute("list", list);
+		int listCount = mService.selectListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		ArrayList<Machine> list = mService.selectList(pi);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
 		
 		return "machine/machineList";
 	}
