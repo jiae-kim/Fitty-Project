@@ -13,7 +13,7 @@ import lombok.ToString;
 @ToString
 public class Product {
 
-	private String proNo; // DB에는 int형임
+	private int proNo; 
 	private String product;
 	private int proPrice;
 	private String proStatus;

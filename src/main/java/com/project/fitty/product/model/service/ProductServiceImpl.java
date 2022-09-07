@@ -1,9 +1,12 @@
 package com.project.fitty.product.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.product.model.dao.ProductDao;
 import com.project.fitty.product.model.vo.Product;
 
@@ -15,6 +18,16 @@ public class ProductServiceImpl implements ProductService{
 	
 	@Autowired
 	private ProductDao pDao;
+	
+	@Override
+	public int selectListCount() {
+		return 0;
+	}
+	
+	@Override
+	public ArrayList<Product> selectList(PageInfo pi) {
+		return null;
+	}
 	
 	@Override
 	public int insertProduct(Product p) {
