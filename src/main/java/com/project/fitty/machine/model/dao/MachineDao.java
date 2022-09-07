@@ -24,4 +24,9 @@ public class MachineDao {
 		
 		return (ArrayList)sqlSession.selectList("machineMapper.selectList", null, rowBounds);
 	}
+	
+	public int insertMachine(SqlSessionTemplate sqlSession, Machine m) {
+		
+		return sqlSession.insert("machineMapper.insertMachine", m);
+	}
 }

@@ -26,5 +26,9 @@ public class MachineService {
 	public ArrayList<Machine> selectList(PageInfo pi){
 		return mDao.selectList(sqlSession, pi);
 	}
+	
+	public int insertMachine(Machine m) {
+		return mDao.insertMachine(sqlSession, m);
+	}
 
 }
