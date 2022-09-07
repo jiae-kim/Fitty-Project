@@ -116,8 +116,8 @@ table thead, table tfoot {
 											</h3>
 										</td>
 
-										<td width="760px"></td>
-										<td><a class="btn btn-primary" href="enrollForm.mc">기구등록</a></td>
+										<!--<td width="760px"></td> -->
+										<td style="width:87%; text-align:right"><a class="btn btn-primary" href="enrollForm.mc">기구등록</a></td>
 									</tr>
 								</table>
 
