@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -93,12 +93,12 @@
 	     align-items: center;
 	     text-align: center;
 	 }
-
 </style>
 </head>
 <body>
-		<jsp:include page="../common/header.jsp"/>
-          <div class="content-wrapper">
+
+	<jsp:include page="../common/header.jsp"/>
+    	<div class="content-wrapper">
             <div class="container-xxl flex-grow-1 container-p-y">
               <div class="row">
                   <!-- 메일 리스트 -->
@@ -128,10 +128,10 @@
                     </div>
                   </div>
                 
-                  <!-- 보낸메일함 -->
+                  <!-- 받은메일함 -->
                   <div class="col-md-10 ">
                     <div class="card mb-4 vacDetailDiv"><br>
-                      <h2><b>&nbsp;&nbsp;📩 보낸메일함</span></b></h2>
+                      <h2><b>&nbsp;&nbsp;✉️ 내게쓴메일함</span></b></h2>
                       <div class="demo-inline-spacing">
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         
@@ -146,13 +146,18 @@
                       <br>
                       <div class="table-responsive text-nowrap">
                         <table class="table card-table">
-                       
+                          <thead>
+                            <tr>
+                              <th colspan="5">sysdate</th>
+                  
+                            </tr>
+                          </thead>
                           <tbody class="table-border-bottom-0">
                             <tr>
                               <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='bx bx-envelope-open'></i></td>
-                              <td>받는사람</td> <!--이 자리에 사원이름을 넣을건지 이메일을 넣을건지 고민-->
+                              <td>로그인한 사원명</td> <!--이 자리에 사원이름을 넣을건지 이메일을 넣을건지 고민-->
                               <td>메일제목이 들어갈 자리 메일제목이 들어갈 자리 </td>
-                              <td>보낸날짜시간</td>
+                              <td>메일보낸시간</td>
                               
                             </tr>
                             <tr>
