@@ -28,6 +28,7 @@ function selectAllAttList(page){
 		},
 		type:"post",
 		success:function(result){
+			
 			let value = "";
 			let pageValue = "";
 			
@@ -35,8 +36,7 @@ function selectAllAttList(page){
 			let empList = result.empList;
 			let pi = result.pi;
 			
-			
-			
+
 			
 			if(empList.length == 0){
 				value += "<tr>"
