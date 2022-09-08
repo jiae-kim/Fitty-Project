@@ -17,6 +17,8 @@
 		<typeAlias type="com.project.fitty.machine.model.vo.Machine" alias="Machine"/>
 		<typeAlias type="com.project.fitty.locker.model.vo.Locker" alias="Locker"/>
 		<typeAlias type="com.project.fitty.alert.model.vo.Alert" alias="Alert"/>
+		<typeAlias type="com.project.fitty.mail.model.vo.Semail" alias="Semail"/>
+		<typeAlias type="com.project.fitty.mail.model.vo.Remail" alias="Remail"/>
 	</typeAliases>
 	
 	<!-- environment
