@@ -34,5 +34,13 @@ public class MachineService {
 	public int deleteMachine(String mcNo) {
 		return mDao.deleteMachine(sqlSession, mcNo);
 	}
+	
+	public int selectCheckListCount() {
+		return mDao.selectCheckListCount(sqlSession);
+	}
+	
+	public ArrayList<Machine> selectCheckList(PageInfo pi){
+		return mDao.selectCheckList(sqlSession, pi);
+	}
 
 }

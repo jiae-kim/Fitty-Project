@@ -10,6 +10,16 @@
 		<result column="mc_enroll_date" property="mcEnrollDate" />
 	</resultMap>
 	
+	<resultMap id="CheckResult" type="Machine">
+		<result column="ck_no" property="ckNo"/>
+		<result column="ck_date" property="ckDate"/>
+		<result column="ck_img" property="ckImg"/>
+		<result column="ck_result" property="ckResult"/>
+		<result column="mc_name" property="mcName"/>
+		<result column="ck_title" property="ckTitle"/>
+		<result column="ck_writer" property="ckWriter"/>
+	</resultMap>
+	
 	<select id="selectListCount" resultType="_int">
 		select 
 				count(*)
@@ -53,4 +63,26 @@
 		  from tb_machine
 		 where mc_no = #{mcNo}
 	</delete>
+	
+	<select id="selectCheckListCount" resultType="_int">
+		select 
+				count(*)
+		   from tb_check
+	</select>
+	
+	<select id="selectCheckList" resultMap="CheckResult">
+		select
+				ck_no
+			  , to_char(ck_date, 'YYYY-MM-DD') AS "ck_date"
+			  , ck_content
+			  , ck_img
+			  , ck_result
+			  , mc_name as "mc_name"
+			  , ck_title
+			  , ck_writer
+		   from tb_check c, tb_machine m
+           where c.mc_no = m.mc_no
+		  order
+		     by ck_date desc
+	</select>
 </mapper>

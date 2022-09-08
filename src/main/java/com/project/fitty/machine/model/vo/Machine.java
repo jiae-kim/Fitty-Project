@@ -20,9 +20,11 @@ public class Machine {
 	private String mcEnrollDate;
 	private int ckNo;
 	private String ckDate;
+	private String ckTitle;
 	private String ckContent;
 	private String ckImg;
 	private String ckResult;
+	private String ckWriter;
 	
 	
 }

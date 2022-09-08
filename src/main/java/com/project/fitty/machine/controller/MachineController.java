@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.common.template.FileUpload;
 import com.project.fitty.common.template.Pagination;
+import com.project.fitty.employee.model.service.EmployeeService;
+import com.project.fitty.employee.model.vo.Employee;
 import com.project.fitty.machine.model.service.MachineService;
 import com.project.fitty.machine.model.vo.Machine;
 
@@ -23,6 +25,9 @@ public class MachineController {
 
 	@Autowired	
 	private MachineService mService;
+	
+	@Autowired
+	private EmployeeService eService;
 	
 	@RequestMapping("list.mc")
 	public String selectMachineList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
@@ -45,7 +50,7 @@ public class MachineController {
 	}
 	
 	@RequestMapping("insert.mc")
-	public String insertMachine(Machine m, MultipartFile upfile, HttpSession session, Model model) {
+	public String insertMachine(Machine m, MultipartFile upfile, HttpSession session) {
 		
 		//System.out.println(upfile); // 첨부파일을 선택했든 안했든 생성된 객체
 		
@@ -77,7 +82,7 @@ public class MachineController {
 	}
 	
 	@RequestMapping("delete.mc")
-	public String deleteMachine(HttpServletRequest request, HttpSession session, Model model) {
+	public String deleteMachine(HttpServletRequest request, Model model) {
 		
 		String[] arr = request.getParameterValues("ckMachine");
 		int result = 0;
@@ -87,10 +92,10 @@ public class MachineController {
 		}
 		
 		if(result == arr.length) {
-			session.setAttribute("alertMsg", "성공적으로 기구 삭제하였습니다.");
+			model.addAttribute("alertMsg", "성공적으로 기구 삭제하였습니다.");
 			return "redirect:list.mc";
 		}else {
-			session.setAttribute("errorMsg", "기구삭제 실패");
+			model.addAttribute("errorMsg", "기구삭제 실패");
 			return "common/errorPage";
 		}
 	}
@@ -98,6 +103,15 @@ public class MachineController {
 	@RequestMapping("ckList.mc")
 	public String selectCheckList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
 		
+		int listCount = mService.selectCheckListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Machine> list = mService.selectCheckList(pi);
+		
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		
+		return "machine/machineCheckList";
 	}
 }
 
