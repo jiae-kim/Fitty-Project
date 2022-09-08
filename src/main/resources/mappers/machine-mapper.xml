@@ -47,4 +47,10 @@
 		  , sysdate
 		  )
 	</insert>
+	
+	<delete id="deleteMachine">
+		delete
+		  from tb_machine
+		 where mc_no = #{mcNo}
+	</delete>
 </mapper>

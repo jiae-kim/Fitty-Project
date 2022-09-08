@@ -85,34 +85,23 @@ table thead, table tfoot {
 					<div class="nav-align-top mb-4">
 						<ul class="nav nav-pills mb-3 nav-fill" role="tablist">
 							<li class="nav-item">
-								<button type="button" class="nav-link active" role="tab"
-									data-bs-toggle="tab"
-									data-bs-target="#navs-pills-justified-home"
-									aria-controls="navs-pills-justified-home" aria-selected="true">
-									🏋️‍♀️ 전체&nbsp기구</button>
+								<a type="button" class="nav-link active" href="list.mc">
+									
+									🏋️‍♀️ 전체&nbsp기구</a>
 							</li>
 							<li class="nav-item">
-								<button type="button" class="nav-link" role="tab"
-									data-bs-toggle="tab"
-									data-bs-target="#navs-pills-justified-messages"
-									aria-controls="navs-pills-justified-messages"
-									aria-selected="false">
-									<!-- <i class="tf-icons bx bx-user"></i> Profile -->
+								<a type="button" class="nav-link" role="tab" href="ckList.mc">
 									✔ 기구&nbsp점검
-								</button>
+								</a>
 							</li>
 							<li class="nav-item">
-								<button type="button" class="nav-link" role="tab"
-									data-bs-toggle="tab"
-									data-bs-target="#navs-pills-justified-messages"
-									aria-controls="navs-pills-justified-messages"
-									aria-selected="false">
-									<!-- <i class="tf-icons bx bx-message-square"></i> Messages -->
+								<a type="button" class="nav-link" role="tab" href="">
 									🛠 고장난&nbsp기구
-								</button>
+								</a>
 							</li>
 						</ul>
 						<div class="tab-content" style="width: 100%; height: 100%">
+							<form action="delete.mc">
 							<div class="tab-pane fade show active"
 								id="navs-pills-justified-home" role="tabpanel">
 								<div style="height: 20px"></div>
@@ -124,17 +113,17 @@ table thead, table tfoot {
 												전체기구<span>(${ pi.listCount })</span>
 											</h3>
 										</td>
-
+										
 										<!--<td width="760px"></td> -->
 										<td style="width:87%; text-align:right">
 											<a class="btn btn-primary" href="enrollForm.mc">기구등록</a>
-											<a class="btn btn-secondary" href="delete.mc">기구삭제</a>
+											<button type="submit" class="btn btn-secondary">기구삭제</button>
 										</td>
 									</tr>
 								</table>
 
 								<br>
-
+								
 								<div id="machine-area" style="width: 100%; height: 100%">
 
 									<table>
@@ -196,12 +185,12 @@ table thead, table tfoot {
 
 
 								</div>
-
+								
 								<br>
 								<br>
 
 							</div>
-
+							</form>
 							<div>
 								<div>
 									<div>

@@ -30,5 +30,9 @@ public class MachineService {
 	public int insertMachine(Machine m) {
 		return mDao.insertMachine(sqlSession, m);
 	}
+	
+	public int deleteMachine(String mcNo) {
+		return mDao.deleteMachine(sqlSession, mcNo);
+	}
 
 }

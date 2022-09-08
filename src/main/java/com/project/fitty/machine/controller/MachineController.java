@@ -1,9 +1,8 @@
 package com.project.fitty.machine.controller;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -78,9 +77,27 @@ public class MachineController {
 	}
 	
 	@RequestMapping("delete.mc")
-	public String deleteMachine(@RequestParam(value="ckMachine")int [] mcNoArr ) {
-		System.out.println(mcNoArr);
-		return null;
+	public String deleteMachine(HttpServletRequest request, HttpSession session, Model model) {
+		
+		String[] arr = request.getParameterValues("ckMachine");
+		int result = 0;
+		
+		for(int i=0; i<arr.length; i++) {
+			result += mService.deleteMachine(arr[i]);
+		}
+		
+		if(result == arr.length) {
+			session.setAttribute("alertMsg", "성공적으로 기구 삭제하였습니다.");
+			return "redirect:list.mc";
+		}else {
+			session.setAttribute("errorMsg", "기구삭제 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("ckList.mc")
+	public String selectCheckList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+		
 	}
 }
 

@@ -13,6 +13,7 @@ import com.project.fitty.machine.model.vo.Machine;
 public class MachineDao {
 	
 	public int selectListCount(SqlSessionTemplate sqlSession) {
+		
 		return sqlSession.selectOne("machineMapper.selectListCount");
 	}
 
@@ -28,5 +29,10 @@ public class MachineDao {
 	public int insertMachine(SqlSessionTemplate sqlSession, Machine m) {
 		
 		return sqlSession.insert("machineMapper.insertMachine", m);
+	}
+	
+	public int deleteMachine(SqlSessionTemplate sqlSession, String mcNo) {
+		
+		return sqlSession.delete("machineMapper.deleteMachine", mcNo);
 	}
 }
