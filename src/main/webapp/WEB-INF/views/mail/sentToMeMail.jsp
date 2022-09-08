@@ -6,100 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-	.bx-envelope-open {
-	   font-size:25px;
-	     color: #696CFF;
-	     margin : 2px;
-	 }
-	
-	 .vacDetailDiv{
-	   height: 759px;
-	 }
-	
-	 .card-header{
-	   padding: 35px 25px 20px 25px;
-	   text-align: center;
-	   justify-content: center;
-	   margin: auto;
-	   align-items: center;
-	 }
-	 
-	 
-	
-	 #todayWork{
-	   margin-top: 20px;
-	   font-size: 12px;
-	 }
-	
-	
-	 .card-header{
-	   color: #696CFF;
-	 }
-	
-	 .vacSimple{
-	     display: flex;
-	     height: 130px;
-	     width: 95%;
-	     margin: auto;
-	 }
-	 
-	 .vacSimple *{
-	   line-height:1.1;
-	   align-items: center;
-	   margin: auto;
-	   text-align: center;
-	 }
-	
-	 .bxs-user-circle{
-	   font-size: 70px;
-	   color: #696CFF;
-	   margin-bottom: 5px;
-	 }
-	
-	 .profileName{
-	   font-size: 12px;
-	 }
-	 
-	
-	 #workTime{
-	   font-size: 48px;
-	   color: #696CFF;
-	 }
-	
-	 
-	 #todayWork td{
-	   text-align: right;
-	 }
-	
-	 .workChange{
-	   margin-top: 30px;
-	   width: 100%;
-	   margin-bottom: 10px;
-	 }
-	
-	 .modifyBtn, .exelDownBtn{
-	   width: 100%;
-	   margin-bottom: 10px;
-	 }
-	
-	 .mailList{
-	     display: flex;
-	     width:100%;
-	     height: 200px;
-	     background-color:#F5F5F9;
-	     font-size: 12px;
-	     border-radius: 10px;
-	     align-items: center;
-	     text-align: center;
-	 }
-</style>
+<link type="text/css" rel="stylesheet" href="resources/css/mail.css" />
 </head>
 <body>
 
 	<jsp:include page="../common/header.jsp"/>
     	<div class="content-wrapper">
-            <div class="container-xxl flex-grow-1 container-p-y">
+            <div class="container-xxl flex-grow-1 container-p-y" style="padding : 0px;">
               <div class="row">
                   <!-- 메일 리스트 -->
                   <div class="col-md-2 ">
@@ -113,11 +26,11 @@
                           <div class="mailList">
                            <div class="mail-content" style="border: 0px;">
                             <br>
-                            <button type="button" class="btn btn-outline-primary" style="border: 0px;">받은메일함</button>
-                            <button type="button" class="btn btn-outline-primary" style="border: 0px;">보낸메일함</button>
-                            <button type="button" class="btn btn-outline-primary" style="border: 0px;">내게쓴메일함</button>
-                            <button type="button" class="btn btn-outline-primary" style="border: 0px;">임시보관함</button><br>
-                            <button type="button" class="btn btn-outline-primary" style="border: 0px;">휴지통</button>
+                            <a href="mail.re" type="button" class="btn btn-outline-primary" style="border: 0px;">받은메일함</a>
+                            <a href="mail.se" type="button" class="btn btn-outline-primary" style="border: 0px;">보낸메일함</a>
+                            <a href="mail.stm" type="button" class="btn btn-outline-primary" style="border: 0px;">내게쓴메일함</a>
+                            <a href="mail.tem" type="button" class="btn btn-outline-primary" style="border: 0px;">임시보관함</a><br>
+                            <a href="mail.tr" type="button" class="btn btn-outline-primary" style="border: 0px;">휴지통</a>
                             <br><br>
                            </div>
                           

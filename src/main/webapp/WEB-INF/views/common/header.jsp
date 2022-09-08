@@ -469,7 +469,7 @@
                   6시간 30분째 근무중
                 </li>
                 <li class="nav-item lh-1 me-3">
-                    <a href="mail.em"><i class='bx bx-envelope'></i></a>
+                    <a href="mail.re"><i class='bx bx-envelope'></i></a>
                 </li>
                 <li class="nav-item lh-1 me-3">
                     <i class='bx bx-message-rounded-dots'></i>

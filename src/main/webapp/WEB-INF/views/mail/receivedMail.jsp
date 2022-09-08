@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link type="text/css" rel="stylesheet" href="resources/css/mail.css" />
-
 </head>
 <body>
 
@@ -27,11 +26,11 @@
                           <div class="mailList">
                            <div class="mail-content" style="border: 0px;">
                             <br>
-                            <button type="button" class="btn btn-outline-primary" style="border: 0px;">받은메일함</button>
-                            <button type="button" class="btn btn-outline-primary" style="border: 0px;">보낸메일함</button>
-                            <button type="button" class="btn btn-outline-primary" style="border: 0px;">내게쓴메일함</button>
-                            <button type="button" class="btn btn-outline-primary" style="border: 0px;">임시보관함</button><br>
-                            <button type="button" class="btn btn-outline-primary" style="border: 0px;">휴지통</button>
+                            <a href="mail.re" type="button" class="btn btn-outline-primary" style="border: 0px;">받은메일함</a>
+                            <a href="mail.se" type="button" class="btn btn-outline-primary" style="border: 0px;">보낸메일함</a>
+                            <a href="mail.stm" type="button" class="btn btn-outline-primary" style="border: 0px;">내게쓴메일함</a>
+                            <a href="mail.tem" type="button" class="btn btn-outline-primary" style="border: 0px;">임시보관함</a><br>
+                            <a href="mail.tr" type="button" class="btn btn-outline-primary" style="border: 0px;">휴지통</a>
                             <br><br>
                            </div>
                           

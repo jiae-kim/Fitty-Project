@@ -12,9 +12,34 @@ public class MailController {
 	@Autowired
 	private MailService mService;
 	
-	@RequestMapping("mail.em")
-	public String selectLockerList() {
+	@RequestMapping("mail.re")
+	public String selectMailList() {
 		
 		return "mail/receivedMail";
 		}
+	
+	@RequestMapping("mail.se")
+	public String selectSentMailList() {
+		
+		return "mail/sentMail";
+		}
+	
+	@RequestMapping("mail.stm")
+	public String selectSentToMeMailList() {
+		
+		return "mail/sentToMeMail";
+		}
+	
+	
+	@RequestMapping("mail.tem")
+	public String selectTemMailList() {
+		
+		return "mail/temporaryMail";
+}
+	
+	@RequestMapping("mail.tr")
+	public String selectTrashMailList() {
+		
+		return "mail/trashMail";
+}
 }
