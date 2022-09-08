@@ -18,8 +18,7 @@
                     <div class="card mb-4 vacDetailDiv">
                         <h2 class="card-header"><b>E-MAIL</b></h2>
                         <div class="card-body">
-                          <button class="btn btn-primary modifyBtn">메일 쓰기</button>
-
+						  <a href="mail.wr" type="button" class="btn btn-primary modifyBtn">메일 쓰기</a>
                           <br><br><br>
                           
                           <div class="mailList">
@@ -164,7 +163,7 @@
                                   aria-label="john.doe"
                                   aria-describedby="basic-default-email2"
                                 />
-                                <span class="input-group-text" id="basic-default-email2">@example.com</span>
+                                <span class="input-group-text" id="basic-default-email2"></span>
                               </div>
                             </div>
                           </div>

@@ -41,5 +41,11 @@ public class MailController {
 	public String selectTrashMailList() {
 		
 		return "mail/trashMail";
+	}
+		
+	@RequestMapping("mail.wr")
+	public String selectWriteMail() {
+		
+		return "mail/writeMail";
 }
 }

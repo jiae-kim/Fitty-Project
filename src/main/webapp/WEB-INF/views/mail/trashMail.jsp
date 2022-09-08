@@ -18,8 +18,7 @@
                     <div class="card mb-4 vacDetailDiv">
                         <h2 class="card-header"><b>E-MAIL</b></h2>
                         <div class="card-body">
-                          <button class="btn btn-primary modifyBtn">메일 쓰기</button>
-
+						              <a href="mail.wr" type="button" class="btn btn-primary modifyBtn">메일 쓰기</a>
                           <br><br><br>
                           
                           <div class="mailList">
@@ -42,12 +41,12 @@
                 
                   <!-- 휴지통 -->
                   <div class="col-md-10 ">
-                    <div class="card mb-4 vacDetailDiv"><br>
+                    <div class="card mb-4 vacDetailDiv checkbox-group"><br>
                       <h2><b>&nbsp;&nbsp;🗑️ 휴지통</span></b></h2>
                       <div class="demo-inline-spacing">
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         
-                          <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />
+                          <input class="form-check-input" type="checkbox" value="" id="checkAll" />
                           <!-- <label class="form-check-label" for="defaultCheck1"></label> -->
                         
                         <button type="button" class="btn btn-sm btn-primary">읽음</button>
@@ -59,14 +58,14 @@
                     
                           <tbody class="table-border-bottom-0">
                             <tr>
-                              <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='bx bx-envelope-open'></i></td>
+                              <td><input class="form-check-input selectedCheck" type="checkbox" value="" id="defaultCheck1" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='bx bx-envelope-open'></i></td>
                               <td>받는사람/보낸사람</td> <!--이 자리에 사원이름을 넣을건지 이메일을 넣을건지 고민-->
                               <td>메일제목이 들어갈 자리 메일제목이 들어갈 자리 </td>
                               <td>보낸/받은 날짜시간</td>
                               
                             </tr>
                             <tr>
-                              <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='bx bx-envelope'></i></td>
+                              <td><input class="form-check-input selectedCheck" type="checkbox" value="" id="defaultCheck1" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='bx bx-envelope'></i></td>
                               <td>Barry Hunter</td>
                               <td>
                                 <span>메일제목이 들어갈 자리 메일제목이 들어갈 자리</span>
@@ -75,7 +74,7 @@
                      
                             </tr>
                             <tr>
-                              <td><input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='bx bx-envelope-open'></i></td>
+                              <td><input class="form-check-input selectedCheck" type="checkbox" value="" id="defaultCheck1" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='bx bx-envelope-open'></i></td>
                               <td>Trevor Baker</td>
                               <td>
                                 <span>메일제목이 들어갈 자리 메일제목이 들어갈 자리</span>
@@ -107,6 +106,8 @@
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
+    
+<script type="text/javascript" src="resources/js/mail.js"></script>    
 
 </body>
 </html>
