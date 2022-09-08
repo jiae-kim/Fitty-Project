@@ -79,7 +79,7 @@ table thead, table tfoot {
 	<jsp:include page="../common/header.jsp" />
 
 	<div class="content-wrapper">
-		<div class="container-xxl flex-grow-1 container-p-y">
+		<div class="container-xxl flex-grow-1 container-p-y" style="padding:0px;">
 			<div class="row">
 				<div class="col-xl-12">
 					<div class="nav-align-top mb-4">
@@ -163,7 +163,7 @@ table thead, table tfoot {
 													<td style="width:20%; margin-right:10px">
 														<c:if test="${not empty list[i] }">
 															<div class="card h-100" data-bs-toggle="modal">
-																<input class="form-check-input mc-ck" type="checkbox" value="" id="defaultCheck1">
+																<input class="form-check-input mc-ck" type="checkbox" value="${ list[i].mcNo }" id="defaultCheck1" name="ckMachine">
 																<img class="card-img-top"
 																	src="${list[i].mcImg }"
 																	art="Card image cap">

@@ -85,8 +85,10 @@
                         <td>
                           <h3>시설 점검 리스트</h3>
                         </td>
-                        <td style="width:84.7%; text-align:right">
-                          <button class="btn btn-primary" onclick="generalChange();">작성하기</button>
+                        <td>
+                        </td>
+                        <td style="width:83.8%; text-align:right;">
+                          <button class="btn btn-primary" onclick="generalChange();"style="float:right">작성하기</button>
                         </td>
                     </tr>        
                   </table>

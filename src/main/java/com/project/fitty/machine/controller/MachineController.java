@@ -26,9 +26,6 @@ public class MachineController {
 	@Autowired	
 	private MachineService mService;
 	
-	@Autowired
-	private EmployeeService eService;
-	
 	@RequestMapping("list.mc")
 	public String selectMachineList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
 		
@@ -82,7 +79,7 @@ public class MachineController {
 	}
 	
 	@RequestMapping("delete.mc")
-	public String deleteMachine(HttpServletRequest request, Model model) {
+	public String deleteMachine(HttpServletRequest request, HttpSession session) {
 		
 		String[] arr = request.getParameterValues("ckMachine");
 		int result = 0;
@@ -92,10 +89,10 @@ public class MachineController {
 		}
 		
 		if(result == arr.length) {
-			model.addAttribute("alertMsg", "성공적으로 기구 삭제하였습니다.");
+			session.setAttribute("alertMsg", "성공적으로 기구 삭제하였습니다.");
 			return "redirect:list.mc";
 		}else {
-			model.addAttribute("errorMsg", "기구삭제 실패");
+			session.setAttribute("errorMsg", "기구삭제 실패");
 			return "common/errorPage";
 		}
 	}
