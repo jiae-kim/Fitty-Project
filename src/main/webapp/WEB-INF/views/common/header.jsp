@@ -80,7 +80,41 @@
         .small-menu-label{
             font-size: 12px;
         }
-
+		
+		
+		body::-webkit-scrollbar {
+		  width: 20px;
+		}
+		
+		body::-webkit-scrollbar-track {
+		  background-color: #e4e4e4;
+		  border-radius: 100px;
+		}
+		
+		body::-webkit-scrollbar-thumb {
+		  border-radius: 100px;
+		  border: 6px solid rgba(0, 0, 0, 0.18);
+		  border-left: 0;
+		  border-right: 0;
+		  background-color: #696CFF;
+		}
+		
+		body *::-webkit-scrollbar {
+		  width: 10px;
+		}
+		
+		body *::-webkit-scrollbar-track {
+		  background-color: #e4e4e4;
+		  border-radius: 100px;
+		}
+		
+		body *::-webkit-scrollbar-thumb {
+		  border-radius: 100px;
+		  border: 6px solid rgba(0, 0, 0, 0.18);
+		  border-left: 0;
+		  border-right: 0;
+		  background-color: #696CFF;
+		}
         
     </style>
 <meta name="description" content="" />

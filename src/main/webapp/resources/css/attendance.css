@@ -151,31 +151,37 @@ table thead, table tfoot{
 #plus{ background-color: #c8c9ff;}
 
 
-	/*modalEmpList modal*/
-.modalEmpList{
+
+/*centerAllAttendance*/
+
+
+
+/*resetAttendanceList*/
+.beforeEmpList, .afterEmpList{
 	width : 100%;
+	height: 200px;
 	border-radius: 10px;
 	border : 1px solid #696CFF;
-	over-flow:scroll;
+	overflow:auto;
 }
 
-.modalSearch{
+.beforeEmpList search, .afterEmpList search{
 	margin-top: 20px;
 	margin-left : 20px;
 }
 
-.resetMsg{
-	color:#696CFF;
-	margin-top:20px;
-	margin-bottom:20px;
+.empList{
+	width : 80%;
+}
+
+.empList *{
+	text-align:left;
 }
 
 
-	/*modalEmpList modal*/
 
 
-/*centerAllAttendance*/
-
+/*modalEmpList modal*/
 
 
 

@@ -12,12 +12,20 @@ function selectEmpList(){
     				let value="";
     				
     				if(levelEmpList.length == 0) {
-    					value += "<li>등록된 직원이 없습니다.</li>"
+    					value += "<tr><td>등록된 직원이 없습니다.</td></tr>"
     				} else {
-    					value += "<li><input type='checkbox' name='choiceAll' id='choiceAll' onclick='checkAll();'>전체선택</li>"
+    					value += "<tr style='background-color: #f8f4fc;'>"
+    						  		+ "<td><input type='checkbox' name='choiceAll' id='choiceAll' onclick='checkAll();'></td>"
+    						  		+ "<td colspan='3'></td>"
+    						  +	"</tr>"
     					
 	    				for(let i=0; i<levelEmpList.length; i++){
-	    				  	value += "<li><input type='checkbox' name='empNo' value='" +  levelEmpList[i].empNo + "'><b>  " + levelEmpList[i].empName + "</b>  " + levelEmpList[i].empGrade + "  (" + levelEmpList[i].empNo + ")</li>"
+	    				  	value += "<tr> "
+	    				  		+ "<td><input type='checkbox' name='empNo' value='" +  levelEmpList[i].empNo + "'>"
+	    				  		+ "<td><b>  " + levelEmpList[i].empName + "</b></td>" 
+	    				  		+ "<td>" + levelEmpList[i].empGrade + "</td>"
+	    				  		+ "<td>" + levelEmpList[i].empNo + "</td>"
+	    				  		+ "</tr>"
 	    				}
     				}
     		
@@ -28,4 +36,12 @@ function selectEmpList(){
     				console.log("직원리스트 조회용 ajax 통신 실패");
     			}
     		})
-    	}
+}
+
+function checkAll() {
+         if($("#choiceAll").is(':checked')) {
+            $(".empList :checkbox").prop("checked", true);
+         } else {
+            $(".empList :checkbox").prop("checked", false);
+         }
+      }     
