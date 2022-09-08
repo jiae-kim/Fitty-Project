@@ -66,7 +66,7 @@
             margin : 5px;
         }
 
-        .bx-envelope, .bx-message-rounded-dots, .bx-bell {
+        .bx-envelope, .bx-envelope-open, .bx-message-rounded-dots, .bx-bell {
             font-size:25px;
             color: #696CFF;
             margin : 2px;
@@ -469,7 +469,7 @@
                   6시간 30분째 근무중
                 </li>
                 <li class="nav-item lh-1 me-3">
-                    <a href="chat.ch"><i class='bx bx-envelope'></i></a>
+                    <a href="mail.em"><i class='bx bx-envelope'></i></a>
                 </li>
                 <li class="nav-item lh-1 me-3">
                     <i class='bx bx-message-rounded-dots'></i>
