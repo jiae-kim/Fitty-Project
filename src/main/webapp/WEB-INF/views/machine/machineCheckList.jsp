@@ -80,14 +80,14 @@
               <div class="tab-content" style="width:100%; height:100%">
                 <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
                   <div style="height : 20px"></div>
-                  <table class="pull-right">
+                  <table class="pull-right" style="width:100%;">
                     <tr>
-                        <td>
+                        <td style="width:15%;">
                           <h3>시설 점검 리스트</h3>
                         </td>
                         <td>
                         </td>
-                        <td style="width:83.8%; text-align:right;">
+                        <td style="width:85%; text-align:right;">
                           <button class="btn btn-primary" onclick="generalChange();"style="float:right">작성하기</button>
                         </td>
                     </tr>        

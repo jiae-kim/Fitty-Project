@@ -105,17 +105,16 @@ table thead, table tfoot {
 							<div class="tab-pane fade show active"
 								id="navs-pills-justified-home" role="tabpanel">
 								<div style="height: 20px"></div>
-								<table class="pull-right">
-									<tr>
-										<td width="22px"></td>
-										<td>
+								<table class="pull-right" style="width:100%">
+									<tr style="width:100%; text-align:right">
+										<td style="width:12%;">
 											<h3>
 												전체기구<span>(${ pi.listCount })</span>
 											</h3>
 										</td>
 										
 										<!--<td width="760px"></td> -->
-										<td style="width:87%; text-align:right">
+										<td style="width:88%; text-align:right">
 											<a class="btn btn-primary" href="enrollForm.mc">기구등록</a>
 											<button type="submit" class="btn btn-secondary">기구삭제</button>
 										</td>
