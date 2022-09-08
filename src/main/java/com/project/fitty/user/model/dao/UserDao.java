@@ -30,4 +30,9 @@ public class UserDao {
 		return (ArrayList)sqlSession.selectList("userMapper.selectList", null, rowBounds);
 	}
 
+	// [김지애] 4. 회원수정 서비스
+	public int updateUser(SqlSessionTemplate sqlSession, User u) {
+		return sqlSession.update("userMapper.updateUser", u);
+	}
+
 }

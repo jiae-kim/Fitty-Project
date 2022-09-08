@@ -11,7 +11,7 @@
 <jsp:include page="../common/header.jsp"/>
 
 <div class="content-wrapper">
-<form action="insert.ur" method="post" id="enrollForm">
+<form action="insert.ur" method="post" id="enrollForm" enctype="multipart/form-data">
     <div class="container-xxl flex-grow-1 container-p-y">
         <div class="row">
             <div class="col-xl-12">
@@ -24,7 +24,7 @@
                         <div class="mb-3 row">
                           <label for="html5-text-input" class="col-md-2 col-form-label">이름</label>
                           <div class="col-md-3">
-                            <input class="form-control" type="text" name="userName" placeholder="이름을 입력하세요" id="html5-text-input" />
+                            <input class="form-control" type="text" name="userName" placeholder="이름을 입력하세요" id="html5-text-input" required />
                           </div>
                         </div>
 
@@ -32,7 +32,7 @@
                         <div class="mb-3 row">
                           <label for="html5-tel-input" class="col-md-2 col-form-label">전화번호</label>
                           <div class="col-md-3">
-                            <input class="form-control" type="tel" name="userPhone" placeholder="(-) 포함" id="html5-tel-input" />
+                            <input class="form-control" type="tel" name="userPhone" placeholder="(-) 포함" id="html5-tel-input" required />
                           </div>
                         </div>
 
@@ -49,12 +49,12 @@
                           <label for="html5-tel-input" class="col-md-2 col-form-label">성별</label>
 
                           <div class="form-check form-check-inline mt-3">
-                          <input class="form-check-input" type="radio" name="userGender" id="inlineRadio1" value="F" />
+                          <input class="form-check-input" type="radio" name="userGender" id="inlineRadio1" value="F"  required />
                           <label class="form-check-label" for="inlineRadio1">&nbsp;&nbsp;F</label>
                           </div>
 
                           <div class="form-check form-check-inline">
-                          <input class="form-check-input" type="radio" name="userGender" id="inlineRadio2" value="M" />
+                          <input class="form-check-input" type="radio" name="userGender" id="inlineRadio2" value="M"  required />
                           <label class="form-check-label" for="inlineRadio2">&nbsp;&nbsp;M</label>
                           </div>
                         </div> <br>
@@ -62,10 +62,10 @@
                         <!-- 회원권 구분 -->
                         <div class="col-md">
                           <label for="html5-tel-input" class="col-md-2 col-form-label">회원권 구분</label>
-                            <input class="form-check-input" type="radio" name="userType" id="defaultRadio1" value="H" />
+                            <input class="form-check-input" type="radio" name="userType" id="defaultRadio1" value="H" required />
                             <label class="form-check-label" for="defaultRadio1">&nbsp;&nbsp;헬스장 이용권</label>
                           	&nbsp;&nbsp;&nbsp;
-                            <input class="form-check-input" type="radio" name="userType" id="defaultRadio1" value="P" />
+                            <input class="form-check-input" type="radio" name="userType" id="defaultRadio1" value="P" required />
                             <label class="form-check-label" for="defaultRadio1">&nbsp;&nbsp;PT 이용권</label>
                         </div> <br>
 
@@ -73,7 +73,7 @@
                         <div class="mb-3 row">
                           <label for="html5-date-input" class="col-md-2 col-form-label">등록일</label>
                           <div class="col-md-3">
-                            <input class="form-control" type="date" name="userSdate" id="html5-date-input" />
+                            <input class="form-control" type="date" name="userSdate" id="html5-date-input" required />
                           </div>
                         </div>
 
@@ -81,7 +81,7 @@
                         <div class="mb-3 row">
                           <label for="html5-date-input" class="col-md-2 col-form-label">이용 개월</label>
                           <div class="col-md-3">
-                            <select id="defaultSelect" name="userMonth" class="form-select">
+                            <select id="defaultSelect" name="userMonth" class="form-select" required>
                               <option disabled selected hidden>이용 개월 선택</option>
                               <option value="1">1개월</option>
                               <option value="3">3개월</option>
@@ -105,7 +105,7 @@
 						<div class="mb-3 row">
 						  <label for="formFile" class="col-md-2 col-form-label">회원 프로필</label>
 						  <div class="col-md-3">
-							<input class="form-control" type="file" name="userProfileUrl" id="formFile" />
+							<input class="form-control" type="file" name="upfile" id="formFile" />
 						  </div>
 						</div>
                         <br><br><br>

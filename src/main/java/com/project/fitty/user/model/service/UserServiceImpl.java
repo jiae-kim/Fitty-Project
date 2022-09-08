@@ -39,14 +39,14 @@ public class UserServiceImpl implements UserService{
 		return 0;
 	}
 	
-	@Override // [김지애] 회원 상세조회 서비스
+	@Override // [김지애] 4. 회원 상세조회 서비스
 	public User selectUser(int userNo) {
 		return null;
 	}
 	
 	@Override // [김지애] 회원수정 서비스
 	public int updateUser(User u) {
-		return 0;
+		return uDao.updateUser(sqlSession, u);
 	}
 
 	@Override // [김지애] 회원삭제 서비스

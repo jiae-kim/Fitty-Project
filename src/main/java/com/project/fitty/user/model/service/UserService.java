@@ -7,15 +7,15 @@ import com.project.fitty.user.model.vo.User;
 
 public interface UserService {
 
-	// [김지애] 회원등록 서비스
-	int insertUser(User u);
-	
 	// [김지애] 회원 전체조회 서비스 (페이징)
 	int selectListCount();
 	ArrayList<User> selectList(PageInfo pi);
 	
 	// [김지애] 회원 상세조회 서비스
 	User selectUser(int userNo);
+	
+	// [김지애] 회원등록 서비스
+	int insertUser(User u);
 	
 	// [김지애] 회원수정 서비스
 	int updateUser(User u);
