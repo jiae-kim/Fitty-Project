@@ -42,6 +42,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Override
+	public ArrayList<Employee> selectEmpList() {
+		return eDao.selectEmpList(sqlSession);
+	}
+	
+	@Override
 	public int selectEmpListCount() {
 		return eDao.selectEmpListCount(sqlSession);
 	}
@@ -56,6 +61,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int uploadProfileImg(Employee e) {
 		return 0;
 	}
+
+
+	@Override
+	public ArrayList<Employee> selectLevelEmployeeList() {
+		return  eDao.selectLevelEmployeeList(sqlSession);
+	}
+
+
+	
 
 
 	

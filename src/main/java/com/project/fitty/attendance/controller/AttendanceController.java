@@ -37,9 +37,24 @@ public class AttendanceController {
 		return "attendance/myAttendance";
 	}
 	
-	@RequestMapping("attModiftForm.att")
+	@RequestMapping("attModifyForm.att")
 	public String goMyModifyForm() {
 		return "attendance/myAttendanceModify";
+	}
+	
+	
+	
+	@RequestMapping("resetForm.att")
+	public String goResetFormAttendance() {
+		return "attendance/resetAttendanceForm";
+		// 진짜 그냥 이동만 시켜주고, 리스트는 ajax로 불러옴 > ajax 페이징처리
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="reset.att", produces="application/json; charset=utf-8")
+	public String goResetAttendance() {
+		ArrayList<Employee> levelEmpList =  eService.selectLevelEmployeeList();
+		return new Gson().toJson(levelEmpList);
 	}
 	
 	@RequestMapping("centerAtt.att")

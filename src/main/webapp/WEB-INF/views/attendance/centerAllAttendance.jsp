@@ -74,7 +74,7 @@
                             <td width="555px"></td>
                             <td><button class="btn btn-primary" onclick="go('enrollForm.emp')">신규직원등록</button></td>
                             <td><button class="btn btn-secondary" onclick="generalChange();">직원퇴사</button></td>
-                            <td><button class="btn btn btn-info" onclick="generalChange();">근태초기화</button></td>
+                            <td><button class="btn btn btn-info"   onclick="go('resetForm.att')">근태초기화</button></td>
                         </tr>        
                         </table>
                     </div>
@@ -241,5 +241,6 @@
 
 
 <script type="text/javascript" src="resources/js/attendance.js"></script>
+<script type="text/javascript" src="resources/js/attendance/centerAllAttendance.js"></script>
 </body>
 </html>

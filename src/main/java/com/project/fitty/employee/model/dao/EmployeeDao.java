@@ -27,6 +27,8 @@ public class EmployeeDao {
 		return sqlSession.insert("employeeMapper.insertEmployee", e);
 	}
 	
+	
+	// 페이지네이션 하는 empList
 	public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession, PageInfo pi){
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage() - 1) * limit;
@@ -35,7 +37,21 @@ public class EmployeeDao {
 	}
 	
 	
+	// 페이지네이션 없는 empList
+	public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession){
+		return  (ArrayList)sqlSession.selectList("employeeMapper.selectEmpList");
+	}
+	
+	
 	public int selectEmpListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("employeeMapper.selectEmpListCount");
 	}
+	
+	
+	
+	// 주소록용 계층형 empList
+	public ArrayList<Employee> selectLevelEmployeeList(SqlSessionTemplate sqlSession){
+		return  (ArrayList)sqlSession.selectList("employeeMapper.selectLevelEmployeeList");
+	}
+	
 }

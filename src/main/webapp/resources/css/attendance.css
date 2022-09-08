@@ -150,6 +150,30 @@ table thead, table tfoot{
 #vacation{ background-color: #f2f2f2;}
 #plus{ background-color: #c8c9ff;}
 
+
+	/*modalEmpList modal*/
+.modalEmpList{
+	width : 100%;
+	border-radius: 10px;
+	border : 1px solid #696CFF;
+	over-flow:scroll;
+}
+
+.modalSearch{
+	margin-top: 20px;
+	margin-left : 20px;
+}
+
+.resetMsg{
+	color:#696CFF;
+	margin-top:20px;
+	margin-bottom:20px;
+}
+
+
+	/*modalEmpList modal*/
+
+
 /*centerAllAttendance*/
 
 
@@ -163,8 +187,8 @@ table thead, table tfoot{
 .modifyWrap{
   padding-bottom: 10px;
   align-items: center;
-    justify-content: center;
-    margin: auto;
+  justify-content: center;
+  margin: auto;
 }
 
 .attModifyDiv{

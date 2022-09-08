@@ -15,8 +15,11 @@ public interface EmployeeService {
 	// 다음 회원번호 미리 알아오기 (select)
 	String selectNextEmpNo();
 	
-	// 직원 전체조회
+	// 직원 전체조회 - 페이지네이션용
 	ArrayList<Employee> selectEmpList(PageInfo pi);
+	
+	// 직원 전체조회 - 일반용
+	ArrayList<Employee> selectEmpList();
 	
 	// 신규직원 가입 서비스 (insert)
 	int insertEmployee(Employee e);
@@ -30,4 +33,7 @@ public interface EmployeeService {
 	
 	// 전체 회원수 알아오기
 	int selectEmpListCount();
+	
+	// 직원 전체조회 - 주소록용 레벨
+	ArrayList<Employee> selectLevelEmployeeList();
 }

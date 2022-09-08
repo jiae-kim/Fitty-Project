@@ -32,7 +32,10 @@
 	</select>
 
 	<select id="selectNextEmpNo" resultType="string">
-		SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_EMP_NO'
+		select last_number
+		  from user_sequences
+		 where sequence_name = 'seq_emp_no'
+		<!-- SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_EMP_NO' -->
 	</select>
 	
 	<insert id="insertEmployee">
@@ -79,6 +82,18 @@
 	  	 where emp_status = 'Y'
 	  </select>
 	  
+	  <select id="selectLevelEmployeeList" resultMap="employeeResult">
+		select 
+		       LPAD('　　　', 2*(LEVEL-1)) || emp_name emp_name
+		     , g.gr_name emp_grade
+		     , emp_no
+		  from tb_grade g
+		  join tb_emp e on (e.emp_grade = g.emp_grade)
+		 start with gr_pr_grade is null
+	   connect
+	   		by nocycle prior g.emp_grade = gr_pr_grade 
+	  </select>
+	  
 	
-	
+
 </mapper>

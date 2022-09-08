@@ -55,7 +55,7 @@
               </select>
             </form>
         
-            <button class="btn btn-primary modifyBtn" onclick="go('attModiftForm.att')">근태수정요청</button>
+            <button class="btn btn-primary modifyBtn" onclick="go('attModifyForm.att')">근태수정요청</button>
             <button class="btn btn-secondary exelDownBtn">엑셀다운로드</button>
 
             <div class="vacation">
