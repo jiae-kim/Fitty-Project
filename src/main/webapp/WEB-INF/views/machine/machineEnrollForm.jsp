@@ -56,27 +56,27 @@
                       <tr>
                         <tr>
                           <td rowspan="2" style="padding-right:40px;">
-                            <img src="https://demos.themeselection.com/sneat-bootstrap-html-admin-template-free/assets/img/avatars/1.png" alt="user-avatar" class="d-block rounded" height="350" width="350" id="uploadedAvatar">
+                            <img src="resources/images/thumbImg.png" alt="user-avatar" class="d-block rounded" height="350" width="350" id="uploadedAvatar">
                           </td>
                           <td width="100%">
                             <div class="mb-3">
                               <label for="formFile" class="form-label">사진등록</label>
-                              <input class="form-control" type="file" id="formFile" name="upfile">
+                              <input class="form-control" type="file" id="formFile" name="upfile" onchange="loadImg(this);">
                             </div>
                             
                             <script>
-                            	$("#formFile").click(this){
+                            	function loadImg(inputFile){
                             		console.log(inputFile);
                             		if(inputFile.files.length == 1){
                             			const reader = new FileReader();
                             			
-                            			reader.readAsDataURL(inputFiles.files[0])
+                            			reader.readAsDataURL(inputFile.files[0])
                             			
                             			reader.onload = function(e){
                             				$("#uploadedAvatar").attr("src", e.target.result);
                             			}
                             		}else{
-                            			$("#uploadedAvatar").attr("src", null);
+                            			$("#uploadedAvatar").attr("src", "resources/images/thumbImg.png");
                             		}
                             	}
                             </script>

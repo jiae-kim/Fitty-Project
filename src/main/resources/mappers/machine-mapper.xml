@@ -22,7 +22,7 @@
 			  , mc_name
 			  , mc_status
 			  , mc_img
-			  , to_char(mc_enroll_date, 'YY-MM-DD') AS "mc_enroll_date"
+			  , to_char(mc_enroll_date, 'YYYY-MM-DD') AS "mc_enroll_date"
 		   from tb_machine
 		  order
 		     by mc_no	

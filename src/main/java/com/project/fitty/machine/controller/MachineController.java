@@ -56,7 +56,7 @@ public class MachineController {
 			// 서버에 업로드 
 			String originName = upfile.getOriginalFilename();
 			
-			String saveFilePath = FileUpload.saveFile(upfile, session, "resources/mahine_images");
+			String saveFilePath = FileUpload.saveFile(upfile, session, "resources/machine_images/");
 			m.setMcImg(saveFilePath);
 			
 			int result = mService.insertMachine(m);
@@ -72,13 +72,14 @@ public class MachineController {
 			}
 			
 		}else {
-			session.setAttribute("errorMsg", "파일 등록은 필수사항입니다.");
+			session.setAttribute("alertMsg", "파일 등록은 필수사항입니다.");
 			return "redirect:enrollForm.mc";
 		}
 	}
 	
 	@RequestMapping("delete.mc")
-	public String deleteMachine(@RequestParam(value="ckMachine")int mcNo ) {
+	public String deleteMachine(@RequestParam(value="ckMachine")int [] mcNoArr ) {
+		System.out.println(mcNoArr);
 		return null;
 	}
 }

@@ -156,7 +156,10 @@ table thead, table tfoot {
 																	src="${list[i].mcImg }"
 																	art="Card image cap">
 																<div class="card-body">
-																	<h5 class="card-title" style="display: inline">${ list[i].mcName }</h5>
+																	<h5 class="card-title">${ list[i].mcName }</h5>
+																	<p class="card-text">
+															          ${ list[i].mcEnrollDate }
+															        </p>
 																</div>
 															</div>
 															</c:if>
@@ -176,7 +179,10 @@ table thead, table tfoot {
 																	src="${list[i].mcImg }"
 																	art="Card image cap">
 																<div class="card-body">
-																	<h5 class="card-title" style="display: inline">${ list[i].mcName }</h5>
+																	<h5 class="card-title">${ list[i].mcName }</h5>
+																	<p class="card-text">
+															          ${ list[i].mcEnrollDate }
+															        </p>
 																</div>
 															</div>
 															</c:if>
@@ -204,10 +210,12 @@ table thead, table tfoot {
 											<ul class="pagination">
 												<c:choose>
 													<c:when test="${pi.currentPage eq 1 }">
-														<li class="page-item disabled"><a class="page-link">&lt;</a></li>
+														<li class="page-item prev disabled"><a class="page-link"><i class="tf-icon bx bx-chevron-left"></i
+                              ></a></li>
 													</c:when>
 													<c:otherwise>
-														<li class="page-item"><a class="page-link" href="list.mc?cpage=${ pi.currentPage - 1 }">&lt;</a></li>
+														<li class="page-item prev"><a class="page-link" href="list.mc?cpage=${ pi.currentPage - 1 }"><i class="tf-icon bx bx-chevron-left"></i
+                              ></a></li>
 													</c:otherwise>
 												</c:choose>
 												
@@ -217,10 +225,11 @@ table thead, table tfoot {
 												
 												<c:choose>
 													<c:when test="${pi.currentPage eq pi.maxPage }">
-														<li class="page-item disabled"><a class="page-link">&gt;</a></li>
+														<li class="page-item next disabled"><a class="page-link"><i class="tf-icon bx bx-chevron-right"></i
+                              ></a></li>
 													</c:when>
 													<c:otherwise>
-														<li class="page-item"><a class="page-link" href="list.mc?cpage=${ pi.currentPage + 1 }">&gt;</a></li>
+														<li class="page-item next"><a class="page-link" href="list.mc?cpage=${ pi.currentPage + 1 }"><i class="tf-icon bx bx-chevron-right"></i></a></li>
 													</c:otherwise>
 												</c:choose>
 											</ul>
