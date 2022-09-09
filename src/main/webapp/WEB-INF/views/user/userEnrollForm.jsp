@@ -12,7 +12,7 @@
 
 <div class="content-wrapper">
 <form action="insert.ur" method="post" id="enrollForm" enctype="multipart/form-data">
-    <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="container-xxl flex-grow-1 container-p-y" style="padding : 0px;">
         <div class="row">
             <div class="col-xl-12">
                 <div class="nav-align-top mb-4">

@@ -11,7 +11,7 @@
 <jsp:include page="../common/header.jsp"/>
 
 <div class="content-wrapper">
-  <div class="container-xxl flex-grow-1 container-p-y">
+  <div class="container-xxl flex-grow-1 container-p-y" style="padding : 0px;">
     <div class="row">
       <div class="col-xl-12">
         <div class="nav-align-top mb-4">

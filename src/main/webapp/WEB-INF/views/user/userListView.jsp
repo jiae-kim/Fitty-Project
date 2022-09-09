@@ -7,17 +7,14 @@
 <meta charset="UTF-8">
 <title>Fitty 회원전체조회</title>
 <style>
-#userList>tbody>tr:hover{
-    	background:aqua;
-    	cursor:pointer;
-    }
+#userList>tbody>tr:hover{background:aqua; cursor:pointer;}
 </style>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
 
 <div class="content-wrapper">
-    <div class="container-xxl flex-grow-1 container-p-y">
+    <div class="container-xxl flex-grow-1 container-p-y" style="padding : 0px;">
         <div class="row">
             <div class="col-xl-12">
                 <div class="nav-align-top mb-4">
@@ -54,7 +51,7 @@
                                 </thead>
 
                                 <tbody class="table-border-bottom-0">
-                                <tr>
+
                                 <c:choose>
                                 	<c:when test="${empty list}">
                                 	<tr>
@@ -67,7 +64,7 @@
 		                                    <!-- 이름 -->
 		                                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i>${u.userName}</td>
 		                                    <!-- 회원번호 -->
-		                                    <td><span class="badge bg-label-primary me-1">${u.userNo}</span></td>
+		                                    <td class="no"><span class="badge bg-label-primary me-1">${u.userNo}</span></td>
 		                                    <!-- 프로필 -->
 		                                    <td>
 		                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
@@ -98,14 +95,13 @@
 	                                    </c:forEach>
 	                                    </c:otherwise>
                                     </c:choose>
-                                </tr>
+                                
                                 </tbody>
                             </table>
                             <script>
                             	$(function(){
                             		$("#userList>tbody>tr").click(function(){
-                            			location.href = "uDetail.ur?no=" + $(this).children(".no").text();
-                            			<!--$(this).children("").eq(1).text();-->
+                            			location.href ='updateForm.ur?no=' + $(this).children(".no").text();
                             		})
                             	})
                             </script>
