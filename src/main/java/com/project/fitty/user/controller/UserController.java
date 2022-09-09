@@ -26,13 +26,13 @@ public class UserController {
 	@Autowired
 	private UserService uService;
 	
-	// [김지애] 1. 회원등록 서비스 (FileUpload)
+	// [김지애] 1. 회원등록 서비스 
 	@RequestMapping("enrollForm.ur")
 	public String enrollForm() {
 		return "user/userEnrollForm";
 	}
 	
-	// [김지애] 1. 회원등록 서비스 
+	// [김지애] 1. 회원등록 서비스 (FileUpload)
 	@RequestMapping("insert.ur")
 	public String insertUser(User u, MultipartFile upfile, Model model, HttpSession session) {
 		
@@ -43,12 +43,12 @@ public class UserController {
 		
 		int result = uService.insertUser(u);
 		
-		if(result > 0) {// 회원등록 성공
+		if(result > 0) {// 회원등록 성공 => 조회페이지
 			session.setAttribute("alertMsg", "✔ 성공적으로 회원등록 되었습니다 ✔");
 			return "redirect:list.ur";
-		}else {// 회원등록 실패
+		}else {// 회원등록 실패 => 등록페이지
 			session.setAttribute("alertMsg", "❌ 회원등록에 실패했습니다 ❌");
-			return "redirect:list.ur";
+			return "redirect:insert.ur";
 		}
 	}
 	
@@ -60,6 +60,8 @@ public class UserController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		ArrayList<User> list = uService.selectList(pi);
 		
+		System.out.println(list);
+		
 		mv.addObject("pi", pi)
 		  .addObject("list", list)
 		  .setViewName("user/userListView");
@@ -68,43 +70,61 @@ public class UserController {
 	}
 
 	/*
-	 * // [김지애] 3. 회원 프로필이미지 변경 서비스 - ajax
-	 * 
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping("uploadProfile.ur") public User
-	 * ajaxUploadProfile(MultipartFile uploadFile, User u, String originalFile,
-	 * HttpSession session) { if(uploadFile != null) { if(!originalFile.equals(""))
-	 * { new File(session.getServletContext().getRealPath(originalFile)).delete(); }
-	 * 
-	 * String saveFilePath = FileUpload.saveFile(uploadFile, session,
-	 * "resources/profile_images/"); u.setUserProfileUrl(saveFilePath);
-	 * 
-	 * session.setAttribute("u", u); } return u; }
-	 */
-
-	// [김지애] 4. 회원 상세조회 서비스
+	// [김지애] 3. 회원 상세조회 서비스
 	@RequestMapping("uDetail.ur")
-	public String uDetailPage(int userNo) {
-		//int result = uService.selectUser(userNo);
-		return "user/userDetailView";
+	public ModelAndView uDetailPage(int userNo, ModelAndView mv) {
+		User u = uService.selectUser(userNo);
+		mv.addObject("u", u).setViewName("user/userDetailView");
+		
+		return mv;
+	}
+	*/
+	
+	// [김지애] 4. 회원수정 서비스
+	@RequestMapping("updateForm.ur")
+	public String updateForm(int no, Model model) {
+		// 수정할 회원 번호만 받아서 한행 조회 후 model에 담아 수정하기 페이지로 포워딩
+		model.addAttribute("u", uService.selectUser(no));
+		return "user/userUpdateForm";
 	}
 	
-	// [김지애] 회원수정 서비스
+	// [김지애] 4. 회원수정 서비스
 	@RequestMapping("update.ur")
 	public String updateUser(User u, HttpSession session) {
 		int result = uService.updateUser(u);
 		
-		if(result > 0) {// 수정 성공
-			//session.setAttribute(", u);"
+		if(result > 0) {// 수정 성공 => 조회페이지
+			session.setAttribute("alertMsg", "✔ 회원정보가 수정되었습니다 ✔");
 			return "redirect:list.ur";
-		}else {// 수정 실패
-			session.setAttribute("alertMsg", "❌ 회원등록에 실패했습니다 ❌");
-			return "redirect:list.ur";
+		}else {// 수정 실패 => 수정페이지
+			session.setAttribute("alertMsg", "❌ 회원정보 수정에 실패했습니다 ❌");
+			return "redirect:update.ur";
 		}
 		
 	}
 	
+	// [김지애] 5. 회원 프로필이미지 변경 서비스 - ajax
+	@ResponseBody
+	@RequestMapping("uploadProfile.ur") 
+	public User ajaxUploadProfile(MultipartFile uploadFile, User u, String originalFile, HttpSession session) { 
+	  
+		if(uploadFile != null) {// 넘어온 파일이 있을 경우
+			// 저장경로 : 넘기려는 파일, session, 저장위치
+			String saveFilePath = FileUpload.saveFile(uploadFile, session,"resources/upload_profielImg/");
+			u.setUserProfileUrl(saveFilePath);
+			
+			// db에 업데이트 :번호, 사진만 
+			int result = uService.uploadProfileImg(u);
+			
+			if(result > 0) {// db에 사진 변경 성공
+				if(!originalFile.equals("")){ 
+					new File(session.getServletContext().getRealPath(originalFile)).delete();
+				}
+			}
+		} 
+		return u;
+	}
+	 
 	
 	
 	

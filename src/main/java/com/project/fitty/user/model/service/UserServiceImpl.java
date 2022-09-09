@@ -34,22 +34,22 @@ public class UserServiceImpl implements UserService{
 		return uDao.selectList(sqlSession, pi);
 	}
 	
-	@Override // [김지애] 3. 회원 프로필이미지 변경 서비스 - ajax
-	public int uploadProfileImg(User u) {
-		return 0;
-	}
-	
-	@Override // [김지애] 4. 회원 상세조회 서비스
+	@Override // [김지애] 3. 회원 상세조회 서비스
 	public User selectUser(int userNo) {
-		return null;
+		return uDao.selectUser(sqlSession, userNo);
 	}
 	
-	@Override // [김지애] 회원수정 서비스
+	@Override // [김지애] 4. 회원수정 서비스
 	public int updateUser(User u) {
 		return uDao.updateUser(sqlSession, u);
 	}
+	
+	@Override // [김지애] 5. 회원 프로필이미지 변경 서비스 - ajax
+	public int uploadProfileImg(User u) {
+		return uDao.uploadProfileImg(sqlSession, u);
+	}
 
-	@Override // [김지애] 회원삭제 서비스
+	@Override // [김지애] 6. 회원삭제 서비스
 	public int deleteUser(String userNo) {
 		return 0;
 	}

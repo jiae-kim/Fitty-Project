@@ -16,7 +16,7 @@
 		<result column="user_pt" property="userPt" />
 	</resultMap>
 
-	<!-- 회원등록 -->
+	<!-- 1. 회원등록 -->
 	<insert id="insertUser">
 		insert 
 		  into tb_user
@@ -45,6 +45,7 @@
 		    )
 	</insert>
 	
+	<!-- 2. 전체조회 -->
 	<select id="selectListCount" resultType="_int">
 		select
 				count(*)
@@ -67,6 +68,24 @@
 		   by 	user_no desc
 	</select>
 	
+	<!-- 3. 상세조회 -->
+	<select id="selectUser" resultMap="userResult">
+		select
+	            user_no
+	        ,   user_name
+	        ,   user_phone
+	        ,   user_birth
+	        ,   user_gender
+	        ,   user_type
+	        ,   user_sdate
+	        ,   user_month
+	        ,   to_char(add_months(user_sdate, user_month), 'YYYY-MM-DD') AS "user_edate"
+	        ,   user_profile_url
+	     from   tb_user
+	    where   user_no = #{userNo}
+	</select>
+	
+	<!-- 4. 회원수정 -->
 	<update id="updateUser">
 		update
 				tb_user
@@ -74,10 +93,16 @@
 		     ,	user_phone = #{userPhone}
 		     ,	user_birth = #{userBirth}
 		     ,	user_type = #{userType}
-		     ,	user_profile_url = #{userProfileUrl}
+		     ,	user_month = #{userMonth}
 		 where	user_no = #{userNo}
 	</update>
 	
-	
+	<!-- 5. 회원 프로필이미지 변경 -->
+	<update id="uploadProfileImg">
+		update
+				tb_user
+		   set	user_profile_url = #{userProfileUrl}
+		 where	user_no = #{userNo}
+	</update>
 	
 </mapper>

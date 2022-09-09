@@ -30,9 +30,19 @@ public class UserDao {
 		return (ArrayList)sqlSession.selectList("userMapper.selectList", null, rowBounds);
 	}
 
+	// [김지애] 3. 회원 상세조회 서비스
+	public User selectUser(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("userMapper.selectUser", userNo);
+	}
+	
 	// [김지애] 4. 회원수정 서비스
 	public int updateUser(SqlSessionTemplate sqlSession, User u) {
 		return sqlSession.update("userMapper.updateUser", u);
+	}
+
+	// [김지애] 5. 회원 프로필이미지 변경 서비스 - ajax
+	public int uploadProfileImg(SqlSessionTemplate sqlSession, User u) {
+		return sqlSession.update("userMapper.uploadProfileImg", u);
 	}
 
 }
