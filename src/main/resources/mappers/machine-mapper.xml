@@ -13,11 +13,14 @@
 	<resultMap id="CheckResult" type="Machine">
 		<result column="ck_no" property="ckNo"/>
 		<result column="ck_date" property="ckDate"/>
+		<result column="ck_content" property="ckContent"/>
 		<result column="ck_img" property="ckImg"/>
 		<result column="ck_result" property="ckResult"/>
+		<result column="mc_no" property="mcNo"/>
 		<result column="mc_name" property="mcName"/>
 		<result column="ck_title" property="ckTitle"/>
 		<result column="ck_writer" property="ckWriter"/>
+		<result column="ck_writer_name" property="ckWriterName"/>
 	</resultMap>
 	
 	<select id="selectListCount" resultType="_int">
@@ -79,11 +82,12 @@
 			  , ck_result
 			  , mc_name as "mc_name"
 			  , ck_title
-			  , ck_writer
-		   from tb_check c, tb_machine m
+			  , e.emp_name "ck_writer_name"
+		   from tb_check c, tb_machine m, tb_emp e
            where c.mc_no = m.mc_no
+             and c.ck_writer = e.emp_no
 		  order
-		     by ck_date desc
+		     by ck_no desc
 	</select>
 	
 	<select id="selectAllMachine" resultMap="MachineResult">
@@ -116,4 +120,36 @@
 		  , #{ckWriter}
 		  )
 	</insert>
+	
+	<select id="selectCheck" resultMap="CheckResult">
+		select
+				ck_title
+			  , ck_no
+			  , mc_no
+			  , mc_name
+			  , ck_writer
+			  , e.emp_name AS "ck_writer_name"  
+			  , to_char(ck_date, 'YYYY-MM-DD') AS "ck_date"
+			  , ck_content
+			  , ck_result
+			  , ck_img
+		   from tb_check c 
+		   join tb_machine m using(mc_no)
+		   join tb_emp e on (c.ck_writer = e.emp_no)
+		  where ck_no = #{ckNo}
+	</select>
+	
+	<update id="updateCheckState">
+		update
+				tb_check
+		    set ck_result = '2'
+		  where ck_no = #{ckNo} 
+	</update>
+	
+	<update id="updateMachineBroken">
+		update
+				tb_machine
+		    set mc_status = '2'
+		  where mc_no = #{mcNo}
+	</update>
 </mapper>

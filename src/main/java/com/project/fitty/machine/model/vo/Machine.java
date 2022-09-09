@@ -25,6 +25,7 @@ public class Machine {
 	private String ckImg;
 	private String ckResult;
 	private String ckWriter;
+	private String ckWriterName;
 	
 	
 }

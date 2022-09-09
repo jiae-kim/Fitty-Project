@@ -51,7 +51,7 @@
                   <h3>기구 점검 작성</h3>
                   
                   <form action="ckInsert.mc" method="post" enctype="multipart/form-data">
-                  	<input type="hidden" name="empName" value="${ loginUser.empName}">
+                  	<input type="hidden" name="empNo" value="${ loginUser.empNo}">
                     <br>
                     <table>
                       <tr>

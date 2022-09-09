@@ -11,12 +11,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.common.template.FileUpload;
 import com.project.fitty.common.template.Pagination;
-import com.project.fitty.employee.model.service.EmployeeService;
-import com.project.fitty.employee.model.vo.Employee;
 import com.project.fitty.machine.model.service.MachineService;
 import com.project.fitty.machine.model.vo.Machine;
 
@@ -122,7 +121,7 @@ public class MachineController {
 	}
 
 	@RequestMapping("ckInsert.mc")
-	public String insertCheck(Machine m, @RequestParam(value = "empName") String empName, MultipartFile upfile,
+	public String insertCheck(Machine m, @RequestParam(value = "empNo") String empNo, MultipartFile upfile,
 			HttpSession session) {
 
 		if (!upfile.getOriginalFilename().equals("")) {
@@ -131,7 +130,7 @@ public class MachineController {
 
 			String saveFilePath = FileUpload.saveFile(upfile, session, "resources/machine_ck_images/");
 			m.setCkImg(saveFilePath);
-			m.setCkWriter(empName);
+			m.setCkWriter(empNo);
 
 			int result = mService.insertCheck(m);
 
@@ -149,8 +148,49 @@ public class MachineController {
 			session.setAttribute("alertMsg", "파일 등록은 필수사항입니다.");
 			return "redirect:ckEnrollForm.mc";
 		}
-		
-		
 	}
 
+	@RequestMapping("ckDetail.mc")
+	public ModelAndView selectCheck(int no, ModelAndView mv) {
+		
+		Machine m = mService.selectCheck(no);
+		mv.addObject("m", m).setViewName("machine/machineCheckDetail");
+		return mv;
+	}
+	
+	@RequestMapping("broken.mc")
+	public String updateMachineBroken(int ckNo, int mcNo, HttpSession session) {
+		
+		// 체크 상태 변경, 기구 고장 등록
+		
+		int result1 = mService.updateCheckState(ckNo);
+		
+		int result2 = mService.updateMachineBroken(mcNo);
+		
+		if(result1 * result2 > 0) {
+			session.setAttribute("alertMsg", "성공적으로 기구 고장 등하였습니다.");
+			return "redirect:ckList.mc";
+		}else {
+			session.setAttribute("errorMsg", "기구 고장 등록 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("normal.mc")
+	public String updateMachineNormal(int ckNo, HttpSession session) {
+		
+		// 체크 상태 변경
+		
+		int result = mService.updateCheckState(ckNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 기구 정상 처리하였습니다.");
+			return "redirect:ckList.mc";
+		}else {
+			session.setAttribute("errorMsg", "기구 정상 등록 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	
 }

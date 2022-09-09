@@ -51,4 +51,16 @@ public class MachineDao {
 	public int insertCheck(SqlSessionTemplate sqlSession, Machine m) {
 		return sqlSession.insert("machineMapper.insertCheck", m);
 	}
+	
+	public Machine selectCheck(SqlSessionTemplate sqlSession, int no) {
+		return sqlSession.selectOne("machineMapper.selectCheck", no);
+	}
+	
+	public int updateCheckState(SqlSessionTemplate sqlSession, int ckNo) {
+		return sqlSession.update("machineMapper.updateCheckState", ckNo);
+	}
+	
+	public int updateMachineBroken(SqlSessionTemplate sqlSession, int mcNo) {
+		return sqlSession.update("machineMapper.updateMachineBroken", mcNo);
+	}
 }

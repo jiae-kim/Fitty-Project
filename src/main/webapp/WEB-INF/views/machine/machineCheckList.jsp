@@ -39,6 +39,12 @@
         /* #yearVac{ background-color: #e7fdf9;} */
         #vacation{ background-color: #f2f2f2;}
         #plus{ background-color: #c8c9ff;}
+        
+        .trList:hover{
+          cursor:pointer;
+          background:#fcf7f4;
+        }
+        
 </style>
 </head>
 <body>
@@ -88,7 +94,9 @@
                         <td>
                         </td>
                         <td style="width:85%; text-align:right;">
+                        <c:if test="${ loginUser.empGrade == 'T' }">
                           <a class="btn btn-primary" href="ckEnrollForm.mc" style="float:right">작성하기</a>
+                        </c:if>
                         </td>
                     </tr>        
                   </table>
@@ -96,31 +104,52 @@
 
                   <div id="machine-area" style="width:100%; height:100%">
 
-                    <table class="table" style="border:1px solid rgb(209, 209, 209)">
+                    <table class="table" style="border:1px solid rgb(209, 209, 209)" id="ckTable">
                       <tr style="background-color:#f8f4fc">
+                      	<th>점검 번호</th>
                         <th>점검자</th>
                         <th>점검 기구</th>
                         <th>점검 제목</th>
                         <th>점검일</th>
+                        <th>처리 상태</th>
                       <c:choose>
                       <c:when test="${ empty list }">
 	                      <tr>
-	                        <td colspan="4">현재 등록 점검이 없습니다.</td>
+	                        <td colspan="6">현재 등록 점검이 없습니다.</td>
 	                      </tr>
                       </c:when>
                       <c:otherwise>
                       	<c:forEach var="m" items="${ list }">
-                      	<tr>
-	                        <td>${ m.ckWriter }</td>
+                      	<tr class="trList">
+                      		<td class="no">${ m.ckNo }</td>
+	                        <td>${ m.ckWriterName }</td>
 	                        <td>${ m.mcName }</td>
 	                        <td>${ m.ckTitle }</td>
 	                        <td>${ m.ckDate }</td>
+	                        <c:choose>
+	                        <c:when test="${ m.ckResult == '2'}">
+		                        <td>
+		                        	<span class="badge rounded-pill bg-label-primary">처리완료</span>
+		                        </td>
+	                        </c:when>
+	                        <c:otherwise>
+	                        	<td>
+	                        		<span class="badge rounded-pill bg-label-secondary">미처리</span>
+	                        	</td>
+	                        </c:otherwise>
+	                        </c:choose>
 	                    </tr>
 	                    </c:forEach>
                       </c:otherwise>
                       </c:choose>
                     </table>
-
+					<script>
+		            	$(function(){
+		            		$(".trList").click(function(){
+		            			location.href='ckDetail.mc?no=' + $(this).children(".no").text();
+		            		})
+		            	})
+            		</script>
                    
                   </div>
 

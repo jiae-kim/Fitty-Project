@@ -50,5 +50,17 @@ public class MachineService {
 	public int insertCheck(Machine m) {
 		return mDao.insertCheck(sqlSession, m);
 	}
+	
+	public Machine selectCheck(int no) {
+		return mDao.selectCheck(sqlSession, no);
+	}
+	
+	public int updateCheckState(int ckNo) {
+		return mDao.updateCheckState(sqlSession, ckNo);
+	}
+	
+	public int updateMachineBroken(int mcNo) {
+		return mDao.updateMachineBroken(sqlSession, mcNo);
+	}
 
 }
