@@ -1,7 +1,9 @@
 package com.project.fitty.attendance.controller;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -57,6 +59,60 @@ public class AttendanceController {
 		return new Gson().toJson(levelEmpList);
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="listInsert.att", produces="application/json; charset=utf-8")
+	public String checkEmpNoList(String strInsertListEmpNo){
+		String empNo = "(" + strInsertListEmpNo + ")";
+		ArrayList<Employee> checkEmpList =  eService.checkEmpNoList(empNo);
+		return new Gson().toJson(checkEmpList);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="listDelete.att", produces="application/json; charset=utf-8")
+	public String deleteEmpNoList(String strInsertListEmpNo, String deleteEmpNo) {
+		
+		if(strInsertListEmpNo == null) {
+			
+			String notReadyEmpNo = "";
+			ArrayList<Employee> deleteEmpNoList = new ArrayList<Employee>();
+			HashMap <String, Object> map = new HashMap<String, Object>();
+			map.put("empNo", notReadyEmpNo);
+			map.put("deleteEmpNoList", deleteEmpNoList);
+		    
+			return new Gson().toJson(map);
+			
+		} else {
+
+			String[] beforeEmpArray = strInsertListEmpNo.split(",");
+			final List<String> list =  new ArrayList<String>();
+		    Collections.addAll(list, beforeEmpArray); 
+		  
+		    list.remove(deleteEmpNo);
+			
+		    String newEmpNo = "";
+		    
+		    for(int i=0; i<list.size(); i++) {
+		    	newEmpNo += list.get(i) + ",";
+		    }
+		    String notReadyEmpNo = newEmpNo.substring(0, newEmpNo.length() - 1);
+		    String empNo = "(" + notReadyEmpNo + ")";
+		    
+		    ArrayList<Employee> deleteEmpNoList = eService.deleteEmpNoList(empNo);
+		    
+		    
+		    HashMap <String, Object> map = new HashMap<String, Object>();
+			map.put("empNo", notReadyEmpNo);
+			map.put("deleteEmpNoList", deleteEmpNoList);
+		    
+			return new Gson().toJson(map);
+		}
+		
+	    
+	}
+	
+	
+	
+	
 	@RequestMapping("centerAtt.att")
 	public String goCenterAtt() {
 		return "attendance/centerAllAttendance";
@@ -67,7 +123,6 @@ public class AttendanceController {
 	@RequestMapping(value="attList.att", produces="application/json; charset=utf-8")
 	public String selectAllAttList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session) {
 		
-//		ArrayList<Employee> empList = eService.selectEmpList();
 		int listCount =  eService.selectEmpListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		ArrayList<Employee> empList =  eService.selectEmpList(pi);
@@ -75,18 +130,8 @@ public class AttendanceController {
 			for(Employee e : empList) {
 				e.setAttList(aService.selectAllAttList(e));
 			}
-//			return new Gson().toJson(empList);
 		}
-		
-		/*
-		String empListGson = new Gson().toJson(empList);
-		String piGson = new Gson().toJson(pi);
-		System.out.println(empListGson);
-		System.out.println(piGson);
-		mv.addObject("pi", piGson).addObject("empList", empListGson).setViewName("attendance/centerAllAttendance");
-		return mv;
-		*/
-		
+
 		/* HashMap 은 넘길 배열이 2개일때만 사용 */
 		HashMap <String, Object> map = new HashMap<String, Object>();
 		map.put("pi", pi);
@@ -94,7 +139,6 @@ public class AttendanceController {
 
 		return new Gson().toJson(map);
 	}
-	
 	
 	
 	

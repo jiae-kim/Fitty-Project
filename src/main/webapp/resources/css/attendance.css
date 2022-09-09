@@ -157,31 +157,55 @@ table thead, table tfoot{
 
 
 /*resetAttendanceList*/
+.resetHeader{
+	margin:0;
+	heignt : 20px;
+}
+
+#formAccountSettings{
+	margin-top:-150px;
+}
+
+#formAccountSettings button{
+	margin : auto;
+	align-items:center;
+	justify-content:center;
+}
+
 .beforeEmpList, .afterEmpList{
 	width : 100%;
-	height: 200px;
+	height: 350px;
 	border-radius: 10px;
 	border : 1px solid #696CFF;
 	overflow:auto;
 }
 
-.beforeEmpList search, .afterEmpList search{
-	margin-top: 20px;
-	margin-left : 20px;
+.beforeEmpList .listNameSearch, .afterEmpList .listNameSearch{
+	margin : auto;
+	align-items:center;
+	justify-content:center;
+	margin-top: 50px;
+	margin-bottom: 20px;
 }
 
-.empList{
+.beforeEmpList table, .afterEmpList table{
 	width : 80%;
+	margin : auto;
+	align-items:center;
+	justify-content:center;
+	margin-top:20px;
 }
 
-.empList *{
+
+
+.empList *, .printEmpList *{
 	text-align:left;
 }
 
 
 
 
-/*modalEmpList modal*/
+/*resetAttendanceList*/
 
 
 

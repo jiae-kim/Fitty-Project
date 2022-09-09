@@ -54,4 +54,16 @@ public class EmployeeDao {
 		return  (ArrayList)sqlSession.selectList("employeeMapper.selectLevelEmployeeList");
 	}
 	
+	
+	// 회원번호를 통해 해당 회원 주소 select
+	public ArrayList<Employee> checkEmpNoList(SqlSessionTemplate sqlSession, String empNo){
+		return (ArrayList)sqlSession.selectList("employeeMapper.checkEmpNoList", empNo);
+	}
+	
+	
+	// 회원번호 지운 empList
+	public ArrayList<Employee> deleteEmpNoList(SqlSessionTemplate sqlSession,String empNo) {
+		return (ArrayList)sqlSession.selectList("employeeMapper.checkEmpNoList", empNo);
+	}
+	
 }

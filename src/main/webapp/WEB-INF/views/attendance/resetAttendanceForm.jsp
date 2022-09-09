@@ -17,17 +17,17 @@
           <div class="col-md-12">
             <div class="card mb-4 profileEnrollDiv">
               <!-- Account -->
-              <div class="card-body row">
-                  <h5 class="card-header secondHeader" style="margin-bottom: 50px;">🏋️‍♂️ 직원 근태 초기회</h5>
-                <form class="col-md-6" id="formAccountSettings" action="insert.emp" method="POST" >
+              <div class="card-body row" style="margin-bottom:30px;">
+                  <h5 class="card-header resetHeader" style="height:100px;">🏋️‍♂️ 직원 근태 초기화</h5>
+                <form class="col-md-6" id="formAccountSettings" action="listInsert.att" method="POST" >
+                <h6 class="card-header resetHeader">🏋️‍♂️ 직원 선택</h6>
                   <div class="row">
 	                <div class="d-flex align-items-start align-items-sm-center gap-4">
 		               <div class="beforeEmpList">
-                  	<h6 class="card-header secondHeader">🏋️‍♂️ 직원 선택</h6>
-							<div class="navbar-nav align-items-left modalSearch">
-								<div class="nav-item d-flex align-items-center">
+							<div class="navbar-nav align-items-left">
+								<div class="nav-item d-flex align-items-center listNameSearch">
+									<input type="text" class="form-control border-0 shadow-none" placeholder="직원명 검색" aria-label="Search..." style="width:350px">
 									<i class="bx bx-search fs-4 lh-0"></i>
-									<input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search...">
 								</div>
 							</div>
 						    <table class="table table-hover empList " >
@@ -36,25 +36,35 @@
 							</div>
 						</div>
                 	</div>
+                	<div class="btnDiv resetBtnDiv" style="margin-top:20px;">
+						    <input type="hidden" id="strInsertListEmpNo" name="strInsertListEmpNo">
+						<button class="btn btn-primary" type="button" id="addEmpList">명단 추가</button>
+                	</div>
                 </form>
-                 <form class="col-md-6" id="formAccountSettings" action="insert.emp" method="POST" >
-                 	<div class="row">
-		                <div class="d-flex align-items-start align-items-sm-center gap-4">
-			               <div class="afterEmpList">
-	                    	<h6 class="card-header secondHeader" style="margin-bottom: 50px;">🏋️‍♂️ 직원 선택</h6>
-								<div class="navbar-nav align-items-left modalSearch">
-									<div class="nav-item d-flex align-items-center">
-										<i class="bx bx-search fs-4 lh-0"></i>
-										<input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search...">
-									</div>
+               
+                <form class="col-md-6" id="formAccountSettings" action="insert.emp" method="POST" >
+                <h6 class="card-header resetHeader">🏋️‍♂️ 명단 확인</h6>
+                  <div class="row">
+	                <div class="d-flex align-items-start align-items-sm-center gap-4">
+		               <div class=" afterEmpList">
+							<div class="navbar-nav align-items-left">
+								<div class="nav-item d-flex align-items-center listNameSearch">
+									<input type="text" class="form-control border-0 shadow-none" placeholder="직원명 검색" aria-label="Search..." style="width:350px">
+									<i class="bx bx-search fs-4 lh-0"></i>
 								</div>
-							    <ul class="afterEmpList">
-							  		
-							    </ul>
+							</div>
+						    <table class="table table-hover printEmpList " >
+						  		
+						    </table>
 							</div>
 						</div>
                 	</div>
-                 </form>
+                	<div class="btnDiv resetBtnDiv" style="margin-top:20px;">
+                			<input type="hidden" id="deleteEmpNo" name="deleteEmpNo">
+                			<input type="hidden" id="afterEmpNoList" name="deleteEmpNo">
+						<button class="btn btn-info" type="button">근태 초기화</button>
+                	</div>
+                </form>
               </div>
             </div>
           </div>

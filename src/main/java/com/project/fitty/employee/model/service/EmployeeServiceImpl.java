@@ -69,6 +69,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 
+	@Override
+	public ArrayList<Employee> checkEmpNoList(String empNo) {
+		return eDao.checkEmpNoList(sqlSession, empNo);
+	}
+
+
+	@Override
+	public ArrayList<Employee> deleteEmpNoList(String empNo) {
+		return eDao.deleteEmpNoList(sqlSession, empNo);
+	}
+
+
 	
 
 

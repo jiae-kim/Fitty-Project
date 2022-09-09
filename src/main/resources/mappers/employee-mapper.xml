@@ -94,6 +94,16 @@
 	   		by nocycle prior g.emp_grade = gr_pr_grade 
 	  </select>
 	  
+	  
+	  <select id="checkEmpNoList" resultMap="employeeResult">
+		select e.emp_no
+			 , e.emp_name
+			 , g.gr_name emp_grade
+		  from tb_emp e
+		  join tb_grade g on (e.emp_grade = g.emp_grade)
+		 where e.emp_no in ${empNo}
+	  </select>
+	  
 	
 
 </mapper>
