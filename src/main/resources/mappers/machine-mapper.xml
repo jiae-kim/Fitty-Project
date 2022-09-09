@@ -85,4 +85,35 @@
 		  order
 		     by ck_date desc
 	</select>
+	
+	<select id="selectAllMachine" resultMap="MachineResult">
+		select
+				mc_no
+			  , mc_name
+		   from tb_machine
+	</select>
+	
+	<insert id="insertCheck">
+		insert
+		  into tb_check
+		  (
+		  	ck_no
+		  , ck_date
+		  , ck_content
+		  , ck_img
+		  , mc_no
+		  , ck_title
+		  , ck_writer
+		  )
+		  values
+		  (
+		  	seq_ck_no.nextval
+		  , sysdate
+		  , #{ckContent}
+		  , #{ckImg}
+		  , #{mcNo}
+		  , #{ckTitle}
+		  , #{ckWriter}
+		  )
+	</insert>
 </mapper>

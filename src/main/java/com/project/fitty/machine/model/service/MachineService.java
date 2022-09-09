@@ -42,5 +42,13 @@ public class MachineService {
 	public ArrayList<Machine> selectCheckList(PageInfo pi){
 		return mDao.selectCheckList(sqlSession, pi);
 	}
+	
+	public ArrayList<Machine> selectAllMachine(){
+		return mDao.selectAllMachine(sqlSession);
+	}
+	
+	public int insertCheck(Machine m) {
+		return mDao.insertCheck(sqlSession, m);
+	}
 
 }

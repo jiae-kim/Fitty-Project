@@ -43,4 +43,12 @@ public class MachineDao {
 		
 		return (ArrayList)sqlSession.selectList("machineMapper.selectCheckList", null, rowBounds);
 	}
+	
+	public ArrayList<Machine> selectAllMachine(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("machineMapper.selectAllMachine");
+	}
+	
+	public int insertCheck(SqlSessionTemplate sqlSession, Machine m) {
+		return sqlSession.insert("machineMapper.insertCheck", m);
+	}
 }

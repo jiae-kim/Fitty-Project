@@ -88,17 +88,16 @@
                         <td>
                         </td>
                         <td style="width:85%; text-align:right;">
-                          <button class="btn btn-primary" onclick="generalChange();"style="float:right">작성하기</button>
+                          <a class="btn btn-primary" href="ckEnrollForm.mc" style="float:right">작성하기</a>
                         </td>
                     </tr>        
                   </table>
-
                   <br>
 
                   <div id="machine-area" style="width:100%; height:100%">
 
                     <table class="table" style="border:1px solid rgb(209, 209, 209)">
-                      <tr>
+                      <tr style="background-color:#f8f4fc">
                         <th>점검자</th>
                         <th>점검 기구</th>
                         <th>점검 제목</th>
