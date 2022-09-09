@@ -11,42 +11,42 @@
 <jsp:include page="../common/header.jsp"/>
 
 <div class="content-wrapper">
-    <div class="container-xxl flex-grow-1 container-p-y">
+<form action="update.ur" id="updateForm" method="post" enctype="multipart/form-data">
+    <div class="container-xxl flex-grow-1 container-p-y" style="padding : 0px;">
         <div class="row">
             <div class="col-xl-12">
                 <div class="nav-align-top mb-4">
                     <div class="tab-content" style="height: 800px;">
                         <h5 class="text-muted">🙍‍♀️회원관리 - 상세페이지</h5>
-
-                        <!-- 회원번호 -->
+                         <!-- 회원번호 -->
                         <div class="mb-3 row">
                           <label for="html5-text-input" class="col-md-2 col-form-label">회원번호</label>
                           <div class="col-md-3">
-                            <input class="form-control" type="text" value="${u.userNo}" id="html5-text-input" readonly/>
+                            <input class="form-control" type="text" name="userNo" value="${u.userNo}" id="html5-text-input" readonly/>
                           </div>
                         </div>
 
-                        <!-- 이름 -->
+                        <!-- 이름 (변경가능) -->
                         <div class="mb-3 row">
                           <label for="html5-text-input" class="col-md-2 col-form-label">이름</label>
                           <div class="col-md-3">
-                            <input class="form-control" type="text" value="${u.userName}" id="html5-text-input" />
+                            <input class="form-control" type="text" name="userName" value="${u.userName}" id="html5-text-input" />
                           </div>
                         </div>
 
-                        <!-- 전화번호 -->
+                        <!-- 전화번호 (변경가능) -->
                         <div class="mb-3 row">
                           <label for="html5-tel-input" class="col-md-2 col-form-label">전화번호</label>
                           <div class="col-md-3">
-                            <input class="form-control" type="tel" value="${u.userPhone}" id="html5-tel-input" />
+                            <input class="form-control" type="tel" name="userPhone" value="${u.userPhone}" id="html5-tel-input" />
                           </div>
                         </div>
 
-                        <!-- 생년월일 -->
+                        <!-- 생년월일 (변경가능) -->
                         <div class="mb-3 row">
                           <label for="html5-text-input" class="col-md-2 col-form-label">생년월일</label>
                           <div class="col-md-3">
-                            <input class="form-control" type="text" value="${u.userBirth}" id="html5-text-input" />
+                            <input class="form-control" type="text" name="userBirth" value="${u.userBirth}" id="html5-text-input" />
                           </div>
                         </div>
 
@@ -54,71 +54,66 @@
                         <div class="col-md">
                           <label for="html5-tel-input" class="col-md-2 col-form-label">성별</label>
                           <div class="form-check form-check-inline mt-3">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            name="inlineRadioOptions"
-                            id="inlineRadio1"
-                            value="option1"
-                          />
-                          <label class="form-check-label" for="inlineRadio1">&nbsp;&nbsp;F</label>
+	                          <input type="radio" name="userGender" value="F" id="F" class="form-check-input" readonly />
+	                          <label class="form-check-label" for="inlineRadio1">&nbsp;&nbsp;F</label>
                           </div>
                           <div class="form-check form-check-inline">
-                          <input
-                            class="form-check-input"
-                            type="radio"
-                            name="inlineRadioOptions"
-                            id="inlineRadio2"
-                            value="option2"
-                          />
-                          <label class="form-check-label" for="inlineRadio2">&nbsp;&nbsp;M</label>
+	                          <input type="radio" name="userGender" value="M" id="M" class="form-check-input" readonly />
+	                          <label class="form-check-label" for="inlineRadio2">&nbsp;&nbsp;M</label>
                           </div>
-                        </div>
-                        <br>
+                        <script>
+							$(function(){
+								$("input[value=${u.userGender}]").attr("checked", true);
+							})
+                        </script>
+                        </div> <br>
+                        
 
-                        <!-- 회원권 구분 -->
+                        <!-- 회원권 구분 (변경가능) -->
                         <div class="col-md">
                           <label for="html5-tel-input" class="col-md-2 col-form-label">회원권 구분</label>
-                            <input
-                              name="default-radio-1"
-                              class="form-check-input"
-                              type="radio"
-                              value=""
-                              id="defaultRadio1"
-                            />
+                            <input type="radio" name="userType" value="H"  id="H" class="form-check-input" />
                             <label class="form-check-label" for="defaultRadio1">&nbsp;&nbsp;헬스장 이용권</label>
                           &nbsp;&nbsp;&nbsp;
-                            <input
-                              name="default-radio-1"
-                              class="form-check-input"
-                              type="radio"
-                              value=""
-                              id="defaultRadio1"
-                            />
+                            <input type="radio" name="userType" value="P" id="P" class="form-check-input" />
                             <label class="form-check-label" for="defaultRadio1">&nbsp;&nbsp;PT 이용권</label>
-                        </div>
-                        <br>
-
+                        <script>
+	                        $(function(){
+								$("input[value=${u.userType}]").attr("checked", true);
+							})
+                        </script>
+                        </div> <br>
+                        
+	
                         <!-- 등록일 -->
                         <div class="mb-3 row">
                           <label for="html5-date-input" class="col-md-2 col-form-label">등록일</label>
                           <div class="col-md-3">
-                            <input class="form-control" type="date" value="${u.userSdate}" id="html5-date-input" readonly />
+                            <input class="form-control" type="date" name="userSdate" value="${u.userSdate}" id="html5-date-input" readonly />
                           </div>
                         </div>
 
-                        <!-- 이용 개월 -->
+                        <!-- 이용 개월 (변경가능) -->
                         <div class="mb-3 row">
                           <label for="html5-date-input" class="col-md-2 col-form-label">이용 개월</label>
                           <div class="col-md-3">
-                            <select id="defaultSelect" name="" class="form-select">
+                            <select id="month" name="userMonth" value="${u.userMonth}" class="form-select" >
                               <option disabled selected hidden>이용 개월 선택</option>
-                              <option value="1">1개월</option>
+                       		  <option value="1">1개월</option>
                               <option value="3">3개월</option>
                               <option value="6">6개월</option>
                               <option value="9">9개월</option>
                               <option value="12">12개월</option>
                             </select>
+                            <script>
+                            	$(function(){
+                            		$("#month option").each(function(){
+                            			if($(this).val() == "${u.userMonth}") {
+                            				$(this).attr("selected", true);
+                            			}
+                            		})
+                            	})
+                            </script>
                           </div>
                         </div>
 
@@ -126,11 +121,11 @@
                         <div class="mb-3 row">
                           <label for="html5-text-input" class="col-md-2 col-form-label">만료일</label>
                           <div class="col-md-3">
-                            <input class="form-control" type="text" value="${u.userEdate}" id="html5-text-input" />
+                            <input class="form-control" type="text" name="userEdate" value="${u.userEdate}" id="html5-text-input" readonly />
                           </div>
                         </div>
 
-                        <!-- 프로필 -->
+                        <!-- 프로필 (변경가능) -->
 						<div class="mb-3 row">
 						  <label for="formFile" class="col-md-2 col-form-label">회원 프로필</label>
 						  <div class="col-md-3">
@@ -190,8 +185,8 @@
                                   </div>
                                   <div class="modal-body" style="text-align: center; font-size: larger; font-weight: bold;">회원정보가 수정되었습니다</div>
                                   <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">확인</button>
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
+                                    <button type="submit" class="btn btn-primary">확인</button>
+                                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
                                   </div>
                                 </div>
                               </div>
@@ -215,13 +210,14 @@
                               </div>
                             </div>
                             <!-- 목록 버튼 -->
-                            <button type="reset" class="btn btn-secondary" >목록으로</button>
+                            <a class="btn btn-secondary" href="list.ur">목록으로</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+ </form>
 </div>
 
 
