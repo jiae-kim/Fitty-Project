@@ -42,11 +42,11 @@
                 	</div>
                 </form>
                
-                <form class="col-md-6" id="formAccountSettings" action="insert.emp" method="POST" >
+                <form class="col-md-6" id="formAccountSettings resetForm" action="resetAtt.att" method="POST" >
                 <h6 class="card-header resetHeader">🏋️‍♂️ 명단 확인</h6>
                   <div class="row">
 	                <div class="d-flex align-items-start align-items-sm-center gap-4">
-		               <div class=" afterEmpList">
+		               <div class="afterEmpList">
 							<div class="navbar-nav align-items-left">
 								<div class="nav-item d-flex align-items-center listNameSearch">
 									<input type="text" class="form-control border-0 shadow-none" placeholder="직원명 검색" aria-label="Search..." style="width:350px">
@@ -61,8 +61,8 @@
                 	</div>
                 	<div class="btnDiv resetBtnDiv" style="margin-top:20px;">
                 			<input type="hidden" id="deleteEmpNo" name="deleteEmpNo">
-                			<input type="hidden" id="afterEmpNoList" name="deleteEmpNo">
-						<button class="btn btn-info" type="button">근태 초기화</button>
+                			<input type="hidden" id="afterEmpNoList" name="afterEmpNoList">
+						<button class="btn btn-info" type="button" onclick="confirm();">근태 초기화</button>
                 	</div>
                 </form>
               </div>

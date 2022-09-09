@@ -71,7 +71,7 @@ public class AttendanceController {
 	@RequestMapping(value="listDelete.att", produces="application/json; charset=utf-8")
 	public String deleteEmpNoList(String strInsertListEmpNo, String deleteEmpNo) {
 		
-		if(strInsertListEmpNo == null) {
+		if(strInsertListEmpNo.trim().isEmpty()) {
 			
 			String notReadyEmpNo = "";
 			ArrayList<Employee> deleteEmpNoList = new ArrayList<Employee>();
@@ -139,6 +139,22 @@ public class AttendanceController {
 
 		return new Gson().toJson(map);
 	}
+	
+	
+	@RequestMapping("resetAtt.att")
+	public String resetAttendanceUpdate(String afterEmpNoList) {
+		String[] beforeEmpArray = afterEmpNoList.split(",");
+		final List<String> empList =  new ArrayList<String>();
+	    Collections.addAll(empList, beforeEmpArray);
+	    int resetStatusNull = 0;
+	    int setWeekDaysX = 0;
+	    for(int i=0; i<empList.size(); i++) {
+	    	
+	    	resetStatusNull += aService.insertAttendance(empList.get(i));
+	    	setWeekDaysX += aService.updateAttendanceStatus(empList.get(i));
+	    }
+	}
+
 	
 	
 	

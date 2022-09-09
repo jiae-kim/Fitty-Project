@@ -26,7 +26,13 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 	@Override
 	public int insertAttendance(String empNo) {
-		return 0;
+		return aDao.insertAttendance(sqlSession, empNo);
 	}
 
+	@Override
+	public int updateAttendanceStatus(String empNo) {
+		return aDao.updateAttendanceStatus(sqlSession, empNo);
+	}
+
+	
 }

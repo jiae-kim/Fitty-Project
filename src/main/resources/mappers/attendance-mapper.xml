@@ -26,7 +26,33 @@
   	   
   </select>
   
-
+  <insert id="insertAttendanceReset">
+  	DECLARE
+	  date1 DATE := TO_DATE('20220101','yyyy/mm/dd');
+	  date2 DATE := TO_DATE('20230101','yyyy/mm/dd');
+	BEGIN
+	  FOR i IN 1..(date2 - date1 + 1) LOOP
+	   insert into tb_att ( att_no, emp_no, att_date, att_in, att_out, att_status, att_plus_work)
+	   values (SEQ_ATT_NO.NEXTVAL, ${empNo} ,(TO_CHAR(date1 + i - 1, 'yyyy-mm-dd')), null, null, ' ', 'N');
+	  END LOOP;
+	END
+  </insert>
+  
+  <update id="updateAttendanceStatus">
+  update tb_att
+	set att_status = 'X'
+	where emp_no =  ${empNo}
+	  and att_date in 
+	(select "att_date"
+	   from(
+	select level
+	     , trunc(to_date('22/01/01', 'YY/MM/DD'), 'MM') + level -1 "att_date"
+	     , to_char(trunc(to_date('22/01/01', 'YY/MM/DD'), 'MM') + level - 1 ,'DY') "요일"
+	  from dual
+	connect by level <= 365
+	)
+	where 요일 in ('월', '화', '수', '목', '금'))
+  </update>
   
 
 

@@ -14,6 +14,6 @@ public interface AttendanceService {
 	// 1년치 근태 세팅 서비스
 	int insertAttendance(String empNo);
 	
-	
+	int updateAttendanceStatus(String empNo);
 	
 }

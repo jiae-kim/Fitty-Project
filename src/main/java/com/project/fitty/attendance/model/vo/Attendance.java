@@ -22,5 +22,6 @@ public class Attendance {
 	private String attPlusWork;
 	private String attNworkTime;
 	private String attPworkTime;
+	
 
 }

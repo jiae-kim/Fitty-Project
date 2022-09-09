@@ -17,4 +17,12 @@ public class AttendanceDao {
 		
 	}
 	
+	public int insertAttendance(SqlSessionTemplate sqlSession, String empNo) {
+		return sqlSession.insert("attendanceMapper.insertAttendance", empNo);
+	}
+	
+	public int updateAttendanceStatus(SqlSessionTemplate sqlSession, String empNo) {
+		return sqlSession.insert("attendanceMapper.updateAttendanceStatus", empNo);
+	}
+	
 }
