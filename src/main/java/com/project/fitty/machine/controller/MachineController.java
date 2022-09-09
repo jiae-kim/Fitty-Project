@@ -192,5 +192,18 @@ public class MachineController {
 		}
 	}
 	
+	@RequestMapping("ckDelete.mc")
+	public String deleteCheck(int ckNo, HttpSession session) {
+		
+		int result = mService.deleteCheck(ckNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 기구 점검 삭제하였습니다.");
+			return "redirect:ckList.mc";
+		}else {
+			session.setAttribute("errorMsg", "기구 점검 삭제 실패");
+			return "common/errorPage";
+		}
+	}
 	
 }

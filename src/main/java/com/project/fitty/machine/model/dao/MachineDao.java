@@ -63,4 +63,8 @@ public class MachineDao {
 	public int updateMachineBroken(SqlSessionTemplate sqlSession, int mcNo) {
 		return sqlSession.update("machineMapper.updateMachineBroken", mcNo);
 	}
+	
+	public int deleteCheck(SqlSessionTemplate sqlSession, int ckNo) {
+		return sqlSession.delete("machineMapper.deleteCheck", ckNo);
+	}
 }

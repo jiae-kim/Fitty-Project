@@ -62,5 +62,9 @@ public class MachineService {
 	public int updateMachineBroken(int mcNo) {
 		return mDao.updateMachineBroken(sqlSession, mcNo);
 	}
+	
+	public int deleteCheck(int ckNo) {
+		return mDao.deleteCheck(sqlSession, ckNo);
+	}
 
 }

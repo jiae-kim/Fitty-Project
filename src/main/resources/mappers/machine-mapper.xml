@@ -152,4 +152,10 @@
 		    set mc_status = '2'
 		  where mc_no = #{mcNo}
 	</update>
+	
+	<update id="deleteCheck">
+		delete
+		  from tb_check
+		 where ck_no = #{ckNo}
+	</update>
 </mapper>
