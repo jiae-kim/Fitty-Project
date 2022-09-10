@@ -60,6 +60,18 @@
                     
                     <div class="tab-content">
                     <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
+                    	<form class="month">
+                    		<table class="monthTable">
+                    			<tr>
+                    				<td rowspan="2"><button type="button"><i class='bx bxs-left-arrow arrow'></i></button></td>
+                    				<td id="nowMonth">8<span>월</span></td>
+                    				<td rowspan="2"><button type="button"><i class='bx bxs-right-arrow arrow'></i></button></td>
+                    			</tr>
+                    			<tr>
+                    				<td><input type="text" value="2022" id="yearInput"></td>
+                    			</tr>
+                    		</table>
+                    	</form>
                         <table class="pull-right" style="margin-top: 20px;">
                         <tr>
                             <td width="22px"></td>

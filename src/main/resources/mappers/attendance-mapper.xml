@@ -21,8 +21,8 @@
   	     , att_status
   	  from tb_att
   	 where emp_no = #{empNo}
-  	   and att_date BETWEEN TO_DATE('22/08/01', 'YYYY-MM-DD') 
-                        AND TO_DATE('22/08/31', 'YYYY-MM-DD')
+  	   and att_date BETWEEN TO_DATE('2022-08-01', 'YYYY-MM-DD') 
+                        AND TO_DATE('2022-08-31', 'YYYY-MM-DD')
   	   
   </select>
   

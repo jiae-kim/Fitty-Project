@@ -51,7 +51,17 @@
         <!-- jQuery 라이브러리 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     
+    
+    <!-- 구글폰트 notosans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>	
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+    
     <style>
+    *{
+    	font-family: 'Noto Sans KR', sans-serif;
+    }
+    	
         #helloMan, #about-time {
             color:rgb(50, 50, 50);
             font-size: 11px;
