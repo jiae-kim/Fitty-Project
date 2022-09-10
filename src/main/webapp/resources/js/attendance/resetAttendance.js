@@ -113,6 +113,7 @@ function checkEmpNoList(){
 	    					value += "</tbody>"
     				}
 					$(".printEmpList").html(value);
+					$("#afterEmpNoList").val($("#strInsertListEmpNo").val());
     			},
     			error:function(){
     				console.log("선택된 직원리스트 조회용 ajax 통신 실패");
@@ -172,12 +173,15 @@ function deleteEmpNoList(deleteEmpNo){
     		
 }
 
-function confirm(){
-	if (!confirm("근태초기화는 되돌릴 수 없습니다. 정말 초기화 하시겠습니까?")) {
-            alert("초기화 취소, 다시 직원명단을 만들어주세요");
-        } else {
+function resetAttBtn(){
+	
+	const ask = confirm("근태초기화는 되돌릴 수 없습니다. 정말 초기화 하시겠습니까?");
+	
+	if(ask == true) {
             alert("직원 초기화를 진행합니다.");
              $("#resetForm").submit();
+        } else {
+             alert("초기화 취소, 다시 직원명단을 만들어주세요");
         }
 }
 

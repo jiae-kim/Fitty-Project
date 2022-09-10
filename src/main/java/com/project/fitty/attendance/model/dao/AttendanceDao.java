@@ -18,6 +18,7 @@ public class AttendanceDao {
 	}
 	
 	public int insertAttendance(SqlSessionTemplate sqlSession, String empNo) {
+		System.out.println(empNo);
 		return sqlSession.insert("attendanceMapper.insertAttendance", empNo);
 	}
 	

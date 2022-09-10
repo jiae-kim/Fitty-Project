@@ -142,17 +142,25 @@ public class AttendanceController {
 	
 	
 	@RequestMapping("resetAtt.att")
-	public String resetAttendanceUpdate(String afterEmpNoList) {
+	public String resetAttendanceUpdate(String afterEmpNoList, HttpSession session) {
+		System.out.println(afterEmpNoList);
 		String[] beforeEmpArray = afterEmpNoList.split(",");
 		final List<String> empList =  new ArrayList<String>();
 	    Collections.addAll(empList, beforeEmpArray);
 	    int resetStatusNull = 0;
 	    int setWeekDaysX = 0;
+	    int count = 0;
 	    for(int i=0; i<empList.size(); i++) {
-	    	
 	    	resetStatusNull += aService.insertAttendance(empList.get(i));
 	    	setWeekDaysX += aService.updateAttendanceStatus(empList.get(i));
+	    	count = i;
 	    }
+	    int result = count * 365;
+	    
+	   
+	    	session.setAttribute("alertMsg", (count+1) + "명 근태초기화에 성공했습니다.");
+	    	return "attendance/centerAllAttendance";
+	   
 	}
 
 	

@@ -162,11 +162,11 @@ table thead, table tfoot{
 	heignt : 20px;
 }
 
-#formAccountSettings{
+.formAccountSettings{
 	margin-top:-150px;
 }
 
-#formAccountSettings button{
+.formAccountSettings button{
 	margin : auto;
 	align-items:center;
 	justify-content:center;

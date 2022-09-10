@@ -26,19 +26,20 @@
   	   
   </select>
   
-  <insert id="insertAttendanceReset">
+  <insert id="insertAttendance">
   	DECLARE
-	  date1 DATE := TO_DATE('20220101','yyyy/mm/dd');
-	  date2 DATE := TO_DATE('20230101','yyyy/mm/dd');
+	  date1 DATE := TO_DATE('20220101','yyyy-mm-dd');
+	  date2 DATE := TO_DATE('20230101','yyyy-mm-dd');
 	BEGIN
 	  FOR i IN 1..(date2 - date1 + 1) LOOP
 	   insert into tb_att ( att_no, emp_no, att_date, att_in, att_out, att_status, att_plus_work)
-	   values (SEQ_ATT_NO.NEXTVAL, ${empNo} ,(TO_CHAR(date1 + i - 1, 'yyyy-mm-dd')), null, null, ' ', 'N');
+	   values (SEQ_ATT_NO.NEXTVAL, ${empNo}, (TO_CHAR(date1 + i - 1, 'yyyy-mm-dd')), null, null, ' ', 'N');
 	  END LOOP;
-	END
+	END;
   </insert>
   
   <update id="updateAttendanceStatus">
+  <![CDATA[
   update tb_att
 	set att_status = 'X'
 	where emp_no =  ${empNo}
@@ -52,8 +53,8 @@
 	connect by level <= 365
 	)
 	where 요일 in ('월', '화', '수', '목', '금'))
+  ]]>
   </update>
-  
 
 
 </mapper>
