@@ -111,7 +111,40 @@
 
 
 /*centerAllAttendance*/
+.monthTable{
+	margin : auto;
+	align-items:center;
+	justify-content:center;
+	margin-top:20px;
+}
 
+.monthTable * {
+	width:100px;
+}
+
+.monthTable #nowMonth{
+	font-size:30px;
+	color: #696CFF
+}
+
+.monthTable button {
+	border : none;
+	background-color : white;
+}
+
+.monthTable #nowMonth span{
+	font-size:20px;
+	color: #696CFF
+}
+
+#yearInput {
+	border : none;
+}
+
+.arrow{
+	font-size:30px;
+	color: #696CFF
+}
 
 .tab-content,modifyDiv{
 	height: 680px;

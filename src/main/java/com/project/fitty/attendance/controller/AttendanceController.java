@@ -151,7 +151,6 @@ public class AttendanceController {
 	    Collections.addAll(empList, beforeEmpArray);
 	    
 	    String thisYear = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"));
-	    System.out.println(thisYear);
 	    
 	    int resetStatusNull = 0;
 	    int setWeekDaysX = 0;
