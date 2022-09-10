@@ -17,13 +17,12 @@ public class AttendanceDao {
 		
 	}
 	
-	public int insertAttendance(SqlSessionTemplate sqlSession, String empNo) {
-		System.out.println(empNo);
-		return sqlSession.insert("attendanceMapper.insertAttendance", empNo);
+	public int insertAttendance(SqlSessionTemplate sqlSession, Attendance a) {
+		return sqlSession.insert("attendanceMapper.insertAttendance", a);
 	}
 	
-	public int updateAttendanceStatus(SqlSessionTemplate sqlSession, String empNo) {
-		return sqlSession.insert("attendanceMapper.updateAttendanceStatus", empNo);
+	public int updateAttendanceStatus(SqlSessionTemplate sqlSession, Attendance a) {
+		return sqlSession.insert("attendanceMapper.updateAttendanceStatus", a);
 	}
 	
 }

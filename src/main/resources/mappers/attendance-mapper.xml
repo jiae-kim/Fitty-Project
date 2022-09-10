@@ -21,15 +21,15 @@
   	     , att_status
   	  from tb_att
   	 where emp_no = #{empNo}
-  	   and att_date BETWEEN TO_DATE('22/08/01', 'YY/MM/DD') 
-                        AND TO_DATE('22/08/31', 'YY/MM/DD')
+  	   and att_date BETWEEN TO_DATE('22/08/01', 'YYYY-MM-DD') 
+                        AND TO_DATE('22/08/31', 'YYYY-MM-DD')
   	   
   </select>
   
   <insert id="insertAttendance">
   	DECLARE
-	  date1 DATE := TO_DATE('20220101','yyyy-mm-dd');
-	  date2 DATE := TO_DATE('20230101','yyyy-mm-dd');
+	  date1 DATE := TO_DATE( #{thisYear} || '0101','yyyy-mm-dd');
+	  date2 DATE := TO_DATE( #{thisYear} || '1231','yyyy-mm-dd');
 	BEGIN
 	  FOR i IN 1..(date2 - date1 + 1) LOOP
 	   insert into tb_att ( att_no, emp_no, att_date, att_in, att_out, att_status, att_plus_work)

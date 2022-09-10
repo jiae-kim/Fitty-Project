@@ -1,5 +1,7 @@
 package com.project.fitty.attendance.controller;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -147,15 +149,18 @@ public class AttendanceController {
 		String[] beforeEmpArray = afterEmpNoList.split(",");
 		final List<String> empList =  new ArrayList<String>();
 	    Collections.addAll(empList, beforeEmpArray);
+	    
+	    String thisYear = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"));
+	    System.out.println(thisYear);
+	    
 	    int resetStatusNull = 0;
 	    int setWeekDaysX = 0;
 	    int count = 0;
 	    for(int i=0; i<empList.size(); i++) {
-	    	resetStatusNull += aService.insertAttendance(empList.get(i));
-	    	setWeekDaysX += aService.updateAttendanceStatus(empList.get(i));
+	    	resetStatusNull += aService.insertAttendance(empList.get(i), thisYear);
+	    	setWeekDaysX += aService.updateAttendanceStatus(empList.get(i), thisYear);
 	    	count = i;
 	    }
-	    int result = count * 365;
 	    
 	   
 	    	session.setAttribute("alertMsg", (count+1) + "명 근태초기화에 성공했습니다.");

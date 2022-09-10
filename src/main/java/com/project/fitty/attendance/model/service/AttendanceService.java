@@ -12,8 +12,8 @@ public interface AttendanceService {
 	ArrayList<Attendance> selectAllAttList(Employee e);
 	
 	// 1년치 근태 세팅 서비스
-	int insertAttendance(String empNo);
+	int insertAttendance(String empNo, String thisYear);
 	
-	int updateAttendanceStatus(String empNo);
+	int updateAttendanceStatus(String empNo, String thisYear);
 	
 }
