@@ -19,6 +19,7 @@ public class Locker {
 	private Date lkEnrollDate;
 	private String lkBlock;
 	private int userNo;
+	private String userName;
 	private Date assignDate; 
 	private String startDate;
 	private String endDate;

@@ -159,7 +159,7 @@ table thead, table tfoot {
 													</c:when>
 													<c:otherwise>
 														<li class="page-item prev"><a class="page-link"
-															href="list.mc?cpage=${ pi.currentPage - 1 }"><i
+															href="bkList.mc?cpage=${ pi.currentPage - 1 }"><i
 																class="tf-icon bx bx-chevron-left"></i></a></li>
 													</c:otherwise>
 												</c:choose>
@@ -167,7 +167,7 @@ table thead, table tfoot {
 												<c:forEach var="p" begin="${pi.startPage }"
 													end="${ pi.endPage }">
 													<li class="page-item"><a class="page-link page-color"
-														href="list.mc?cpage=${ p }">${ p }</a></li>
+														href="bkList.mc?cpage=${ p }">${ p }</a></li>
 												</c:forEach>
 
 												<c:choose>
@@ -178,7 +178,7 @@ table thead, table tfoot {
 													</c:when>
 													<c:otherwise>
 														<li class="page-item next"><a class="page-link"
-															href="list.mc?cpage=${ pi.currentPage + 1 }"><i
+															href="bkList.mc?cpage=${ pi.currentPage + 1 }"><i
 																class="tf-icon bx bx-chevron-right"></i></a></li>
 													</c:otherwise>
 												</c:choose>

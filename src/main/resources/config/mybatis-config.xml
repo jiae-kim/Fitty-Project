@@ -35,7 +35,7 @@
 	 	<mapper resource="/mappers/attendance-mapper.xml"/>
 	 	<mapper resource="/mappers/approval-mapper.xml"/>
 	 	<mapper resource="/mappers/machine-mapper.xml"/>
-	 	<!-- <mapper resource="/mappers/locker-mapper.xml"/> -->
+	 	<mapper resource="/mappers/locker-mapper.xml"/>
 	 	<!-- <mapper resource="/mappers/alert-mapper.xml"/>  -->
 	 	
 	 </mappers>

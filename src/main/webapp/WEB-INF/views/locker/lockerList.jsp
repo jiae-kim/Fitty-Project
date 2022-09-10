@@ -104,7 +104,7 @@
                     <tr>
                       <td width="22px"></td>
                         <td>
-                          <h3>🔐 락커 관리<span>(23)</span></h3>
+                          <h3>🔐 락커 관리<span>(${pi.listCount })</span></h3>
                         </td>
                     </tr>        
                   </table>
