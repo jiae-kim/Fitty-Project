@@ -95,7 +95,7 @@ table thead, table tfoot {
 								</a>
 							</li>
 							<li class="nav-item">
-								<a type="button" class="nav-link" role="tab" href="">
+								<a type="button" class="nav-link" role="tab" href="bkList.mc">
 									🛠 고장난&nbsp기구
 								</a>
 							</li>

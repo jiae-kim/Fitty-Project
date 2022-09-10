@@ -73,10 +73,7 @@
                 <li class="nav-item">
                   <a
                     type="button"
-                    class="nav-link"
-                    data-bs-target="#navs-pills-justified-messages"
-                    aria-controls="navs-pills-justified-messages"
-                    aria-selected="false"
+                    class="nav-link" href="bkList.mc"
                   >
                     <!-- <i class="tf-icons bx bx-message-square"></i> Messages -->
                     🛠 고장난&nbsp기구
@@ -89,7 +86,7 @@
                   <table class="pull-right" style="width:100%;">
                     <tr>
                         <td style="width:15%;">
-                          <h3>시설 점검 리스트</h3>
+                          <h3>기구 점검 리스트</h3>
                         </td>
                         <td>
                         </td>

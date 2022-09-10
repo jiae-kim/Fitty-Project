@@ -168,7 +168,7 @@ public class MachineController {
 		int result2 = mService.updateMachineBroken(mcNo);
 		
 		if(result1 * result2 > 0) {
-			session.setAttribute("alertMsg", "성공적으로 기구 고장 등하였습니다.");
+			session.setAttribute("alertMsg", "성공적으로 기구 고장 등록하였습니다.");
 			return "redirect:ckList.mc";
 		}else {
 			session.setAttribute("errorMsg", "기구 고장 등록 실패");
@@ -206,4 +206,36 @@ public class MachineController {
 		}
 	}
 	
+	@RequestMapping("bkList.mc")
+	public String selectBrokenList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model) {
+		
+		int listCount = mService.selectBrokenListCount();
+
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		ArrayList<Machine> list = mService.selectBrokenList(pi);
+
+		model.addAttribute("pi", pi);
+		model.addAttribute("list", list);
+		
+		return "machine/machineBrokenList";
+	}
+	
+	@RequestMapping("repair.mc")
+	public String repairMachine(HttpServletRequest request, HttpSession session) {
+
+		String[] arr = request.getParameterValues("ckMachine");
+		int result = 0;
+
+		for (int i = 0; i < arr.length; i++) {
+			result += mService.repairMachine(arr[i]);
+		}
+
+		if (result == arr.length) {
+			session.setAttribute("alertMsg", "성공적으로 수리 완료하였습니다.");
+			return "redirect:bkList.mc";
+		} else {
+			session.setAttribute("errorMsg", "수리 완료 실패");
+			return "common/errorPage";
+		}
+	}
 }

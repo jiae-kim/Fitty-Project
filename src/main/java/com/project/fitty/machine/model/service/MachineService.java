@@ -66,5 +66,17 @@ public class MachineService {
 	public int deleteCheck(int ckNo) {
 		return mDao.deleteCheck(sqlSession, ckNo);
 	}
+	
+	public int selectBrokenListCount(){
+		return mDao.selectBrokenListCount(sqlSession);
+	}
+	
+	public ArrayList<Machine> selectBrokenList(PageInfo pi){
+		return mDao.selectBrokenList(sqlSession, pi);
+	}
+	
+	public int repairMachine(String mcNo) {
+		return mDao.repairMachine(sqlSession, mcNo);
+	}
 
 }

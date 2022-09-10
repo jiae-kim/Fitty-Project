@@ -45,7 +45,7 @@
         #plus{ background-color: #c8c9ff;}
 
         #tb1 th{
-          background-color: #f7f6f8;
+          background-color: #f8f4fc;
         }
 </style>
 </head>

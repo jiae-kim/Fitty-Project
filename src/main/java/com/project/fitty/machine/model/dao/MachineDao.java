@@ -67,4 +67,21 @@ public class MachineDao {
 	public int deleteCheck(SqlSessionTemplate sqlSession, int ckNo) {
 		return sqlSession.delete("machineMapper.deleteCheck", ckNo);
 	}
+	
+	public int selectBrokenListCount(SqlSessionTemplate sqlSession){
+		return sqlSession.selectOne("machineMapper.selectBrokenListCount");
+	}
+	
+	public ArrayList<Machine>selectBrokenList(SqlSessionTemplate sqlSession, PageInfo pi){
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("machineMapper.selectBrokenList", null, rowBounds);
+	}
+	
+	public int repairMachine(SqlSessionTemplate sqlSession, String mcNo) {
+		return sqlSession.update("machineMapper.repairMachine", mcNo);
+	}
 }
