@@ -18,6 +18,8 @@ function selectAllAttList(page){
 		data:{
 		    searchType:$("#searchType").val(),
 		    searchText:$("#searchText").val(),
+		    thisMonth : $("#monthInput").val(),
+		    thisYear : $("#yearInput").val()
 		  	cpage:page 
 		},
 		type:"post",

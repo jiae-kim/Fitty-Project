@@ -63,12 +63,12 @@
                     	<form class="month">
                     		<table class="monthTable">
                     			<tr>
-                    				<td rowspan="2"><button type="button"><i class='bx bxs-left-arrow arrow'></i></button></td>
-                    				<td id="nowMonth">8<span>월</span></td>
-                    				<td rowspan="2"><button type="button"><i class='bx bxs-right-arrow arrow'></i></button></td>
+                    				<td rowspan="2"><button type="button"><i class='bx bxs-left-arrow arrow' onclick="forward();"></i></button></td>
+                    				<td id="nowMonth"><input type="text" value="${ thisMonth }" id="monthInput" name="monthInput"></td>
+                    				<td rowspan="2"><button type="button"><i class='bx bxs-right-arrow arrow' onclick="forward();"></i></button></td>
                     			</tr>
                     			<tr>
-                    				<td><input type="text" value="2022" id="yearInput"></td>
+                    				<td><input type="text" value="${ thisYear }" id="yearInput" name="yearInput"></td>
                     			</tr>
                     		</table>
                     	</form>

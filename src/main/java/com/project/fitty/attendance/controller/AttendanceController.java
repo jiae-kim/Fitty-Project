@@ -1,8 +1,7 @@
 package com.project.fitty.attendance.controller;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.project.fitty.attendance.model.service.AttendanceService;
@@ -114,11 +114,27 @@ public class AttendanceController {
 	
 	
 	
-	
-	@RequestMapping("centerAtt.att")
-	public String goCenterAtt() {
-		return "attendance/centerAllAttendance";
-		// 진짜 그냥 이동만 시켜주고, 리스트는 ajax로 불러옴 > ajax 페이징처리
+	@RequestMapping(value="centerAtt.att", produces="application/json; charset=utf-8")
+	public ModelAndView goCenterAtt(ModelAndView mv) {
+		
+		ArrayList<Integer> yearList = new ArrayList<>();
+		ArrayList<Integer> monthList = new ArrayList<>();
+		int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+		int thisMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+		
+		for(int i=(Calendar.getInstance().get(Calendar.YEAR) - 5); i<10; i++) {
+			yearList.add(i);
+		}
+		
+		for(int i=1; i<=12; i++) {
+			monthList.add(i);
+		}
+		
+		// 진짜 그냥 이동 + 년 월에 대한 리스트만 올려 시켜주고, 리스트는 ajax로 불러옴 > ajax 페이징처리
+		
+		mv.addObject("yearList", yearList).addObject("monthList", monthList)
+		  .addObject("thisYear", thisYear).addObject("thisMonth", thisMonth).setViewName("attendance/centerAllAttendance");
+		return mv;
 	}
 	
 	@ResponseBody
@@ -145,13 +161,12 @@ public class AttendanceController {
 	
 	@RequestMapping("resetAtt.att")
 	public String resetAttendanceUpdate(String afterEmpNoList, HttpSession session) {
-		System.out.println(afterEmpNoList);
 		String[] beforeEmpArray = afterEmpNoList.split(",");
 		final List<String> empList =  new ArrayList<String>();
 	    Collections.addAll(empList, beforeEmpArray);
 	    
-	    String thisYear = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"));
-	    
+	    //String thisYear = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy"));
+	    String thisYear = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
 	    int resetStatusNull = 0;
 	    int setWeekDaysX = 0;
 	    int count = 0;

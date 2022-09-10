@@ -123,7 +123,7 @@
 }
 
 .monthTable #nowMonth{
-	font-size:30px;
+	font-size:40px;
 	color: #696CFF
 }
 
@@ -132,13 +132,13 @@
 	background-color : white;
 }
 
-.monthTable #nowMonth span{
-	font-size:20px;
-	color: #696CFF
+#yearInput{
+	border : none;
 }
 
-#yearInput {
-	border : none;
+#monthInput{
+	border:none;
+	color: #696CFF
 }
 
 .arrow{
