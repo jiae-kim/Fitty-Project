@@ -63,12 +63,12 @@
                     	<form class="month">
                     		<table class="monthTable">
                     			<tr>
-                    				<td rowspan="2"><button type="button"><i class='bx bxs-left-arrow arrow' onclick="forward();"></i></button></td>
-                    				<td id="nowMonth"><input type="text" value="${ thisMonth }" id="monthInput" name="monthInput"></td>
-                    				<td rowspan="2"><button type="button"><i class='bx bxs-right-arrow arrow' onclick="forward();"></i></button></td>
+                    				<td rowspan="2"><button type="button"><i class='bx bxs-left-arrow arrow' id="backBtn"></i></button></td>
+                    				<td id="nowMonth"><input type="text" value="${ thisMonth }" id="thisMonth" name="thisMonth"></td>
+                    				<td rowspan="2"><button type="button"><i class='bx bxs-right-arrow arrow' id="nextBtn"></i></button></td>
                     			</tr>
                     			<tr>
-                    				<td><input type="text" value="${ thisYear }" id="yearInput" name="yearInput"></td>
+                    				<td><input type="text" value="${ thisYear }" id="thisYear" name="thisYear"></td>
                     			</tr>
                     		</table>
                     	</form>

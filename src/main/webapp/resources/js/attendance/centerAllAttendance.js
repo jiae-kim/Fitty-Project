@@ -4,6 +4,43 @@
  $(function(){
       		
 	selectAllAttList(1);
+    
+    let month = Number($("#thisMonth").val());
+    let year = Number($("#thisYear").val());
+	
+	$(document).ready(function(){
+    	$("#nextBtn").on("click",function() {
+    		
+    		if(month < 12) {
+    			month = month + 1;
+    			$("#thisMonth").val(month);	
+    		    selectAllAttList(1);
+    		} else {
+    			month = 1;
+    			year = year + 1;
+    			$("#thisMonth").val(month);
+    			$("#thisYear").val(year);
+    		    selectAllAttList(1);
+    		}
+    		})
+    })
+    
+    $(document).ready(function(){
+    	$("#backBtn").on("click",function() {
+    		
+    		if(month > 1) {
+    			month = month - 1;
+    			$("#thisMonth").val(month);	
+    		    selectAllAttList(1);
+    		} else {
+    			month = 12;
+    			year = year - 1;
+    			$("#thisMonth").val(month);
+    			$("#thisYear").val(year);
+    		    selectAllAttList(1);
+    		}
+    		})
+    })
         
 })
 
@@ -16,11 +53,12 @@ function selectAllAttList(page){
 	$.ajax({        			
 		url: "attList.att",
 		data:{
-		    searchType:$("#searchType").val(),
-		    searchText:$("#searchText").val(),
-		    thisMonth : $("#monthInput").val(),
-		    thisYear : $("#yearInput").val()
-		  	cpage:page 
+		    // searchType:$("#searchType").val(),
+		    // searchText:$("#searchText").val(),
+		    cpage:page,
+		    thisMonth : $("#thisMonth").val(),
+		    thisYear : $("#thisYear").val()
+		  	
 		},
 		type:"post",
 		success:function(result){

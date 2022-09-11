@@ -23,6 +23,7 @@ public class Attendance {
 	private String attNworkTime;
 	private String attPworkTime;
 	
+	private String thisMonth;
 	private String thisYear;
-
+	
 }

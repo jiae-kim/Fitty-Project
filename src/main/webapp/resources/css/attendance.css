@@ -132,11 +132,11 @@
 	background-color : white;
 }
 
-#yearInput{
+#thisYear{
 	border : none;
 }
 
-#monthInput{
+#thisMonth{
 	border:none;
 	color: #696CFF
 }

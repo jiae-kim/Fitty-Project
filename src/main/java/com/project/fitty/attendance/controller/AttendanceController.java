@@ -17,6 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.project.fitty.attendance.model.service.AttendanceService;
+import com.project.fitty.attendance.model.vo.Attendance;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.common.template.Pagination;
 import com.project.fitty.employee.model.service.EmployeeService;
@@ -139,6 +140,29 @@ public class AttendanceController {
 	
 	@ResponseBody
 	@RequestMapping(value="attList.att", produces="application/json; charset=utf-8")
+	public String selectAllAttList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, String thisMonth, String thisYear) {
+		
+		int listCount =  eService.selectEmpListCount();
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Employee> empList =  eService.selectEmpList(pi);
+		if(!empList.isEmpty()) {
+			for(Employee e : empList) {
+				e.setThisYear(thisYear);
+				e.setThisMonth(thisMonth);
+				e.setAttList(aService.selectAllAttList(e));
+			}
+		}
+
+		// HashMap 은 넘길 배열이 2개일때만 사용
+		HashMap <String, Object> map = new HashMap<String, Object>();
+		map.put("pi", pi);
+		map.put("empList", empList);
+
+		return new Gson().toJson(map);
+	}
+	/*
+	@ResponseBody
+	@RequestMapping(value="attList.att", produces="application/json; charset=utf-8")
 	public String selectAllAttList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session) {
 		
 		int listCount =  eService.selectEmpListCount();
@@ -150,14 +174,14 @@ public class AttendanceController {
 			}
 		}
 
-		/* HashMap 은 넘길 배열이 2개일때만 사용 */
+		// HashMap 은 넘길 배열이 2개일때만 사용
 		HashMap <String, Object> map = new HashMap<String, Object>();
 		map.put("pi", pi);
 		map.put("empList", empList);
 
 		return new Gson().toJson(map);
 	}
-	
+	*/
 	
 	@RequestMapping("resetAtt.att")
 	public String resetAttendanceUpdate(String afterEmpNoList, HttpSession session) {
