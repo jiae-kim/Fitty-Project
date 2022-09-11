@@ -23,7 +23,18 @@ public class Attendance {
 	private String attNworkTime;
 	private String attPworkTime;
 	
+	
+	// 실제 오라클 db에는 없지만 필요에 의해 만든 컬럼
 	private String thisMonth;
 	private String thisYear;
+	
+	private int countO;
+	private int countX;
+	private int countL;
+	private int countE;
+	private int countYH;
+	private int countV;
+	private int countPtime;
+	
 	
 }

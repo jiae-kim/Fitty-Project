@@ -171,10 +171,17 @@ table thead, table tfoot{
   height: 23px;
 }
 
-#attStats td, #attStats th{
+#countList td, #countList th{
   padding:0px;
   font-size: 4px;
   height: 23px;
+}
+
+#listedEmpNoBtn{
+	border : none;
+	padding : 0;
+	margin : 0;
+	background-color : white;
 }
 
 #late{ background-color: #fcffe1;}

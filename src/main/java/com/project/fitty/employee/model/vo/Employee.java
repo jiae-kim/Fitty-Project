@@ -35,5 +35,6 @@ public class Employee {
 	private ArrayList<Attendance> attList;
 	private String thisYear;
 	private String thisMonth;
+	private ArrayList<Attendance> countList;
 
 }

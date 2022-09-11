@@ -4,6 +4,7 @@ package com.project.fitty.attendance.model.service;
 import java.util.ArrayList;
 
 import com.project.fitty.attendance.model.vo.Attendance;
+import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
 
 public interface AttendanceService {
@@ -14,6 +15,9 @@ public interface AttendanceService {
 	// 1년치 근태 세팅 서비스
 	int insertAttendance(String empNo, String thisYear);
 	
+	// 1년치 근태 중 평일만 X로 바꾸기
 	int updateAttendanceStatus(String empNo, String thisYear);
 	
+	// 1달 통계 구하기
+	ArrayList<Attendance> selectCountList(Employee e);
 }

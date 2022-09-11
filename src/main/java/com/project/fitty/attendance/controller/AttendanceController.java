@@ -144,15 +144,18 @@ public class AttendanceController {
 		
 		int listCount =  eService.selectEmpListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
 		ArrayList<Employee> empList =  eService.selectEmpList(pi);
+		
 		if(!empList.isEmpty()) {
 			for(Employee e : empList) {
 				e.setThisYear(thisYear);
 				e.setThisMonth(thisMonth);
 				e.setAttList(aService.selectAllAttList(e));
+				e.setCountList(aService.selectCountList(e));
 			}
 		}
-
+		
 		// HashMap 은 넘길 배열이 2개일때만 사용
 		HashMap <String, Object> map = new HashMap<String, Object>();
 		map.put("pi", pi);

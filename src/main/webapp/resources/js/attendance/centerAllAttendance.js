@@ -64,6 +64,7 @@ function selectAllAttList(page){
 		success:function(result){
 			
 			let value = "";
+			let countValue = "";
 			let pageValue = "";
 			
 			
@@ -83,14 +84,41 @@ function selectAllAttList(page){
 				value += "<tr>"
 					   +    "<th><input type='checkbox' name='choiceAll' id='choiceAll' onclick='checkAll();'></th>"
                        +  	"<td>" +  empList[i].empName + "</td>"
-                       
-                	  for(var k in empList[i].attList) {
-						    value += 	"<td>" + empList[i].attList[k].attStatus + "</td>"
+                     for(let k=0; k<32; k++){  
+                	 // for(var k in empList[i].attList) {
+                	 		if(empList[i].attList[k].attStatus == "" || typeof empList[i].attList[k].attStatus == "undefined" || empList[i].attList[k].attStatus == null ){
+    							value += 	"<td>　</td>"          	 		
+                	 		} else {
+							    value += 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn'>" + empList[i].attList[k].attStatus + "</button></td>"
+                	 		}
 						}
 			            
               
                        
                 value += "</tr>";
+                     
+				}
+				
+				
+			if(empList.length == 0){
+				countValue += "<tr>"
+				       			+ "<td colspan='5'> 직원이 없습니다. </td>"
+                       	   + "</tr>";
+			}else{
+				
+				for(let i=0; i<empList.length; i++){
+					
+				countValue += "<tr>"
+                       
+                	  		 + 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn'>" + empList[i].countList[i].countX + "</button></td>"
+						     + 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn'>" + empList[i].countList[i].countL + "</button></td>"
+						     + 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn'>" + empList[i].countList[i].countE + "</button></td>"
+						     + 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn'>" + empList[i].countList[i].countYH + "</button></td>"
+						     + 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn'>" + empList[i].countList[i].countV + "</button></td>"
+						     + 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn'>" + empList[i].countList[i].countPtime + "</button></td>"
+						}
+                       
+                countValue += "</tr>";
                      
 				}
 				
@@ -116,13 +144,13 @@ function selectAllAttList(page){
 		         } else {
 		        	  pageValue +=	"<li class='page-item next'><button class='page-link' onclick='selectAllAttList(" + (pi.currentPage + 1) + ")'><i class='tf-icon bx bx-chevron-right'></i></button></li>"
 		        	  
-		         } 
+		         
 			}
 			
 			$("#memListTBody").html(value);
 			$(".pagination").html(pageValue);
-			
-			
+			$("#countListTBody").html(countValue);
+			}
 		},
 		error:function(){
 			console.log("관리자 예약내역리스트 조회용 ajax통신 실패");

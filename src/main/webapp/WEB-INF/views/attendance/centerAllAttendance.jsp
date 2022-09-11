@@ -96,7 +96,7 @@
                         <div class="card-body">
                             <div class="table-responsive">
                             <div style="width:83%; float:left;">
-                                <table class="table table-bordered attTable" id="attTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered attTable table-hover" id="attTable" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
                                     <th><input type="checkbox" name="choiceAll" id="choiceAll" onclick="checkAll();"></th>
@@ -178,34 +178,30 @@
                                 </table>
                             </div>
                             <div style="width:16%; float:right;">
-                                <table class="table table-bordered memberListTable table-hover" id="attStats" width="100%" cellspacing="0">
+                                <table class="table table-bordered memberListTable table-hover" id="countList" width="100%" cellspacing="0">
                                 <thead>
                                     <tr>
-                                    <th id="illegal">결근</th>
-                                    <th id="late">지각</th>
-                                    <th id="approve">승인</th>
-                                    <th id="vacation">휴가</th>
-                                    <th id="plus">연장</th>
+	                                    <th id="illegal">결근</th>
+	                                    <th id="late">지각</th>
+	                                    <th id="early">조퇴</th>
+	                                    <th id="approve">승인</th>
+	                                    <th id="vacation">휴가</th>
+	                                    <th id="plus">연장</th>
                                     </tr>
                                 </thead>
                                 <tfoot>
                                     <tr>
-                                    <th id="illegal">결근</th>
-                                    <th id="late">지각</th>
-                                    <th id="approve">승인</th>
-                                    <th id="vacation">휴가</th>
-                                    <th id="plus">연장</th>
+	                                    <th id="illegal">결근</th>
+	                                    <th id="late">지각</th>
+	                                    <th id="early">조퇴</th>
+	                                    <th id="approve">승인</th>
+	                                    <th id="vacation">휴가</th>
+	                                    <th id="plus">연장</th>
                                     </tr>
                                 </tfoot>
                                 
-                                <tbody id="memListTBody">
-                                    <tr>
-                                    <td class="tds">2</td>
-                                    <td class="tds">0</td>
-                                    <td class="tds">1</td>
-                                    <td class="tds">2</td>
-                                    <td class="tds">3</td>
-                                    </tr>
+                                <tbody id="countListTBody">
+                                    
                                 </tbody>
                                 </table>
                                 <input type="hidden" value=" ${ empList }" id="empList">
