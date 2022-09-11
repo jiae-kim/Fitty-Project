@@ -14,7 +14,7 @@ import lombok.ToString;
 public class Product {
 
 	private int proNo; 
-	private String product;
-	private int proPrice;
+	private String pro;
+	private String proPrice;
 	private String proStatus;
 }

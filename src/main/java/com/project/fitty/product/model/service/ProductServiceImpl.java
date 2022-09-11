@@ -19,28 +19,28 @@ public class ProductServiceImpl implements ProductService{
 	@Autowired
 	private ProductDao pDao;
 	
-	@Override
+	@Override // [김지애] 1. 헬스장이용권 전체조회 서비스 (페이징)
 	public int selectListCount() {
-		return 0;
+		return pDao.selectListCount(sqlSession);
 	}
 	
 	@Override
 	public ArrayList<Product> selectList(PageInfo pi) {
-		return null;
+		return pDao.selectList(sqlSession, pi);
 	}
 	
-	@Override
+	@Override // [김지애] 2. 헬스장이용권 등록 서비스
 	public int insertProduct(Product p) {
 		return 0;
 	}
 
-	@Override
+	@Override // [김지애] 3. 헬스장이용권 수정 서비스
 	public int updateProduct(Product p) {
 		return 0;
 	}
 
-	@Override
-	public int deleteProduct(String proNo) {
+	@Override // [김지애] 4. 헬스장이용권 삭제 서비스
+	public int deleteProduct(int proNo) {
 		return 0;
 	}
 

@@ -2,6 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="productMapper">
 
+	<resultMap type="product" id="productResult">
+		<result column="pro_no" property="proNo" />
+		<result column="pro" property="product" />
+		<result column="pro_price" property="proPrice" />
+		<result column="pro_status" property="proStatus" />
+	</resultMap>
+
+	<!-- 1. 전체조회 -->
+	<select id="selectListCount" resultType="_int">
+		select
+				count(*)
+		  from	tb_product
+	</select>
+	
+	<select id="selectList" resultMap="productResult">
+		select
+				pro_no
+			  ,	product
+			  , to_char(pro_price, '999,999,999') AS "pro_price"
+		   from	tb_product
+		  where	pro_status = 'Y'
+		  order
+		  	 by	pro_no desc
+	</select>
+
+
+
 
 </mapper>
 

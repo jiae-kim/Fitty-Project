@@ -21,6 +21,7 @@
             <!-- 등록 버튼 -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ProductEnroll">이용권 등록</button>
             <!-- Modal창 띄우기 -->
+            
             <div class="modal fade" id="ProductEnroll" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -100,87 +101,112 @@
                   <th>이용권 수정</th>
                 </tr>
               </thead>
+              
               <tbody class="table-border-bottom-0">
-              <tr>
-                <td><input type="checkbox"></td>
-                <td><i class="fab fa-react fa-lg text-info me-3"></i>5</td>
-                <td>12개월 이용권</td>
-                <td>500,000</td>
-                <td>
-                  <!-- 수정 버튼 -->
-                  <button type="button" class="btn rounded-pill btn-outline-warning" data-bs-toggle="modal" data-bs-target="#ProductModify">수정</button>
-                  <!-- Modal창 띄우기 -->
-                  <div class="modal fade" id="ProductModify" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                      <div class="modal-content">
-                        <div class="modal-header">
-                          <h5 class="modal-title" id="modalCenterTitle">🎫상품관리 - 헬스장 이용권</h5>
-                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        </div>
-                        <div class="modal-body">
-                          <label for="nameWithTitle" class="form-label">이용권 개월 수</label>
-                          <select id="defaultSelect" name="" class="form-select">
-                            <option disabled selected hidden>등록할 이용권 개월수 선택</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                            <option value="12">12</option>
-                          </select>
-                          <br><br>
-                          <label for="nameWithTitle" class="form-label">이용권 가격</label>
-                          <input type="text" id="productPrice" class="form-control" placeholder="금액을 입력하세요">
-                        </div>
-                        <div class="modal-footer">
-                          <button type="button" class="btn btn-primary">확인</button>
-                          <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </td>
-              </tr>
+              
+              <c:choose>
+              	<c:when test="${empty list}">
+              	<tr>
+              		<td colspan="6">현재 등록된 헬스장 이용권이 없습니다.</td>
+              	</tr>
+              	</c:when>
+              	<c:otherwise>
+            		<c:forEach var="p" items="${list}">
+		              <tr>
+		              	<!-- 체크박스 버튼 -->
+		                <td><input type="checkbox"></td>
+		                <!-- 이용권 번호 -->
+		                <td><i class="fab fa-react fa-lg text-info me-3"></i>${p.proNo}</td>
+		                <!-- 이용권 -->
+		                <td>${p.pro}</td>
+		                <!-- 이용권 금액 -->
+		                <td>${p.proPrice}</td>
+                	    <!-- 수정 버튼 -->
+		                <td>
+		                  <button type="button" class="btn rounded-pill btn-outline-warning" data-bs-toggle="modal" data-bs-target="#ProductModify">수정</button>
+		                  <!-- Modal창 띄우기 -->
+		                  
+		                  <div class="modal fade" id="ProductModify" tabindex="-1" aria-hidden="true">
+		                    <div class="modal-dialog modal-dialog-centered" role="document">
+		                      <div class="modal-content">
+		                        <div class="modal-header">
+		                          <h5 class="modal-title" id="modalCenterTitle">🎫상품관리 - 헬스장 이용권</h5>
+		                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		                        </div>
+		                        <div class="modal-body">
+		                          <label for="nameWithTitle" class="form-label">이용권 개월 수</label>
+		                          <select id="defaultSelect" name="" class="form-select">
+		                            <option disabled selected hidden>등록할 이용권 개월수 선택</option>
+		                            <option value="1">1</option>
+		                            <option value="2">2</option>
+		                            <option value="3">3</option>
+		                            <option value="4">4</option>
+		                            <option value="5">5</option>
+		                            <option value="6">6</option>
+		                            <option value="7">7</option>
+		                            <option value="8">8</option>
+		                            <option value="9">9</option>
+		                            <option value="10">10</option>
+		                            <option value="11">11</option>
+		                            <option value="12">12</option>
+		                          </select>
+		                          <br><br>
+		                          <label for="nameWithTitle" class="form-label">이용권 가격</label>
+		                          <input type="text" id="productPrice" class="form-control" placeholder="금액을 입력하세요">
+		                        </div>
+		                        <div class="modal-footer">
+		                          <button type="submit" class="btn btn-primary">확인</button>
+		                          <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
+		                        </div>
+		                      </div>
+		                    </div>
+		                  </div>
+		                </td>
+		              </tr>
+		             </c:forEach>
+		             </c:otherwise>
+	             </c:choose>
             </tbody>
           </table>
         </div>
        </div> <br><br><br><br>
+       
+       
        <!-- 페이징 -->
    		<nav aria-label="Page navigation">
-          <ul class="pagination justify-content-center">
-            <li class="page-item prev">
-              <a class="page-link" href="javascript:void(0);"
-                ><i class="tf-icon bx bx-chevrons-left"></i
-              ></a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="javascript:void(0);">1</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="javascript:void(0);">2</a>
-            </li>
-            <li class="page-item active">
-              <a class="page-link" href="javascript:void(0);">3</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="javascript:void(0);">4</a>
-            </li>
-            <li class="page-item">
-              <a class="page-link" href="javascript:void(0);">5</a>
-            </li>
-            <li class="page-item next">
-              <a class="page-link" href="javascript:void(0);"
-                ><i class="tf-icon bx bx-chevrons-right"></i
-              ></a>
-            </li>
-          </ul>
+           <ul class="pagination justify-content-center">
+           <c:choose>
+	           	<c:when test="${pi.currentPage eq 1}">
+	                <li class="page-item disabled">
+                   	  <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
+	                </li>
+	            </c:when>
+            	<c:otherwise>
+		           	 <li class="page-item prev">
+	                   <a class="page-link" href="list.ur?cpage=${pi.currentPage - 1}"><i class="tf-icon bx bx-chevrons-left"></i></a>
+	                 </li>
+            	</c:otherwise>
+       		</c:choose>
+         
+         	<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+               <li class="page-item"><a class="page-link" href="list.ur?cpage=${p}">${p}</a></li>
+			</c:forEach>
+		
+			<c:choose>
+				<c:when test="${pi.currentPage eq pi.maxPage}">                                
+	               <li class="page-item disabled">
+	                   <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
+	               </li>
+	            </c:when>
+	            <c:otherwise>
+	            	<li class="page-item next">
+	                	<a class="page-link" href="list.ur?cpage=${pi.currentPage + 1}"><i class="tf-icon bx bx-chevrons-right"></i></a>
+	            	</li>
+	            </c:otherwise>
+       		</c:choose>
+         </ul>
         </nav>
+        
       </div>
      </div>
     </div>
