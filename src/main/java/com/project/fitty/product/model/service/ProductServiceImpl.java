@@ -31,17 +31,23 @@ public class ProductServiceImpl implements ProductService{
 	
 	@Override // [김지애] 2. 헬스장이용권 등록 서비스
 	public int insertProduct(Product p) {
-		return 0;
+		return pDao.insertProduct(sqlSession, p);
 	}
 
 	@Override // [김지애] 3. 헬스장이용권 수정 서비스
+	public Product selectProduct(int proNo) {
+		return pDao.selectProduct(sqlSession, proNo);
+	}
+	
+	@Override 
 	public int updateProduct(Product p) {
-		return 0;
+		return pDao.updateProduct(sqlSession, p);
 	}
 
 	@Override // [김지애] 4. 헬스장이용권 삭제 서비스
 	public int deleteProduct(int proNo) {
 		return 0;
 	}
+
 
 }

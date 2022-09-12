@@ -25,4 +25,19 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectList", null, rowBounds);
 	}
 
+	// [김지애] 2. 헬스장이용권 등록 서비스
+	public int insertProduct(SqlSessionTemplate sqlSession, Product p) {
+		return sqlSession.insert("productMapper.insertProduct", p);
+	}
+
+	// [김지애] 3. 헬스장이용권 수정 서비스
+	public Product selectProduct(SqlSessionTemplate sqlSession, int proNo) {
+		return sqlSession.selectOne("productMapper.selectProduct", proNo);
+	}
+	
+	public int updateProduct(SqlSessionTemplate sqlSession, Product p) {
+		return sqlSession.update("productMapper.updateProduct", p);
+	}
+
+
 }
