@@ -27,4 +27,12 @@ public class LockerService {
 		return lDao.selectList(sqlSession, pi);
 	}
 	
+	public int addLocker() {
+		return lDao.addLocker(sqlSession);
+	}
+	
+	public int deleteLocker(String lkNo) {
+		return lDao.deleteLocker(sqlSession, lkNo);
+	}
+	
 }

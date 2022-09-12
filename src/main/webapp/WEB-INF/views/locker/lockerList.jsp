@@ -45,16 +45,19 @@
         #plus{ background-color: #c8c9ff;}
 
         .locker{
-          width:150px;
-          height:100px;
+          width:100%;
+          height:100%;
           background-color: #f7f6f8;
           border: #e4e4e7 solid 1px;
           position: relative;
         }
 
         .locker-td{
-          padding-right: 16px;
-          padding-bottom: 16px;
+          box-sizing:border-box;
+          width:12%;
+          height:100%;
+          padding-right: 1%;
+          padding-bottom: 1%;
         }
 
         .lk-ck{
@@ -76,7 +79,7 @@
 
         .bt-text{
           width:100px;
-          height:95px;
+          height:90px;
           text-align: center;
           vertical-align: center;
           background-color: #f7f6f8;
@@ -100,10 +103,10 @@
               
               <div class="tab-content" style="width:100%; height:100%">
                 <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
+                <form action="delete.lk">
                   <div style="height : 20px"></div>
                   <table class="pull-right">
                     <tr>
-                      <td width="22px"></td>
                         <td>
                           <h3>🔐 락커 관리<span>(${pi.listCount })</span></h3>
                         </td>
@@ -113,13 +116,10 @@
                   <br>
                   <table style="width:100%;">
                     <tr style="width:100%">
-                      <td style="width:20%; text-align:left;">
-                        <button type="submit" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#moveLocker">자리이동</button>
-                      </td>
-                      <td style="width:80%; text-align:right;">
+                      <td style="width:100%; text-align:right;">
                         
-                        <button type="submit" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#createLocker">락커생성</button>
-                        <button type="button" class="btn btn-secondary me-2">락커삭제</button>
+                        <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#createLocker">락커생성</button>
+                        <button type="submit" class="btn btn-secondary me-2">락커삭제</button>
                      
                       </td>
                     </tr>
@@ -128,7 +128,7 @@
                   <br>
                   
                   <div id="machine-area">
-                    <table>
+                    <table style="width:100%; align:center;">
                     <c:choose>
                     <c:when test="${ empty list }">
                     	<tr>
@@ -139,17 +139,25 @@
                     <c:otherwise>
                     
                     <c:set var="now" value="<%=new java.util.Date()%>" />
-                    <fmt:formatDate value="${now}" pattern="yy/MM/dd" var="today" />
+                    <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 
                       <tr>
                       
                       	<c:forEach var="i" begin="0" end="7" step="1">
 	                        <td class="locker-td">
+	                        <input type="hidden" class="lk-no" name="lkNo" value="${ list[i].lkNo }">
+	                        <input type="hidden" class="lk-userName" name="userName" value="${ list[i].userName }">
+	                        <input type="hidden" class="lk-sDate" name="startDate" value="${ list[i].startDate }">
+	                        <input type="hidden" class="lk-eDate" name="endDate" value="${ list[i].endDate }">
 	                        <c:if test="${not empty list[i] }">
 	                          <div class="locker">
-	                            <input type="checkbox" class="lk-ck form-check-input">
-	                            
-	                            <fmt:parseDate value="${list[i].startDate}" var="startDate" pattern="yyyy/MM/dd"/>
+	                            <c:if test="${ empty list[i].startDate }">
+	                            	<input type="checkbox" class="lk-ck form-check-input" name="ckLocker" value="${ list[i].lkNo }">
+	                       		</c:if>
+	                       		<c:if test="${ not empty list[i].startDate }">
+	                            	<input type="checkbox" class="lk-ck form-check-input" disabled>
+	                       		</c:if>     
+	                            <fmt:parseDate value="${list[i].startDate}" var="startDate" pattern="yyyy-MM-dd"/>
 	                            <c:choose>
 		                            <c:when test="${ empty list[i].startDate }">
 		                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
@@ -164,25 +172,28 @@
 		                            </c:otherwise>
 	                            </c:choose>
 	                            
-	                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-	                            <c:if test="${ not empty list[i].startDate }">
-	                              ${ list[i].userName } <br>
-	                              ~${ list[i].endDate } <br>
-	                              
-	                              <c:if test="${ list[i].startDate <= today }">
-	                              (${ list[i].toEndDate }일 후 만료)
-	                              </c:if>
-	                              
-	                              <c:if test="${ list[i].startDate > today }">
-	                              (${ list[i].toStartDate }일 후 시작)
-	                              </c:if>
-	                              
-	                              <c:if test="${ empty list[i].startDate}">
-	                              <br><br>
-	                              </c:if>
-	                              
-	                            </c:if>
-	                            </button>
+	                            <c:choose>
+		                            <c:when test="${ not empty list[i].startDate }">
+			                            <button type="button" class="bt-text" data-bs-toggle="modal" data-bs-target="#updateModal">
+			                              ${ list[i].userName } <br>
+			                              ~${ list[i].endDate } <br>
+			                              
+			                              <c:if test="${ list[i].startDate <= today }">
+			                              (${ list[i].toEndDate }일 후 만료)
+			                              </c:if>
+			                              
+			                              <c:if test="${ list[i].startDate > today }">
+			                              (${ list[i].toStartDate }일 후 시작)
+			                              </c:if>
+			                              
+			                            </button>
+		                            </c:when>
+		                            <c:otherwise>
+		                            	<button type="button" class="bt-text" data-bs-toggle="modal" data-bs-target="#enrollModal">
+		                            	<br><br>
+			                            </button>
+		                            </c:otherwise>
+	                            </c:choose>
 	                            
 	                            
 	                          </div>
@@ -196,9 +207,18 @@
                       
                       	<c:forEach var="i" begin="8" end="15" step="1">
 	                        <td class="locker-td">
+	                        <input type="hidden" class="lk-no" name="lkNo" value="${ list[i].lkNo }">
+	                        <input type="hidden" class="lk-userName" name="userName" value="${ list[i].userName }">
+	                        <input type="hidden" class="lk-sDate" name="startDate" value="${ list[i].startDate }">
+	                        <input type="hidden" class="lk-eDate" name="endDate" value="${ list[i].endDate }">
 	                          <c:if test="${not empty list[i] }">
 	                          <div class="locker">
-	                            <input type="checkbox" class="lk-ck form-check-input">
+	                            <c:if test="${ empty list[i].startDate }">
+	                            	<input type="checkbox" class="lk-ck form-check-input" name="ckLocker" value="${ list[i].lkNo }">
+	                       		</c:if>
+	                       		<c:if test="${ not empty list[i].startDate }">
+	                            	<input type="checkbox" class="lk-ck form-check-input" disabled>
+	                       		</c:if> 
 	                            
 	                            <c:choose>
 		                            <c:when test="${ empty list[i].startDate }">
@@ -214,21 +234,28 @@
 		                            </c:otherwise>
 	                            </c:choose>
 	                            
-	                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-	                            <c:if test="${ not empty list[i].startDate }">
-	                              ${ list[i].userName } <br>
-	                              ~${ list[i].endDate } <br>
-	                              
-	                              <c:if test="${ list[i].startDate <= today }">
-	                              (${ list[i].toEndDate }일 후 만료)
-	                              </c:if>
-	                              
-	                              <c:if test="${ list[i].startDate > today }">
-	                              (${ list[i].toStartDate }일 후 시작)
-	                              </c:if>
-	                              
-	                            </c:if>
-	                            </button>
+	                            <c:choose>
+		                            <c:when test="${ not empty list[i].startDate }">
+			                            <button type="button" class="bt-text" data-bs-toggle="modal" data-bs-target="#updateModal">
+			                              ${ list[i].userName } <br>
+			                              ~${ list[i].endDate } <br>
+			                              
+			                              <c:if test="${ list[i].startDate <= today }">
+			                              (${ list[i].toEndDate }일 후 만료)
+			                              </c:if>
+			                              
+			                              <c:if test="${ list[i].startDate > today }">
+			                              (${ list[i].toStartDate }일 후 시작)
+			                              </c:if>
+			                              
+			                            </button>
+		                            </c:when>
+		                            <c:otherwise>
+		                            	<button type="button" class="bt-text" data-bs-toggle="modal" data-bs-target="#enrollModal">
+		                            	<br><br>
+			                            </button>
+		                            </c:otherwise>
+	                            </c:choose>
 	                            
 	                            
 	                          </div>
@@ -241,11 +268,20 @@
                       <tr>
                       
                       	<c:forEach var="i" begin="16" end="23" step="1">
+                      		
 	                        <td class="locker-td">
+	                        <input type="hidden" class="lk-no" name="lkNo" value="${ list[i].lkNo }">
+	                        <input type="hidden" class="lk-userName" name="userName" value="${ list[i].userName }">
+	                        <input type="hidden" class="lk-sDate" name="startDate" value="${ list[i].startDate }">
+	                        <input type="hidden" class="lk-eDate" name="endDate" value="${ list[i].endDate }">
 	                          <c:if test="${not empty list[i] }">
 	                          <div class="locker">
-	                            <input type="checkbox" class="lk-ck form-check-input">
-	                            
+	                            <c:if test="${ empty list[i].startDate }">
+	                            	<input type="checkbox" class="lk-ck form-check-input" name="ckLocker" value="${ list[i].lkNo }">
+	                       		</c:if>
+	                       		<c:if test="${ not empty list[i].startDate }">
+	                            	<input type="checkbox" class="lk-ck form-check-input" disabled>
+	                       		</c:if> 
 	                            <c:choose>
 		                            <c:when test="${ empty list[i].startDate }">
 		                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
@@ -260,21 +296,28 @@
 		                            </c:otherwise>
 	                            </c:choose>
 	                            
-	                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-	                            <c:if test="${ not empty list[i].startDate }">
-	                              ${ list[i].userName } <br>
-	                              ~${ list[i].endDate } <br>
-	                              
-	                              <c:if test="${ list[i].startDate <= today }">
-	                              (${ list[i].toEndDate }일 후 만료)
-	                              </c:if>
-	                              
-	                              <c:if test="${ list[i].startDate > today }">
-	                              (${ list[i].toStartDate }일 후 시작)
-	                              </c:if>
-	                              
-	                            </c:if>
-	                            </button>
+	                            <c:choose>
+		                            <c:when test="${ not empty list[i].startDate }">
+			                            <button type="button" class="bt-text" data-bs-toggle="modal" data-bs-target="#updateModal">
+			                              ${ list[i].userName } <br>
+			                              ~${ list[i].endDate } <br>
+			                              
+			                              <c:if test="${ list[i].startDate <= today }">
+			                              (${ list[i].toEndDate }일 후 만료)
+			                              </c:if>
+			                              
+			                              <c:if test="${ list[i].startDate > today }">
+			                              (${ list[i].toStartDate }일 후 시작)
+			                              </c:if>
+			                              
+			                            </button>
+		                            </c:when>
+		                            <c:otherwise>
+		                            	<button type="button" class="bt-text" data-bs-toggle="modal" data-bs-target="#enrollModal">
+		                            	<br><br>
+			                            </button>
+		                            </c:otherwise>
+	                            </c:choose>
 	                            
 	                            
 	                          </div>
@@ -288,141 +331,204 @@
                     </c:choose>
                     </table>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="basicModal" tabindex="-1" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel1">락커 No. <span>5</span></h5>
-                            <button
-                              type="button"
-                              class="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                            ></button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="row">
-                              <div class="col mb-3">
-                                <div class="mb-3">
-                                  <label for="defaultSelect" class="form-label">회원 목록</label>
-                                  <select id="defaultSelect" class="form-select">
-                                    <option>Default select</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                  </select>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="row g-2">
-                              <div class="col mb-0">
-                                <label for="emailBasic" class="form-label">시작일</label>
-                                <input class="form-control" type="date" value="2021-06-18" id="html5-date-input" />
-                              </div>
-                              <div class="col mb-0">
-                                <label for="dobBasic" class="form-label">종료일</label>
-                                <input class="form-control" type="date" value="2021-06-18" id="html5-date-input" />
-                              </div>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                              Close
-                            </button> -->
-                            <button type="button" class="btn btn-primary">등록</button>
-                            <button type="button" class="btn btn-info">고장등록</button>
-                            <button type="button" class="btn btn-secondary">락커회수</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
 
-
-                    <!-- Modal : createLocker -->
-                    <div class="modal fade" id="createLocker" tabindex="-1" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel1">락커 생성</h5>
-                            <button
-                              type="button"
-                              class="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                            ></button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="row">
-                              <div class="col mb-3">
-                                <div class="mb-3">
-                                  <label for="defaultSelect" class="form-label">락커갯수</label>
-                                  <input class="form-control" type="number" value="18" id="html5-number-input">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                              Close
-                            </button> -->
-                            <button type="button" class="btn btn-primary">추가</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-
-                     <!-- Modal : createLocker -->
-                     <div class="modal fade" id="moveLocker" tabindex="-1" aria-hidden="true">
-                      <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                          <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel1">자리 이동</h5>
-                            <button
-                              type="button"
-                              class="btn-close"
-                              data-bs-dismiss="modal"
-                              aria-label="Close"
-                            ></button>
-                          </div>
-                          <div class="modal-body">
-                            <div class="row">
-                              <div class="col mb-3">
-                                <div class="mb-3">
-                                  <label for="defaultSelect" class="form-label">회원 목록</label>
-                                  <select id="defaultSelect" class="form-select">
-                                    <option>Default select</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                  </select>
-                                </div>
-                                <div class="mb-3">
-                                  <label for="defaultSelect" class="form-label">현재 자리 번호</label>
-                                  <input class="form-control" type="number" value="18" id="html5-number-input">
-                                </div>
-                                <div class="mb-3">
-                                  <label for="defaultSelect" class="form-label">이동할 자리 번호</label>
-                                  <input class="form-control" type="number" value="18" id="html5-number-input">
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                          <div class="modal-footer">
-                            <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                              Close
-                            </button> -->
-                            <button type="button" class="btn btn-primary">자리이동</button>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
                    
                   </div>
 
                   <br><br>
-                  
+                </form>
+                </div>
+                
+                <script>
+				$(function(){
+					$(".bt-text").click(function(){
+						$("#sp-lkNo").text($(this).parents('div').siblings('input').val());
+						$("#sm-lkNo").val($(this).parents('div').siblings('input').val());
+						
+						
+						$("#sp-lkNo2").text($(this).parents('div').siblings('input').eq(0).val());
+						$("#sm-lkNo2").val($(this).parents('div').siblings('input').eq(0).val());
+						$("#sm-userName2").text($(this).parents('div').siblings('input').eq(1).val());
+						$("#sm-sDate2").val($(this).parents('div').siblings('input').eq(2).val());
+						$("#sm-eDate2").val($(this).parents('div').siblings('input').eq(3).val());
+					})	
+				})
+					
+				</script>
+                <!-- Modal -->
+                <div class="modal fade" id="enrollModal" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel1">락커 No.<span id="sp-lkNo"></span></h5>
+                        <input type="hidden" id="sm-lkNo" name="lkNo" value="">
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col mb-3">
+                            <div class="mb-3">
+                              <label for="defaultSelect" class="form-label">회원 목록</label>
+                              <select id="defaultSelect" class="form-select">
+                                <option>Default select</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row g-2">
+                          <div class="col mb-0">
+                            <label for="emailBasic" class="form-label">시작일</label>
+                            <input class="form-control" type="date" value="2021-06-18" id="html5-date-input" />
+                          </div>
+                          <div class="col mb-0">
+                            <label for="dobBasic" class="form-label">종료일</label>
+                            <input class="form-control" type="date" value="2021-06-18" id="html5-date-input" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">락커등록</button>
+                        <a class="btn btn-info" href="broken.lk">고장등록</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel1">락커 No. <span id="sp-lkNo2"></span></h5>
+                        <input type="hidden" id="sm-lkNo2" name="lkNo2" value="">
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col mb-3">
+                            <div class="mb-3">
+                              <label for="defaultSelect" class="form-label">회원 목록</label>
+                              <select id="defaultSelect" class="form-select" disabled>
+                                <option id="sm-userName2"></option>
+                              </select>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row g-2">
+                          <div class="col mb-0">
+                            <label for="emailBasic" class="form-label">시작일</label>
+                            <input class="form-control" id="sm-sDate2" type="date" value="" disabled />
+                          </div>
+                          <div class="col mb-0">
+                            <label for="dobBasic" class="form-label">종료일</label>
+                            <input class="form-control" id="sm-eDate2" type="date" value="" disabled />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                          Close
+                        </button> -->
+                        <button type="button" class="btn btn-info">자리이동</button>
+                        <button type="button" class="btn btn-secondary">락커회수</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <!-- Modal : createLocker -->
+                <div class="modal fade" id="createLocker" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                    <form action="add.lk">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel1">락커 생성</h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col mb-3">
+                            <div class="mb-3">
+                              <label for="defaultSelect" class="form-label">락커갯수</label>
+                              <input class="form-control" type="number" name="lkAmount" value="1" id="html5-number-input">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                          Close
+                        </button> -->
+                        <button type="submit" class="btn btn-primary" >추가하기</button>
+                      </div>
+                    </form>
+                    </div>
+                  </div>
+                </div>
+
+
+                 <!-- Modal : moveLocker -->
+                 <div class="modal fade" id="moveLocker" tabindex="-1" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel1">자리 이동</h5>
+                        <button
+                          type="button"
+                          class="btn-close"
+                          data-bs-dismiss="modal"
+                          aria-label="Close"
+                        ></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="row">
+                          <div class="col mb-3">
+                            <div class="mb-3">
+                              <label for="defaultSelect" class="form-label">회원 목록</label>
+                              <select id="defaultSelect" class="form-select">
+                                <option>Default select</option>
+                                <option value="1">One</option>
+                                <option value="2">Two</option>
+                                <option value="3">Three</option>
+                              </select>
+                            </div>
+                            <div class="mb-3">
+                              <label for="defaultSelect" class="form-label">현재 자리 번호</label>
+                              <input class="form-control" type="number" value="18" id="html5-number-input">
+                            </div>
+                            <div class="mb-3">
+                              <label for="defaultSelect" class="form-label">이동할 자리 번호</label>
+                              <input class="form-control" type="number" value="18" id="html5-number-input">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="modal-footer">
+                        <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                          Close
+                        </button> -->
+                        <button type="button" class="btn btn-primary">자리이동</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div>      

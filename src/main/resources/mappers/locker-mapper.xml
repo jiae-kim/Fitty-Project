@@ -40,4 +40,25 @@
              by lk_no
 	</select>
 	
+	<insert id="addLocker">
+		insert
+		  into tb_locker
+		  	    (
+		  	   	  lk_no
+		  	    , lk_enroll_date
+		  	    )
+		 	    values
+		 	    (
+		 	      seq_lk_no.nextval
+		 	    , sysdate
+		 	    )
+		 	    
+	</insert>
+	
+	<delete id="deleteLocker">
+		delete
+		  from tb_locker
+		 where lk_no = #{lkNo}
+	</delete>
+	
 </mapper>

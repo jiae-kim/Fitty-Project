@@ -24,5 +24,13 @@ public class LockerDao {
 		
 		return (ArrayList)sqlSession.selectList("lockerMapper.selectList", null, rowBounds);
 	}
+	
+	public int addLocker(SqlSessionTemplate sqlSession) {
+		return sqlSession.insert("lockerMapper.addLocker");
+	}
+	
+	public int deleteLocker(SqlSessionTemplate sqlSession, String lkNo) {
+		return sqlSession.delete("lockerMapper.deleteLocker", lkNo);
+	}
 
 }

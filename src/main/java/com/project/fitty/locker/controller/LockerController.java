@@ -2,6 +2,9 @@ package com.project.fitty.locker.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,5 +34,43 @@ public class LockerController {
 		model.addAttribute("list" , list);
 		
 		return "locker/lockerList";
+	}
+	
+	@RequestMapping("add.lk")
+	public String addLocker(@RequestParam(value="lkAmount") int lkAmount, HttpSession session) {
+		
+		int result=0;
+		
+		for(int i=0; i<lkAmount; i++) {
+			result += lService.addLocker();
+		}
+		
+		if(result == lkAmount) {
+			session.setAttribute("alertMsg", "성공적으로 락커 생성 완료하였습니다.");
+			return "redirect:list.lk";
+		}else {
+			session.setAttribute("errorMsg", "락커 생성 실패");
+			return "common/errorPage";
+		}
+		
+	}
+	
+	@RequestMapping("delete.lk")
+	public String deleteLocker(HttpServletRequest request, String ckStartDate, HttpSession session) {
+		
+		String[] arr = request.getParameterValues("ckLocker");
+		int result = 0;
+		
+		for(int i=0; i<arr.length; i++) {
+			result += lService.deleteLocker(arr[i]);
+		}
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "선택 락커가 성공적으로 삭제되었습니다.");
+			return "redirect:list.lk";
+		}else {
+			session.setAttribute("errorMsg", "락커 삭제 실패");
+			return "common/errorPage";
+		}
 	}
 }
