@@ -1,5 +1,6 @@
 $(function(){
-
+	$("#nextBtn").attr("disabled", true);
+	$("#rightArrow").css("color", "#DCDADA");
     selectAllAttList(1);
 
     let month = Number($("#thisMonth").val());
@@ -53,10 +54,17 @@ function nowCheck(){
     if(year == nowYear && month == nowMonth) {
     // 같은년월
         selectAllAttList(1);
+        $("#nextBtn").attr("disabled", true);
+        $("#rightArrow").css("color", "#DCDADA");
     } else {
     // 다른년월
+    	$("#rightArrow").css("color", "#696CFF");
+    	$("#nextBtn").attr("disabled", false);
         selectOtherAttList(1);
     }
+    
+   
+    
 }
 
 function selectAllAttList(page){
@@ -93,7 +101,8 @@ function selectAllAttList(page){
                         +  	"<td>" +  empList[i].empName + "</td>"
                         
                         for(var k in empList[i].attList) {
-                                value += 	"<td>" + empList[i].attList[k].attStatus + "</td>"
+                               // value += 	"<td>" + empList[i].attList[k].attStatus + "</td>"
+                                value += 	"<td style='color:" + empList[i].attList[k].attStatus + ";'><i class='bx bxs-circle'></i></td>"
                             }
                             
                 
@@ -113,11 +122,11 @@ function selectAllAttList(page){
                     countValue += "<tr>"
                            
                                    + 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn'>" + empList[i].countList[i].countX + "</button></td>"
-                                 + 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn'>" + empList[i].countList[i].countL + "</button></td>"
+                                 + 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn' >" + empList[i].countList[i].countL + "</button></td>"
                                  + 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn'>" + empList[i].countList[i].countE + "</button></td>"
-                                 + 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn'>" + empList[i].countList[i].countYH + "</button></td>"
-                                 + 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn'>" + empList[i].countList[i].countV + "</button></td>"
-                                 + 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn'>" + empList[i].countList[i].countPtime + "</button></td>"
+                                 + 	"<td><button type='button' value='" + empList[i].empNo + "'  id='listedEmpNoBtn'>" + empList[i].countList[i].countYH + "</button></td>"
+                                 + 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn' >" + empList[i].countList[i].countV + "</button></td>"
+                                 + 	"<td><button type='button' value='" + empList[i].empNo + "' id='listedEmpNoBtn' >" + empList[i].countList[i].countPtime + "</button></td>"
                             }
                            
                     countValue += "</tr>";
@@ -195,7 +204,8 @@ function selectOtherAttList(page){
                         +  	"<td>" +  empList[i].empName + "</td>"
                         
                         for(var k in empList[i].attList) {
-                                value += 	"<td>" + empList[i].attList[k].attStatus + "</td>"
+                               // value += 	"<td>" + empList[i].attList[k].attStatus + "</td>"
+                               value += 	"<td style='color:" + empList[i].attList[k].attStatus + ";'><i class='bx bxs-circle'></i></td>"
                             }
                             
                 

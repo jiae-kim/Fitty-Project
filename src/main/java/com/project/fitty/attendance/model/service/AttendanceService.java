@@ -23,4 +23,7 @@ public interface AttendanceService {
 	
 	// 1달 통계 구하기
 	ArrayList<Attendance> selectCountList(Employee e);
+	
+	// 1달 통계 구하기
+	ArrayList<Attendance> selectOtherCountList(Employee e);
 }

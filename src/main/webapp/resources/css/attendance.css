@@ -111,6 +111,10 @@
 
 
 /*centerAllAttendance*/
+#memListTBody *{
+		font-size:4px;
+}
+
 .monthTable{
 	margin : auto;
 	align-items:center;
@@ -184,11 +188,13 @@ table thead, table tfoot{
 	background-color : white;
 }
 
-#late{ background-color: #fcffe1;}
-#illegal{ background-color: #ffebeb;}
-#approve{ background-color: #e1ffdd;}
-#vacation{ background-color: #f2f2f2;}
-#plus{ background-color: #c8c9ff;}
+#late{ background-color: #fcffe1; }
+#illegal{ background-color: #ffebeb;  }
+#approve{ background-color: #e1ffdd;  }
+#vacation{ background-color: #E7F9FD; }
+#plus{ background-color: #c8c9ff; }
+#early{ background-color: #F4E3F5; }
+
 
 
 

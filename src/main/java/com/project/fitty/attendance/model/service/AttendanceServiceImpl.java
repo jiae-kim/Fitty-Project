@@ -22,18 +22,50 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 	@Override
 	public ArrayList<Attendance> selectAllAttList(Employee e) {
-		return aDao.selectAllAttList(sqlSession, e);
+		ArrayList<Attendance> attList = aDao.selectAllAttList(sqlSession, e);
+		for(Attendance a : attList) {
+			switch(a.getAttStatus()) {
+			case "X" : a.setAttStatus("#E74C3C"); ; break; //결석
+			case "L" : a.setAttStatus("#F1C40F"); ; break; // 지각
+			case "E" : a.setAttStatus("#BF5BC7"); ; break; // 조퇴
+			case "A" : a.setAttStatus("#00B050"); ; break; // 승인
+			case "V" : a.setAttStatus("#29CCF9"); ; break; // 휴가
+			case "Y" : a.setAttStatus("#686BFF"); ; break; // 연월차
+			case "B" : a.setAttStatus("#FFFFFF"); ; break; // 베이직
+			default : a.setAttStatus("#FFFFFF"); break;
+			}
+		}
+		return attList;
 	}
 	
 	@Override
 	public ArrayList<Attendance> selectOtherAttList(Employee e) {
-		return aDao.selectOtherAttList(sqlSession, e);
+		
+		ArrayList<Attendance> attList = aDao.selectOtherAttList(sqlSession, e);
+		for(Attendance a : attList) {
+			switch(a.getAttStatus()) {
+			case "X" : a.setAttStatus("#E74C3C"); ; break; //결석
+			case "L" : a.setAttStatus("#F1C40F"); ; break; // 지각
+			case "E" : a.setAttStatus("#BF5BC7"); ; break; // 조퇴
+			case "A" : a.setAttStatus("#00B050"); ; break; // 승인
+			case "V" : a.setAttStatus("#29CCF9"); ; break; // 휴가
+			case "Y" : a.setAttStatus("#686BFF"); ; break; // 연월차
+			case "B" : a.setAttStatus("#FFFFFF"); ; break; // 베이직
+			default : a.setAttStatus("#FFFFFF"); break;
+			}
+		}
+		return attList;
 	}
 
 	
 	@Override
 	public ArrayList<Attendance> selectCountList(Employee e) {
 		return aDao.selectCountList(sqlSession, e);
+	}
+	
+	@Override
+	public ArrayList<Attendance> selectOtherCountList(Employee e) {
+		return aDao.selectOtherCountList(sqlSession, e);
 	}
 
 	@Override
@@ -51,6 +83,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 		a.setThisYear(thisYear);
 		return aDao.updateAttendanceStatus(sqlSession, a);
 	}
+
+	
 
 	
 	

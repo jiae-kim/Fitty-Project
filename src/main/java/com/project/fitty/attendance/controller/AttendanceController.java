@@ -179,7 +179,7 @@ public class AttendanceController {
 				e.setThisYear(thisYear);
 				e.setThisMonth(thisMonth);
 				e.setAttList(aService.selectOtherAttList(e));
-				e.setCountList(aService.selectCountList(e));
+				e.setCountList(aService.selectOtherCountList(e));
 			}
 		}
 		

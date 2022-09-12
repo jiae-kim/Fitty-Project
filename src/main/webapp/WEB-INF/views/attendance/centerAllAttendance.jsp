@@ -63,9 +63,9 @@
                     	<form class="month">
                     		<table class="monthTable">
                     			<tr>
-                    				<td rowspan="2"><button type="button"><i class='bx bxs-left-arrow arrow' id="backBtn"></i></button></td>
+                    				<td rowspan="2"><button type="button" id="backBtn"><i class='bx bxs-left-arrow arrow'></i></button></td>
                     				<td id="nowMonth"><input type="text" value="${ thisMonth }" id="thisMonth" name="thisMonth"></td>
-                    				<td rowspan="2"><button type="button"><i class='bx bxs-right-arrow arrow' id="nextBtn"></i></button></td>
+                    				<td rowspan="2"><button type="button" id="nextBtn"><i class='bx bxs-right-arrow arrow' id="rightArrow"></i></button></td>
                     			</tr>
                     			<tr>
                     				<td><input type="text" value="${ thisYear }" id="thisYear" name="thisYear"></td>
