@@ -66,7 +66,7 @@
 		 where lk_no = #{lkNo}
 	</delete>
 	
-	<select id="selectUserList" resultMap="UserResult">
+<!-- 	<select id="selectUserList" resultMap="UserResult">
 		select
 				user_no
 			  , user_name
@@ -77,6 +77,6 @@
              or  end_date < sysdate
 		  order
 		     by user_name
-	</select>
+	</select> -->
 	
 </mapper>

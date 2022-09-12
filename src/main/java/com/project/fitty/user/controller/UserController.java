@@ -106,26 +106,47 @@ public class UserController {
 	// [김지애] 5. 회원 프로필이미지 변경 서비스 - ajax
 	@ResponseBody
 	@RequestMapping("uploadProfile.ur") 
-	public User ajaxUploadProfile(MultipartFile uploadFile, User u, String originalFile, HttpSession session) { 
+	public void ajaxUploadProfile(MultipartFile uploadFile, User u, String originalFile, HttpSession session) { 
 	  
 		if(uploadFile != null) {// 넘어온 파일이 있을 경우
 			// 저장경로 : 넘기려는 파일, session, 저장위치
-			String saveFilePath = FileUpload.saveFile(uploadFile, session,"resources/upload_profielImg/");
-			u.setUserProfileUrl(saveFilePath);
+			String saveFilePath = FileUpload.saveFile(uploadFile, session, "resources/upload_profielImg/");
+			// u.setUserProfileUrl(saveFilePath);
 			
-			// db에 업데이트 :번호, 사진만 
 			int result = uService.uploadProfileImg(u);
 			
 			if(result > 0) {// db에 사진 변경 성공
+				// db에 업데이트 :번호, 사진만 
+				u.setUserNo(result);
+				u.setUserProfileUrl(saveFilePath);
+				
+				// 기존 프로필 이미지가 있었을 경우 : 기존 프로필 이미지 삭제
 				if(!originalFile.equals("")){ 
 					new File(session.getServletContext().getRealPath(originalFile)).delete();
 				}
 			}
 		} 
-		return u;
 	}
 	 
-	
+	// [김지애] 6. 회원삭제 서비스
+	@RequestMapping("delete.ur")
+	public String deleteUser(int no, String filePath, HttpSession session) {
+		int result = uService.deleteUser(no);
+		
+		if(result >0) {// db에서 삭제 성공 ('N'으로 변경)
+			
+			if(!filePath.equals("")) {
+				// 첨부파일이 있을 경우 => 파일 삭제
+				new File(session.getServletContext().getRealPath(filePath)).delete();
+			}
+			
+			session.setAttribute("alertMsg", "✔ 성공적으로 회원정보가 삭제되었습니다 ✔");
+			return "redirect:list.ur";
+		}else {
+			session.setAttribute("alertMsg", "❌ 회원정보 삭제에 실패했습니다 ❌");
+			return "redirect:update.ur";
+		}
+	}
 	
 	
 	

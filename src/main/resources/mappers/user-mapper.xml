@@ -64,6 +64,7 @@
 	        ,   user_type
 	        ,   user_pt
 		 from   tb_user
+		where	user_status = 'Y'
 		order
 		   by 	user_no desc
 	</select>
@@ -105,5 +106,13 @@
 		 where	user_no = #{userNo}
 	</update>
 	
+
+	<!-- 6. 회원 삭제 -->
+	<update id="deleteUser">
+		update
+				tb_user
+		   set	status = 'N'
+		 where	user_no = #{userNo}
+	</update>
 	
 </mapper>

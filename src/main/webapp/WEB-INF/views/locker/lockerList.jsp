@@ -376,7 +376,7 @@
                               <label for="defaultSelect" class="form-label">회원 목록</label>
                               <select id="defaultSelect" class="form-select">
                                 <c:forEach var="u" items="${ userList }">
-                                <option>${ u.userName }</option>
+                                <%-- <option>${ u.userName }</option> --%>
                                 </c:forEach>
                               </select>
                             </div>

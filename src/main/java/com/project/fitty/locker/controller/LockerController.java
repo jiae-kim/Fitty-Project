@@ -34,8 +34,8 @@ public class LockerController {
 		ArrayList<User> userList = lService.selectUserList();
 		
 		model.addAttribute("pi", pi);
-		model.addAttribute("list" , list);
-		model.addAttribute("userList", userList);
+//		model.addAttribute("list" , list);
+//		model.addAttribute("userList", userList);
 		
 		return "locker/lockerList";
 	}

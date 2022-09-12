@@ -25,5 +25,5 @@ public interface UserService {
 	
 	// [김지애] 6. 회원삭제 서비스
 	// 문자열로 탈퇴시킬 회원번호만 전달받아 상태 update
-	int deleteUser(String userNo);
+	int deleteUser(int userNo);
 }

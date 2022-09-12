@@ -15,6 +15,7 @@ public interface ProductService {
 	int insertProduct(Product p);
 	
 	// [김지애] 3. 헬스장이용권 수정 서비스
+	Product selectProduct (int proNo); 
 	int updateProduct(Product p);
 	
 	// [김지애] 4. 헬스장이용권 삭제 서비스
