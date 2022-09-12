@@ -16,13 +16,13 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="nav-align-top mb-4">
-                    <div class="tab-content" style="height: 800px;">
+                    <div class="tab-content" style="height: 850px;">
                         <h5 class="text-muted">🙍‍♀️회원관리 - 상세페이지</h5>
                          <!-- 회원번호 -->
                         <div class="mb-3 row">
                           <label for="html5-text-input" class="col-md-2 col-form-label">회원번호</label>
                           <div class="col-md-3">
-                            <input class="form-control" type="text" name="userNo" value="${u.userNo}" id="html5-text-input" readonly/>
+                            <input class="form-control" type="text" name="no" value="${u.userNo}" id="html5-text-input" readonly/>
                           </div>
                         </div>
 
@@ -132,11 +132,11 @@
 							<input type="file" id="userProfile" name="userProfile" class="form-control" style="display:none;">
 							<c:choose>
 							<c:when test="${empty u.userProfileUrl}">
-								<img id="roundPhoto" src='resources/profile_images/defaultProfile.png' onclick="$('#userProfile').click();" name="roundPhoto" value=""  style="height: 100px;">
+								<img id="roundPhoto" src='resources/profile_images/defaultProfile.png' onclick="$('#userProfile').click();" name="roundPhoto" value=""  style="height: 150px;">
 							</c:when>
 							<c:otherwise>
 								<input type="hidden" name="userProfileUrl" value="${u.userProfileUrl}">
-								<img id="roundPhoto" src='${u.userProfileUrl}' onclick="$('#userProfile').click();" style="height: 100px;">
+								<img id="roundPhoto" src='${u.userProfileUrl}' onclick="$('#userProfile').click();" style="height: 150px;">
 							</c:otherwise>
 							</c:choose>
 						  </div>
@@ -167,9 +167,7 @@
 								})
 								})
 							})
-						</script>
-
-                        <br><br>
+						</script><br><br>
 
                         <!-- 버튼 -->
                         <div class="mb-3" style="text-align: center;">
@@ -192,7 +190,18 @@
                               </div>
                             </div>
                             <!-- 회원삭제 버튼 -->
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#UserDelete">회원삭제</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#UserDelete" onclick="postFormSubmit('delete.ur');">회원삭제</button>
+                            <form id="postForm" action="" method="post">
+                            	<!-- 회원 삭제시 전달값 : 회원번호, 파일 저장 위치 -->
+                            	<input type="hidden" name="no" value="${u.userNo}">
+                            	<input type="hidden" name="filePath" value="${u.userProfileUrl}">
+                            </form>
+                            <script>
+                            	function postFormSubmit(url) {
+                            		$("#postForm").attr("action", url).submit();
+                            	}
+                            </script>
+                            
                             <!--model창 나오게--> 
                             <div class="modal fade" id="UserDelete" tabindex="-1" aria-hidden="true">
                               <div class="modal-dialog modal-dialog-centered" role="document">
@@ -203,8 +212,8 @@
                                   </div>
                                   <div class="modal-body" style="text-align: center; font-size: larger; font-weight: bold;">회원정보가 삭제되었습니다</div>
                                   <div class="modal-footer">
-                                    <button type="button" class="btn btn-primary">확인</button>
-                                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
+                                    <button type="submit" class="btn btn-primary">확인</button>
+                                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
                                   </div>
                                 </div>
                               </div>

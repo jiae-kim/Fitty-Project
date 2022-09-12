@@ -45,4 +45,9 @@ public class UserDao {
 		return sqlSession.update("userMapper.uploadProfileImg", u);
 	}
 
+	// [김지애] 6. 회원삭제 서비스
+	public int deleteUser(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.update("userMapper.deleteUser", userNo);
+	}
+
 }
