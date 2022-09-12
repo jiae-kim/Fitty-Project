@@ -11,6 +11,8 @@
 		<result column="assign_date" property="assignDate"/>
 		<result column="start_date" property="startDate"/>
 		<result column="end_Date" property="endDate"/>
+		<result column="to_start_date" property="toStartDate"/>
+		<result column="to_end_date" property="toEndDate"/>
 	</resultMap>
 	
 	<select id="selectListCount" resultType="_int">
@@ -22,16 +24,20 @@
 	<select id="selectList" resultMap="LockerResult">
 		select
 				lk_no
-			  , lk_enroll_date
-			  , lk_block
 			  , user_no
-			  , user_name
+              , user_name
 			  , assign_date
 			  , start_date
 			  , end_date
+              , trunc(to_date(start_date, 'yy/MM/dd') - sysdate) "to_start_date"
+              , trunc(to_date(end_date, 'yy/MM/dd') - sysdate) "to_end_date"
 		   from tb_locker
            join tb_lk_asn using (lk_no)
-           join tb_user using (user_no)
-		   		
+           left join tb_user using (user_no)
+          where end_date is null
+             or end_date >= sysdate
+          order
+             by lk_no
 	</select>
+	
 </mapper>

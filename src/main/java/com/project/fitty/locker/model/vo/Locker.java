@@ -23,4 +23,6 @@ public class Locker {
 	private Date assignDate; 
 	private String startDate;
 	private String endDate;
+	private String toStartDate;
+	private String toEndDate;
 }

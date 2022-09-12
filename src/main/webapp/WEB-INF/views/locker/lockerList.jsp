@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,8 +53,8 @@
         }
 
         .locker-td{
-          padding-right: 12px;
-          padding-bottom: 12px;
+          padding-right: 16px;
+          padding-bottom: 16px;
         }
 
         .lk-ck{
@@ -80,7 +81,7 @@
           vertical-align: center;
           background-color: #f7f6f8;
           border: transparent;
-          font-size: 15px;
+          font-size: 13px;
         }
 </style>
 </head>
@@ -89,7 +90,7 @@
 	<jsp:include page="../common/header.jsp"/>
 	
 	<div class="content-wrapper">
-      <div class="container-xxl flex-grow-1 container-p-y">
+      <div class="container-xxl flex-grow-1 container-p-y" style="padding:0px;">
         <div class="row">
 
           <!-- <h5 class="py-3 my-4">근태관리 페이지</h5> -->
@@ -110,12 +111,12 @@
                   </table>
 
                   <br>
-                  <table align="center">
-                    <tr>
-                      <td style="padding-right:670px">
+                  <table style="width:100%;">
+                    <tr style="width:100%">
+                      <td style="width:20%; text-align:left;">
                         <button type="submit" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#moveLocker">자리이동</button>
                       </td>
-                      <td>
+                      <td style="width:80%; text-align:right;">
                         
                         <button type="submit" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#createLocker">락커생성</button>
                         <button type="button" class="btn btn-secondary me-2">락커삭제</button>
@@ -127,172 +128,164 @@
                   <br>
                   
                   <div id="machine-area">
-                    <table align="center">
+                    <table>
+                    <c:choose>
+                    <c:when test="${ empty list }">
+                    	<tr>
+                    		<td colspan="6">현재 등록 락커가 없습니다.</td>
+                    	</tr>
+                    </c:when>
+                    
+                    <c:otherwise>
+                    
+                    <c:set var="now" value="<%=new java.util.Date()%>" />
+                    <fmt:formatDate value="${now}" pattern="yy/MM/dd" var="today" />
+
                       <tr>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label">사용중</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              유지호 <br>
-                              ~2022.8.30 <br>
-                              (9일 후 만료)
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#03C3EC">예약</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              이정인 <br>
-                              ~2022.8.30 <br>
-                              (2일 후 사용)
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
+                      
+                      	<c:forEach var="i" begin="0" end="7" step="1">
+	                        <td class="locker-td">
+	                        <c:if test="${not empty list[i] }">
+	                          <div class="locker">
+	                            <input type="checkbox" class="lk-ck form-check-input">
+	                            
+	                            <fmt:parseDate value="${list[i].startDate}" var="startDate" pattern="yyyy/MM/dd"/>
+	                            <c:choose>
+		                            <c:when test="${ empty list[i].startDate }">
+		                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
+		                            </c:when>
+		                            
+		                            <c:when test="${ list[i].startDate <= today }">
+		                            <label class="lk-label">사용중</label>
+		                            </c:when>
+		                            
+		                            <c:otherwise>
+		                            <label class="lk-label" style="background-color:#03C3EC">예약중</label>
+		                            </c:otherwise>
+	                            </c:choose>
+	                            
+	                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
+	                            <c:if test="${ not empty list[i].startDate }">
+	                              ${ list[i].userName } <br>
+	                              ~${ list[i].endDate } <br>
+	                              
+	                              <c:if test="${ list[i].startDate <= today }">
+	                              (${ list[i].toEndDate }일 후 만료)
+	                              </c:if>
+	                              
+	                              <c:if test="${ list[i].startDate > today }">
+	                              (${ list[i].toStartDate }일 후 시작)
+	                              </c:if>
+	                              
+	                              <c:if test="${ empty list[i].startDate}">
+	                              <br><br>
+	                              </c:if>
+	                              
+	                            </c:if>
+	                            </button>
+	                            
+	                            
+	                          </div>
+	                        </c:if> 
+	                        </td>
+                        </c:forEach>
                         
                       </tr>
+                      
                       <tr>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
+                      
+                      	<c:forEach var="i" begin="8" end="15" step="1">
+	                        <td class="locker-td">
+	                          <c:if test="${not empty list[i] }">
+	                          <div class="locker">
+	                            <input type="checkbox" class="lk-ck form-check-input">
+	                            
+	                            <c:choose>
+		                            <c:when test="${ empty list[i].startDate }">
+		                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
+		                            </c:when>
+		                            
+		                            <c:when test="${ list[i].startDate <= today }">
+		                            <label class="lk-label">사용중</label>
+		                            </c:when>
+		                            
+		                            <c:otherwise>
+		                            <label class="lk-label" style="background-color:#03C3EC">예약중</label>
+		                            </c:otherwise>
+	                            </c:choose>
+	                            
+	                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
+	                            <c:if test="${ not empty list[i].startDate }">
+	                              ${ list[i].userName } <br>
+	                              ~${ list[i].endDate } <br>
+	                              
+	                              <c:if test="${ list[i].startDate <= today }">
+	                              (${ list[i].toEndDate }일 후 만료)
+	                              </c:if>
+	                              
+	                              <c:if test="${ list[i].startDate > today }">
+	                              (${ list[i].toStartDate }일 후 시작)
+	                              </c:if>
+	                              
+	                            </c:if>
+	                            </button>
+	                            
+	                            
+	                          </div>
+	                        </c:if>  
+	                        </td>
+                        </c:forEach>
+                        
                       </tr>
+                      
                       <tr>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-                        <td class="locker-td">
-                          <div class="locker">
-                            <input type="checkbox" class="lk-ck form-check-input">
-                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
-                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
-                              
-                            </button>
-                          </div>
-                        </td>
-               
+                      
+                      	<c:forEach var="i" begin="16" end="23" step="1">
+	                        <td class="locker-td">
+	                          <c:if test="${not empty list[i] }">
+	                          <div class="locker">
+	                            <input type="checkbox" class="lk-ck form-check-input">
+	                            
+	                            <c:choose>
+		                            <c:when test="${ empty list[i].startDate }">
+		                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
+		                            </c:when>
+		                            
+		                            <c:when test="${ list[i].startDate <= today }">
+		                            <label class="lk-label">사용중</label>
+		                            </c:when>
+		                            
+		                            <c:otherwise>
+		                            <label class="lk-label" style="background-color:#03C3EC">예약중</label>
+		                            </c:otherwise>
+	                            </c:choose>
+	                            
+	                            <button class="bt-text" data-bs-toggle="modal" data-bs-target="#basicModal">
+	                            <c:if test="${ not empty list[i].startDate }">
+	                              ${ list[i].userName } <br>
+	                              ~${ list[i].endDate } <br>
+	                              
+	                              <c:if test="${ list[i].startDate <= today }">
+	                              (${ list[i].toEndDate }일 후 만료)
+	                              </c:if>
+	                              
+	                              <c:if test="${ list[i].startDate > today }">
+	                              (${ list[i].toStartDate }일 후 시작)
+	                              </c:if>
+	                              
+	                            </c:if>
+	                            </button>
+	                            
+	                            
+	                          </div>
+	                        </c:if> 
+	                        </td>
+                        </c:forEach>
+                        
                       </tr>
+                      
+                    </c:otherwise>
+                    </c:choose>
                     </table>
 
                     <!-- Modal -->
@@ -435,39 +428,35 @@
                 <div>      
                   <div>
                     <div>
-                      <!-- Basic Pagination -->
-                        <nav aria-label="Page navigation pageNav">
-                          <ul class="pagination">
-                            <li class="page-item first">
-                              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
-                            </li>
-                            <li class="page-item prev">
-                              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="javascript:void(0);">1</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="javascript:void(0);">2</a>
-                            </li>
-                            <li class="page-item active">
-                              <a class="page-link" href="javascript:void(0);">3</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="javascript:void(0);">4</a>
-                            </li>
-                            <li class="page-item">
-                              <a class="page-link" href="javascript:void(0);">5</a>
-                            </li>
-                            <li class="page-item next">
-                              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>
-                            </li>
-                            <li class="page-item last">
-                              <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
-                            </li>
-                          </ul>
-                        </nav>
-                      <!--/ Basic Pagination -->
+                    <!-- Basic Pagination -->
+                    
+                    <nav aria-label="Page navigation pageNav">
+						<ul class="pagination">
+							<c:choose>
+								<c:when test="${pi.currentPage eq 1 }">
+									<li class="page-item prev disabled"><a class="page-link"><i class="tf-icon bx bx-chevron-left"></i></a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item prev"><a class="page-link" href="list.lk?cpage=${ pi.currentPage - 1 }"><i class="tf-icon bx bx-chevron-left"></i></a></li>
+								</c:otherwise>
+							</c:choose>
+							
+							<c:forEach var="p" begin="${pi.startPage }" end="${ pi.endPage }">
+								<li class="page-item"><a class="page-link page-color" href="list.lk?cpage=${ p }">${ p }</a></li>
+							</c:forEach>
+							
+							<c:choose>
+								<c:when test="${pi.currentPage eq pi.maxPage }">
+									<li class="page-item next disabled"><a class="page-link"><i class="tf-icon bx bx-chevron-right"></i></a></li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item next"><a class="page-link" href="list.lk?cpage=${ pi.currentPage + 1 }"><i class="tf-icon bx bx-chevron-right"></i></a></li>
+								</c:otherwise>
+							</c:choose>
+						</ul>
+					</nav>
+                    
+                    <!--/ Basic Pagination -->  
                     </div>
                   </div>
                 </div>

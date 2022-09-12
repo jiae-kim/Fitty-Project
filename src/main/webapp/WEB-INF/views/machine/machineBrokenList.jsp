@@ -42,7 +42,7 @@ table thead, table tfoot {
 <body>
 	<jsp:include page="../common/header.jsp" />
 	<div class="content-wrapper">
-		<div class="container-xxl flex-grow-1 container-p-y">
+		<div class="container-xxl flex-grow-1 container-p-y" style="padding:0px">
 			<div class="row">
 
 				<!-- <h5 class="py-3 my-4">근태관리 페이지</h5> -->

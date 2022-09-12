@@ -198,12 +198,10 @@ table thead, table tfoot {
 											<ul class="pagination">
 												<c:choose>
 													<c:when test="${pi.currentPage eq 1 }">
-														<li class="page-item prev disabled"><a class="page-link"><i class="tf-icon bx bx-chevron-left"></i
-                              ></a></li>
+														<li class="page-item prev disabled"><a class="page-link"><i class="tf-icon bx bx-chevron-left"></i></a></li>
 													</c:when>
 													<c:otherwise>
-														<li class="page-item prev"><a class="page-link" href="list.mc?cpage=${ pi.currentPage - 1 }"><i class="tf-icon bx bx-chevron-left"></i
-                              ></a></li>
+														<li class="page-item prev"><a class="page-link" href="list.mc?cpage=${ pi.currentPage - 1 }"><i class="tf-icon bx bx-chevron-left"></i></a></li>
 													</c:otherwise>
 												</c:choose>
 												
@@ -213,8 +211,7 @@ table thead, table tfoot {
 												
 												<c:choose>
 													<c:when test="${pi.currentPage eq pi.maxPage }">
-														<li class="page-item next disabled"><a class="page-link"><i class="tf-icon bx bx-chevron-right"></i
-                              ></a></li>
+														<li class="page-item next disabled"><a class="page-link"><i class="tf-icon bx bx-chevron-right"></i></a></li>
 													</c:when>
 													<c:otherwise>
 														<li class="page-item next"><a class="page-link" href="list.mc?cpage=${ pi.currentPage + 1 }"><i class="tf-icon bx bx-chevron-right"></i></a></li>

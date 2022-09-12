@@ -24,7 +24,7 @@ public class LockerController {
 		
 		int listCount = lService.selectListCount();
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 18);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 24);
 		ArrayList<Locker> list = lService.selectList(pi);
 		
 		model.addAttribute("pi", pi);
