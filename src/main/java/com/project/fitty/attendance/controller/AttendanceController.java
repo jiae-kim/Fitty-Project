@@ -163,20 +163,26 @@ public class AttendanceController {
 
 		return new Gson().toJson(map);
 	}
-	/*
+	
+	
 	@ResponseBody
-	@RequestMapping(value="attList.att", produces="application/json; charset=utf-8")
-	public String selectAllAttList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session) {
+	@RequestMapping(value="otherAttList.att", produces="application/json; charset=utf-8")
+	public String selectOtherAttList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, String thisMonth, String thisYear) {
 		
 		int listCount =  eService.selectEmpListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
 		ArrayList<Employee> empList =  eService.selectEmpList(pi);
+		
 		if(!empList.isEmpty()) {
 			for(Employee e : empList) {
-				e.setAttList(aService.selectAllAttList(e));
+				e.setThisYear(thisYear);
+				e.setThisMonth(thisMonth);
+				e.setAttList(aService.selectOtherAttList(e));
+				e.setCountList(aService.selectCountList(e));
 			}
 		}
-
+		
 		// HashMap 은 넘길 배열이 2개일때만 사용
 		HashMap <String, Object> map = new HashMap<String, Object>();
 		map.put("pi", pi);
@@ -184,7 +190,8 @@ public class AttendanceController {
 
 		return new Gson().toJson(map);
 	}
-	*/
+	
+	
 	
 	@RequestMapping("resetAtt.att")
 	public String resetAttendanceUpdate(String afterEmpNoList, HttpSession session) {

@@ -40,7 +40,20 @@
   	
   	-->
   </select>
-	<!-- // AND TO_DATE(to_char(sysdate,'YYYY-MM-DD')) -->  
+	<!-- // AND TO_DATE(to_char(sysdate,'YYYY-MM-DD')) --> 
+	
+  
+  
+  <select id="selectOtherAttList" resultMap="attendanceResult">
+  select emp_no
+  		 , att_date
+  	     , att_status
+  	  from tb_att
+  	 where emp_no =  #{empNo}
+  	   and att_date BETWEEN TO_DATE(to_char((select trunc((to_date(#{thisYear} || '-' || #{thisMonth} || '-01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+                        AND TO_DATE(to_char((select last_day(#{thisYear} || '-' || #{thisMonth} || '-01')from dual),'YYYY-MM-DD'))
+  </select>
+  
   
   <select id="selectCountList" resultMap="attendanceResult">
 	 select (

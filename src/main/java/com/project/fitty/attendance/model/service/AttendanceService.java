@@ -12,6 +12,9 @@ public interface AttendanceService {
 	// 센터 전체 근태 조회 서비스
 	ArrayList<Attendance> selectAllAttList(Employee e);
 	
+	// 센터 전체 해당달만 근태 조회 서비스
+	ArrayList<Attendance> selectOtherAttList(Employee e);
+	
 	// 1년치 근태 세팅 서비스
 	int insertAttendance(String empNo, String thisYear);
 	

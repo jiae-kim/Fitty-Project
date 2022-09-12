@@ -26,6 +26,12 @@ public class AttendanceServiceImpl implements AttendanceService{
 	}
 	
 	@Override
+	public ArrayList<Attendance> selectOtherAttList(Employee e) {
+		return aDao.selectOtherAttList(sqlSession, e);
+	}
+
+	
+	@Override
 	public ArrayList<Attendance> selectCountList(Employee e) {
 		return aDao.selectCountList(sqlSession, e);
 	}
@@ -46,6 +52,7 @@ public class AttendanceServiceImpl implements AttendanceService{
 		return aDao.updateAttendanceStatus(sqlSession, a);
 	}
 
+	
 	
 
 	

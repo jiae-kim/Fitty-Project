@@ -18,6 +18,16 @@ public class AttendanceDao {
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAllAttList", e);
 		
 	}
+	
+	
+	public ArrayList<Attendance> selectOtherAttList(SqlSessionTemplate sqlSession, Employee e) {
+		System.out.println(e.getThisMonth());
+		System.out.println(e.getThisYear());
+		return (ArrayList)sqlSession.selectList("attendanceMapper.selectOtherAttList", e);
+		
+	}
+	
+	
 	public ArrayList<Attendance> selectCountList( SqlSessionTemplate sqlSession, Employee e) {
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectCountList", e);
 	}
