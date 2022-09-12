@@ -15,6 +15,7 @@ import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.common.template.Pagination;
 import com.project.fitty.locker.model.service.LockerService;
 import com.project.fitty.locker.model.vo.Locker;
+import com.project.fitty.user.model.vo.User;
 
 @Controller
 public class LockerController {
@@ -30,8 +31,11 @@ public class LockerController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 24);
 		ArrayList<Locker> list = lService.selectList(pi);
 		
+		ArrayList<User> userList = lService.selectUserList();
+		
 		model.addAttribute("pi", pi);
 		model.addAttribute("list" , list);
+		model.addAttribute("userList", userList);
 		
 		return "locker/lockerList";
 	}
@@ -73,4 +77,6 @@ public class LockerController {
 			return "common/errorPage";
 		}
 	}
+	
+	
 }

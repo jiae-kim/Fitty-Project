@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.locker.model.vo.Locker;
+import com.project.fitty.user.model.vo.User;
 
 @Repository
 public class LockerDao {
@@ -31,6 +32,10 @@ public class LockerDao {
 	
 	public int deleteLocker(SqlSessionTemplate sqlSession, String lkNo) {
 		return sqlSession.delete("lockerMapper.deleteLocker", lkNo);
+	}
+	
+	public ArrayList<User> selectUserList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("lockerMapper.selectUserList");
 	}
 
 }

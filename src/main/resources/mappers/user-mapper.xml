@@ -105,4 +105,5 @@
 		 where	user_no = #{userNo}
 	</update>
 	
+	
 </mapper>

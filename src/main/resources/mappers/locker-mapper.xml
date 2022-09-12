@@ -15,6 +15,11 @@
 		<result column="to_end_date" property="toEndDate"/>
 	</resultMap>
 	
+	<resultMap id="UserResult" type="User">
+		<result column="user_no" property="userNo" />
+		<result column="user_name" property="userName" />
+	</resultMap>
+	
 	<select id="selectListCount" resultType="_int">
 		select
 				count(*)
@@ -60,5 +65,18 @@
 		  from tb_locker
 		 where lk_no = #{lkNo}
 	</delete>
+	
+	<select id="selectUserList" resultMap="UserResult">
+		select
+				user_no
+			  , user_name
+		   from tb_user
+           left join tb_lk_asn using(user_no)
+		  where user_status = 'Y'
+            and start_date is null
+             or  end_date < sysdate
+		  order
+		     by user_name
+	</select>
 	
 </mapper>

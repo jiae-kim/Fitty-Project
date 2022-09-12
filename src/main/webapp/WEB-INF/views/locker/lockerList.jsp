@@ -151,15 +151,15 @@
 	                        <input type="hidden" class="lk-eDate" name="endDate" value="${ list[i].endDate }">
 	                        <c:if test="${not empty list[i] }">
 	                          <div class="locker">
-	                            <c:if test="${ empty list[i].startDate }">
+	                            <c:if test="${ empty list[i].startDate or list[i].endDate < today }">
 	                            	<input type="checkbox" class="lk-ck form-check-input" name="ckLocker" value="${ list[i].lkNo }">
 	                       		</c:if>
-	                       		<c:if test="${ not empty list[i].startDate }">
+	                       		<c:if test="${ not empty list[i].startDate and list[i].endDate >= today }">
 	                            	<input type="checkbox" class="lk-ck form-check-input" disabled>
 	                       		</c:if>     
 	                            <fmt:parseDate value="${list[i].startDate}" var="startDate" pattern="yyyy-MM-dd"/>
 	                            <c:choose>
-		                            <c:when test="${ empty list[i].startDate }">
+		                            <c:when test="${ empty list[i].startDate or list[i].endDate < today }">
 		                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
 		                            </c:when>
 		                            
@@ -173,7 +173,7 @@
 	                            </c:choose>
 	                            
 	                            <c:choose>
-		                            <c:when test="${ not empty list[i].startDate }">
+		                            <c:when test="${ not empty list[i].startDate and list[i].endDate >= today }">
 			                            <button type="button" class="bt-text" data-bs-toggle="modal" data-bs-target="#updateModal">
 			                              ${ list[i].userName } <br>
 			                              ~${ list[i].endDate } <br>
@@ -211,17 +211,17 @@
 	                        <input type="hidden" class="lk-userName" name="userName" value="${ list[i].userName }">
 	                        <input type="hidden" class="lk-sDate" name="startDate" value="${ list[i].startDate }">
 	                        <input type="hidden" class="lk-eDate" name="endDate" value="${ list[i].endDate }">
-	                          <c:if test="${not empty list[i] }">
+	                          <c:if test="${not empty list[i]}">
 	                          <div class="locker">
-	                            <c:if test="${ empty list[i].startDate }">
+	                            <c:if test="${ empty list[i].startDate or list[i].endDate < today   }">
 	                            	<input type="checkbox" class="lk-ck form-check-input" name="ckLocker" value="${ list[i].lkNo }">
 	                       		</c:if>
-	                       		<c:if test="${ not empty list[i].startDate }">
+	                       		<c:if test="${ not empty list[i].startDate and list[i].endDate >= today}">
 	                            	<input type="checkbox" class="lk-ck form-check-input" disabled>
 	                       		</c:if> 
 	                            
 	                            <c:choose>
-		                            <c:when test="${ empty list[i].startDate }">
+		                            <c:when test="${ empty list[i].startDate or list[i].endDate < today }">
 		                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
 		                            </c:when>
 		                            
@@ -235,7 +235,7 @@
 	                            </c:choose>
 	                            
 	                            <c:choose>
-		                            <c:when test="${ not empty list[i].startDate }">
+		                            <c:when test="${ not empty list[i].startDate and list[i].endDate >= today }">
 			                            <button type="button" class="bt-text" data-bs-toggle="modal" data-bs-target="#updateModal">
 			                              ${ list[i].userName } <br>
 			                              ~${ list[i].endDate } <br>
@@ -276,14 +276,14 @@
 	                        <input type="hidden" class="lk-eDate" name="endDate" value="${ list[i].endDate }">
 	                          <c:if test="${not empty list[i] }">
 	                          <div class="locker">
-	                            <c:if test="${ empty list[i].startDate }">
+	                            <c:if test="${ empty list[i].startDate or list[i].endDate < today }">
 	                            	<input type="checkbox" class="lk-ck form-check-input" name="ckLocker" value="${ list[i].lkNo }">
 	                       		</c:if>
-	                       		<c:if test="${ not empty list[i].startDate }">
+	                       		<c:if test="${ not empty list[i].startDate and list[i].endDate >= today }">
 	                            	<input type="checkbox" class="lk-ck form-check-input" disabled>
 	                       		</c:if> 
 	                            <c:choose>
-		                            <c:when test="${ empty list[i].startDate }">
+		                            <c:when test="${ empty list[i].startDate or list[i].endDate < today }">
 		                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
 		                            </c:when>
 		                            
@@ -297,7 +297,7 @@
 	                            </c:choose>
 	                            
 	                            <c:choose>
-		                            <c:when test="${ not empty list[i].startDate }">
+		                            <c:when test="${ not empty list[i].startDate and list[i].endDate >= today }">
 			                            <button type="button" class="bt-text" data-bs-toggle="modal" data-bs-target="#updateModal">
 			                              ${ list[i].userName } <br>
 			                              ~${ list[i].endDate } <br>
@@ -375,10 +375,9 @@
                             <div class="mb-3">
                               <label for="defaultSelect" class="form-label">회원 목록</label>
                               <select id="defaultSelect" class="form-select">
-                                <option>Default select</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                                <c:forEach var="u" items="${ userList }">
+                                <option>${ u.userName }</option>
+                                </c:forEach>
                               </select>
                             </div>
                           </div>
@@ -386,11 +385,11 @@
                         <div class="row g-2">
                           <div class="col mb-0">
                             <label for="emailBasic" class="form-label">시작일</label>
-                            <input class="form-control" type="date" value="2021-06-18" id="html5-date-input" />
+                            <input class="form-control" type="date" value="${ today }" id="html5-date-input" />
                           </div>
                           <div class="col mb-0">
                             <label for="dobBasic" class="form-label">종료일</label>
-                            <input class="form-control" type="date" value="2021-06-18" id="html5-date-input" />
+                            <input class="form-control" type="date" value="${ today }" id="html5-date-input" />
                           </div>
                         </div>
                       </div>

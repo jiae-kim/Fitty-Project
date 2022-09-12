@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.locker.model.dao.LockerDao;
 import com.project.fitty.locker.model.vo.Locker;
+import com.project.fitty.user.model.vo.User;
 
 @Service
 public class LockerService {
@@ -35,4 +36,7 @@ public class LockerService {
 		return lDao.deleteLocker(sqlSession, lkNo);
 	}
 	
+	public ArrayList<User> selectUserList(){
+		return lDao.selectUserList(sqlSession);
+	}
 }
