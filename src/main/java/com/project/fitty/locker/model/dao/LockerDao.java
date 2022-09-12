@@ -37,5 +37,9 @@ public class LockerDao {
 	public ArrayList<User> selectUserList(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("lockerMapper.selectUserList");
 	}
+	
+	public int assignLocker(SqlSessionTemplate sqlSession, Locker l) {
+		return sqlSession.insert("lockerMapper.assignLocker", l);
+	}
 
 }

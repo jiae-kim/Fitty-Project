@@ -66,17 +66,26 @@
 		 where lk_no = #{lkNo}
 	</delete>
 	
-<!-- 	<select id="selectUserList" resultMap="UserResult">
+	<select id="selectUserList" resultMap="UserResult">
 		select
-				user_no
-			  , user_name
+				distinct
+                user_no
+              , user_name
 		   from tb_user
            left join tb_lk_asn using(user_no)
 		  where user_status = 'Y'
-            and start_date is null
-             or  end_date < sysdate
 		  order
 		     by user_name
-	</select> -->
+	</select>
+	
+	<update id="assignLocker">
+		update
+				 tb_lk_asn
+		    set user_no = #{userNo}
+		    	, assign_date = sysdate
+		    	, start_date = #{startDate}
+		    	, end_date = #{endDate}
+		  where lk_no = #{lkNo}
+	</update>
 	
 </mapper>

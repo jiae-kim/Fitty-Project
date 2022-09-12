@@ -359,6 +359,7 @@
                 <div class="modal fade" id="enrollModal" tabindex="-1" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
+                    <form action="assign.lk">
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel1">락커 No.<span id="sp-lkNo"></span></h5>
                         <input type="hidden" id="sm-lkNo" name="lkNo" value="">
@@ -374,9 +375,10 @@
                           <div class="col mb-3">
                             <div class="mb-3">
                               <label for="defaultSelect" class="form-label">회원 목록</label>
-                              <select id="defaultSelect" class="form-select">
+                              <select id="defaultSelect" class="form-select" name="strUserNo">
                                 <c:forEach var="u" items="${ userList }">
-                                <%-- <option>${ u.userName }</option> --%>
+                                <option>${ u.userNo } . ${ u.userName }
+                                </option>
                                 </c:forEach>
                               </select>
                             </div>
@@ -385,11 +387,11 @@
                         <div class="row g-2">
                           <div class="col mb-0">
                             <label for="emailBasic" class="form-label">시작일</label>
-                            <input class="form-control" type="date" value="${ today }" id="html5-date-input" />
+                            <input class="form-control" type="date" name="startDate" value="${ today }" id="html5-date-input" />
                           </div>
                           <div class="col mb-0">
                             <label for="dobBasic" class="form-label">종료일</label>
-                            <input class="form-control" type="date" value="${ today }" id="html5-date-input" />
+                            <input class="form-control" type="date" name="endDate" value="${ today }" id="html5-date-input" />
                           </div>
                         </div>
                       </div>
@@ -397,6 +399,7 @@
                         <button type="submit" class="btn btn-primary">락커등록</button>
                         <a class="btn btn-info" href="broken.lk">고장등록</a>
                       </div>
+                    </form>
                     </div>
                   </div>
                 </div>

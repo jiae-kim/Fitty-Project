@@ -34,8 +34,8 @@ public class LockerController {
 		ArrayList<User> userList = lService.selectUserList();
 		
 		model.addAttribute("pi", pi);
-//		model.addAttribute("list" , list);
-//		model.addAttribute("userList", userList);
+		model.addAttribute("list" , list);
+		model.addAttribute("userList", userList);
 		
 		return "locker/lockerList";
 	}
@@ -60,7 +60,7 @@ public class LockerController {
 	}
 	
 	@RequestMapping("delete.lk")
-	public String deleteLocker(HttpServletRequest request, String ckStartDate, HttpSession session) {
+	public String deleteLocker(HttpServletRequest request, HttpSession session) {
 		
 		String[] arr = request.getParameterValues("ckLocker");
 		int result = 0;
@@ -78,5 +78,23 @@ public class LockerController {
 		}
 	}
 	
+	@RequestMapping("assign.lk")
+	public String assignLocker(String strUserNo, Locker l, HttpSession session) {
+		
+		
+		String[] arr = strUserNo.split("\\.");
+		int userNo = Integer.parseInt(arr[0].replace(" ", ""));
+		
+		l.setUserNo(userNo);
+		int result = lService.assignLocker(l);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "락커가 성공적으로 등록되었습니다.");
+			return "redirect:list.lk";
+		}else {
+			session.setAttribute("errorMsg", "락커 등록 실패");
+			return "common/errorPage";
+		}
+	}
 	
 }
