@@ -25,7 +25,7 @@ public class MachineController {
 	@Autowired
 	private MachineService mService;
 
-	@RequestMapping("list.mc")
+	@RequestMapping("list.mc") /** 기구 리스트 조회 **/
 	public String selectMachineList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model) {
 
 		int listCount = mService.selectListCount();
@@ -39,13 +39,13 @@ public class MachineController {
 		return "machine/machineList";
 	}
 
-	@RequestMapping("enrollForm.mc")
+	@RequestMapping("enrollForm.mc") /** 기구 등록폼 **/
 	public String selectEnrollForm() {
 
 		return "machine/machineEnrollForm";
 	}
 
-	@RequestMapping("insert.mc")
+	@RequestMapping("insert.mc") /** 기구 등록 **/
 	public String insertMachine(Machine m, MultipartFile upfile, HttpSession session) {
 
 		// System.out.println(upfile); // 첨부파일을 선택했든 안했든 생성된 객체
@@ -77,7 +77,7 @@ public class MachineController {
 		}
 	}
 
-	@RequestMapping("delete.mc")
+	@RequestMapping("delete.mc") /** 기구 삭제 **/
 	public String deleteMachine(HttpServletRequest request, HttpSession session) {
 
 		String[] arr = request.getParameterValues("ckMachine");
@@ -96,7 +96,7 @@ public class MachineController {
 		}
 	}
 
-	@RequestMapping("ckList.mc")
+	@RequestMapping("ckList.mc") /** 기구 점검 리스트 **/
 	public String selectCheckList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model) {
 
 		int listCount = mService.selectCheckListCount();
@@ -110,7 +110,7 @@ public class MachineController {
 		return "machine/machineCheckList";
 	}
 
-	@RequestMapping("ckEnrollForm.mc")
+	@RequestMapping("ckEnrollForm.mc") /** 기구 점검폼 **/
 	public String selectCkEnrollForm(Model model) {
 
 		ArrayList<Machine> list = mService.selectAllMachine();
@@ -120,7 +120,7 @@ public class MachineController {
 		return "machine/machineCheckEnrollForm";
 	}
 
-	@RequestMapping("ckInsert.mc")
+	@RequestMapping("ckInsert.mc") /** 기구 점검 등록 **/
 	public String insertCheck(Machine m, @RequestParam(value = "empNo") String empNo, MultipartFile upfile,
 			HttpSession session) {
 
@@ -150,7 +150,7 @@ public class MachineController {
 		}
 	}
 
-	@RequestMapping("ckDetail.mc")
+	@RequestMapping("ckDetail.mc") /** 기구 점검 상세내용 **/
 	public ModelAndView selectCheck(int no, ModelAndView mv) {
 		
 		Machine m = mService.selectCheck(no);
@@ -158,7 +158,21 @@ public class MachineController {
 		return mv;
 	}
 	
-	@RequestMapping("broken.mc")
+	@RequestMapping("ckDelete.mc")  /** 기구 점검 삭제 **/
+	public String deleteCheck(int ckNo, HttpSession session) {
+		
+		int result = mService.deleteCheck(ckNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 기구 점검 삭제하였습니다.");
+			return "redirect:ckList.mc";
+		}else {
+			session.setAttribute("errorMsg", "기구 점검 삭제 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("broken.mc") /** 기구 고장 처리 **/
 	public String updateMachineBroken(int ckNo, int mcNo, HttpSession session) {
 		
 		// 체크 상태 변경, 기구 고장 등록
@@ -176,7 +190,7 @@ public class MachineController {
 		}
 	}
 	
-	@RequestMapping("normal.mc")
+	@RequestMapping("normal.mc") /** 기구 정상 처리 **/
 	public String updateMachineNormal(int ckNo, HttpSession session) {
 		
 		// 체크 상태 변경
@@ -192,21 +206,7 @@ public class MachineController {
 		}
 	}
 	
-	@RequestMapping("ckDelete.mc")
-	public String deleteCheck(int ckNo, HttpSession session) {
-		
-		int result = mService.deleteCheck(ckNo);
-		
-		if(result > 0) {
-			session.setAttribute("alertMsg", "성공적으로 기구 점검 삭제하였습니다.");
-			return "redirect:ckList.mc";
-		}else {
-			session.setAttribute("errorMsg", "기구 점검 삭제 실패");
-			return "common/errorPage";
-		}
-	}
-	
-	@RequestMapping("bkList.mc")
+	@RequestMapping("bkList.mc") /** 고장난 기구 조회 **/
 	public String selectBrokenList(@RequestParam(value = "cpage", defaultValue = "1") int currentPage, Model model) {
 		
 		int listCount = mService.selectBrokenListCount();
@@ -220,7 +220,7 @@ public class MachineController {
 		return "machine/machineBrokenList";
 	}
 	
-	@RequestMapping("repair.mc")
+	@RequestMapping("repair.mc") /** 기구 수리 완료 처리 **/
 	public String repairMachine(HttpServletRequest request, HttpSession session) {
 
 		String[] arr = request.getParameterValues("ckMachine");
@@ -231,7 +231,7 @@ public class MachineController {
 		}
 
 		if (result == arr.length) {
-			session.setAttribute("alertMsg", "성공적으로 수리 완료하였습니다.");
+			session.setAttribute("alertMsg", "선택 기구를 성공적으로 수리 완료 처리하였습니다.");
 			return "redirect:bkList.mc";
 		} else {
 			session.setAttribute("errorMsg", "수리 완료 실패");

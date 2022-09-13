@@ -56,11 +56,23 @@ public class LockerService {
 		return lDao.selectConditionLkNo(sqlSession, userNo);
 	}
 	
-	public int moveLocker(Locker l) {
-		return lDao.moveLocker(sqlSession, l);
+	public Locker selectLockerInfo(int lkNo) {
+		return lDao.selectLockerInfo(sqlSession, lkNo);
+	}
+	
+	public int moveLocker(Locker info) {
+		return lDao.moveLocker(sqlSession, info);
 	}
 	
 	public int recoverLocker(int lkNo) {
 		return lDao.recoverLocker(sqlSession, lkNo);
+	}
+	
+	public int updateLockerBroken(int lkNo) {
+		return lDao.updateLockerBroken(sqlSession, lkNo);
+	}
+	
+	public int repairLocker(String lkNo) {
+		return lDao.repairLocker(sqlSession, lkNo);
 	}
 }
