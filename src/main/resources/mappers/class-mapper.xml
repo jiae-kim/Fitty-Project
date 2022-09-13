@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="classMapper">
+
+	<resultMap id="replyResult" type="Reply">
+		<result column="re_no" property="replyNo" />
+		<result column="re_writer" property="replyWriter" />
+		<result column="re_content" property="replyContent" />
+		<result column="re_date" property="replyDate" />
+		<result column="re_status" property="replyStatus" />
+	</resultMap>
+	
+	<resultMap type="User" id="userResult">
+		<result column="user_no" property="userNo"/>
+		<result column="user_phone" property="userPhone"/>
+		<result column="user_gender" property="userGender"/>
+		<result column="user_birth" property="userBirth"/>
+	</resultMap>
+
+
+	<!-- 
+	<select id="selectReplyList" resultMap="">
+		select 
+			   re_no
+			 , re_writer
+			 , re_content
+			 , to_char(re_date, 'YYYY.MM.DD HH:MM:SS') as "re_date"
+		  from reply
+		 where re_status = 'Y'
+		   and di_no = #{boardNo}
+		 order 
+		    by re_no desc
+	</select> 
+	-->
+	
+	
+	<insert id="insertClass">
+		insert
+		  into tb_class
+		  (
+		  	cl_no
+		  , emp_no
+		  , user_no
+		  , user_height
+		  , user_weight
+		  , cl_sdate
+		  , cl_count
+		  , cl_goal
+		  , cl_result
+		  )
+		  values
+		  (
+		  	seq_clno.nextval
+		  , #{empNo}
+		  , #{userNo}
+		  , #{userHeight}
+		  , #{userWieght}
+		  , #{classStartDate}
+		  , #{classCount}
+		  , #{classGoal}
+		  , #{classResult}
+		  )
+	</insert>
+	
+	<!-- 
+	<select id="selectUser" resultMap="userResult">
+		select 
+			   user_name
+			 , user_phone
+			 , user_gender
+			 , user_birth
+		  from tb_user
+		 where user_type = 'P'
+		   and user_status = 'Y'
+		   and user_pt = 'N'
+		   and user_no = #{ userNo }
+	</select> -->
+
+</mapper>
