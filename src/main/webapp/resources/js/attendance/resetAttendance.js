@@ -9,8 +9,9 @@
 				 $(".empList :checkbox:checked").each(function(){
 			                          strInsertListEmpNo += "'" + $(this).val() + "',";
 			                       })
-			                     
+			                  
 			     strInsertListEmpNo = strInsertListEmpNo.substring(0, strInsertListEmpNo.lastIndexOf(","));
+			     console.log(strInsertListEmpNo); 
 			     $("#strInsertListEmpNo").val(strInsertListEmpNo);
     		})
     
@@ -30,14 +31,10 @@
         
 })
 
+
 function checkAll() {
          if($("#choiceAll").is(':checked')) {
             $(".empList :checkbox").prop("checked", true);
-            $(".empList :checkbox:checked").each(function(){
-			                          strInsertListEmpNo += "'" + $(this).val() + "',";
-			                       })
-			     strInsertListEmpNo = strInsertListEmpNo.substring(0, strInsertListEmpNo.lastIndexOf(","));
-			     $("#strInsertListEmpNo").val(strInsertListEmpNo);
          } else {
             $(".empList :checkbox").prop("checked", false);
          }
@@ -84,6 +81,16 @@ function selectEmpList(){
 
 
 function checkEmpNoList(){
+
+		let strInsertListEmpNo = "";
+		
+		$(".empList :checkbox:checked").each(function(){
+		     strInsertListEmpNo += "'" + $(this).val() + "',";
+		})
+		   
+		strInsertListEmpNo = strInsertListEmpNo.substring(0, strInsertListEmpNo.lastIndexOf(","));
+		$("#strInsertListEmpNo").val(strInsertListEmpNo);
+		
     		$.ajax({
     			type: "post",
     			url:"listInsert.att",
@@ -91,7 +98,7 @@ function checkEmpNoList(){
     			success:function(checkEmpList){
     				let value="";
     				if(checkEmpList.length == 0) {
-    					value += "<tr><td>등록된 직원이 없습니다.</td></tr>"
+    					value += "<tr><td>선택된 직원이 없습니다.</td></tr>"
     				} else {
     					value += "<thead>"
     						  +		"<tr>"
