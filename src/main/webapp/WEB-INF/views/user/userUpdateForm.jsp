@@ -6,23 +6,31 @@
 <head>
 <meta charset="UTF-8">
 <title>Fitty 회원상세조회</title>
+<style>
+#profileImgFile{
+	width:150px;
+	height:150px;
+	border:1px solid lightgray;
+	border-radius: 50%;
+        }
+</style>
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
 
 <div class="content-wrapper">
-<form action="update.ur" id="updateForm" method="post" enctype="multipart/form-data">
     <div class="container-xxl flex-grow-1 container-p-y" style="padding : 0px;">
         <div class="row">
             <div class="col-xl-12">
                 <div class="nav-align-top mb-4">
                     <div class="tab-content" style="height: 850px;">
                         <h5 class="text-muted">🙍‍♀️회원관리 - 상세페이지</h5>
+						<form action="update.ur" id="updateForm" method="post" enctype="multipart/form-data">
                          <!-- 회원번호 -->
                         <div class="mb-3 row">
                           <label for="html5-text-input" class="col-md-2 col-form-label">회원번호</label>
                           <div class="col-md-3">
-                            <input class="form-control" type="text" name="no" value="${u.userNo}" id="html5-text-input" readonly/>
+                            <input class="form-control" type="text" name="userNo" value="${u.userNo}" id="html5-text-input" readonly/>
                           </div>
                         </div>
 
@@ -129,14 +137,14 @@
 						<div class="mb-3 row">
 						  <label for="formFile" class="col-md-2 col-form-label">회원 프로필</label>
 						  <div class="col-md-3">
-							<input type="file" id="userProfile" name="userProfile" class="form-control" style="display:none;">
+							<input type="file" id="profileImgFile" style="display:none;">
 							<c:choose>
 							<c:when test="${empty u.userProfileUrl}">
-								<img id="roundPhoto" src='resources/profile_images/defaultProfile.png' onclick="$('#userProfile').click();" name="roundPhoto" value=""  style="height: 150px;">
+								<img id="profileImgFile" src='resources/profile_images/defaultProfile.png' onclick="$('#profileImgFile').click();">
 							</c:when>
 							<c:otherwise>
 								<input type="hidden" name="userProfileUrl" value="${u.userProfileUrl}">
-								<img id="roundPhoto" src='${u.userProfileUrl}' onclick="$('#userProfile').click();" style="height: 150px;">
+								<img id="profileImgFile" src="<c:out value='${u.userProfileUrl}' />" onclick="$('#profileImgFile').click();">
 							</c:otherwise>
 							</c:choose>
 						  </div>
@@ -144,13 +152,15 @@
 						
 						<script>
 							$(function(){
-								$("#userProfile").change(function(){
-									let roundPhoto = $('#roundPhoto');
+								$("#profileImgFile").change(function(){
+									//let pif = $('#profileImgFile');
 									let formData = new FormData();
-									let uploadFile = this.files[0];
-									console.log(roundPhoto.val());
+									let uploadFile = this.files[0]
+									console.log(uploadFile);
+									
 									formData.append("uploadFile", uploadFile);
-									formData.append("originalFile", "${u.userProfileUrl}.val()"); 
+									formData.append("userNo", "${u.userNo}");
+									formData.append("originalFile", "${u.userProfileUrl}"); 
 									
 								$.ajax({
 									url:"uploadProfile.ur",
@@ -168,12 +178,13 @@
 								})
 							})
 						</script><br><br>
-
+                       
+						 
                         <!-- 버튼 -->
                         <div class="mb-3" style="text-align: center;">
                             <!-- 회원수정 버튼 -->
                             <button type="button" class="btn btn-warning" style="display: inline-block;" data-bs-toggle="modal" data-bs-target="#UserModify">회원수정</button>
-                            <!--model창 나오게--> 
+                            <!-- 수정 model창 나오게--> 
                             <div class="modal fade" id="UserModify" tabindex="-1" aria-hidden="true">
                               <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
@@ -181,7 +192,7 @@
                                     <h5 class="modal-title" id="modalCenterTitle">🙍‍♀️회원관리 - 상세조회</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                   </div>
-                                  <div class="modal-body" style="text-align: center; font-size: larger; font-weight: bold;">회원정보가 수정되었습니다</div>
+                                  <div class="modal-body" style="text-align: center; font-size: larger; font-weight: bold;">회원정보를 수정하시겠습니까?</div>
                                   <div class="modal-footer">
                                     <button type="submit" class="btn btn-primary">확인</button>
                                     <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
@@ -189,20 +200,10 @@
                                 </div>
                               </div>
                             </div>
-                            <!-- 회원삭제 버튼 -->
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#UserDelete" onclick="postFormSubmit('delete.ur');">회원삭제</button>
-                            <form id="postForm" action="" method="post">
-                            	<!-- 회원 삭제시 전달값 : 회원번호, 파일 저장 위치 -->
-                            	<input type="hidden" name="no" value="${u.userNo}">
-                            	<input type="hidden" name="filePath" value="${u.userProfileUrl}">
-                            </form>
-                            <script>
-                            	function postFormSubmit(url) {
-                            		$("#postForm").attr("action", url).submit();
-                            	}
-                            </script>
                             
-                            <!--model창 나오게--> 
+                            <!-- 회원삭제 버튼 -->
+                            <button type="button" class="btn btn-danger" style="display: inline-block;" data-bs-toggle="modal" data-bs-target="#UserDelete">회원삭제</button>
+                            <!-- 삭제 model창 나오게 -->
                             <div class="modal fade" id="UserDelete" tabindex="-1" aria-hidden="true">
                               <div class="modal-dialog modal-dialog-centered" role="document">
                                 <div class="modal-content">
@@ -210,23 +211,35 @@
                                     <h5 class="modal-title" id="modalCenterTitle">🙍‍♀️회원관리 - 상세조회</h5>
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                                   </div>
-                                  <div class="modal-body" style="text-align: center; font-size: larger; font-weight: bold;">회원정보가 삭제되었습니다</div>
+                                  <div class="modal-body" style="text-align: center; font-size: larger; font-weight: bold;">회원정보를 삭제하시겠습니까?</div>
                                   <div class="modal-footer">
-                                    <button type="submit" class="btn btn-primary">확인</button>
+                                    <button type="button" class="btn btn-primary" onclick="postFormSubmit('delete.ur');">확인</button>
                                     <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
                                   </div>
                                 </div>
                               </div>
                             </div>
+                            
+                            <script>
+                            	function postFormSubmit(url) {
+                            		$("#postForm").attr("action", url).submit();
+                            	}
+                            </script>
+                            
                             <!-- 목록 버튼 -->
                             <a class="btn btn-secondary" href="list.ur">목록으로</a>
                         </div>
+                        </form>
                     </div>
                 </div>
+                <!-- 회원 삭제시 전달값 : 회원번호, 파일 저장 위치 -->
+                <form id="postForm" action="" method="post">
+                	<input type="hidden" name="userNo" value="${u.userNo}">
+                	<input type="hidden" name="filePath" value="${u.userProfileUrl}">
+                </form>
             </div>
         </div>
     </div>
- </form>
 </div>
 
 
