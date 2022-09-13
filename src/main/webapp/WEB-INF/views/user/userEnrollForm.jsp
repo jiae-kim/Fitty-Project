@@ -62,13 +62,27 @@
                         <!-- 회원권 구분 -->
                         <div class="col-md">
                           <label for="html5-tel-input" class="col-md-2 col-form-label">회원권 구분</label>
-                            <input class="form-check-input" type="radio" name="userType" id="defaultRadio1" value="H" required />
+                            <input class="form-check-input defaultRadio" type="radio" name="userType" value="H" required />
                             <label class="form-check-label" for="defaultRadio1">&nbsp;&nbsp;헬스장 이용권</label>
                           	&nbsp;&nbsp;&nbsp;
-                            <input class="form-check-input" type="radio" name="userType" id="defaultRadio1" value="P" required />
+                            <input class="form-check-input defaultRadio" type="radio" name="userType" value="P" required />
                             <label class="form-check-label" for="defaultRadio1">&nbsp;&nbsp;PT 이용권</label>
                         </div> <br>
-
+						
+						<script>
+							$(function(){
+								$('.defaultRadio').change(function(){
+									var result = $(".defaultRadio:checked").val();
+									console.log(result);
+									if(result == 'H') {
+										$('#selectBox').show();
+									}else {
+										$('#selectBox').hide();
+									}
+								})
+							})
+						</script>
+						
                         <!-- 등록일 -->
                         <div class="mb-3 row">
                           <label for="html5-date-input" class="col-md-2 col-form-label">등록일</label>
@@ -78,7 +92,7 @@
                         </div>
 
                         <!-- 이용 개월 -->
-                        <div class="mb-3 row">
+                        <div class="mb-3 row" id="selectBox">
                           <label for="html5-date-input" class="col-md-2 col-form-label">이용 개월</label>
                           <div class="col-md-3">
                             <select id="defaultSelect" name="userMonth" class="form-select" required>
@@ -91,7 +105,7 @@
                             </select>
                           </div>
                         </div>
-
+                        
                         <!-- 만료일 
                         <div class="mb-3 row">
                           <label for="html5-text-input" class="col-md-2 col-form-label">만료일</label>
