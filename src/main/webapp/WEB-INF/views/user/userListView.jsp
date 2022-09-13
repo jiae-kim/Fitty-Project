@@ -84,7 +84,7 @@
 		                                    
 		                                    <c:choose>
 		                                    <c:when test="${u.userType eq 'P'}">
-		                                    <td><a class="btn rounded-pill btn-info" href="">PT등록</a></td>
+		                                    	<td><a class="btn rounded-pill btn-info" href="enroll.cl?no=${ u.userNo }">PT등록</a></td>
 		                                    </c:when>
 		                                    <c:otherwise>
 		                                    	<td><button type="button" class="btn rounded-pill btn-info" disabled>PT등록</button></td>
