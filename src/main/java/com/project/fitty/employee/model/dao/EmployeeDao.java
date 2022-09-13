@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.project.fitty.attendance.model.vo.Attendance;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
 
@@ -15,6 +16,13 @@ public class EmployeeDao {
 	
 	public Employee loginEmployee(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.selectOne("employeeMapper.loginEmployee", e);
+	}
+	
+	public Employee attFlag(SqlSessionTemplate sqlSession, Employee e) {
+		Attendance a = sqlSession.selectOne("attendanceMapper.attFlag", e);
+		e.setAttIn(a.getAttIn());
+		e.setAttOut(a.getAttOut());
+		return e;
 	}
 	
 	public String selectNextEmpNo(SqlSessionTemplate sqlSession) {

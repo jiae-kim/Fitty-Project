@@ -13,6 +13,8 @@
 		<result column="emp_photo" property="empPhoto"/>
 		<result column="emp_enroll_date" property="empEnrollDate"/>
 		<result column="emp_modify_date" property="empModifyDate"/>
+		<result column="attIn" property="attOut"/>
+		<result column="attOut" property="attOut"/>
 </resultMap>
 
 	<select id="loginEmployee" resultMap="employeeResult">
@@ -31,7 +33,9 @@
 		 where   emp_no = #{empNo}
 		   and  emp_status = 'Y'
 	</select>
-
+	
+	
+	
 	<select id="selectNextEmpNo" resultType="string">
 		select last_number
 		  from user_sequences

@@ -26,9 +26,15 @@ public class EmployeeController {
 	public String loginEmployee(Employee e, HttpSession session) {
 		
 		Employee loginUser = eService.loginEmployee(e);
+		Employee attFlag = eService.attFlag(e);
 		
-		if(loginUser != null) {
+		
+		loginUser.setAttIn(attFlag.getAttIn());
+		loginUser.setAttOut(attFlag.getAttOut());
+		
+		if(loginUser != null && attFlag != null) {
 			session.setAttribute("loginUser", loginUser);
+			
 			return "common/mainPage";
 		} else {
 			session.setAttribute("alertMsg", "사번을 다시 확인해주세요.");

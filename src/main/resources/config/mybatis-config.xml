@@ -19,7 +19,7 @@
 		<typeAlias type="com.project.fitty.alert.model.vo.Alert" alias="Alert"/>
 		<typeAlias type="com.project.fitty.mail.model.vo.Semail" alias="Semail"/>
 		<typeAlias type="com.project.fitty.mail.model.vo.Remail" alias="Remail"/>
-		<typeAlias type="com.project.fitty.ptclass.model.vo.Reply" alias="Reply" />
+		<!-- <typeAlias type="com.project.fitty.ptclass.model.vo.Reply" alias="Reply" /> -->
 	</typeAliases>
 	
 	<!-- environment
@@ -37,7 +37,7 @@
 	 	<mapper resource="/mappers/approval-mapper.xml"/>
 	 	<mapper resource="/mappers/machine-mapper.xml"/>
 	 	<mapper resource="/mappers/locker-mapper.xml"/>
-	 	<mapper resource="/mappers/class-mapper.xml" />
+	 	<!-- <mapper resource="/mappers/class-mapper.xml" /> -->
 	 	<!-- <mapper resource="/mappers/alert-mapper.xml"/>  -->
 	 	
 	 </mappers>

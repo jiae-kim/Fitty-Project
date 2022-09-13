@@ -469,13 +469,21 @@
                   	</c:choose>
                   </span>
                   <c:choose>
-                  	<c:when test="${ empty att }">
-                  		 <button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();">출근</button>
-                  		 <button class="btn btn-sm btn-secondary" id="out-btn" onclick="logout()" disabled>퇴근</button>
+                  	<c:when test="${ loginUser.attIn eq '0'  }">
+                  		<button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();">출근</button>
+                  		<button class="btn btn-sm btn-secondary" id="out-btn" onclick="workOut()" disabled>퇴근</button>
                   	</c:when>
                   	<c:otherwise>
-                  		 <button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();" disabled>출근</button>
-                  		 <button class="btn btn-sm btn-secondary" id="out-btn" onclick="logout()">퇴근</button>
+                  		 <c:choose>
+                  			<c:when test="${ loginUser.attOut eq '0'  }">
+                  				<button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();" disabled>출근</button>
+                  		 		<button class="btn btn-sm btn-secondary" id="out-btn" onclick="workOut()">퇴근</button>
+                  			</c:when>
+                  			<c:otherwise>
+                  				<button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();" disabled>출근</button>
+                  		 		<button class="btn btn-sm btn-secondary" id="out-btn" onclick="workOut()" disabled>퇴근</button>
+                  			</c:otherwise>
+                  		</c:choose>
                   	</c:otherwise>
                   </c:choose>
                 </div>
@@ -495,13 +503,23 @@
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3" id="about-time">
                   <c:choose>
-                  	<c:when test="${ empty att }">
-                  		 출근버튼을 눌러주세요!
+                  	<c:when test="${ loginUser.attIn eq '0'  }">
+                  		출근버튼을 눌러주세요!
                   	</c:when>
                   	<c:otherwise>
-                  		 ${ att.nowTime } 부터 근무중 👏
+                  		<c:choose>
+                  			<c:when test="${ loginUser.attOut eq '0'  }">
+ 		                 		 <span id="workingHours">${ loginUser.attIn } 부터 근무중 👏</span>
+                  			</c:when>
+                  			<c:otherwise>
+                  				<span id="workingHours">오늘 하루도 고생하셨습니다. 로그아웃하시고 쉬세요🎉</span>
+                  			</c:otherwise>
+                  		</c:choose>
                     </c:otherwise>
                   </c:choose>
+                </li>
+                <li class="nav-item lh-1 me-3">
+                    <button type="button" class="btn btn-sm btn-info" onclick="logOut();">로그아웃</button>
                 </li>
                 <li class="nav-item lh-1 me-3">
                     <a href="mail.re"><i class='bx bx-envelope'></i></a>
@@ -514,11 +532,6 @@
                 </li>
 				
 				<script>
-				
-				 $(function(){
-					 
-				 })
-				 
 				 function go(address){
 						console.log(address);
 						location.href = address;
@@ -529,35 +542,29 @@
 				 }
 				 
 				 
-				 /*
+				
 				 
-				 function headerAtt(){
-					 $.ajax({
-			    			url:"headerAtt.att",
-			    			data : {empNo : empNo},
-			    			success:function(att){
-			    				value = att.gapHour + " 시간 " + att.gapMinute + " 분째 근무중"
-			    				$("#about-time").html(value);
-			    				console.log(value);
-			    			},
-			    			error:function(){
-			    				console.log("헤더용 출근시간 체크 ajax 통신 실패");
-			    			}
-			    		})
-				 }
-				 */
-				 
-				 function logout(){
+				 function workOut(){
 						 alertify.confirm("정말 퇴근하시겠습니까?",
 								  function(){
 							 		$("#workOutform").submit();
-							 		 go('logout.me');
+							 		$("#out-btn").attr("disabled", true);
 								  },
 								  function(){
 								    
 								  });
+							 		
 					} 
 				 
+				 function logOut(){
+					 alertify.confirm("정말 퇴근하시겠습니까?",
+							  function(){
+							    go('logout.me');
+							  },
+							  function(){
+							    
+							  });
+				 }
 				</script>
 
                 

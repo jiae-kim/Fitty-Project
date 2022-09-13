@@ -28,11 +28,11 @@ public class AttendanceDao {
 		int statusResult = sqlSession.update("attendanceMapper.updateAttOutStatus",a);
 		return timeResult + statusResult;
 	}
-	
+	/*
 	public Attendance selectOutAttendance(SqlSessionTemplate sqlSession, Attendance a) {
 		return sqlSession.selectOne("attendanceMapper.selectOutAttendance", a);
 	}
-
+*/
 	public ArrayList<Attendance> selectAllAttList(SqlSessionTemplate sqlSession, Employee e) {
 	
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAllAttList", e);

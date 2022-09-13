@@ -36,5 +36,10 @@ public class Employee {
 	private String thisYear;
 	private String thisMonth;
 	private ArrayList<Attendance> countList;
+	
+	private String attIn;
+	private String attOut;
+	private String attFlag;
+	private String nowTime;
 
 }

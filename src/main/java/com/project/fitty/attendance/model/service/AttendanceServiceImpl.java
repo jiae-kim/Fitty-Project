@@ -38,12 +38,12 @@ public class AttendanceServiceImpl implements AttendanceService{
 	public int updateWorkOutLogOut(Attendance a) {
 		return aDao.updateWorkOutLogOut(sqlSession, a);
 	}
-	
+	/*
 	@Override
 	public Attendance selectOutAttendance(Attendance a) {
-		return aDao.selectOutAttendance(sqlSession, a);
+		return aDao.selectInAttendance(sqlSession, a);
 	}
-
+*/
 	@Override
 	public ArrayList<Attendance> selectAllAttList(Employee e) {
 		ArrayList<Attendance> attList = aDao.selectAllAttList(sqlSession, e);

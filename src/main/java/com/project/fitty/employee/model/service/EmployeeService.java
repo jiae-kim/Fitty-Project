@@ -11,6 +11,9 @@ public interface EmployeeService {
 	
 	// 직원 로그인 서비스 (select)
 	Employee loginEmployee(Employee e);
+	
+	//attFlag (select)
+	Employee attFlag(Employee e);
 
 	// 다음 회원번호 미리 알아오기 (select)
 	String selectNextEmpNo();
