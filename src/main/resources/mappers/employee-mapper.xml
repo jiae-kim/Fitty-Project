@@ -28,7 +28,8 @@
 			   , emp_enroll_date
 			   , emp_modify_date
 		  from   tb_emp
-		 where   emp_no = #{empNo} 
+		 where   emp_no = #{empNo}
+		   and  emp_status = 'Y'
 	</select>
 
 	<select id="selectNextEmpNo" resultType="string">
@@ -89,6 +90,7 @@
 		     , emp_no
 		  from tb_grade g
 		  join tb_emp e on (e.emp_grade = g.emp_grade)
+		 where e.emp_status = 'Y'
 		 start with gr_pr_grade is null
 	   connect
 	   		by nocycle prior g.emp_grade = gr_pr_grade 
@@ -103,6 +105,12 @@
 		  join tb_grade g on (e.emp_grade = g.emp_grade)
 		 where e.emp_no in ${empNo}
 	  </select>
+	  
+	  <update id="deleteEmployee">
+	  	update tb_emp
+	  	   set emp_status = 'N'
+	  	 where emp_no in (${empNo})
+	  </update>
 	  
 	
 
