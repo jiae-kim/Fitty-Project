@@ -60,7 +60,7 @@ public class UserController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		ArrayList<User> list = uService.selectList(pi);
 		
-		System.out.println(list);
+		//System.out.println(list);
 		
 		mv.addObject("pi", pi)
 		  .addObject("list", list)
@@ -98,7 +98,7 @@ public class UserController {
 			return "redirect:list.ur";
 		}else {// 수정 실패 => 수정페이지
 			session.setAttribute("alertMsg", "❌ 회원정보 수정에 실패했습니다 ❌");
-			return "redirect:update.ur";
+			return "common/errorPage";
 		}
 		
 	}
@@ -107,19 +107,20 @@ public class UserController {
 	@ResponseBody
 	@RequestMapping("uploadProfile.ur") 
 	public void ajaxUploadProfile(MultipartFile uploadFile, User u, String originalFile, HttpSession session) { 
+		//System.out.println(u.getUserNo());
+		//System.out.println(uploadFile);
 	  
 		if(uploadFile != null) {// 넘어온 파일이 있을 경우
 			// 저장경로 : 넘기려는 파일, session, 저장위치
-			String saveFilePath = FileUpload.saveFile(uploadFile, session, "resources/upload_profielImg/");
-			// u.setUserProfileUrl(saveFilePath);
+			String saveFilePath = FileUpload.saveFile(uploadFile, session, "resources/upload_profileImg/");
+			u.setUserProfileUrl(saveFilePath);
 			
 			int result = uService.uploadProfileImg(u);
 			
 			if(result > 0) {// db에 사진 변경 성공
 				// db에 업데이트 :번호, 사진만 
-				u.setUserNo(result);
-				u.setUserProfileUrl(saveFilePath);
-				
+				//u.setUserNo(result);
+
 				// 기존 프로필 이미지가 있었을 경우 : 기존 프로필 이미지 삭제
 				if(!originalFile.equals("")){ 
 					new File(session.getServletContext().getRealPath(originalFile)).delete();
@@ -130,8 +131,8 @@ public class UserController {
 	 
 	// [김지애] 6. 회원삭제 서비스
 	@RequestMapping("delete.ur")
-	public String deleteUser(int no, String filePath, HttpSession session) {
-		int result = uService.deleteUser(no);
+	public String deleteUser(int userNo, String filePath, HttpSession session) {
+		int result = uService.deleteUser(userNo);
 		
 		if(result >0) {// db에서 삭제 성공 ('N'으로 변경)
 			
@@ -147,16 +148,6 @@ public class UserController {
 			return "redirect:update.ur";
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
