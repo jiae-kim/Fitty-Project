@@ -13,7 +13,7 @@
 		<typeAlias type="com.project.fitty.product.model.vo.Product" alias="Product" />
 		<typeAlias type="com.project.fitty.schedule.model.vo.Booking" alias="Booking" />
 		<typeAlias type="com.project.fitty.employee.model.vo.Employee" alias="Employee"/>
-		<typeAlias type="com.project.fitty.employee.model.vo.Employee" alias="Approval"/>
+		<typeAlias type="com.project.fitty.approval.model.vo.Approval" alias="Approval"/>
 		<typeAlias type="com.project.fitty.machine.model.vo.Machine" alias="Machine"/>
 		<typeAlias type="com.project.fitty.locker.model.vo.Locker" alias="Locker"/>
 		<typeAlias type="com.project.fitty.alert.model.vo.Alert" alias="Alert"/>

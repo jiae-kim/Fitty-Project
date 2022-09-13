@@ -116,7 +116,10 @@
                   <br>
                   <table style="width:100%;">
                     <tr style="width:100%">
-                      <td style="width:100%; text-align:right;">
+                      <td style="width:20%; text-align:left;">
+                      	<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#moveLocker">자리이동</button>
+                      </td>
+                      <td style="width:80%; text-align:right;">
                         
                         <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#createLocker">락커생성</button>
                         <button type="submit" class="btn btn-secondary me-2">락커삭제</button>
@@ -149,6 +152,7 @@
 	                        <input type="hidden" class="lk-userName" name="userName" value="${ list[i].userName }">
 	                        <input type="hidden" class="lk-sDate" name="startDate" value="${ list[i].startDate }">
 	                        <input type="hidden" class="lk-eDate" name="endDate" value="${ list[i].endDate }">
+	                        <input type="hidden" class="lk-userNo" value="${ list[i].userNo }">
 	                        <c:if test="${not empty list[i] }">
 	                          <div class="locker">
 	                            <c:if test="${ empty list[i].startDate or list[i].endDate < today }">
@@ -211,6 +215,8 @@
 	                        <input type="hidden" class="lk-userName" name="userName" value="${ list[i].userName }">
 	                        <input type="hidden" class="lk-sDate" name="startDate" value="${ list[i].startDate }">
 	                        <input type="hidden" class="lk-eDate" name="endDate" value="${ list[i].endDate }">
+	                        <input type="hidden" class="lk-userNo" value="${ list[i].userNo }">
+	                        
 	                          <c:if test="${not empty list[i]}">
 	                          <div class="locker">
 	                            <c:if test="${ empty list[i].startDate or list[i].endDate < today   }">
@@ -274,6 +280,8 @@
 	                        <input type="hidden" class="lk-userName" name="userName" value="${ list[i].userName }">
 	                        <input type="hidden" class="lk-sDate" name="startDate" value="${ list[i].startDate }">
 	                        <input type="hidden" class="lk-eDate" name="endDate" value="${ list[i].endDate }">
+	                        <input type="hidden" class="lk-userNo" value="${ list[i].userNo }">
+	                        
 	                          <c:if test="${not empty list[i] }">
 	                          <div class="locker">
 	                            <c:if test="${ empty list[i].startDate or list[i].endDate < today }">
@@ -351,6 +359,7 @@
 						$("#sm-userName2").text($(this).parents('div').siblings('input').eq(1).val());
 						$("#sm-sDate2").val($(this).parents('div').siblings('input').eq(2).val());
 						$("#sm-eDate2").val($(this).parents('div').siblings('input').eq(3).val());
+						$("#sm-userNo").val($(this).parents('div').siblings('input').eq(4).val());
 					})	
 				})
 					
@@ -407,6 +416,7 @@
                 <div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
+                    <form action="recover.lk">
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel1">락커 No. <span id="sp-lkNo2"></span></h5>
                         <input type="hidden" id="sm-lkNo2" name="lkNo2" value="">
@@ -440,12 +450,10 @@
                         </div>
                       </div>
                       <div class="modal-footer">
-                        <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-                          Close
-                        </button> -->
-                        <button type="button" class="btn btn-info">자리이동</button>
-                        <button type="button" class="btn btn-secondary">락커회수</button>
+                        <input type="hidden" id="sm-userNo" name="userNo" value="" >
+                        <button type="submit" class="btn btn-secondary">락커회수</button>
                       </div>
+                    </form>
                     </div>
                   </div>
                 </div>
@@ -491,6 +499,7 @@
                  <div class="modal fade" id="moveLocker" tabindex="-1" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
+                    <form action="move.lk">
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel1">자리 이동</h5>
                         <button
@@ -505,20 +514,27 @@
                           <div class="col mb-3">
                             <div class="mb-3">
                               <label for="defaultSelect" class="form-label">회원 목록</label>
-                              <select id="defaultSelect" class="form-select">
-                                <option>Default select</option>
-                                <option value="1">One</option>
-                                <option value="2">Two</option>
-                                <option value="3">Three</option>
+                              <select id="defaultSelect" class="form-select" name="strUserNo">
+                                <c:forEach var="u" items="${ userList }">
+                                <option>${ u.userNo } . ${ u.userName }</option>
+                                </c:forEach>
                               </select>
                             </div>
                             <div class="mb-3">
                               <label for="defaultSelect" class="form-label">현재 자리 번호</label>
-                              <input class="form-control" type="number" value="18" id="html5-number-input">
+                              <select id="defaultSelect" class="form-select" name="lkNo">
+                                <c:forEach var="l" items="${ nList1 }">
+                                <option>${ l.lkNo }</option>
+                                </c:forEach>
+                              </select>
                             </div>
                             <div class="mb-3">
                               <label for="defaultSelect" class="form-label">이동할 자리 번호</label>
-                              <input class="form-control" type="number" value="18" id="html5-number-input">
+                              <select id="defaultSelect" class="form-select" name="mvLkNo">
+                                <c:forEach var="l" items="${ nList2 }">
+                                <option>${ l.lkNo }</option>
+                                </c:forEach>
+                              </select>
                             </div>
                           </div>
                         </div>
@@ -527,8 +543,9 @@
                         <!-- <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                           Close
                         </button> -->
-                        <button type="button" class="btn btn-primary">자리이동</button>
+                        <button type="submit" class="btn btn-primary">자리이동</button>
                       </div>
+                    </form>
                     </div>
                   </div>
                 </div>

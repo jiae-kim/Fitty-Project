@@ -2,4 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="approvalMapper">
 
+	<resultMap id="approvalResult" type="Approval">
+		<result column="appr_no" property="apprNo"/>
+		<result column="appr_doc_type" property="apprDocType"/>
+		<result column="appr_title" property="apprTitle"/>
+		<result column="appr_enroll_date" property="apprEnrollDate"/>
+		<result column="appr_status" property="apprStatus"/>
+		<result column="appr_conmment" property="apprComment"/>
+	</resultMap>
+
+	<select id="selectListCount" resultType="_int">
+		select
+		   	   count (*)
+		  from tb_approval
+	</select>
+	
+	<select id="selectList" resultMap="approvalResult">
+		select 
+			   appr_no
+			 , appr_doc_type
+			 , appr_title
+			 , appr_enroll_date
+			 , appr_status
+			 , appr_comment
+		  from tb_approval
+		 order
+		    by appr_enroll_date
+	</select>
+
 </mapper>

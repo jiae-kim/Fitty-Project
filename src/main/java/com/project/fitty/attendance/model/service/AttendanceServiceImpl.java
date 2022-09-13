@@ -32,7 +32,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 			case "V" : a.setAttStatus("#29CCF9"); ; break; // 휴가
 			case "Y" : a.setAttStatus("#686BFF"); ; break; // 연월차
 			case "B" : a.setAttStatus("#FFFFFF"); ; break; // 베이직
-			default : a.setAttStatus("#FFFFFF"); break;
+			case "O" : a.setAttStatus("#DCDADA"); ; break; // 베이직
+			//default : a.setAttStatus("#FFFFFF"); break;
 			}
 		}
 		return attList;
@@ -51,7 +52,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 			case "V" : a.setAttStatus("#29CCF9"); ; break; // 휴가
 			case "Y" : a.setAttStatus("#686BFF"); ; break; // 연월차
 			case "B" : a.setAttStatus("#FFFFFF"); ; break; // 베이직
-			default : a.setAttStatus("#FFFFFF"); break;
+			case "O" : a.setAttStatus("#DCDADA"); ; break; // 베이직
+			//default : a.setAttStatus("#FFFFFF"); break;
 			}
 		}
 		return attList;

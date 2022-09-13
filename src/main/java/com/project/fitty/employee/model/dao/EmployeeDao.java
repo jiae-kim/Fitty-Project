@@ -42,7 +42,7 @@ public class EmployeeDao {
 		return  (ArrayList)sqlSession.selectList("employeeMapper.selectEmpList");
 	}
 	
-	
+	// 전체 직원리스트 empList
 	public int selectEmpListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.insert("employeeMapper.selectEmpListCount");
 	}
@@ -64,6 +64,11 @@ public class EmployeeDao {
 	// 회원번호 지운 empList
 	public ArrayList<Employee> deleteEmpNoList(SqlSessionTemplate sqlSession,String empNo) {
 		return (ArrayList)sqlSession.selectList("employeeMapper.checkEmpNoList", empNo);
+	}
+	
+	// 직원 퇴사버튼
+	public int deleteEmployee(SqlSessionTemplate sqlSession, String empNo) {
+		return sqlSession.update("employeeMapper.deleteEmployee", empNo);
 	}
 	
 }

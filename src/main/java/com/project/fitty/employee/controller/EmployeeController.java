@@ -101,4 +101,24 @@ public class EmployeeController {
 		}
 	}
 	
+	
+	@RequestMapping("delete.emp")
+	public String deleteEmployee(String strDeleteListEmpNo, HttpSession session) {
+		
+		if(strDeleteListEmpNo.length() == 0) {
+			session.setAttribute("alertMsg", "❌ 선택한 직원이 없습니다. 다시 선택해주세요! ❌");
+			return "redirect:centerAtt.att";
+		} else {
+			int result = eService.deleteEmployee(strDeleteListEmpNo);
+			
+			if(result > 0) {
+				session.setAttribute("alertMsg", "✔ " + strDeleteListEmpNo + " 님 퇴사 완료 ✔");
+				return "redirect:centerAtt.att";
+			} else {
+				session.setAttribute("alertMsg", "❌ 직원 퇴사에 실패했습니다! ❌");
+				return "redirect:centerAtt.att";
+			}
+		}
+		}
+	
 }

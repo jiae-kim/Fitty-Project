@@ -31,11 +31,15 @@ public class LockerController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 24);
 		ArrayList<Locker> list = lService.selectList(pi);
 		
-		ArrayList<User> userList = lService.selectUserList();
+		ArrayList<User> userList = lService.selectUserList(); // 전체 회원 조회
+		ArrayList<Locker> nList1 = lService.selectUsedLkNo(); // 현재 사용중인 락커 번호 조회
+		ArrayList<Locker> nList2 = lService.selectNotUsedLkNo(); // 현재 사용하지 않는 중인 락커 번호 조회
 		
 		model.addAttribute("pi", pi);
 		model.addAttribute("list" , list);
 		model.addAttribute("userList", userList);
+		model.addAttribute("nList1", nList1);
+		model.addAttribute("nList2", nList2);
 		
 		return "locker/lockerList";
 	}
@@ -96,5 +100,56 @@ public class LockerController {
 			return "common/errorPage";
 		}
 	}
+	
+	@RequestMapping("move.lk")
+	public String moveLocker(String strUserNo, Locker l, HttpSession session) {
+		
+		String[] arr = strUserNo.split("\\.");
+		int userNo = Integer.parseInt(arr[0].replace(" ", ""));
+		
+		l.setUserNo(userNo);
+		
+		ArrayList<Locker> nList = lService.selectConditionLkNo(l.getUserNo());
+		// 먼저 요청된 락커번호와 회원번호가 일치하는지 조건검사 
+		
+		int count = 0;
+		for(Locker lk : nList) {
+			if(lk.getLkNo() == l.getLkNo()) {
+				count++;
+			}
+		}
+		
+		if(count > 0) {
+			
+			int result = lService.moveLocker(l); // 자리이동 update
+			
+			if(result > 0){
+				session.setAttribute("alertMsg", "성공적으로 자리 이동되었습니다.");
+				return "redirect:list.lk";
+			}else {
+				session.setAttribute("errorMsg", "자리 이동 실패");
+				return "common/errorPage";
+			}
+			
+		}else {
+			session.setAttribute("alertMsg", "현재 자리 번호가 일치하지 않습니다. 올바른 번호를 선택하세요.");
+			return "redirect:list.lk";
+		}
+	}
+	
+	@RequestMapping("recover.lk")
+	public String recoverLocker(@RequestParam(value = "lkNo2") int lkNo, HttpSession session) {
+		
+		int result = lService.recoverLocker(lkNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 락커 회수하였습니다.");
+			return "redirect:list.lk";
+		}else {
+			session.setAttribute("errorMsg", "락커 회수 실패");
+			return "common/errorPage";
+		}
+	}
+	
 	
 }

@@ -28,6 +28,18 @@ public class LockerService {
 		return lDao.selectList(sqlSession, pi);
 	}
 	
+	public ArrayList<User> selectUserList(){
+		return lDao.selectUserList(sqlSession);
+	}
+	
+	public ArrayList<Locker> selectUsedLkNo(){
+		return lDao.selectUsedLkNo(sqlSession);
+	}
+	
+	public ArrayList<Locker> selectNotUsedLkNo(){
+		return lDao.selectNotUsedLkNo(sqlSession);
+	}
+	
 	public int addLocker() {
 		return lDao.addLocker(sqlSession);
 	}
@@ -36,11 +48,19 @@ public class LockerService {
 		return lDao.deleteLocker(sqlSession, lkNo);
 	}
 	
-	public ArrayList<User> selectUserList(){
-		return lDao.selectUserList(sqlSession);
-	}
-	
 	public int assignLocker(Locker l) {
 		return lDao.assignLocker(sqlSession, l);
+	}
+	
+	public ArrayList<Locker> selectConditionLkNo(int userNo){
+		return lDao.selectConditionLkNo(sqlSession, userNo);
+	}
+	
+	public int moveLocker(Locker l) {
+		return lDao.moveLocker(sqlSession, l);
+	}
+	
+	public int recoverLocker(int lkNo) {
+		return lDao.recoverLocker(sqlSession, lkNo);
 	}
 }

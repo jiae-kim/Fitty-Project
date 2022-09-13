@@ -85,8 +85,8 @@
                             <td><button type="button" id="searchBtn" class="btn btn-primary" onclick="changeSelect();">검색</button></td>
                             <td width="555px"></td>
                             <td><button class="btn btn-primary" onclick="go('enrollForm.emp')">신규직원등록</button></td>
-                            <td><button class="btn btn-secondary" onclick="generalChange();">직원퇴사</button></td>
-                            <td><button class="btn btn btn-info"   onclick="go('resetForm.att')">근태초기화</button></td>
+                            <td><button class="btn btn-secondary" onclick="deleteEmp();">직원퇴사</button></td>
+                            <td><button class="btn btn-info" type="button" onclick="go('resetForm.att')">근태초기화</button></td>
                         </tr>        
                         </table>
                     </div>
@@ -177,6 +177,9 @@
                                 </tbody>
                                 </table>
                             </div>
+                            <form action="delete.emp" method="post" id="deleteEmpForm">
+                            	 <input type="hidden" id="strDeleteListEmpNo" name="strDeleteListEmpNo">
+                            </form>
                             <div style="width:16%; float:right;">
                                 <table class="table table-bordered memberListTable table-hover" id="countList" width="100%" cellspacing="0">
                                 <thead>

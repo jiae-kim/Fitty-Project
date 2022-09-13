@@ -38,8 +38,29 @@ public class LockerDao {
 		return (ArrayList)sqlSession.selectList("lockerMapper.selectUserList");
 	}
 	
+	public ArrayList<Locker> selectUsedLkNo(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("lockerMapper.selectUsedLkNo");
+	}
+	
+	public ArrayList<Locker> selectNotUsedLkNo(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("lockerMapper.selectNotUsedLkNo");
+	}
+	
 	public int assignLocker(SqlSessionTemplate sqlSession, Locker l) {
 		return sqlSession.insert("lockerMapper.assignLocker", l);
 	}
+	
+	public ArrayList<Locker> selectConditionLkNo(SqlSessionTemplate sqlSession, int userNo){
+		return (ArrayList)sqlSession.selectList("lockerMapper.selectConditionLkNo", userNo);
+	}
+	
+	public int moveLocker(SqlSessionTemplate sqlSession, Locker l) {
+		return sqlSession.update("lockerMapper.moveLocker", l);
+	}
+	
+	public int recoverLocker(SqlSessionTemplate sqlSession, int lkNo) {
+		return sqlSession.update("lockerMapper.recoverLocker", lkNo);
+	}
+	
 
 }

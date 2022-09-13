@@ -54,7 +54,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public int deleteEmployee(String empNo) {
-		return 0;
+		return eDao.deleteEmployee(sqlSession, empNo);
 	}
 
 	@Override

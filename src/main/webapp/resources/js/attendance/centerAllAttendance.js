@@ -39,8 +39,49 @@ $(function(){
     		}
     		})
     })
-
+    
+    
 })
+
+function checkAll() {
+         if($("#choiceAll").is(':checked')) {
+            $("#memListTBody :checkbox").prop("checked", true);
+         } else {
+            $("#memListTBody :checkbox").prop("checked", false);
+         }
+      }
+
+
+
+function deleteEmp(){
+   let strDeleteListEmpNo = "";
+   
+   $("#memListTBody :checkbox:checked").each(function(){
+     strDeleteListEmpNo += "'" + $(this).val() + "',";
+   })
+   
+   strDeleteListEmpNo = strDeleteListEmpNo.substring(0, strDeleteListEmpNo.lastIndexOf(","));
+   $("#strDeleteListEmpNo").val(strDeleteListEmpNo);
+   
+   const ask = confirm($("#strDeleteListEmpNo").val() + " 님의 퇴사는 되돌릴 수 없습니다. 정말 퇴사시키시겠습니까?");
+	
+   const askAgain = confirm("퇴사를 진행합니다.");
+	
+	if(ask == true) {
+            if(askAgain) {
+            	$("#memListTBody :checkbox").prop("checked", false);
+            	$("#deleteEmpForm").submit();
+            } else {
+             alert("초기화 취소, 다시 직원명단을 만들어주세요");
+              $("#memListTBody :checkbox").prop("checked", false);
+            }
+        } else {
+             alert("초기화 취소, 다시 직원명단을 만들어주세요");
+              $("#memListTBody :checkbox").prop("checked", false);
+        }
+   
+}
+
 
 function nowCheck(){
 
@@ -97,8 +138,8 @@ function selectAllAttList(page){
                 for(let i=0; i<empList.length; i++){
 					
                     value += "<tr>"
-                        +    "<th><input type='checkbox' name='choiceAll' id='choiceAll' onclick='checkAll();'></th>"
-                        +  	"<td>" +  empList[i].empName + "</td>"
+                        +    "<th><input type='checkbox' id='empNoInput' name='empNoInput' value='" + empList[i].empNo + "'></th>"
+                        +  	 "<td>" +  empList[i].empName + "</td>"
                         
                         for(var k in empList[i].attList) {
                                // value += 	"<td>" + empList[i].attList[k].attStatus + "</td>"
@@ -199,8 +240,8 @@ function selectOtherAttList(page){
             } else {
                 for(let i=0; i<empList.length; i++){
 					
-                    value += "<tr>"
-                        +    "<th><input type='checkbox' name='choiceAll' id='choiceAll' onclick='checkAll();'></th>"
+                   value += "<tr>"
+                        +    "<th><input type='checkbox' id='empNoInput' name='empNoInput' value='" + empList[i].empNo + "'></th>"
                         +  	"<td>" +  empList[i].empName + "</td>"
                         
                         for(var k in empList[i].attList) {

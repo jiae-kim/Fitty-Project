@@ -14,6 +14,7 @@
 		<result column="user_month" property="userMonth" />
 		<result column="user_edate" property="userEdate" />
 		<result column="user_pt" property="userPt" />
+		<result column="user_status" property="userStatus" />
 	</resultMap>
 
 	<!-- 1. 회원등록 -->
@@ -111,7 +112,7 @@
 	<update id="deleteUser">
 		update
 				tb_user
-		   set	status = 'N'
+		   set	user_status = 'N'
 		 where	user_no = #{userNo}
 	</update>
 	
