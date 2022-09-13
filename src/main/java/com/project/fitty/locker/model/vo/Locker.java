@@ -25,4 +25,5 @@ public class Locker {
 	private String endDate;
 	private String toStartDate;
 	private String toEndDate;
+	private String mvLkNo;
 }

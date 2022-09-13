@@ -40,7 +40,7 @@
            join tb_lk_asn using (lk_no)
            left join tb_user using (user_no)
           where end_date is null
-             or end_date >= sysdate
+             or end_date >= to_char(sysdate, 'yyyy-mm-dd')
           order
              by lk_no
 	</select>
@@ -78,6 +78,22 @@
 		     by user_name
 	</select>
 	
+	<select id="selectUsedLkNo" resultMap="LockerResult">
+		select lk_no
+		  from tb_lk_asn
+		 where start_date is not null
+		 order
+		    by lk_no
+	</select>
+	
+	<select id="selectNotUsedLkNo" resultMap="LockerResult">
+		select lk_no
+		  from tb_lk_asn
+		 where start_date is null
+		 order
+		    by lk_no
+	</select>
+	
 	<update id="assignLocker">
 		update
 				 tb_lk_asn
@@ -86,6 +102,22 @@
 		    	, start_date = #{startDate}
 		    	, end_date = #{endDate}
 		  where lk_no = #{lkNo}
+	</update>
+	
+	<select id="selectConditionLkNo" resultMap="LockerResult">
+		select
+		        lk_no
+		   from tb_lk_asn
+		   where user_no = #{userNo}
+		     and end_date >= to_date(sysdate)
+	</select>
+	
+	<update id="moveLocker">
+		update
+				tb_lk_asn
+		    set lk_no = #{mvLkNo}
+		  where lk_no = #{lkNo}
+		  
 	</update>
 	
 </mapper>
