@@ -72,10 +72,10 @@
 <body>
   <!-- Content -->
 <c:if test="${ not empty alertMsg }">
-	<script>
-		alertify.alert("${ alertMsg }");
-	</script>
-	<!-- 1회성 메시지 지우기 -->
+		<script>
+			alertify.alert("${ alertMsg }");
+		</script>
+		<!-- 1회성 메시지 지우기 -->
 	<c:remove var="alertMsg" scope="session"/>
 </c:if>
 <div class="container-xxl">

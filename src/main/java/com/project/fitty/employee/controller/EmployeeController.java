@@ -37,13 +37,7 @@ public class EmployeeController {
 	}
 	
 	
-	@RequestMapping("logout.me")
-	public String logoutEmployee(HttpSession session) {
-		session.invalidate();
-		// 메인페이지 url 재요청
-		// 그리고 퇴근시간 update 문도 실행해야함!
-		return "common/login";
-	}
+	
 	
 	
 	@ResponseBody

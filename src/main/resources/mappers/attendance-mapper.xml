@@ -19,7 +19,93 @@
 		<result column="countYH" property="countYH"/>
 		<result column="countV" property="countV"/>
 		<result column="countPtime" property="countPtime"/>
+		<result column="nowTime" property="nowTime"/>
+		<result column="gapHour" property="gapHour"/>
+		<result column="gapMinute" property="gapMinute"/>
+		<result column="gapSecond" property="gapSecond"/>
 </resultMap>
+
+
+ <update id="updateWorkInTime">
+ 	update tb_att
+	   set att_in = (select TO_CHAR(SYSDATE, 'HH24:MI:SS') from dual)
+	 where emp_no = #{empNo}
+	   and att_date = to_char(sysdate, 'yyyy-mm-dd')
+ </update>
+ 
+ 
+ <update id="updateAttInStatus">
+ 	update tb_att
+	   set att_status =  case
+	    when 
+	        to_date((select TO_CHAR(SYSDATE, 'HH24:MI:SS') from dual), 'HH24:MI:SS')
+	        between to_date('08:00:00','HH24:MI:SS') 
+	        and to_date('09:10:59','HH24:MI:SS')
+	        then  'O'
+	    when 
+	        to_date((select TO_CHAR(SYSDATE, 'HH24:MI:SS') from dual), 'HH24:MI:SS')
+	        between to_date('09:11:00','HH24:MI:SS') 
+	        and to_date('14:00:59','HH24:MI:SS')
+	        then  'L'
+	    else 'X'
+	  end
+	 where emp_no= #{empNo}
+   and att_status not in ('H', 'Y', 'V') 
+   and att_date = to_char(sysdate, 'yyyy-mm-dd')
+ </update>
+
+<select id="selectInAttendance" resultMap="attendanceResult">
+ 	select to_char(sysdate, 'yyyy-mm-dd HH24:MI:SS') as "nowTime"
+	     , trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')), 1) * 24) as "gapHour"
+	     , lpad(trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')) * 24, 1) * 60), 2, '0') as "gapMinute"
+	     , lpad(trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')) * 24 * 60, 1) * 60), 2, '0') AS "gapSecond"
+		from tb_att
+		where emp_no = #{empNo}
+		 and att_date = to_char(sysdate, 'yyyy-mm-dd')
+ </select>
+ 
+  <update id="updateWorkOutTime">
+ 	update tb_att
+	   set att_out = (select TO_CHAR(SYSDATE, 'HH24:MI:SS') from dual)
+	 where emp_no = #{empNo}
+	   and att_date = to_char(sysdate, 'yyyy-mm-dd')
+ </update>
+ 
+ 
+ <update id="updateAttOutStatus">
+ 	update tb_att
+	   set att_status =  case
+	    when 
+	        to_date((select TO_CHAR(SYSDATE, 'HH24:MI:SS') from dual), 'HH24:MI:SS')
+	        between to_date('14:01:00','HH24:MI:SS') 
+	        and to_date('17:30:00','HH24:MI:SS')
+	        then  'E'
+	    when 
+	        to_date((select TO_CHAR(SYSDATE, 'HH24:MI:SS') from dual), 'HH24:MI:SS')
+	        between to_date('17:30:01','HH24:MI:SS') 
+	        and to_date('18:30:59','HH24:MI:SS')
+	        then  'O'
+	    when 
+	        to_date((select TO_CHAR(SYSDATE, 'HH24:MI:SS') from dual), 'HH24:MI:SS')
+	        between to_date('18:31:00','HH24:MI:SS') 
+	        and to_date('07:59:59','HH24:MI:SS')
+	        then  'L'
+	    else 'X'
+	  end
+	 where emp_no= #{empNo}
+   and att_status not in ('H', 'Y', 'V') 
+   and att_date = to_char(sysdate, 'yyyy-mm-dd')
+ </update>
+  
+  <select id="selectOutAttendance" resultMap="attendanceResult">
+ 	select to_char(sysdate, 'yyyy-mm-dd HH24:MI:SS') as "nowTime"
+	     , trunc(mod((sysdate - to_date(att_out, 'HH24:MI:SS')), 1) * 24) as "gapHour"
+	     , lpad(trunc(mod((sysdate - to_date(att_out, 'HH24:MI:SS')) * 24, 1) * 60), 2, '0') as "gapMinute"
+	     , lpad(trunc(mod((sysdate - to_date(att_out, 'HH24:MI:SS')) * 24 * 60, 1) * 60), 2, '0') AS "gapSecond"
+		from tb_att
+		where emp_no = #{empNo}
+		 and att_date = to_char(sysdate, 'yyyy-mm-dd')
+ </select>
   
   <select id="selectAllAttList" resultMap="attendanceResult">
   select emp_no

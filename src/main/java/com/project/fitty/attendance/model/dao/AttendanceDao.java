@@ -12,6 +12,26 @@ import com.project.fitty.employee.model.vo.Employee;
 
 @Repository
 public class AttendanceDao {
+	
+	public int updateWorkIn(SqlSessionTemplate sqlSession,Attendance a) {
+		int timeResult = sqlSession.update("attendanceMapper.updateWorkInTime", a);
+		int statusResult = sqlSession.update("attendanceMapper.updateAttInStatus",a);
+		return timeResult + statusResult;
+	}
+	
+	public Attendance selectInAttendance(SqlSessionTemplate sqlSession, Attendance a) {
+		return sqlSession.selectOne("attendanceMapper.selectInAttendance", a);
+	}
+	
+	public int updateWorkOutLogOut(SqlSessionTemplate sqlSession, Attendance a) {
+		int timeResult = sqlSession.update("attendanceMapper.updateWorkOutTime", a);
+		int statusResult = sqlSession.update("attendanceMapper.updateAttOutStatus",a);
+		return timeResult + statusResult;
+	}
+	
+	public Attendance selectOutAttendance(SqlSessionTemplate sqlSession, Attendance a) {
+		return sqlSession.selectOne("attendanceMapper.selectOutAttendance", a);
+	}
 
 	public ArrayList<Attendance> selectAllAttList(SqlSessionTemplate sqlSession, Employee e) {
 	

@@ -458,6 +458,7 @@
                     </li>
                   <!--/ User -->
                   <span id="helloMan"><b>${ loginUser.empName }</b>
+                  	
                   	<c:choose>
                   		<c:when test="${ loginUser.empGrade eq 'T' }">
                   			트레이너님 오늘도 힘내요💜
@@ -467,16 +468,40 @@
                   		</c:otherwise>
                   	</c:choose>
                   </span>
-                  <button class="btn btn-sm btn-primary" id="init-btn">출근</button>
-                  <button class="btn btn-sm btn-secondary" id="out-btn" onclick="logout()">퇴근</button>
+                  <c:choose>
+                  	<c:when test="${ empty att }">
+                  		 <button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();">출근</button>
+                  		 <button class="btn btn-sm btn-secondary" id="out-btn" onclick="logout()" disabled>퇴근</button>
+                  	</c:when>
+                  	<c:otherwise>
+                  		 <button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();" disabled>출근</button>
+                  		 <button class="btn btn-sm btn-secondary" id="out-btn" onclick="logout()">퇴근</button>
+                  	</c:otherwise>
+                  </c:choose>
                 </div>
               </div>
+              <form action="workIn.att" method="post" id="workInform">
+              	<input type="hidden" value="${loginUser.empNo}" name="empNo" id="empNo">
+              </form>
+              
+               <form action="workOut.att" method="post" id="workOutform">
+              	<input type="hidden" value="${loginUser.empNo}" name="empNo">
+              </form>
+              
+               
               <!-- /Search -->
 
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3" id="about-time">
-                  6시간 30분째 근무중
+                  <c:choose>
+                  	<c:when test="${ empty att }">
+                  		 출근버튼을 눌러주세요!
+                  	</c:when>
+                  	<c:otherwise>
+                  		 ${ att.nowTime } 부터 근무중 👏
+                    </c:otherwise>
+                  </c:choose>
                 </li>
                 <li class="nav-item lh-1 me-3">
                     <a href="mail.re"><i class='bx bx-envelope'></i></a>
@@ -489,22 +514,50 @@
                 </li>
 				
 				<script>
+				
+				 $(function(){
+					 
+				 })
+				 
 				 function go(address){
 						console.log(address);
 						location.href = address;
 					}
 				 
-				
+				 function workIn(){
+					 $("#workInform").submit();
+				 }
+				 
+				 
+				 /*
+				 
+				 function headerAtt(){
+					 $.ajax({
+			    			url:"headerAtt.att",
+			    			data : {empNo : empNo},
+			    			success:function(att){
+			    				value = att.gapHour + " 시간 " + att.gapMinute + " 분째 근무중"
+			    				$("#about-time").html(value);
+			    				console.log(value);
+			    			},
+			    			error:function(){
+			    				console.log("헤더용 출근시간 체크 ajax 통신 실패");
+			    			}
+			    		})
+				 }
+				 */
 				 
 				 function logout(){
-					 alertify.confirm("정말 퇴근하시겠습니까?",
-							  function(){
-							    go('logout.me');
-							  },
-							  function(){
-							    
-							  });
-				 }
+						 alertify.confirm("정말 퇴근하시겠습니까?",
+								  function(){
+							 		$("#workOutform").submit();
+							 		 go('logout.me');
+								  },
+								  function(){
+								    
+								  });
+					} 
+				 
 				</script>
 
                 

@@ -37,6 +37,60 @@ public class AttendanceController {
 		return "common/mainPage";
 	}
 	
+	@RequestMapping("workIn.att")
+	public ModelAndView updateWorkIn(HttpSession session, Attendance a, ModelAndView mv) {
+		int result = aService.updateWorkIn(a);
+		Attendance att = aService.selectInAttendance(a);
+		if(result > 0 && att != null) {
+			session.setAttribute("alertMsg", a.getEmpNo() + "님 오늘도 화이팅하세요!💘");
+			mv.addObject("att", att).setViewName("common/mainPage");
+		} else {
+			session.setAttribute("alertMsg", a.getEmpNo() + "님 출근 실패 관리자에게 문의하세요😅");
+			mv.setViewName("common/mainPage");
+		}
+		
+		return mv;
+	}
+	
+	/*
+	@RequestMapping("headerAtt.att")
+	public Attendance selectHeaderAttendance(Attendance a) {
+		Attendance att = aService.selectHeaderAttendance(a);
+		return att;
+	}
+	*/
+	
+	@RequestMapping("workOut.att")
+	public ModelAndView  updateWorkOutLogout(HttpSession session, Attendance a, ModelAndView mv) {
+		int result = aService.updateWorkOutLogOut(a);
+		Attendance att = aService.selectOutAttendance(a);
+		if(result > 0 && att != null) {
+			String alertMsg = a.getEmpNo() + "님 금일 근무시간은 " + att.getGapHour() + "시간" + att.getGapMinute() + "분" + att.getGapSecond() + "초 입니다!💘";
+			session.setAttribute("alertMsg", a.getEmpNo() + "님 금일 근무시간은 " + att.getGapHour() + "시간" + att.getGapMinute() + "분" + att.getGapSecond() + "초 입니다!💘");
+			// System.out.println(alertMsg); => 왜 여기까지 가지도 않아?
+			mv.addObject("att", att).setViewName("common/mainPage");
+		} else {
+			session.setAttribute("alertMsg", a.getEmpNo() + "님 퇴근 실패 관리자에게 문의하세요😅");
+			mv.setViewName("common/mainPage");
+		}
+		
+		return mv;
+		
+		
+		// 메인페이지 url 재요청
+		// 그리고 퇴근시간 update 문도 실행해야함!
+	}
+	
+	
+	
+	
+	@RequestMapping("logout.me")
+	public String onlyLogOut(HttpSession session) {
+		session.invalidate();
+		return "common/login";
+	}
+	
+	
 	@RequestMapping("myAtt.att")
 	public String goMyAtt() {
 		return "attendance/myAttendance";

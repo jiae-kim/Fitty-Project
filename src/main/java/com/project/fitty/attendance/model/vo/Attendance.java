@@ -36,5 +36,9 @@ public class Attendance {
 	private int countV;
 	private int countPtime;
 	
+	private String nowTime;
+	private String gapHour;
+	private String gapMinute;
+	private String gapSecond;
 	
 }
