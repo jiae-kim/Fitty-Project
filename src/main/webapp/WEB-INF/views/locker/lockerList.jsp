@@ -416,6 +416,7 @@
                 <div class="modal fade" id="updateModal" tabindex="-1" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
+                    <form action="recover.lk">
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel1">락커 No. <span id="sp-lkNo2"></span></h5>
                         <input type="hidden" id="sm-lkNo2" name="lkNo2" value="">
@@ -450,8 +451,9 @@
                       </div>
                       <div class="modal-footer">
                         <input type="hidden" id="sm-userNo" name="userNo" value="" >
-                        <button type="button" class="btn btn-secondary">락커회수</button>
+                        <button type="submit" class="btn btn-secondary">락커회수</button>
                       </div>
+                    </form>
                     </div>
                   </div>
                 </div>

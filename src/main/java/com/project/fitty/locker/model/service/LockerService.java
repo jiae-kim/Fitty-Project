@@ -59,4 +59,8 @@ public class LockerService {
 	public int moveLocker(Locker l) {
 		return lDao.moveLocker(sqlSession, l);
 	}
+	
+	public int recoverLocker(int lkNo) {
+		return lDao.recoverLocker(sqlSession, lkNo);
+	}
 }

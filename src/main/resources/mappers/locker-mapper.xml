@@ -120,4 +120,14 @@
 		  
 	</update>
 	
+	<update id="recoverLocker">
+		update
+				tb_lk_asn
+		    set user_no = null
+		      , assign_date = null
+		      , start_date = null
+		      , end_date = null
+		  where lk_no = #{lkNo}
+	</update>
+	
 </mapper>

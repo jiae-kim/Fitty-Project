@@ -135,8 +135,21 @@ public class LockerController {
 			session.setAttribute("alertMsg", "현재 자리 번호가 일치하지 않습니다. 올바른 번호를 선택하세요.");
 			return "redirect:list.lk";
 		}
-		
-		
 	}
+	
+	@RequestMapping("recover.lk")
+	public String recoverLocker(@RequestParam(value = "lkNo2") int lkNo, HttpSession session) {
+		
+		int result = lService.recoverLocker(lkNo);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg", "성공적으로 락커 회수하였습니다.");
+			return "redirect:list.lk";
+		}else {
+			session.setAttribute("errorMsg", "락커 회수 실패");
+			return "common/errorPage";
+		}
+	}
+	
 	
 }

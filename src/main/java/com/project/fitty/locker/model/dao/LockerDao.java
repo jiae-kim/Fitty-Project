@@ -58,5 +58,9 @@ public class LockerDao {
 		return sqlSession.update("lockerMapper.moveLocker", l);
 	}
 	
+	public int recoverLocker(SqlSessionTemplate sqlSession, int lkNo) {
+		return sqlSession.update("lockerMapper.recoverLocker", lkNo);
+	}
+	
 
 }
