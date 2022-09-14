@@ -35,5 +35,17 @@ public class ApprovalDao {
 		
 		return (ArrayList)sqlSession.selectList("approvalMapper.ajaxSelectList", ap, rowBounds);
 	}
+	
+	public int selectStorageListCount(SqlSessionTemplate sqlSession, String empNo) {
+		return sqlSession.selectOne("approvalMapper.selectStorageListCount", empNo);
+	}
+	
+	public ArrayList<Approval> selectStorageList(SqlSessionTemplate sqlSession, PageInfo pi, String empNo){
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectStorageList", empNo, rowBounds);
+	}
 
 }

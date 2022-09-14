@@ -14,5 +14,9 @@ public interface ApprovalService {
 	// 기안문서함(ajax)
 	int ajaxSelectListCount(Approval ap);
 	ArrayList<Approval> ajaxSelectList(PageInfo pi, Approval ap);
+	
+	// 임시저장함(페이징)
+	int selectStorageListCount(String empNo);
+	ArrayList<Approval> selectStorageList(PageInfo pi, String empNo);
 
 }

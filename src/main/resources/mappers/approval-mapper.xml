@@ -16,6 +16,7 @@
 		   	   count (*)
 		  from tb_approval
 		 where emp_no = #{empNo}
+		   and appr_storage = 'N'
 	</select>
 	
 	<select id="selectList" resultMap="approvalResult">
@@ -28,6 +29,7 @@
 			 , appr_comment
 		  from tb_approval
 		 where emp_no = #{empNo}
+		   and appr_storage = 'N'
 		 order
 		    by appr_enroll_date desc
 	</select>
@@ -38,6 +40,7 @@
 		  from tb_approval
 		 where emp_no = #{empNo}
 		   and appr_status = #{apprStatus}
+		   and appr_storage = 'N'
 	</select>
 	
 	<select id="ajaxSelectList" resultMap="approvalResult">
@@ -51,6 +54,28 @@
 		  from tb_approval
 		 where emp_no = #{empNo}
 		   and appr_status = #{apprStatus}
+		   and appr_storage = 'N'
+		 order
+		    by appr_enroll_date desc
+	</select>
+	
+	<select id="selectStorageListCount" resultType="_int">
+		select
+		   	   count (*)
+		  from tb_approval
+		 where emp_no = #{empNo}
+		   and appr_storage = 'Y'
+	</select>
+	
+	<select id="selectStorageList" resultMap="approvalResult">
+		select 
+			   appr_no
+			 , appr_doc_type
+			 , appr_title
+			 , appr_enroll_date
+		  from tb_approval
+		 where emp_no = #{empNo}
+		   and appr_storage = 'Y'
 		 order
 		    by appr_enroll_date desc
 	</select>

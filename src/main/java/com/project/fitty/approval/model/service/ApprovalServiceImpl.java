@@ -39,4 +39,14 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return aDao.ajaxSelectList(sqlSession, pi, ap);
 	}
 
+	@Override
+	public int selectStorageListCount(String empNo) {
+		return aDao.selectStorageListCount(sqlSession, empNo);
+	}
+
+	@Override
+	public ArrayList<Approval> selectStorageList(PageInfo pi, String empNo) {
+		return aDao.selectStorageList(sqlSession, pi, empNo);
+	}
+
 }

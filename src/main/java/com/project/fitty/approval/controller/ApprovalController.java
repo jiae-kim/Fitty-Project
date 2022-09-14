@@ -75,5 +75,17 @@ public class ApprovalController {
 		}
 		
 	}
+	
+	@RequestMapping(value="storageList.ap", produces="application/json; charset=utf-8")
+	public ModelAndView selectstorageList(String empNo, @RequestParam(value="cpage", defaultValue="1") int currentPage,  ModelAndView mv) {
+		int listCount = aService.selectStorageListCount(empNo);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Approval> list = aService.selectStorageList(pi, empNo);
+		
+		mv.addObject("pi", pi).addObject("list", list).setViewName("approval/storageListView");
+		
+		return mv;
+	}
 
 }
