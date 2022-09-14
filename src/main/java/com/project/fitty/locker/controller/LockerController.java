@@ -128,7 +128,6 @@ public class LockerController {
 		
 		if(count > 0) {
 			
-			System.out.println(l.getLkNo());
 			Locker info = lService.selectLockerInfo(l.getLkNo()); // 요청된 락커번호로 락커 등록 정보 조회
 			
 			info.setMvLkNo(l.getMvLkNo());

@@ -3,9 +3,12 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:beans="http://www.springframework.org/schema/beans"
 	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc https://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd">
+		
 
 	<!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
 	
@@ -25,15 +28,24 @@
 	
 	
 	<!-- 인터셉터 등록 -->
-	   <interceptors>
-	      <interceptor>
-	         <!-- 인터셉터 적용시킬 url -->
-	         <mapping path="/main.fitty" />
-	         <mapping path="/myAtt.att" />
-	         <!-- 사용할 인터셉터 -->
-	         <beans:bean class="com.project.fitty.common.interceptor.LoginInterceptor" />
-	      </interceptor>
-	   </interceptors>
+	<interceptors>
+	   <interceptor>
+	      <!-- 인터셉터 적용시킬 url -->
+	      <mapping path="/main.fitty" />
+	      <mapping path="/myAtt.att" />
+	      <!-- 사용할 인터셉터 -->
+	      <beans:bean class="com.project.fitty.common.interceptor.LoginInterceptor" />
+	   </interceptor>
+	</interceptors>
 	
+	<!-- 웹소켓 인터셉터 -->
+	<beans:bean id="WebsocketHandler" class="com.project.fitty.alert.handler.EcoHandler" /> 
+	<websocket:handlers>
+		<websocket:mapping handler="WebsocketHandler" path="/echo" />
+		<websocket:handshake-interceptors>
+			<beans:bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+		</websocket:handshake-interceptors>
+		<websocket:sockjs websocket-enabled="true" />
+	</websocket:handlers>
 	
 </beans:beans>
