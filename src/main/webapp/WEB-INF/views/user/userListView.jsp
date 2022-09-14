@@ -87,7 +87,7 @@
 		                                    	<td><a class="btn rounded-pill btn-info" href="enroll.cl?no=${ u.userNo }">PT등록</a></td>
 		                                    </c:when>
 		                                    <c:otherwise>
-		                                    	<td><button type="button" class="btn rounded-pill btn-info" disabled>PT등록</button></td>
+		                                    	<td><button type="button" class="btn rounded-pill btn-secondary" disabled>PT등록</button></td>
 		                                    </c:otherwise>
 		                                    </c:choose>
 		                                    
