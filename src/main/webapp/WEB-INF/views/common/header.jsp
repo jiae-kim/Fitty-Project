@@ -507,7 +507,7 @@
                 <li class="nav-item lh-1 me-3" id="about-time">
                   <c:choose>
                   	<c:when test="${ loginUser.attIn eq '0'  }">
-                  		출근버튼을 눌러주세요!
+                  		👈 출근버튼을 눌러주세요
                   	</c:when>
                   	<c:otherwise>
                   		<c:choose>
@@ -522,6 +522,8 @@
                   </c:choose>
                 </li>
                 <li class="nav-item lh-1 me-3">
+                	<input type="hidden" id="hiddenAttIn" value="${ loginUser.attIn }">
+                	<input type="hidden" id="hiddenAttOut" value="${ loginUser.attOut }">
                     <button type="button" class="btn btn-sm btn-info" onclick="logOut();">로그아웃</button>
                 </li>
                 <li class="nav-item lh-1 me-3">
@@ -535,6 +537,28 @@
                 </li>
 				
 				<script>
+				
+				$(function(){
+					if($("#hiddenAttIn").val() == '0') {
+						// 출근시간이 0이면 출근버튼을 눌러야함
+						$("#init-btn").attr("disabled",false);
+						$("#out-btn").attr("disabled",true);
+						let value = "👈 출근버튼을 눌러주세요";
+						$("#workingHours").html(value);
+					} else if ($("#hiddenAttOut").val() != '0'){
+						// 출근시간이 0이 아닌데(출근완) 퇴근시간도 있는경우 (퇴근완)
+						$("#init-btn").attr("disabled",true);
+						$("#out-btn").attr("disabled",true);
+						let value ="오늘 하루도 고생하셨습니다. 로그아웃하시고 쉬세요🎉";
+						$("#workingHours").html(value);
+					} else {
+						// 출근시간이 0이 아닌데 (출근완) 퇴근시간은 없는경우
+						$("#init-btn").attr("disabled",true);
+						$("#out-btn").attr("disabled",false);
+						let value = $("#hiddenAttIn").val() + " 부터 근무중 👏";
+						$("#workingHours").html(value);
+					}
+				})
 				 function go(address){
 						console.log(address);
 						location.href = address;
@@ -542,6 +566,7 @@
 				 
 				 function workIn(){
 					 $("#workInform").submit();
+					 
 				 }
 				 
 				 
@@ -560,7 +585,7 @@
 					} 
 				 
 				 function logOut(){
-					 alertify.confirm("정말 퇴근하시겠습니까?",
+					 alertify.confirm("로그아웃 하시겠습니까?",
 							  function(){
 							    go('logout.me');
 							  },

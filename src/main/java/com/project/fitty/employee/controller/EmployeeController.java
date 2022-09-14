@@ -26,20 +26,20 @@ public class EmployeeController {
 	public String loginEmployee(Employee e, HttpSession session) {
 		
 		Employee loginUser = eService.loginEmployee(e);
-		//Employee attFlag = eService.attFlag(e);
 		
-		
-		//loginUser.setAttIn(attFlag.getAttIn());
-		//loginUser.setAttOut(attFlag.getAttOut());
-		
-		if(loginUser != null) {
-			session.setAttribute("loginUser", loginUser);
-			
-			return "common/mainPage";
-		} else {
+		if(loginUser == null) {
+			// 애초에 사번부터 틀렸을 경우
 			session.setAttribute("alertMsg", "사번을 다시 확인해주세요.");
 			return "main";
+		} else {
+			// 사번이 맞은 경우 출퇴근 여부 확인
+			Employee attFlag = eService.attFlag(e);
+			loginUser.setAttIn(attFlag.getAttIn());
+			loginUser.setAttOut(attFlag.getAttOut());
+			session.setAttribute("loginUser", loginUser);
+			return "common/mainPage";
 		}
+		
 	}
 	
 	

@@ -41,9 +41,17 @@ public class AttendanceController {
 	public ModelAndView updateWorkIn(HttpSession session, Attendance a, ModelAndView mv) {
 		int result = aService.updateWorkIn(a);
 		Attendance att = aService.selectInAttendance(a);
-		if(result > 0 && att != null) {
+		
+		Employee e = new Employee();
+		e.setEmpNo(a.getEmpNo());
+		Employee loginUser = eService.loginEmployee(e);
+		
+		if(result > 0 && att != null && loginUser != null) {
+			Employee attFlag = eService.attFlag(e);
+			loginUser.setAttIn(attFlag.getAttIn());
+			loginUser.setAttOut(attFlag.getAttOut());
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 오늘도 화이팅하세요!💘");
-			mv.addObject("att", att).setViewName("attendance/myAttendance");
+			mv.addObject("att", att).addObject("loginUser", loginUser).setViewName("attendance/myAttendance");
 		} else {
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 출근 실패 관리자에게 문의하세요😅");
 			mv.setViewName("common/mainPage");
@@ -64,9 +72,17 @@ public class AttendanceController {
 	public ModelAndView  updateWorkOutLogout(HttpSession session, Attendance a, ModelAndView mv) {
 		int result = aService.updateWorkOutLogOut(a);
 		Attendance att = aService.selectInAttendance(a);
-		if(result > 0 && att != null) {
+		
+		Employee e = new Employee();
+		e.setEmpNo(a.getEmpNo());
+		Employee loginUser = eService.loginEmployee(e);
+
+		if(result > 0 && att != null && loginUser != null) {
+			Employee attFlag = eService.attFlag(e);
+			loginUser.setAttIn(attFlag.getAttIn());
+			loginUser.setAttOut(attFlag.getAttOut());
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 금일 근무시간은 " + att.getGapHour() + " 시간 " + att.getGapMinute() + " 분 " + att.getGapSecond() + " 초 입니다!💘");
-			mv.addObject("att", att).setViewName("common/mainPage");
+			mv.addObject("att", att).addObject("loginUser", loginUser).setViewName("common/mainPage");
 		} else {
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 퇴근 실패 관리자에게 문의하세요😅");
 			mv.setViewName("common/mainPage");
