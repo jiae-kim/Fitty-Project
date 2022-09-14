@@ -24,5 +24,8 @@ public class Approval {
 	private String apprStorage;
 	private String apprComment;
 	private int apprMemCount;
+	
+	// 추가 컬럼
+	private String apprDate;
 
 }

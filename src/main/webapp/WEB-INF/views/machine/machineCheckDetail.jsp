@@ -101,8 +101,8 @@
                   <div class="mt-2 btnDiv" align="center">
                   	<c:choose>
 	                  	<c:when test="${ m.ckResult == '1' and (loginUser.empGrade == 'C' or loginUser.empGrade == 'A' )}">
-		                    <a class="btn btn-primary me-2" href="broken.mc?ckNo=${ m.ckNo }&mcNo=${ m.mcNo }">고장등록</a>
-		                    <a class="btn btn-info me-2" href="normal.mc?ckNo=${ m.ckNo }">정상처리</a>
+		                    <button type="button" id="brokenBtn" class="btn btn-primary me-2" onclick="postFormSubmit('broken.mc');">고장등록</button>
+		                    <button type="button" id="normalBtn" class="btn btn-info me-2" onclick="postFormSubmit('normal.mc');">정상처리</button>
 	                    </c:when>
 	                    <c:otherwise>
 	                    	<c:if test="${ loginUser.empNo == m.ckWriter }">
@@ -114,6 +114,35 @@
 		            
 		            
                   </div>
+                  
+                  <form id="postForm" action="" method="post">
+                  	<input type="hidden" name="ckNo" value="${ m.ckNo }">
+                  	<input type="hidden" name="mcNo" value="${ m.mcNo }">
+                  </form>
+                  
+                  <script>
+                  
+	            	function postFormSubmit(url){
+	            		if(url == 'broken.mc'){
+	            			
+	            			// 고장처리 
+	            			// 웹소켓 >> 서버에 메세지 보내기
+	            			let socketMsg = "machine," + "${loginUser.empNo}" + "," + "${m.ckWriter}" + "," + ${m.ckNo};
+	            			
+	            			console.log(socketMsg);
+	            			console.log(socket);
+	            			socket.send(socketMsg);
+	            		}else{
+	            			// 정상처리 
+	            			// 웹소켓 >> 서버에 메세지 보내기 
+	            			let socketMsg = "machine," + "${loginUser.empNo}" + "," + "${m.ckWriter}" + "," + ${m.ckNo};
+	            			
+	            			socket.send(socketMsg);
+	            		}
+	            		
+	            		$("#postForm").attr("action", url).submit();
+	            	}
+	              </script>
 
                   <br>
                   

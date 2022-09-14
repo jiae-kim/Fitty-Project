@@ -22,6 +22,7 @@ import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.common.template.Pagination;
 import com.project.fitty.employee.model.service.EmployeeService;
 import com.project.fitty.employee.model.vo.Employee;
+import com.project.fitty.vacation.model.service.VacationService;
 
 @Controller
 public class AttendanceController {
@@ -30,6 +31,8 @@ public class AttendanceController {
 	private AttendanceService aService;
 	@Autowired	
 	private EmployeeService eService;
+	@Autowired
+	private VacationService vService;
 	
 	
 	@RequestMapping("main.fitty")
@@ -51,7 +54,7 @@ public class AttendanceController {
 			loginUser.setAttIn(attFlag.getAttIn());
 			loginUser.setAttOut(attFlag.getAttOut());
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 오늘도 화이팅하세요!💘");
-			mv.addObject("att", att).addObject("loginUser", loginUser).setViewName("attendance/myAttendance");
+			mv.addObject("att", att).addObject("loginUser", loginUser).setViewName("common/mainPage");
 		} else {
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 출근 실패 관리자에게 문의하세요😅");
 			mv.setViewName("common/mainPage");
@@ -60,13 +63,7 @@ public class AttendanceController {
 		return mv;
 	}
 	
-	/*
-	@RequestMapping("headerAtt.att")
-	public Attendance selectHeaderAttendance(Attendance a) {
-		Attendance att = aService.selectHeaderAttendance(a);
-		return att;
-	}
-	*/
+	
 	
 	@RequestMapping("workOut.att")
 	public ModelAndView  updateWorkOutLogout(HttpSession session, Attendance a, ModelAndView mv) {
@@ -89,10 +86,7 @@ public class AttendanceController {
 		}
 		
 		return mv;
-		
-		
-		// 메인페이지 url 재요청
-		// 그리고 퇴근시간 update 문도 실행해야함!
+	
 	}
 	
 	
@@ -106,7 +100,9 @@ public class AttendanceController {
 	
 	
 	@RequestMapping("myAtt.att")
-	public String goMyAtt() {
+	public String goMyAtt(Attendance a, ModelAndView mv) {
+		//Attendance att = aService.selectMyAttendance(a);
+		
 		return "attendance/myAttendance";
 	}
 	
@@ -285,11 +281,50 @@ public class AttendanceController {
 	}
 
 	
-	
-	
 	@RequestMapping("vacControl.att")
-	public String goVacControlAtt() {
+	public String goVacControl() {
 		return "attendance/centerVacControl";
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping(value="vacList.att", produces="application/json; charset=utf-8")
+	public String goVacControlAtt(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session) {
+		
+		
+		int listCount = eService.selectEmpListCount();
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Attendance> aList = aService.selectVacList(pi);
+		
+		Calendar calendar = Calendar.getInstance();
+		int tYear = Calendar.getInstance().get(Calendar.YEAR);
+		int bYear = Calendar.getInstance().get(Calendar.YEAR)-1;
+		int bMonth = Calendar.getInstance().get(Calendar.MONTH);
+		calendar.set(bYear, bMonth, 1);
+		int lDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
+		String thisYear = Integer.toString(tYear);
+		String beforeYear = Integer.toString(bYear);
+		String beforeMonth = Integer.toString(bMonth);
+		String lastDay = Integer.toString(lDay);
+		
+		if(aList.isEmpty()) {
+			
+		} else {
+			for(Attendance a: aList) {
+			a.setThisYear(thisYear);
+			a.setBeforeYear(beforeYear);
+			a.setBeforeMonth(beforeMonth);
+			a.setLastDay(lastDay);
+			a.setPerYearMonthList(aService.selectPerYearMonthList(a));
+			a.setEmpVacList(vService.selectEmpVacList(a));
+			}
+		}
+		HashMap <String, Object> map = new HashMap<String, Object>();
+		map.put("pi", pi);
+		map.put("aList", aList);
+		return new Gson().toJson(map);
+		
 	}
 
 	

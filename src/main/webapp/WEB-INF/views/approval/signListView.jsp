@@ -85,81 +85,74 @@
 	  height:20px;
 	  border-radius: 5px;
 	}
-	.sel{color:rgb(50, 50, 50);}
 </style>
 </head>
 <body>
-
 	<jsp:include page="../common/header.jsp"/>
 	
 	<div class="outer">
 		<jsp:include page="sideMenu.jsp"/>
 		
 		<div class="main">
-	        <h4 style="color:rgb(50, 50, 50);">기안 문서함</h4><br>
-	        <button class="m-btn sel" onclick="changeStatus(this, 1);">전체</button>
-	        <button class="m-btn" onclick="changeStatus(this, 1);" value="2">진행</button>
-	        <button class="m-btn" onclick="changeStatus(this, 1);" value="4">반려</button>
-	        <button class="m-btn" onclick="changeStatus(this, 1);" value="3">완료</button>
-	        <table id="dTable" align="center">
-	        	<thead>
-			        <tr style="background:rgb(231, 231, 255)">
-			            <th>기안일</th>
-			            <th>결재양식</th>
-			            <th width="30%;">제목</th>
-			            <th width="10%;">사유</th>
-			            <th>첨부파일</th>
-			            <th>문서번호</th>
-			            <th height="30" width="7%;">결재상태</th>
-			        </tr>
-	       		</thead>
-	         	<tbody>
-		        	<c:choose>
-				        <c:when test="${ not empty list }">
-				          <c:forEach var="a" items="${ list }">
-					          <tr>
-					            <td>${ a.apprEnrollDate }</td>
-					            <c:choose>
-					            	<c:when test="${ a.apprDocType eq 1 }">
-					            		<td>휴가신청</td>
-					            	</c:when>
-					            	<c:when test="${ a.apprDocType eq 2 }">
-					            		<td>연장근무신청</td>
-					            	</c:when>
-					            	<c:otherwise>
-					            		<td>지출결의서</td>
-					            	</c:otherwise>
-					            </c:choose>
-					            <td>${ a.apprTitle }</td>
-					            <td>${ a.apprComment }</td>
-					            <td></td>
-					            <td>${ a.apprNo }</td>
-					            <c:choose>
-					            	<c:when test="${ a.apprStatus eq 1 }">
-							            <td height="30" align="center"><div id="sta1">대기</div></td>
-					            	</c:when>
-					            	<c:when test="${ a.apprStatus eq 2 }">
-							            <td height="30" align="center"><div id="sta1">진행</div></td>
-					            	</c:when>
-					            	<c:when test="${ a.apprStatus eq 3 }">
-					            		<td height="30" align="center"><div id="sta2">완료</div></td>
-					            	</c:when>
-					            	<c:otherwise>
-					            		<td height="30" align="center"><div id="sta3">반려</div></td>
-					            	</c:otherwise>
-					            </c:choose>
-					          </tr>
-				          </c:forEach>
-				        </c:when>
-				        <c:otherwise>
-				        		<tr>
-				        			<td colspan=7 height="30">문서가 없습니다.</td>
-				        		</tr>
-				        </c:otherwise>
-		        	</c:choose>
-	        	</tbody>
-	        </table>
-	        <br><br>
+           <h4 style="color:rgb(50, 50, 50);">결재 문서함</h4><br>
+           <button class="m-btn" onclick="change(this, 1);">전체</button>
+           <button class="m-btn" onclick="change(this, 1);" value="4">반려</button>
+           <button class="m-btn" onclick="change(this, 1);" value="3">완료</button>
+           <table id="dTable" align="center">
+           	 <thead>
+	             <tr style="background:rgb(231, 231, 255)">
+	               <th>기안일</th>
+	               <th>완료일</th>
+	               <th>결재양식</th>
+	               <th width="25%;">제목</th>
+	               <th width="10%;">사유</th>
+	               <th>첨부파일</th>
+	               <th>문서번호</th>
+	               <th height="30" width="7%;">결재상태</th>
+	             </tr>
+             </thead>
+             <tbody>
+	             <c:choose>
+	             <c:when test="${ not empty list }">
+		             <c:forEach var="s" items="${ list }">
+			             <tr>
+			               <td>${ s.apprEnrollDate }</td>
+			               <td>${ s.apprDate }</td>
+			               <c:choose>
+				               <c:when test="${ s.apprDocType eq 1 }">
+				               		<td>휴가신청</td>
+				               </c:when>
+				               <c:when test="${ s.apprDocType eq 2 }">
+				               		<td>연장근무신청</td>
+				               </c:when>
+				               <c:otherwise>
+				               		<td>지출결의서</td>
+				               </c:otherwise>
+			               </c:choose>
+			               <td>${ s.apprTitle }</td>
+			               <td>${ s.apprComment }</td>
+			               <td></td>
+			               <td>${ s.apprNo }</td>
+			               <c:choose>
+			               	<c:when test="${ s.apprStatus eq 3 }">
+			               		<td height="30" align="center"><div id="sta2">완료</div></td>
+			               	</c:when>
+			               	<c:otherwise>
+			               		<td height="30" align="center"><div id="sta3">반려</div></td>
+			               	</c:otherwise>
+			               </c:choose>
+			             </tr>
+		             </c:forEach>
+	             </c:when>
+	             <c:otherwise>
+	             	<tr>
+	             		<td colspan=8 height="30">문서가 없습니다.</td>
+	             	</tr>
+	             </c:otherwise>
+	             </c:choose>
+	          </tbody>
+           </table>
+           <br><br>
 			
 			<div class="paging-area">
 				<nav aria-label="Page navigation">
@@ -175,7 +168,7 @@
 	              		</c:when>
 	              		<c:otherwise>
 	              			<li class="page-item prev">
-			                  <a class="page-link" href="draftList.ap?cpage=${ pi.currentPage-1 }"
+			                  <a class="page-link" href="signList.ap?cpage=${ pi.currentPage-1 }"
 			                    ><i class="tf-icon bx bx-chevron-left"></i
 			                  ></a>
 			                </li>
@@ -186,12 +179,12 @@
 	                	<c:choose>
 	                		<c:when test="${ p eq currentPage }">
 				                <li class="page-item active disabled">
-				                  <a class="page-link" href="draftList.ap?cpage=${ p }">${ p }</a>
+				                  <a class="page-link" href="signList.ap?cpage=${ p }">${ p }</a>
 				                </li>
 				            </c:when>
 				            <c:otherwise>
 				            	<li class="page-item">
-				                  <a class="page-link" href="draftList.ap?cpage=${ p }">${ p }</a>
+				                  <a class="page-link" href="signList.ap?cpage=${ p }">${ p }</a>
 				                </li>
 				            </c:otherwise>
 		                </c:choose>
@@ -207,7 +200,7 @@
 	              		</c:when>
 	              		<c:otherwise>
 	              			<li class="page-item next">
-			                  <a class="page-link" href="draftList.ap?cpage=${ pi.currentPage+1 }"
+			                  <a class="page-link" href="signList.ap?cpage=${ pi.currentPage+1 }"
 			                    ><i class="tf-icon bx bx-chevron-right"></i
 			                  ></a>
 			                </li>
@@ -218,41 +211,41 @@
 	            </nav>
             </div>
             <br>
-			
-	        <div align="center">
-	          <select name="" id="sel1">
-	            <option value="">전체기간</option>
-	            <option value="">1개월</option>
-	            <option value="">6개월</option>
-	            <option value="">1년</option>
-	          </select>
-	          <select name="" id="sel2">
-	            <option value="">제목</option>
-	            <option value="">결재양식</option>
-	            <option value="">기안자</option>
-	          </select>
-	          <input type="text" id="search"><button id="s-btn">
-	            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-	            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-	            </svg>
-	          </button>
-	        </div>
-	      </div>
+            
+           <div align="center">
+             <select name="" id="sel1">
+               <option value="">전체기간</option>
+               <option value="">1개월</option>
+               <option value="">6개월</option>
+               <option value="">1년</option>
+             </select>
+             <select name="" id="sel2">
+               <option value="">제목</option>
+               <option value="">결재양식</option>
+               <option value="">기안자</option>
+             </select>
+             <input type="text" id="search"><button id="s-btn">
+               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+               <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+               </svg>
+             </button>
+           </div>
+         </div>
 	</div>
+	
 	<script>
-		function changeStatus(btn, page){
+		function change(btn, page){
 			$.ajax({
-				url:"changeDraft.ap",
+				url:"changeSign.ap",
 				data:{apprStatus:$(btn).val(),
 					  cpage:page,
 					  empNo:"${loginUser.empNo}"},
-				success:function(map){
+				success: function(map){
 					let pi = map.pi;
 					let list = map.list;
 					
-					let value = "";
+					let value="";
 					let paging = "";
-
 					
 					if($(btn).text() == "전체"){
 						if(list == ""){
@@ -260,10 +253,17 @@
 							
 
 						}else{
-								for(let i=0; i<list.length; i++){
-								
+							for(let i=0; i<list.length; i++){
+							
 								value += "<tr>"
 									   + "<td>" + list[i].apprEnrollDate + "</td>";
+									   
+								if(list[i].apprDate == undefined){
+									value += "<td></td>"
+								}else{
+
+									value += "<td>" + list[i].apprDate + "</td>"
+								}
 									   
 								if(list[i].apprDocType == 1){
 									value += "<td>휴가신청</td>"
@@ -273,7 +273,7 @@
 									value += "<td>지출결의서</td>"
 								}
 								
-								value += "<td width='30%;'>" + list[i].apprTitle + "</td>"
+								value += "<td width='25%;'>" + list[i].apprTitle + "</td>"
 									   + "<td width='10%;'>" + list[i].apprComment + "</td>"
 									   + "<td></td>"
 									   + "<td>" + list[i].apprNo + "</td>"
@@ -288,34 +288,8 @@
 								}else{
 								 	value += "<div id='sta3'>반려</div>"+ "</td></tr>";
 								}
-									   
 							}
-						}
-					}else if($(btn).text() == "진행"){
-						if(list == ""){
-							value += "<tr><td colspan=7 height='30'>문서가 없습니다.</td></tr>";
-							
-
-						}else{
-							for(let i=0; i<list.length; i++){
-								value += "<tr>"
-									   + "<td>" + list[i].apprEnrollDate + "</td>";
-									   
-								if(list[i].apprDocType == 1){
-									value += "<td>휴가신청</td>"
-								}else if(list[i].apprDocType == 2){
-									value += "<td>연장근무신청</td>"
-								}else{
-									value += "<td>지출결의서</td>"
-								}
-									   
-								value += "<td width='30%;'>" + list[i].apprTitle + "</td>"
-									   + "<td width='10%;'>" + list[i].apprComment + "</td>"
-									   + "<td></td>"
-									   + "<td>" + list[i].apprNo + "</td>"
-									   + "<td height='30' width='7%;' align='center'><div id='sta1'>진행</div></td>"
-									   + "</tr>";
-							}
+								   
 						}
 					}else if($(btn).text() == "반려"){
 						if(list == ""){
@@ -326,6 +300,13 @@
 							for(let i=0; i<list.length; i++){
 								value += "<tr>"
 									   + "<td>" + list[i].apprEnrollDate + "</td>";
+								
+								if(list[i].apprDate == undefined){
+									value += "<td></td>"
+								}else{
+
+									value += "<td>" + list[i].apprDate + "</td>"
+								}
 									   
 								if(list[i].apprDocType == 1){
 									value += "<td>휴가신청</td>"
@@ -335,7 +316,7 @@
 									value += "<td>지출결의서</td>"
 								}
 									   
-								value += "<td width='30%;'>" + list[i].apprTitle + "</td>"
+								value += "<td width='25%;'>" + list[i].apprTitle + "</td>"
 									   + "<td width='10%;'>" + list[i].apprComment + "</td>"
 									   + "<td></td>"
 									   + "<td>" + list[i].apprNo + "</td>"
@@ -343,35 +324,42 @@
 									   + "</tr>";
 							}
 						}
-					}else{
+					}else {
+						
 						if(list == ""){
 							value += "<tr><td colspan=7 height='30'>문서가 없습니다.</td></tr>";
 						}else{
 							for(let i=0; i<list.length; i++){
-							value += "<tr>"
-								   + "<td>" + list[i].apprEnrollDate + "</td>";
-								   
-							if(list[i].apprDocType == 1){
-								value += "<td>휴가신청</td>"
-							}else if(list[i].apprDocType == 2){
-								value += "<td>연장근무신청</td>"
-							}else{
-								value += "<td>지출결의서</td>"
+								value += "<tr>"
+									   + "<td>" + list[i].apprEnrollDate + "</td>";
+									   
+								if(list[i].apprDate == undefined){
+									value += "<td></td>"
+								}else{
+
+									value += "<td>" + list[i].apprDate + "</td>"
+								}
+									   
+								if(list[i].apprDocType == 1){
+									value += "<td>휴가신청</td>"
+								}else if(list[i].apprDocType == 2){
+									value += "<td>연장근무신청</td>"
+								}else{
+									value += "<td>지출결의서</td>"
+								}
+									   
+								value += "<td width='25%;'>" + list[i].apprTitle + "</td>"
+									   + "<td width='10%;'>" + list[i].apprComment + "</td>"
+									   + "<td></td>"
+									   + "<td>" + list[i].apprNo + "</td>"
+									   + "<td height='30' width='7%;' align='center'><div id='sta2'>완료</div></td>"
+									   + "</tr>";
 							}
-								   
-							value += "<td width='30%;'>" + list[i].apprTitle + "</td>"
-								   + "<td width='10%;'>" + list[i].apprComment + "</td>"
-								   + "<td></td>"
-								   + "<td>" + list[i].apprNo + "</td>"
-								   + "<td height='30' width='7%;' align='center'><div id='sta2'>완료</div></td>"
-								   + "</tr>";
-							}
-						}			
+						}
 					}
 					
-					
 					if(pi.currentPage != 1) {
-       					paging += '<li class="page-item prev"><a class="page-link" onclick="changeStatus(this,' + (pi.currentPage-1) + ');"'
+       					paging += '<li class="page-item prev"><a class="page-link" onclick="change(this,' + (pi.currentPage-1) + ');"'
        							+ '><i class="tf-icon bx bx-chevron-left"></i></a></li>';
        				}else{
        					paging += '<li class="page-item prev disabled"><a class="page-link"'
@@ -384,32 +372,30 @@
        					if(p == pi.currentPage){
        						paging += '<li class="page-item active disabled"><a class="page-link">' + p + '</a></li>';
        					}else{
-       						paging += '<li class="page-item"><a class="page-link" onclick="changeStatus(this,' + p + '}">'+ p +'</a></li>';
+       						paging += '<li class="page-item"><a class="page-link" onclick="change(this,' + p + '}">'+ p +'</a></li>';
        					}
        					
        					
        				}
        				
        				if(pi.currentPage != pi.maxPage) {
-   						paging += '<li class="page-item next"><a class="page-link" onclick="changeStatus(this,' + (pi.currentPage+1) + ');"'
+   						paging += '<li class="page-item next"><a class="page-link" onclick="change(this,' + (pi.currentPage+1) + ');"'
   		                        + '><i class="tf-icon bx bx-chevron-right"></i></a></li>';
        				}else{
        					paging += '<li class="page-item next disabled" ><a class="page-link"'
   		                        + '><i class="tf-icon bx bx-chevron-right"></i></a></li>';
        				}
-					
+       				
        				$("tbody").empty();
        				$(".paging-area ul").empty(paging);
        				$(".paging-area ul").append(paging);
        				$("#dTable tbody").html(value);
 					
-				},error:function(){
-					console.log("ajax 통신 실패");
+				},error: function(){
+					console.log("ajax통신 실패");
 				}
-					  
 			})
 		}
 	</script>
-
 </body>
 </html>

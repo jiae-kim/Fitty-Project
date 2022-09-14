@@ -146,6 +146,25 @@
 
 </head>
 <body>
+<!-- alert -->
+<div
+  id="socketAlert"
+  style="display:none;"
+  class="bs-toast toast fade show bg-info"
+  role="alert"
+  aria-live="assertive"
+  aria-atomic="true">
+  <div class="toast-header">
+    <i class="bx bx-bell me-2"></i>
+    <div class="me-auto fw-semibold">Bootstrap</div>
+    <small>11 mins ago</small>
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+  <div class="toast-body" id="socketContent">
+    
+  </div>
+</div>
+
 <!-- Layout wrapper -->
 	<c:if test="${ not empty alertMsg }">
 		<script>
@@ -648,8 +667,55 @@
     <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
     
     <script>
+    var socket = null;
+    
+	$(function(){
+		connectWS();
+	})
 	
-    </script>
+	
+	function connectWS(){
+		
+		var ws = new SockJS("/fitty/echo");
+	 	socket = ws;
+	 	
+	 	ws.onopen = onOpen;
+	
+		ws.onmessage = onMessage;
+	
+		ws.onclose = onClose;
+	    
+		ws.onerror = onError;
+		
+		   
+		function onOpen(){
+	   		console.log('Info: connection opened.');
+		}
+		
+		function onMessage(evt){
+			console.log('Info: connection onmessage.');
+	   		console.log("ReceiveMessage:" , event.data+'\n');
+	   		
+	   		let $socketAlert = $("#socketAlert");
+	   		let $socketContent = $("#socketContent");
+	   		
+	   		$socketContent.text(evt.data);
+	   		$socketAlert.css("display", "block");
+	   		
+		}
+		
+		function onClose(evt){
+			console.log('Info: connection closed');
+			//setTimeout(function(){connect();}, 1000); // retry connection!!
+		}
+		
+		function onError(err){
+			console.log('Error:', err);
+		}
+	}	
+	
+	
+	</script>
 	
 </body>
 </html>

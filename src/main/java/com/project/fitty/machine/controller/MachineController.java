@@ -81,19 +81,26 @@ public class MachineController {
 	public String deleteMachine(HttpServletRequest request, HttpSession session) {
 
 		String[] arr = request.getParameterValues("ckMachine");
-		int result = 0;
+		if(arr != null) {
+			
+			int result = 0;
 
-		for (int i = 0; i < arr.length; i++) {
-			result += mService.deleteMachine(arr[i]);
-		}
+			for (int i = 0; i < arr.length; i++) {
+				result += mService.deleteMachine(arr[i]);
+			}
 
-		if (result == arr.length) {
-			session.setAttribute("alertMsg", "성공적으로 기구 삭제하였습니다.");
+			if (result == arr.length) {
+				session.setAttribute("alertMsg", "성공적으로 기구 삭제하였습니다.");
+				return "redirect:list.mc";
+			} else {
+				session.setAttribute("errorMsg", "기구삭제 실패");
+				return "common/errorPage";
+			}
+		}else {
+			session.setAttribute("alertMsg", "하나 이상의 기구를 선택하세요.");
 			return "redirect:list.mc";
-		} else {
-			session.setAttribute("errorMsg", "기구삭제 실패");
-			return "common/errorPage";
 		}
+		
 	}
 
 	@RequestMapping("ckList.mc") /** 기구 점검 리스트 **/
@@ -183,7 +190,8 @@ public class MachineController {
 		
 		if(result1 * result2 > 0) {
 			session.setAttribute("alertMsg", "성공적으로 기구 고장 등록하였습니다.");
-			return "redirect:ckList.mc";
+			//return "redirect:ckList.mc";
+			return "common/errorPage";
 		}else {
 			session.setAttribute("errorMsg", "기구 고장 등록 실패");
 			return "common/errorPage";

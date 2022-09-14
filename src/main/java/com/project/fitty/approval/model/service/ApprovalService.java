@@ -18,5 +18,12 @@ public interface ApprovalService {
 	// 임시저장함(페이징)
 	int selectStorageListCount(String empNo);
 	ArrayList<Approval> selectStorageList(PageInfo pi, String empNo);
-
+	
+	// 결재문서함(페이징)
+	int selectSignListCount(String empNo);
+	ArrayList<Approval> selectSignList(PageInfo pi, String empNo);
+	
+	// 결재문서함(ajax)
+	int ajaxSelectSignListCount(Approval ap);
+	ArrayList<Approval> ajaxSelectSignList(PageInfo pi, Approval ap);
 }
