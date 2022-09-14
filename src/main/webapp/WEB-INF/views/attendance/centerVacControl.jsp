@@ -70,16 +70,19 @@
                                 <option value="gradeName">근속연수 1~5년</option>
                                 <option value="gradeName">근속연수 5~10년</option>
                                 <option value="gradeName">근속연수 10년이상</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select class="form-control mr-sm-0" name="searchType" id="searchType" style="height: 35px;">                                        
                                 <option value="gradeName">작년 근태 80%이상</option>
                                 <option value="gradeName">지난달 근태 100%</option>
                         </select>
                       </td>
                       <td><input type="text" class="form-control" placeholder="검색어 입력" name="searchText" id="searchText"  maxlength="30" style="height: 35px;"></td>
-                      <td><button type="button" id="searchBtn" class="btn btn-primary" onclick="changeSelect();">검색</button></td>
+                      <td><button type="button" id="searchBtn" class="btn btn-primary" onclick="changeSelect();"><i class='bx bx-search' style="color:white;"></i></button></td>
                       <td width="420px"></td>
-                      <td><button class="btn btn-primary" onclick="generalChange();">연월차/휴가발생</button></td>
+                      <td><button class="btn btn-primary" onclick="generalChange();">연월차/휴가생성</button></td>
                       <td><button class="btn btn-secondary" onclick="generalChange();">연월차/휴가소진</button></td>
-                      <td><button class="btn btn-info" onclick="generalChange();">공휴일관리</button></td>
                     </tr>        
                   </table>
                 </div>

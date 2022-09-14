@@ -34,17 +34,16 @@ function selectAllAttList(page){
 							+  	 "<td>" +  aList[i].empNo + "</td>"
 							+  	 "<td>" +  aList[i].empName + "</td>"
 							+  	 "<td>" +  aList[i].grName + "</td>"
-							+  	 "<td>" +  aList[i].empEnrollDate + "</td>"
+							+  	 "<td>" +  aList[i].empEnrollDate.substr(0, 9) + "</td>"
 							+  	 "<td>" +  aList[i].workYear + "</td>"
-							+    "<td>" + aList[i].perYearMonthList.perYear + "</td>"
-							+    "<td>" + aList[i].perYearMonthList.perMonth + "</td>"
-							+    "<td>" + aList[i].empVacList.plusYearVac + "</td>"
-							+    "<td>" + aList[i].empVacList.minusYearVac + "</td>"
-							+    "<td>" + aList[i].empVacList.plusVac + "</td>"
-							+    "<td>" + aList[i].empVacList.minusVac + "</td>"
+							+    "<td>" + aList[i].perYearMonthList[0].perYear + "%</td>"
+							+    "<td>" + aList[i].perYearMonthList[0].perMonth + "%</td>"
+							+    "<td>" + aList[i].empVacList[0].plusYearVac + "</td>"
+							+    "<td>" + aList[i].empVacList[0].minusYearVac + "</td>"
+							+    "<td>" + aList[i].empVacList[0].plusVac + "</td>"
+							+    "<td>" + aList[i].empVacList[0].minusVac + "</td>"
 								}
 								
-			
 						value += "</tr>";
 						
 					}
