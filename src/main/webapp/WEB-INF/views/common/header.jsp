@@ -295,25 +295,30 @@
             </li>
             <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                  <i class="menu-icon tf-icons bx bxs-book-heart"></i>
                   <div data-i18n="Misc"  class="big-menu-label">수업관리</div>
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item">
-                    <a href="pages-misc-error.html" class="menu-link">
-                      <div data-i18n="Error" class="small-menu-label">수업관리 소메뉴 1</div>
+                    <a href="enrollPage.cl" class="menu-link">
+                      <div data-i18n="Error" class="small-menu-label">수업등록</div>
                     </a>
                   </li>
                   <li class="menu-item">
                     <a href="pages-misc-under-maintenance.html" class="menu-link">
-                      <div data-i18n="Under Maintenance" class="small-menu-label">수업관리 소메뉴 2</div>
+                      <div data-i18n="Under Maintenance" class="small-menu-label">나의 수업조회</div>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="userList.cl" class="menu-link">
+                      <div data-i18n="Under Maintenance" class="small-menu-label">나의 회원조회</div>
                     </a>
                   </li>
                 </ul>
               </li>
             <li class="menu-item">
               <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-box"></i>
+                <i class="menu-icon tf-icons bx bx-buildings"></i>
                 <div data-i18n="User interface"  class="big-menu-label">시설관리</div>
               </a>
               <ul class="menu-sub">
