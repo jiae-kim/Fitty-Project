@@ -25,6 +25,12 @@
 		<result column="gapSecond" property="gapSecond"/>
 		<result column="attIn" property="attIn"/>
 		<result column="attOut" property="attOut"/>
+		<result column="gr_name" property="grName"/>
+		<result column="emp_name" property="empName"/>
+		<result column="emp_enroll_date" property="empEnrollDate"/>
+		<result column="work_year" property="workYear"/>
+		<result column="per_year" property="perYear"/>
+		<result column="per_month" property="perMonth"/>
 </resultMap>
 
 <select id="attFlag" resultMap="attendanceResult">
@@ -105,16 +111,10 @@
    and att_status not in ('H', 'Y', 'V') 
    and att_date = to_char(sysdate, 'yyyy-mm-dd')
  </update>
-  <!-- 
-  <select id="selectOutAttendance" resultMap="attendanceResult">
- 	select to_char(sysdate, 'yyyy-mm-dd HH24:MI:SS') as "nowTime"
-	     , trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')), 1) * 24) as "gapHour"
-	     , lpad(trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')) * 24, 1) * 60), 2, '0') as "gapMinute"
-	     , lpad(trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')) * 24 * 60, 1) * 60), 2, '0') AS "gapSecond"
-		from tb_att
-		where emp_no = #{empNo}
-		 and att_date = to_char(sysdate, 'yyyy-mm-dd')
- </select> -->
+
+  <select id="selectMyAttendance" resultMap="attendanceResult">
+  
+  </select>
   
   <select id="selectAllAttList" resultMap="attendanceResult">
   select emp_no
@@ -124,20 +124,9 @@
   	 where emp_no = #{empNo}
   	   and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '-' || #{thisMonth} || '-01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
                         and to_date(to_char(sysdate,'YYYY-MM-DD'))
-  	<!-- 
-  	 select emp_no
-  		 , att_date
-  	     , att_status
-  	  from tb_att
-  	 where emp_no = #{empNo}
-  	   and att_date BETWEEN TO_DATE(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
-                        AND TO_DATE(to_char((select last_day( #{thisYear} || '/' || #{thisMonth} || '/01') from dual),'YYYY-MM-DD'))
-  	
-  	-->
+
   </select>
-	<!-- // AND TO_DATE(to_char(sysdate,'YYYY-MM-DD')) --> 
-	
-  
+
   
   <select id="selectOtherAttList" resultMap="attendanceResult">
   select emp_no
@@ -301,6 +290,66 @@
 	where 요일 in ('월', '화', '수', '목', '금'))
   ]]>
   </update>
-
+	
+  <select id="selectVacList" resultMap="attendanceResult">
+  	select
+	    distinct
+	       e.emp_no
+	     , e.emp_name
+	     , g.emp_grade
+	     , g.gr_name
+	     , e.emp_enroll_date
+	     , (round(((trunc(months_between(sysdate,to_date(emp_enroll_date,'yy/mm/dd')) /12) *365)
+	             + (trunc(mod(months_between(sysdate,to_date(emp_enroll_date,'yy/mm/dd')) /12,1) *12)*12)
+	             + (trunc(mod(mod(months_between(sysdate,to_date(emp_enroll_date,'yy/mm/dd')) /12,1) *12,1) *(365/12))*1)) / 365, 1 )
+	        ) as "work_year"
+	  from tb_emp e
+	  join tb_att a on (e.emp_no = a.emp_no)
+	  join tb_grade g on (e.emp_grade = g.emp_grade)
+  </select>
+  
+   <select id="selectPerYearMonthList" resultMap="attendanceResult">
+    <![CDATA[
+  	select  round((select count(*)
+            from tb_att
+            where to_date(att_date,'yy/mm/dd') between to_date( #{beforeYear} || '/01/01','yy/mm/dd') and to_date(#{beforeYear} || '/12/31','yy/mm/dd')
+            and emp_no = #{empNo}
+            and att_status = 'O')
+         / (select count(*)
+               from(
+                    select level
+                         , trunc(to_date( #{beforeYear} || '/01/01', 'YY/MM/DD'), 'MM') + level -1 "att_date"
+                         , to_char(trunc(to_date( #{beforeYear} || '/01/01', 'YY/MM/DD'), 'MM') + level - 1 ,'DY') "요일"
+                      from dual
+                   connect
+                        by level <= 365
+            )
+	              where 요일 in ('월', '화', '수', '목', '금'))
+	        * 100 , 1)
+	        as "PER_YEAR"
+		     , round((select count(*)
+		            from tb_att
+		            where to_date(att_date,'yy/mm/dd') between to_date(#{thisYear} || '/' || #{beforeMonth} || '/01','yy/mm/dd') and to_date(#{thisYear} || '/' || #{beforeMonth} || '/' || #{lastDay},'yy/mm/dd')
+		            and emp_no = #{empNo}
+		            and att_status = 'O')
+		     / (select count(*)
+		           from(
+		                select level
+		                     , trunc(to_date(#{thisYear} || '/' || #{beforeMonth} || '/01', 'YY/MM/DD'), 'MM') + level -1 "att_date"
+		                     , to_char(trunc(to_date(#{thisYear} || '/' || #{beforeMonth} || '/01', 'YY/MM/DD'), 'MM') + level - 1 ,'DY') "요일"
+		                  from dual
+		               connect
+		                    by level <= 31
+		        )
+		          where 요일 in ('월', '화', '수', '목', '금'))
+		    * 100 , 1)
+		    as "PER_MONTH"
+		from dual
+		 ]]>
+  </select>
+  
+  
+   
+  
 
 </mapper>

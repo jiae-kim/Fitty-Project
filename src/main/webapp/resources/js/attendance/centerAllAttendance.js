@@ -21,9 +21,11 @@ $(function(){
     		    nowCheck();
     		}
     		})
-    })
+})
+
+
     
-    $(document).ready(function(){
+$(document).ready(function(){
     	$("#backBtn").on("click",function() {
     		
     		if(month > 1) {

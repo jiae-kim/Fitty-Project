@@ -32,7 +32,11 @@ public class AttendanceDao {
 	public Attendance selectOutAttendance(SqlSessionTemplate sqlSession, Attendance a) {
 		return sqlSession.selectOne("attendanceMapper.selectOutAttendance", a);
 	}
-*/
+*/	
+	public Attendance selectMyAttendance(SqlSessionTemplate sqlSession, Attendance a) {
+		return sqlSession.selectOne("attendanceMapper.selectMyAttendance", a);
+	}
+	
 	public ArrayList<Attendance> selectAllAttList(SqlSessionTemplate sqlSession, Employee e) {
 	
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAllAttList", e);
@@ -62,5 +66,17 @@ public class AttendanceDao {
 	public int updateAttendanceStatus(SqlSessionTemplate sqlSession, Attendance a) {
 		return sqlSession.insert("attendanceMapper.updateAttendanceStatus", a);
 	}
+	
+	public ArrayList<Attendance> selectVacList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList) sqlSession.selectList("attendanceMapper.selectVacList", null, rowBounds);
+	}
+	
+	public ArrayList<Attendance> selectPerYearMonthList(SqlSessionTemplate sqlSession, Attendance a){
+		return (ArrayList) sqlSession.selectList("attendanceMapper.selectPerYearMonthList", a);
+	}
+	
 	
 }

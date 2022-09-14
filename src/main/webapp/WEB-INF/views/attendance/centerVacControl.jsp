@@ -123,81 +123,14 @@
                           </tfoot>
                           
                           <tbody id="memListTBody">
-                            <tr>
-                              <th><input type="checkbox" name="choiceAll" id="choiceAll" onclick="checkAll();"></th>
-                              <th>SS1001</th>
-                              <th>김사장</th>
-                              <th>사장</th>
-                              <th>2020.08.05</th>
-                              <th>2.2</th>
-                              <th>98%</th>
-                              <th>96%</th>
-                              <th>15</th>
-                              <th>3</th>
-                              <th>12</th>
-                              <th>2</th>
-                            </tr>
-                            <tr>
-                              <th><input type="checkbox" name="choiceAll" id="choiceAll" onclick="checkAll();"></th>
-                              <th>SS1001</th>
-                              <th>김사장</th>
-                              <th>사장</th>
-                              <th>2020.08.05</th>
-                              <th>2.2</th>
-                              <th>98%</th>
-                              <th>96%</th>
-                              <th>15</th>
-                              <th>3</th>
-                              <th>12</th>
-                              <th>2</th>
-                            </tr>
-                            <tr>
-                              <th><input type="checkbox" name="choiceAll" id="choiceAll" onclick="checkAll();"></th>
-                              <th>SS1001</th>
-                              <th>김사장</th>
-                              <th>사장</th>
-                              <th>2020.08.05</th>
-                              <th>2.2</th>
-                              <th>98%</th>
-                              <th>96%</th>
-                              <th>15</th>
-                              <th>3</th>
-                              <th>12</th>
-                              <th>2</th>
-                            </tr>
+                            
                           </tbody>
                         </table>
                         <div style="height : 20px"></div>
                             <!-- Basic Pagination -->
                             <nav aria-label="Page navigation pageNav">
                                 <ul class="pagination">
-                                <li class="page-item first">
-                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
-                                </li>
-                                <li class="page-item prev">
-                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0);">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0);">2</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="javascript:void(0);">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0);">4</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0);">5</a>
-                                </li>
-                                <li class="page-item next">
-                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>
-                                </li>
-                                <li class="page-item last">
-                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
-                                </li>
+                                
                                 </ul>
                             </nav>
                             <!--/ Basic Pagination -->
@@ -211,5 +144,6 @@
 </div>
 
 <script type="text/javascript" src="resources/js/attendance.js"></script>
+<script type="text/javascript" src="resources/js/attendance/centerVacControl.js"></script>
 </body>
 </html>
