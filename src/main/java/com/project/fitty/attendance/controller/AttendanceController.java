@@ -312,10 +312,12 @@ public class AttendanceController {
 			
 		} else {
 			for(Attendance a: aList) {
+				// 한 회원번호당 1년-한달 근태퍼센트, 남은 휴가등 구하기
 			a.setThisYear(thisYear);
 			a.setBeforeYear(beforeYear);
 			a.setBeforeMonth(beforeMonth);
 			a.setLastDay(lastDay);
+			// null이던 null이 아니던 일단 담고.. 자스에서 undefined 검사..?
 			a.setPerYearMonthList(aService.selectPerYearMonthList(a));
 			a.setEmpVacList(vService.selectEmpVacList(a));
 			}
@@ -326,7 +328,44 @@ public class AttendanceController {
 		return new Gson().toJson(map);
 		
 	}
-
+	
+	
+	@RequestMapping("orderByVac.att")
+	public String selectOrderByVac(String orderByWorkTime, String orderByAtt, String searchText) {
+		
+		String addSqlWorkTime="";
+		String addSqlByAtt ="";
+		
+		if(searchText != null && !searchText.equals("")) {
+			// 검색이 없을경우  입사년월 / 근태 퍼센트 구하는 sql
+			switch(orderByWorkTime) {
+			case "underOne" : addSqlWorkTime = "and emp_enroll_date"
+											 + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-12),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
+											 + "AND sysdate"; break;
+			case "oneToFive" : addSqlWorkTime = "and emp_enroll_date"
+											  + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-60),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
+											  + " AND TO_DATE((select to_char(add_months(sysdate,-11),'yyyy-mm-dd') from dual), 'YYYY-MM-DD') "; break;
+			case "overFive" : addSqlWorkTime = "and emp_enroll_date"
+										      + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-240),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
+										      + " AND TO_DATE((select to_char(add_months(sysdate,-59),'yyyy-mm-dd') from dual), 'YYYY-MM-DD') "; break;
+			default : addSqlWorkTime = "";
+			}
+			
+//			switch(addSqlByAtt) {
+//			case "yearOverEighty" : addSqlByAtt = "and emp_enroll_date"
+//											 + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-12),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
+//											 + "AND sysdate"; break;
+//			case "monthOverHundred" : addSqlByAtt = "and emp_enroll_date"
+//											  + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-60),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
+//											  + " AND TO_DATE((select to_char(add_months(sysdate,-11),'yyyy-mm-dd') from dual), 'YYYY-MM-DD') "; break; 
+//			default : addSqlByAtt = "";
+//			}
+			// 위에꺼는 반복문을 돌려서 SQL문을 조회하는 ㅁ[소드를 한 번 더 할 수 있지만.. 아래꺼는 자스에서 VAL 값으로 컨트롤행야할ㄷ긋,,,
+		}
+		
+		
+		return "";
+	}
 	
 	@RequestMapping("modifyAtt.att")
 	public String goModifyAtt() {

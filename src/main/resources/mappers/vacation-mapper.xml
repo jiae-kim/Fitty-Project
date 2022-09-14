@@ -11,7 +11,7 @@
 
 
 <select id="selectEmpVacList" resultMap="vacationResult">
-  	select (select sum(vac_oper)
+  	select (select nvl(sum(vac_oper), 0)
             from tb_vacation
             where emp_no = #{empNo}
             and att_status in ('Y', 'H')

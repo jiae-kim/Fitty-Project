@@ -65,17 +65,18 @@
                     <tr>
                       <td width="22px"></td>
                       <td>
-                        <select class="form-control mr-sm-0" name="searchType" id="searchType" style="height: 35px;">                                        
-                                <option value="userId">근속연수 1년이하</option>
-                                <option value="gradeName">근속연수 1~5년</option>
-                                <option value="gradeName">근속연수 5~10년</option>
-                                <option value="gradeName">근속연수 10년이상</option>
+                        <select class="form-control mr-sm-0" name="orderByWorkTime" id="orderByWorkTime" style="height: 35px;"> 
+                        		<option value="allWork" selected>전체선택</option>                                       
+                                <option value="underOne">근속연수 1년이하</option>
+                                <option value="oneToFive">근속연수 1~5년</option>
+                                <option value="overFive">근속연수 5~10년</option>
                         </select>
                       </td>
                       <td>
-                        <select class="form-control mr-sm-0" name="searchType" id="searchType" style="height: 35px;">                                        
-                                <option value="gradeName">작년 근태 80%이상</option>
-                                <option value="gradeName">지난달 근태 100%</option>
+                        <select class="form-control mr-sm-0" name="orderByAtt" id="orderByAtt" style="height: 35px;"> 
+                        		<option value="allAttIn" selected>전체선택</option>                                             
+                                <option value="yearOverEighty">작년 근태 80%이상</option>
+                                <option value="monthOverHundred">지난달 근태 100%</option>
                         </select>
                       </td>
                       <td><input type="text" class="form-control" placeholder="검색어 입력" name="searchText" id="searchText"  maxlength="30" style="height: 35px;"></td>
