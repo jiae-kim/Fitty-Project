@@ -26,13 +26,13 @@ public class EmployeeController {
 	public String loginEmployee(Employee e, HttpSession session) {
 		
 		Employee loginUser = eService.loginEmployee(e);
-		Employee attFlag = eService.attFlag(e);
+		//Employee attFlag = eService.attFlag(e);
 		
 		
-		loginUser.setAttIn(attFlag.getAttIn());
-		loginUser.setAttOut(attFlag.getAttOut());
+		//loginUser.setAttIn(attFlag.getAttIn());
+		//loginUser.setAttOut(attFlag.getAttOut());
 		
-		if(loginUser != null && attFlag != null) {
+		if(loginUser != null) {
 			session.setAttribute("loginUser", loginUser);
 			
 			return "common/mainPage";

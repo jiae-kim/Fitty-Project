@@ -470,16 +470,19 @@
                   </span>
                   <c:choose>
                   	<c:when test="${ loginUser.attIn eq '0'  }">
+                  		<!-- 출근버튼을 누르지 않았을 때 -->
                   		<button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();">출근</button>
                   		<button class="btn btn-sm btn-secondary" id="out-btn" onclick="workOut()" disabled>퇴근</button>
                   	</c:when>
                   	<c:otherwise>
                   		 <c:choose>
                   			<c:when test="${ loginUser.attOut eq '0'  }">
+                  				<!-- 출근버튼을 눌러서 attIn의 값이 0이 아니고 퇴근시간이 없을 때 -->
                   				<button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();" disabled>출근</button>
                   		 		<button class="btn btn-sm btn-secondary" id="out-btn" onclick="workOut()">퇴근</button>
                   			</c:when>
                   			<c:otherwise>
+                  				<!-- 출근버튼을 눌렀고 -->
                   				<button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();" disabled>출근</button>
                   		 		<button class="btn btn-sm btn-secondary" id="out-btn" onclick="workOut()" disabled>퇴근</button>
                   			</c:otherwise>

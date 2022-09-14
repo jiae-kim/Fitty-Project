@@ -13,7 +13,7 @@ public interface EmployeeService {
 	Employee loginEmployee(Employee e);
 	
 	//attFlag (select)
-	Employee attFlag(Employee e);
+	// Employee attFlag(Employee e);
 
 	// 다음 회원번호 미리 알아오기 (select)
 	String selectNextEmpNo();

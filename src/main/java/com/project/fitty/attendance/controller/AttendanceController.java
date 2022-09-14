@@ -43,7 +43,7 @@ public class AttendanceController {
 		Attendance att = aService.selectInAttendance(a);
 		if(result > 0 && att != null) {
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 오늘도 화이팅하세요!💘");
-			mv.addObject("att", att).setViewName("common/mainPage");
+			mv.addObject("att", att).setViewName("attendance/myAttendance");
 		} else {
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 출근 실패 관리자에게 문의하세요😅");
 			mv.setViewName("common/mainPage");
@@ -66,7 +66,7 @@ public class AttendanceController {
 		Attendance att = aService.selectInAttendance(a);
 		if(result > 0 && att != null) {
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 금일 근무시간은 " + att.getGapHour() + " 시간 " + att.getGapMinute() + " 분 " + att.getGapSecond() + " 초 입니다!💘");
-			mv.addObject("att", att).setViewName("attendance/myAttendance");
+			mv.addObject("att", att).setViewName("common/mainPage");
 		} else {
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 퇴근 실패 관리자에게 문의하세요😅");
 			mv.setViewName("common/mainPage");
