@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -31,11 +32,12 @@
             </div>
             <table id="todayWork">
               <tr>
-                  <th>2022/08/05</th>
+              	  <c:set var="TextValue" value="${ att.nowTime }"/>
+                  <th>${ fn:substring(TextValue,0,9) }</th>
                   <td>금일 누적 근무</td>
               </tr>
               <tr>
-                  <td colspan="2" id="workTime">06:30:58</td>
+                  <td colspan="2" id="workTime"></td>
               </tr>
               <tr>
                   <th>출근</th>

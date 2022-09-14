@@ -1,5 +1,9 @@
 package com.project.fitty.attendance.model.vo;
 
+import java.util.ArrayList;
+
+import com.project.fitty.vacation.model.vo.Vacation;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,6 +31,23 @@ public class Attendance {
 	// 실제 오라클 db에는 없지만 필요에 의해 만든 컬럼
 	private String thisMonth;
 	private String thisYear;
+	
+	private String grName;
+	private String empName;
+	private String empEnrollDate;
+	
+	private String beforeYear;
+	private String beforeMonth;
+	private String lastDay;
+	private ArrayList<Attendance> perYearMonthList;
+	private ArrayList<Vacation> empVacList;
+	
+	private String workYear;
+	private String perYear;
+	private String perMonth;
+	
+	
+	
 	
 	private int countO;
 	private int countX;

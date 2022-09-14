@@ -47,5 +47,29 @@ public class ApprovalDao {
 		
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectStorageList", empNo, rowBounds);
 	}
+	
+	public int selectSignListCount(SqlSessionTemplate sqlSession, String empNo) {
+		return sqlSession.selectOne("approvalMapper.selectSignListCount", empNo);
+	}
+	
+	public ArrayList<Approval> selectSignList(SqlSessionTemplate sqlSession, PageInfo pi, String empNo){
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectSignList", empNo, rowBounds);
+	}
+	
+	public int ajaxSelectSignListCount(SqlSessionTemplate sqlSession, Approval ap) {
+		return sqlSession.selectOne("approvalMapper.ajaxSelectSignListCount", ap);
+	}
+	
+	public ArrayList<Approval> ajaxSelectSignList(SqlSessionTemplate sqlSession, PageInfo pi, Approval ap){
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("approvalMapper.ajaxSelectSignList", ap, rowBounds);
+	}
 
 }

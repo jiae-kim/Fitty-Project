@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.project.fitty.attendance.model.dao.AttendanceDao;
 import com.project.fitty.attendance.model.vo.Attendance;
+import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
+import com.project.fitty.vacation.model.vo.Vacation;
 
 @Service
 public class AttendanceServiceImpl implements AttendanceService{
@@ -44,6 +46,13 @@ public class AttendanceServiceImpl implements AttendanceService{
 		return aDao.selectInAttendance(sqlSession, a);
 	}
 */
+	@Override
+	public Attendance selectMyAttendance(Attendance a) {
+		return aDao.selectMyAttendance(sqlSession, a);
+	}
+
+	
+	
 	@Override
 	public ArrayList<Attendance> selectAllAttList(Employee e) {
 		ArrayList<Attendance> attList = aDao.selectAllAttList(sqlSession, e);
@@ -111,6 +120,18 @@ public class AttendanceServiceImpl implements AttendanceService{
 		a.setThisYear(thisYear);
 		return aDao.updateAttendanceStatus(sqlSession, a);
 	}
+
+	@Override
+	public ArrayList<Attendance> selectVacList(PageInfo pi) {
+		return aDao.selectVacList(sqlSession, pi);
+	}
+
+	@Override
+	public ArrayList<Attendance> selectPerYearMonthList(Attendance a) {
+		return aDao.selectPerYearMonthList(sqlSession, a);
+	}
+
+	
 
 	
 
