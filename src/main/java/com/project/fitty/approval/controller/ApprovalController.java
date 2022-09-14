@@ -87,5 +87,46 @@ public class ApprovalController {
 		
 		return mv;
 	}
+	
+	@RequestMapping(value="signList.ap", produces="application/json; charset=utf-8")
+	public ModelAndView selectSignList(String empNo, @RequestParam(value="cpage", defaultValue="1") int currentPage,  ModelAndView mv) {
+		int listCount = aService.selectSignListCount(empNo);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Approval> list = aService.selectSignList(pi, empNo);
+		
+		mv.addObject("pi", pi).addObject("list", list).setViewName("approval/signListView");
+		
+		return mv;
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="changeSign.ap", produces="application/json; charset=utf-8")
+	public String ChangeSign(String empNo, String apprStatus, @RequestParam(value="cpage", defaultValue="1") int currentPage) {
+		Approval ap = new Approval();
+		
+		if(!apprStatus.isEmpty()) {
+			ap.setEmpNo(empNo);
+			ap.setApprStatus(apprStatus);
+			
+			int listCount = aService.ajaxSelectListCount(ap);
+			
+			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+			ArrayList<Approval> list = aService.ajaxSelectSignList(pi, ap);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("pi", pi);
+			map.put("list", list);
+			
+			return new Gson().toJson(map);
+		}else {
+			int listCount = aService.selectListCount(empNo);
+			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+			ArrayList<Approval> list = aService.selectSignList(pi, empNo);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("pi", pi);
+			map.put("list", list);
+			return new Gson().toJson(map);
+		}
+	}
 
 }

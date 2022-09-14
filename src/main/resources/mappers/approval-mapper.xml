@@ -9,6 +9,7 @@
 		<result column="appr_enroll_date" property="apprEnrollDate"/>
 		<result column="appr_status" property="apprStatus"/>
 		<result column="appr_comment" property="apprComment"/>
+		<result column="appr_date" property="apprDate"/>
 	</resultMap>
 
 	<select id="selectListCount" resultType="_int">
@@ -78,6 +79,54 @@
 		   and appr_storage = 'Y'
 		 order
 		    by appr_enroll_date desc
+	</select>
+	
+	<select id="selectSignListCount" resultType="_int">
+		select
+		   	   count (*)
+		  from tb_approval ap
+		  join tb_appr_mem am on(am.appr_no = ap.appr_no)
+		 where am.emp_no = #{empNo}
+		   and ap.appr_status in (3,4)
+	</select>
+	
+	<select id="selectSignList" resultMap="approvalResult">
+		select 
+			   appr_enroll_date
+			 , appr_doc_type
+			 , appr_date
+			 , appr_title
+			 , ap.appr_comment
+			 , ap.appr_no
+			 , ap.appr_status
+		  from tb_approval ap
+		  join tb_appr_mem am on(am.appr_no = ap.appr_no)
+		 where am.emp_no = #{empNo}
+		   and ap.appr_status in (3,4)
+	</select>
+	
+	<select id="ajaxSelectSignListCount" resultType="_int">
+		select
+		   	   count (*)
+		  from tb_approval ap
+		  join tb_appr_mem am on(am.appr_no = ap.appr_no)
+		 where am.emp_no = #{empNo}
+		   and ap.appr_status = #{apprStatus}
+	</select>
+	
+	<select id="ajaxSelectSignList" resultMap="approvalResult">
+		select 
+			   appr_enroll_date
+			 , appr_doc_type
+			 , appr_date
+			 , appr_title
+			 , ap.appr_comment
+			 , ap.appr_no
+			 , ap.appr_status
+		  from tb_approval ap
+		  join tb_appr_mem am on(am.appr_no = ap.appr_no)
+		 where am.emp_no = #{empNo}
+		   and ap.appr_status = #{apprStatus}
 	</select>
 
 </mapper>

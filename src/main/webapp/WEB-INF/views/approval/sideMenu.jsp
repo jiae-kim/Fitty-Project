@@ -73,7 +73,7 @@
            <ul>
              <li><a type="button" onclick="postFormSubmit('draftList.ap');">기안 문서함</a></li>
              <li><a type="button" onclick="postFormSubmit('storageList.ap');">임시 저장함</a></li>
-             <li><a href="결재문서함.html">결재 문서함</a></li>
+             <li><a type="button" onclick="postFormSubmit('signList.ap');">결재 문서함</a></li>
            </ul>
          </div>
        </div>
