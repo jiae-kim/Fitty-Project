@@ -25,8 +25,18 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 
 	@Override
-	public ArrayList<Approval> selectList(PageInfo pi) {
-		return aDao.selectList(sqlSession, pi);
+	public ArrayList<Approval> selectList(PageInfo pi, String empNo) {
+		return aDao.selectList(sqlSession, pi, empNo);
+	}
+
+	@Override
+	public int ajaxSelectListCount(Approval ap) {
+		return aDao.ajaxSelectListCount(sqlSession, ap);
+	}
+
+	@Override
+	public ArrayList<Approval> ajaxSelectList(PageInfo pi, Approval ap) {
+		return aDao.ajaxSelectList(sqlSession, pi, ap);
 	}
 
 }

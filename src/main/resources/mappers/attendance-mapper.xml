@@ -23,7 +23,7 @@
 		<result column="gapHour" property="gapHour"/>
 		<result column="gapMinute" property="gapMinute"/>
 		<result column="gapSecond" property="gapSecond"/>
-		<result column="attIn" property="attOut"/>
+		<result column="attIn" property="attIn"/>
 		<result column="attOut" property="attOut"/>
 </resultMap>
 

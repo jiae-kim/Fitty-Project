@@ -17,15 +17,19 @@ public class EmployeeDao {
 	public Employee loginEmployee(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.selectOne("employeeMapper.loginEmployee", e);
 	}
-	/*
+	
 	public Employee attFlag(SqlSessionTemplate sqlSession, Employee e) {
 		Attendance a = sqlSession.selectOne("attendanceMapper.attFlag", e);
-		System.out.println(a.getAttIn());
-		System.out.println(a.getAttOut());
-		e.setAttIn(a.getAttIn());
-		e.setAttOut(a.getAttOut());
-		return e;
-	}*/
+		if(a != null) {
+			e.setAttIn(a.getAttIn());
+			e.setAttOut(a.getAttOut());
+			return e;
+		} else {
+			// 아예 해당 회원이 없을경우.. 
+			return e;
+		}
+		
+			}
 	
 	public String selectNextEmpNo(SqlSessionTemplate sqlSession) {
 		return  sqlSession.selectOne("employeeMapper.selectNextEmpNo");

@@ -20,7 +20,7 @@ public class Approval {
 	private int apprDocType;
 	private String apprTitle;
 	private Date apprEnrollDate;
-	private int apprStatus;
+	private String apprStatus;
 	private String apprStorage;
 	private String apprComment;
 	private int apprMemCount;
