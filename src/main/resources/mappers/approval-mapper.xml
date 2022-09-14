@@ -8,13 +8,14 @@
 		<result column="appr_title" property="apprTitle"/>
 		<result column="appr_enroll_date" property="apprEnrollDate"/>
 		<result column="appr_status" property="apprStatus"/>
-		<result column="appr_conmment" property="apprComment"/>
+		<result column="appr_comment" property="apprComment"/>
 	</resultMap>
 
 	<select id="selectListCount" resultType="_int">
 		select
 		   	   count (*)
 		  from tb_approval
+		 where emp_no = #{empNo}
 	</select>
 	
 	<select id="selectList" resultMap="approvalResult">
@@ -26,8 +27,32 @@
 			 , appr_status
 			 , appr_comment
 		  from tb_approval
+		 where emp_no = #{empNo}
 		 order
-		    by appr_enroll_date
+		    by appr_enroll_date desc
+	</select>
+	
+	<select id="ajaxSelectListCount" resultType="_int">
+		select
+		   	   count (*)
+		  from tb_approval
+		 where emp_no = #{empNo}
+		   and appr_status = #{apprStatus}
+	</select>
+	
+	<select id="ajaxSelectList" resultMap="approvalResult">
+		select 
+			   appr_no
+			 , appr_doc_type
+			 , appr_title
+			 , appr_enroll_date
+			 , appr_status
+			 , appr_comment
+		  from tb_approval
+		 where emp_no = #{empNo}
+		   and appr_status = #{apprStatus}
+		 order
+		    by appr_enroll_date desc
 	</select>
 
 </mapper>
