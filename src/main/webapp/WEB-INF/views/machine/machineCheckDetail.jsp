@@ -123,22 +123,13 @@
                   <script>
                   
 	            	function postFormSubmit(url){
-	            		if(url == 'broken.mc'){
-	            			
-	            			// 고장처리 
-	            			// 웹소켓 >> 서버에 메세지 보내기
-	            			let socketMsg = "machine," + "${loginUser.empNo}" + "," + "${m.ckWriter}" + "," + ${m.ckNo};
-	            			
-	            			console.log(socketMsg);
-	            			console.log(socket);
-	            			socket.send(socketMsg);
-	            		}else{
-	            			// 정상처리 
-	            			// 웹소켓 >> 서버에 메세지 보내기 
-	            			let socketMsg = "machine," + "${loginUser.empNo}" + "," + "${m.ckWriter}" + "," + ${m.ckNo};
-	            			
-	            			socket.send(socketMsg);
-	            		}
+	            		
+	            		// 서버에 메세지 보내기 
+	            		let socketMsg = "machine," + "${loginUser.empNo}" + "," + "${m.ckWriter}" + "," + ${m.ckNo};
+            			
+            			console.log(socketMsg);
+            			console.log(socket);
+            			socket.send(socketMsg);
 	            		
 	            		$("#postForm").attr("action", url).submit();
 	            	}

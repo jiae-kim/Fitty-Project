@@ -60,8 +60,11 @@ public class EcoHandler extends TextWebSocketHandler {
 			
 			System.out.println("trainerSession>>>>> " + trainerSession );
 			
+			// 현재 admin은 사번이기 때문에 이름을 보내주려면 서비스에 요청해서 DB에서 조회해와야함
+			//String adminName = aService.selectAdminMc(admin);
+			
 			if(cmd.equals("machine") && trainerSession != null) {
-				TextMessage tmpMsg = new TextMessage(admin + "님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.");
+				TextMessage tmpMsg = new TextMessage("<a href='ckList.mc'>"+ admin + "님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
 				trainerSession.sendMessage(tmpMsg);
 				
 				System.out.println(">>>>>>클라이언트로 메세지 보내기 성공 ");

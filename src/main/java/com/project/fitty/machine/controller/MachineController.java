@@ -190,8 +190,7 @@ public class MachineController {
 		
 		if(result1 * result2 > 0) {
 			session.setAttribute("alertMsg", "성공적으로 기구 고장 등록하였습니다.");
-			//return "redirect:ckList.mc";
-			return "common/errorPage";
+			return "redirect:ckList.mc";
 		}else {
 			session.setAttribute("errorMsg", "기구 고장 등록 실패");
 			return "common/errorPage";

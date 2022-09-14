@@ -125,6 +125,9 @@
 		  border-right: 0;
 		  background-color: #696CFF;
 		}
+		#socketContent a {
+			color:white !important;
+		}
         
     </style>
 <meta name="description" content="" />
@@ -146,24 +149,23 @@
 
 </head>
 <body>
-<!-- alert -->
-<div
-  id="socketAlert"
-  style="display:none;"
-  class="bs-toast toast fade show bg-info"
-  role="alert"
-  aria-live="assertive"
-  aria-atomic="true">
-  <div class="toast-header">
-    <i class="bx bx-bell me-2"></i>
-    <div class="me-auto fw-semibold">Bootstrap</div>
-    <small>11 mins ago</small>
-    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
-  </div>
-  <div class="toast-body" id="socketContent">
-    
-  </div>
-</div>
+	<!-- alert -->
+	<div
+	  id="socketAlert"
+	  style="display:none;float:right;position:absolute;top:5%;right:5%;
+	  		 background-color:rgba(105, 108, 255, 0.95) !important;"
+	  class="bs-toast toast fade show bg-primary"
+	  role="alert"
+	  aria-live="assertive"
+	  aria-atomic="true">
+	  <div class="toast-header">
+	    <i class="bx bx-bell me-2" style="color:white"></i>
+	    <div class="me-auto fw-semibold">알림</div>
+	    <small>지금</small>
+	    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+	  </div>
+	  <div class="toast-body" id="socketContent"></div>
+	</div>
 
 <!-- Layout wrapper -->
 	<c:if test="${ not empty alertMsg }">
@@ -173,7 +175,7 @@
 		<!-- 1회성 메시지 지우기 -->
 		<c:remove var="alertMsg" scope="session"/>
 	</c:if>
-    <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-wrapper layout-content-navbar" style="position:relative">
       <div class="layout-container">
         <!-- Menu -->
 
@@ -699,8 +701,12 @@
 	   		let $socketAlert = $("#socketAlert");
 	   		let $socketContent = $("#socketContent");
 	   		
-	   		$socketContent.text(evt.data);
+	   		$socketContent.html(evt.data);
 	   		$socketAlert.css("display", "block");
+	   		
+	   		setTimeout(function(){
+	   			$socketAlert.css('display', 'none');
+	   		}, 7000);
 	   		
 		}
 		
