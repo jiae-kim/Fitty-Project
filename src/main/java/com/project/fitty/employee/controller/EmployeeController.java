@@ -30,7 +30,7 @@ public class EmployeeController {
 	
 	
 	@RequestMapping("login.emp")
-	public String loginEmployee(Employee e, HttpSession session, Model model) {
+	public String loginEmployee(Employee e, HttpSession session) {
 		
 		Employee loginUser = eService.loginEmployee(e);
 		

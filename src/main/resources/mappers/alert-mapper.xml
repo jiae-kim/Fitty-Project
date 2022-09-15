@@ -13,9 +13,6 @@
 		<result column="al_sender" property="alSender"/>
 	</resultMap>
 	
-	<resultMap id="EmployeeResult" type="Employee">
-		<result column="emp_no" property="empNo" />
-	</resultMap>
 	
 	<insert id="insertAlertM">
 		insert
