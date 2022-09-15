@@ -170,7 +170,7 @@
 <!-- Layout wrapper -->
 	<c:if test="${ not empty alertMsg }">
 		<script>
-			alertify.alert("${ alertMsg }");
+			alertify.alert("${ alertMsg }").set('basic', true);
 		</script>
 		<!-- 1회성 메시지 지우기 -->
 		<c:remove var="alertMsg" scope="session"/>
