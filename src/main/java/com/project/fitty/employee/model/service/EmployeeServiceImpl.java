@@ -1,6 +1,7 @@
 package com.project.fitty.employee.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,8 +60,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 	
 	@Override
-	public int selectVacSearchListCount(Employee sqlEmp) {
-		return eDao.selectVacSearchListCount(sqlSession, sqlEmp);
+	public int selectVacSearchListCount(HashMap <String, Object> sqlMap) {
+		return eDao.selectVacSearchListCount(sqlSession, sqlMap);
 	}
 
 
