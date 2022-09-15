@@ -62,6 +62,8 @@
                     	</script>
                     	
                     </c:if>
+                    
+                    
                     <div class="mb-3 col-md-6">
                       <label for="empMail" class="form-label">이메일</label>
                       <input class="form-control" type="text" id="empMail" name="empMail" value="${ loginUser.empMail }" readonly/>
@@ -79,7 +81,7 @@
                   </div>
                   <div class="mt-2 enrollBtnDiv">
                     <button type="submit" class="btn btn-primary me-2">수정하기</button>
-                    <button type="button" class="btn btn-secondary me-2" onclick="myPage.emp">목록으로</button>
+                    <button type="button" class="btn btn-secondary me-2" onclick="**">목록으로</button>
                   </div>
                 </form>
               </div>

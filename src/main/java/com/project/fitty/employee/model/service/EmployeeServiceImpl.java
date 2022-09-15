@@ -94,7 +94,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	
 	@Override
-	public ArrayList<Employee> selectEmployee(Employee e) {
+	public int selectEmployee(Employee e) {
 		return eDao.selectEmployee(sqlSession, e);
 		
 	}

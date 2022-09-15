@@ -477,7 +477,7 @@
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="update.emp">
+                            <a class="dropdown-item" href="select.emp">
                             <i class="bx bx-user me-2"></i>
                             <span class="align-middle">My Profile</span>
                             </a>

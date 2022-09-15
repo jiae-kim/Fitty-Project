@@ -51,7 +51,7 @@ public interface EmployeeService {
 	
 
 	// 직원 정보 조회(select)
-	ArrayList<Employee> selectEmployee(Employee e);
+	int selectEmployee(Employee e);
  	
 	// 직원 정보 수정 (update)
 	int updateEmployee(Employee e);
