@@ -161,22 +161,9 @@
 	  	 where emp_no in (${empNo})
 	  </update>
 	  
-  	  <select id= "selectEmployee" resultMap="employeeResult">
-	  	select
-	  			emp_name
-	  		   , emp_grade
-	  		   , emp_gender
-	  		   , emp_phone
-	  		   , emp_birth
-	  	  from  tb_emp
-	  	 where  emp_status = 'Y'
-	  
-  </select>
-  
-  
   <update id="updateEmployee">
    	update 
-   			Employee
+   			tb_emp
 	   set	emp_name = #{empName}
 	 	  , emp_grade = #{empGrade}
 		  , emp_gender = #{empGender}

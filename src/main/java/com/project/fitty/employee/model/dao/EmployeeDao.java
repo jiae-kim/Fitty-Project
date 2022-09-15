@@ -89,11 +89,6 @@ public class EmployeeDao {
 		return sqlSession.update("employeeMapper.deleteEmployee", empNo);
 	}
 	
-	// 직원 정보조회
-	public int selectEmployee(SqlSessionTemplate sqlSession, Employee e) {
-		
-		return sqlSession.selectOne("employeeMapper.selectEmployee", e);
-	}
 	
 	// 직원 정보수정
 	public int updateEmployee(SqlSessionTemplate sqlSession, Employee e) {
