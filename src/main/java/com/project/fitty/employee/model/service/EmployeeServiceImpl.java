@@ -93,33 +93,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return eDao.deleteEmpNoList(sqlSession, empNo);
 	}
 
-	
-	@Override
-	public int selectEmployee(Employee e) {
-		return eDao.selectEmployee(sqlSession, e);
-		
-	}
 
 	@Override
 	public int updateEmployee(Employee e) {
 		return eDao.updateEmployee(sqlSession, e);
 	}
-
-
-
-	
-
-	
-
-
-	
-
-
-	
-
-
-	
-
-	
-
 }

@@ -52,17 +52,25 @@
                       <label for="empNo" class="form-label">사번</label>
                       <input class="form-control" type="text" name="empNo" id="empNo" value="${ loginUser.empNo }" readonly/>
                     </div>
-                    
-                    <c:if test="${ not empty loginUser.gender }">
+                         <c:if test="${ not empty loginUser.empGrade }">
                     	<script>
                     		$(function(){
-								$("input[value=${loginUser.gender}]").attr("checked", true);                  			
+								$("input[value=${loginUser.empGrade}]").attr("checked", true);                  			
                     		})
                     		
                     	</script>
                     	
                     </c:if>
                     
+                    <c:if test="${ not empty loginUser.empGender }">
+                    	<script>
+                    		$(function(){
+								$("input[value=${loginUser.empGender}]").attr("checked", true);                  			
+                    		})
+                    		
+                    	</script>
+                    	
+                    </c:if>
                     
                     <div class="mb-3 col-md-6">
                       <label for="empMail" class="form-label">이메일</label>
@@ -81,7 +89,7 @@
                   </div>
                   <div class="mt-2 enrollBtnDiv">
                     <button type="submit" class="btn btn-primary me-2">수정하기</button>
-                    <button type="button" class="btn btn-secondary me-2" onclick="**">목록으로</button>
+                    <button type="button" class="btn btn-secondary me-2" onclick="go('login.emp')">목록으로</button>
                   </div>
                 </form>
               </div>
@@ -90,6 +98,6 @@
           </div>
         </div>
       
-<script type="text/javascript" src="resources/js/employee.js"></script>
+<!-- <script type="text/javascript" src="resources/js/employee.js"></script> -->
 </body>
 </html>
