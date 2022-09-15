@@ -307,7 +307,25 @@
 	  join tb_att a on (e.emp_no = a.emp_no)
 	  join tb_grade g on (e.emp_grade = g.emp_grade)
 	 where emp_status = 'Y'
-	 ${addSql}
+	 <if test = "addSql == 'allWork'">
+	 
+	</if>
+	 <if test = "addSql == 'underOne'">
+		and emp_enroll_date
+			BETWEEN TO_DATE((select to_char(add_months(sysdate,-12),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')
+			AND sysdate
+	</if>
+	<if test = "addSql == 'oneToFive'">
+		and emp_enroll_date
+			BETWEEN TO_DATE((select to_char(add_months(sysdate,-60),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')
+			AND TO_DATE((select to_char(add_months(sysdate,-11),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')
+	</if>
+	<if test = "addSql == 'overFive'">
+		and emp_enroll_date
+			BETWEEN TO_DATE((select to_char(add_months(sysdate,-480),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')
+			AND TO_DATE((select to_char(add_months(sysdate,-59),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')
+	</if>
+	 and e.emp_name like '%' || #{sqlEmpName } || '%'
   </select>
   
    <select id="selectPerYearMonthList" resultMap="attendanceResult">

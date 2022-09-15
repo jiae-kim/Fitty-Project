@@ -13,7 +13,7 @@ public class Pagination {
 			endPage = maxPage;
 		}
 		
-		return new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage, null);
+		return new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage, null, null);
 	}
 
 }

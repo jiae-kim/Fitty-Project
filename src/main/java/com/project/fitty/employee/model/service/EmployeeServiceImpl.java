@@ -57,6 +57,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int selectEmpListCount() {
 		return eDao.selectEmpListCount(sqlSession);
 	}
+	
+	@Override
+	public int selectVacSearchListCount(Employee sqlEmp) {
+		return eDao.selectVacSearchListCount(sqlSession, sqlEmp);
+	}
 
 
 	@Override

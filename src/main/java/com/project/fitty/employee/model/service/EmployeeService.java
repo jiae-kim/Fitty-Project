@@ -37,6 +37,9 @@ public interface EmployeeService {
 	// 전체 회원수 알아오기
 	int selectEmpListCount();
 	
+	// sql에 해당하는 회원수 알아오기
+	int selectVacSearchListCount(Employee sqlEmp);
+	
 	// 직원 전체조회 - 주소록용 레벨
 	ArrayList<Employee> selectLevelEmployeeList();
 	
@@ -45,4 +48,6 @@ public interface EmployeeService {
 	
 	// 선택된 리스트에서 원하는 리스트 조회
 	ArrayList<Employee> deleteEmpNoList(String empNo);
+	
+	
 }

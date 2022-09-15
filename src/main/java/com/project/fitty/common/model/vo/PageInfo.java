@@ -22,6 +22,7 @@ public class PageInfo {
 	private int endPage;
 	
 	private String addSql;
+	private String sqlEmpName;
 	
 	
 	

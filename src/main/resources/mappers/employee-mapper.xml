@@ -29,9 +29,9 @@
 			   , e.emp_photo
 			   , e.emp_enroll_date
 			   , e.emp_modify_date
-               , a.att_date
-			   , a.att_in
-			   , a.att_out
+              <!-- , a.att_date --> 
+			  <!--  , a.att_in --> 
+			  <!-- , a.att_out--> 
 		  from   tb_emp e
 		  join   tb_att a on (a.emp_no = e.emp_no)
 		 where   e.emp_no = #{empNo}
@@ -91,6 +91,51 @@
 	  	  from tb_emp
 	  	 where emp_status = 'Y'
 	  </select>
+	  
+	  
+	  
+	  
+	  <select id="selectVacSearchListCount" resultType="_int">
+	  	select count(*)
+	  	  from (
+	  	  	select
+			    distinct
+			       e.emp_no
+			     , e.emp_name
+			     , g.emp_grade
+			     , g.gr_name
+			     , e.emp_enroll_date
+			     , (round(((trunc(months_between(sysdate,to_date(emp_enroll_date,'yy/mm/dd')) /12) *365)
+			             + (trunc(mod(months_between(sysdate,to_date(emp_enroll_date,'yy/mm/dd')) /12,1) *12)*12)
+			             + (trunc(mod(mod(months_between(sysdate,to_date(emp_enroll_date,'yy/mm/dd')) /12,1) *12,1) *(365/12))*1)) / 365, 1 )
+			        ) as "work_year"
+			  from tb_emp e
+			  join tb_att a on (e.emp_no = a.emp_no)
+			  join tb_grade g on (e.emp_grade = g.emp_grade)
+			 where emp_status = 'Y'
+			 <if test = "addSql == 'allWork'">
+				
+			</if>
+			 <if test = "addSql == 'underOne'">
+				and emp_enroll_date
+					BETWEEN TO_DATE((select to_char(add_months(sysdate,-12),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')
+					AND sysdate
+			</if>
+			<if test = "addSql == 'oneToFive'">
+				and emp_enroll_date
+					BETWEEN TO_DATE((select to_char(add_months(sysdate,-60),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')
+					AND TO_DATE((select to_char(add_months(sysdate,-11),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')
+			</if>
+			<if test = "addSql == 'overFive'">
+				and emp_enroll_date
+					BETWEEN TO_DATE((select to_char(add_months(sysdate,-480),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')
+					AND TO_DATE((select to_char(add_months(sysdate,-59),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')
+			</if>
+			 and e.emp_name like '%' || #{sqlEmpName } || '%'
+	  	  )
+	  </select>
+	  
+	  
 	  
 	  <select id="selectLevelEmployeeList" resultMap="employeeResult">
 		select 

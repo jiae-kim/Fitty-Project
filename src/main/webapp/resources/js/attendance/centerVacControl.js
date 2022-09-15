@@ -7,6 +7,12 @@ $(function(){
 			changeSelect();	
 		})
 	})
+	
+	$(document).ready(function(){
+		$("#searchBtn").on("click",function(){
+			changeSelect();	
+		})
+	})
 
 	
 })
@@ -16,9 +22,10 @@ function selectAllAttList(page){
 		$.ajax({
 			url: "vacList.att",
 			data:{
-				// searchType:$("#searchType").val(),
-				// searchText:$("#searchText").val(),
-				cpage:page,
+				addSql : $("#orderByWorkTime").val(),
+				sqlEmpName :$("#searchText").val(),
+				searchFlag : "N",
+				cpage:page
 			},
 			type:"post",
 			success:function(result){
@@ -110,7 +117,7 @@ function selectAllAttList(page){
 function changeSelect(){
 	let orderByWorkTime = $("#orderByWorkTime").val();
 	let orderByAtt = $("#orderByAtt").val();
-	const memListTBody = $("#memListTBody");
+	let memListTBody = $("#memListTBody");
 	
  
 	
@@ -119,17 +126,21 @@ function changeSelect(){
 			  url:"orderByVac.att",
 			 data:{
 			   orderByWorkTime:orderByWorkTime,
-			   orderByAtt:orderByAtt,
+			   //orderByAtt:orderByAtt,
 			   searchText:$("#searchText").val()
 			 },
 			 type:"post",
 			 success:function(result){
+			 	console.log(result);
 			    let value = "";
 		  	    let pageValue = "";
 		   
 				let aList = result.aList;
 				let pi = result.pi;
-
+				
+				console.log(aList);
+				
+				
 				if(aList.length == 0) {
 					value += "<tr>"
 						+ "<td colspan='9'> 직원이 없습니다. </td>"

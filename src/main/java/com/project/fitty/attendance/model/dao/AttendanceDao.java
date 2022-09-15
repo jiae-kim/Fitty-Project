@@ -67,11 +67,15 @@ public class AttendanceDao {
 		return sqlSession.insert("attendanceMapper.updateAttendanceStatus", a);
 	}
 	
+	
+	
+	
+	
 	public ArrayList<Attendance> selectVacList(SqlSessionTemplate sqlSession, PageInfo pi){
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage()-1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		return (ArrayList) sqlSession.selectList("attendanceMapper.selectVacList", null, rowBounds);
+		return (ArrayList) sqlSession.selectList("attendanceMapper.selectVacList", pi, rowBounds);
 	}
 	
 	public ArrayList<Attendance> selectPerYearMonthList(SqlSessionTemplate sqlSession, Attendance a){

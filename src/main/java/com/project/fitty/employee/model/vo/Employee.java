@@ -31,6 +31,7 @@ public class Employee {
 	
 	
 	// db에는 없지만 편의상 추가된 필드
+	private String grName;
 	private String gradeString;
 	private ArrayList<Attendance> attList;
 	private String thisYear;
@@ -41,5 +42,8 @@ public class Employee {
 	private String attOut;
 	private String attFlag;
 	private String nowTime;
+	
+	private String addSql;
+	private String sqlEmpName;
 
 }

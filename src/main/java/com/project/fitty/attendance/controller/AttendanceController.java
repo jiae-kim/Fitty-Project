@@ -292,13 +292,30 @@ public class AttendanceController {
 	
 	@ResponseBody
 	@RequestMapping(value="vacList.att", produces="application/json; charset=utf-8")
-	public String goVacControlAtt(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, String addSql) {
+	public String goVacControlAtt(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, String addSql, String sqlEmpName, String searchFlag) {
+		int listCount = 0;
 		
+		if(searchFlag.equals("N")) {
+			// 맨 처음 호출될때
+			listCount = eService.selectEmpListCount();
+			System.out.println(searchFlag + listCount);
+		} else {
+			// 서치된 값으로 호출될때 searchFlag = Y
+			Employee sqlEmp = new Employee();
+			sqlEmp.setAddSql(addSql);
+			sqlEmp.setSqlEmpName(sqlEmpName);
+			listCount = eService.selectVacSearchListCount(sqlEmp);
+			System.out.println(searchFlag + listCount);
+		}
 		
-		int listCount = eService.selectEmpListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		pi.setAddSql(addSql);
+		pi.setSqlEmpName(sqlEmpName);
+		System.out.println(pi);
 		ArrayList<Attendance> aList = aService.selectVacList(pi);
+		System.out.println(pi.getAddSql());
+		System.out.println(pi.getSqlEmpName());
+		System.out.println(aList);
 		
 		Calendar calendar = Calendar.getInstance();
 		int tYear = Calendar.getInstance().get(Calendar.YEAR);
@@ -336,48 +353,10 @@ public class AttendanceController {
 	
 	@ResponseBody
 	@RequestMapping(value="orderByVac.att", produces="application/json; charset=utf-8")
-	public Object selectOrderByVac(String orderByWorkTime, String orderByAtt, String searchText, HttpSession session) {
-		
-		String addSqlWorkTime="";
-//		String addSqlByAtt ="";
-		String addSqlEmpName = "and emp_name in ('" + searchText + "')";
-		String addAllSql = "";
-		switch(orderByWorkTime) {
-		case "underOne" : addSqlWorkTime = "and emp_enroll_date"
-										 + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-12),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
-										 + "AND sysdate "; break;
-		case "oneToFive" : addSqlWorkTime = "and emp_enroll_date"
-										  + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-60),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
-										  + " AND TO_DATE((select to_char(add_months(sysdate,-11),'yyyy-mm-dd') from dual), 'YYYY-MM-DD') "; break;
-		case "overFive" : addSqlWorkTime = "and emp_enroll_date"
-									      + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-480),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
-									      + " AND TO_DATE((select to_char(add_months(sysdate,-59),'yyyy-mm-dd') from dual), 'YYYY-MM-DD') "; break;
-		default : addSqlWorkTime = "";
-		}
-		addAllSql = addSqlWorkTime + addSqlEmpName;
-		
-		
-		if(searchText != null && !searchText.equals("")) {
-			// 검색된 내용이 있을경우...
-			//System.out.println("2번 : " + goVacControlAtt(1, session, addAllSql ));
-//			switch(addSqlByAtt) {
-//			case "yearOverEighty" : addSqlByAtt = "and emp_enroll_date"
-//											 + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-12),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
-//											 + "AND sysdate"; break;
-//			case "monthOverHundred" : addSqlByAtt = "and emp_enroll_date"
-//											  + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-60),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
-//											  + " AND TO_DATE((select to_char(add_months(sysdate,-11),'yyyy-mm-dd') from dual), 'YYYY-MM-DD') "; break; 
-//			default : addSqlByAtt = "";
-//			}
-			
-			return goVacControlAtt(1, session, addAllSql );
-			// 위에꺼는 반복문을 돌려서 SQL문을 조회하는 ㅁ[소드를 한 번 더 할 수 있지만.. 아래꺼는 자스에서 VAL 값으로 컨트롤행야할ㄷ긋,,,
-		} else {
-			// 검색된 내용이 없을경우
-			System.out.println("2번 : " + goVacControlAtt(1, session, addSqlWorkTime ));
-			return goVacControlAtt(1, session, addSqlWorkTime );
-		}
-		
+	public String selectOrderByVac(String orderByWorkTime, String orderByAtt, String searchText, HttpSession session) {
+		System.out.println("실행됨");
+		String searchFlag = "Y";
+		return goVacControlAtt(1, session, orderByWorkTime, searchText, searchFlag );
 		
 		
 	}
