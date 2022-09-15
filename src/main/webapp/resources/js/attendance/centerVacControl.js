@@ -283,3 +283,137 @@ function filterPercent(){
 
 	
 }
+
+
+
+function openVacationModal(){
+		let strInsertVacListEmpNo = "";
+   
+	   $("#memListTBody :checkbox:checked").each(function(){
+	     strInsertVacListEmpNo += "'" + $(this).val() + "',";
+	   })
+	   
+	   strInsertVacListEmpNo = strInsertVacListEmpNo.substring(0, strInsertVacListEmpNo.lastIndexOf(","));
+	   $("#strInsertVacListEmpNo").val(strInsertVacListEmpNo);
+	   
+	   //console.log(strInsertVacListEmpNo);
+	   //console.log($("#strInsertVacListEmpNo").val());
+	   
+		$.ajax({
+			url: "openVacModal.vac",
+			data:{
+				empNo : $("#strInsertVacListEmpNo").val()
+			},
+			type:"post",
+			success:function(empList){
+			
+				let empValue = "";
+				let empNoValue = "";
+				
+				if(empList.length == 0) {
+					$("#modalEmpList").val("선택된 직원이 없습니다.");
+				} else {
+					for(let i=0; i<empList.length; i++){
+						empValue += empList[i].empName
+								 + ", " 
+						empNoValue += empList[i].empNo
+								 + ", " 
+					}
+				 empValue = empValue.substring(0, empValue.lastIndexOf(","));
+				 empNoValue = empNoValue.substring(0, empNoValue.lastIndexOf(","));
+				 $("#modalEmpList").val(empValue);
+				 $("#modalEmpNoList").val(empNoValue);
+				}
+			}
+		,error:function(){
+				console.log("페이지 로딜 리스트 조회용 ajax통신 실패"); 
+		}
+	
+
+	})
+}
+
+
+function openVacationModal(){
+		let strInsertVacListEmpNo = "";
+   
+	   $("#memListTBody :checkbox:checked").each(function(){
+	     strInsertVacListEmpNo += "'" + $(this).val() + "',";
+	   })
+	   
+	   strInsertVacListEmpNo = strInsertVacListEmpNo.substring(0, strInsertVacListEmpNo.lastIndexOf(","));
+	   $("#strInsertVacListEmpNo").val(strInsertVacListEmpNo);
+	   
+	   
+		$.ajax({
+			url: "openVacModal.emp",
+			data:{
+				empNo : $("#strInsertVacListEmpNo").val()
+			},
+			type:"post",
+			success:function(empList){
+			
+				let empValue = "";
+				let empNoValue = "";
+				
+				if(empList.length == 0) {
+					$("#modalEmpList").val("선택된 직원이 없습니다.");
+				} else {
+					for(let i=0; i<empList.length; i++){
+						empValue += empList[i].empName
+								 + ", " 
+						empNoValue += empList[i].empNo
+								 + ", " 
+					}
+				 empValue = empValue.substring(0, empValue.lastIndexOf(","));
+				 empNoValue = empNoValue.substring(0, empNoValue.lastIndexOf(","));
+				 $("#modalEmpList").val(empValue);
+				 $("#modalEmpNoList").val(empNoValue);
+				}
+			}
+		,error:function(){
+				console.log("페이지 로딜 리스트 조회용 ajax통신 실패"); 
+		}
+	
+
+	})
+}
+
+function insertVac(){
+
+$.ajax({
+			url: "insertVac.vac",
+			data:{
+				empNo : $("#empNo").val(),
+				vacNormal : $("#vacNormal").val(),
+				vacOper : $("#vacOper").val()
+			},
+			type:"post",
+			success:function(empList){
+			
+				let empValue = "";
+				let empNoValue = "";
+				
+				if(empList.length == 0) {
+					$("#modalEmpList").val("선택된 직원이 없습니다.");
+				} else {
+					for(let i=0; i<empList.length; i++){
+						empValue += empList[i].empName
+								 + ", " 
+						empNoValue += empList[i].empNo
+								 + ", " 
+					}
+				 empValue = empValue.substring(0, empValue.lastIndexOf(","));
+				 empNoValue = empNoValue.substring(0, empNoValue.lastIndexOf(","));
+				 $("#modalEmpList").val(empValue);
+				 $("#modalEmpNoList").val(empNoValue);
+				}
+			}
+		,error:function(){
+				console.log("페이지 로딜 리스트 조회용 ajax통신 실패"); 
+		}
+	
+
+	})
+
+}

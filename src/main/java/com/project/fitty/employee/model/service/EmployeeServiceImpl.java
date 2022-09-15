@@ -98,4 +98,10 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int updateEmployee(Employee e) {
 		return eDao.updateEmployee(sqlSession, e);
 	}
+
+
+	@Override
+	public ArrayList<Employee> openVacModalSelectEmpName(String empNo) {
+		return eDao.openVacModalSelectEmpName(sqlSession, empNo);
+	}
 }

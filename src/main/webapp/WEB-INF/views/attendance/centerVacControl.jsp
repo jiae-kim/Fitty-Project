@@ -86,8 +86,9 @@
                       <td><input type="text" class="form-control" placeholder="직원명 입력" name="searchText" id="searchText"  maxlength="30" style="height: 35px;"></td>
                       <td><button type="button" id="searchBtn" class="btn btn-primary" onclick="changeSelect();"><i class='bx bx-search' style="color:white;"></i></button></td>
                       <td width="180px"></td>
-                      <td width = "150px;"><button class="btn btn-info" onclick="generalChange();">연월차/휴가생성</button></td>
+                      <td width = "150px;"><button class="btn btn-info" type ="button" data-bs-toggle="modal" data-bs-target="#insertVac" onclick="openVacationModal();">연월차/휴가생성</button></td>
                       <td width = "150px;"><button class="btn btn-warning" onclick="generalChange();">연월차/휴가소진</button></td>
+                      <input type="hidden" id="strInsertVacListEmpNo">
                     </tr>        
                   </table>
                 </div>
@@ -144,6 +145,54 @@
                                 </ul>
                             </nav>
                             <!--/ Basic Pagination -->
+                            
+                            <!-- 휴가생성모달 -->
+					           <div class="modal fade" id="insertVac" tabindex="-1" aria-hidden="true">
+						            <div class="modal-dialog modal-dialog-centered" role="document">
+						              <div class="modal-content">
+						                <div class="modal-header">
+						                  <h5 class="modal-title" id="modalCenterTitle">연월차 / 휴가 생성</h5>
+						                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+						                </div>
+						                <div class="modal-body">
+						                  <div class="row">
+						                    <div class="col mb-12">
+						                      <label for="modalEmpList" class="form-label modal-label" style="color : #696CFF;">생성 대상자</label>
+						                      <input type="text" id="modalEmpList" class="form-control" placeholder="직원을 먼저 선택해주세요" readOnly>
+						                      <input type="hidden" id="empNo">
+						                    </div>
+						                  </div>
+						                </div>
+						                <div class="modal-body">
+						                  <div class="row">
+						                    <div class="col mb-12">
+						                      <label for="vacReason" class="form-label modal-label" style="color : #696CFF;">사유</label>
+						                      <div>
+						                      	<input class="form-check-input"  type="radio" name="vacNormal" value="N">정규연월차&nbsp&nbsp&nbsp&nbsp&nbsp
+	                      						<input class="form-check-input"  type="radio" name="vacNormal" value="B">보너스&nbsp&nbsp&nbsp&nbsp&nbsp
+	                      						<input class="form-check-input"  type="radio" name="vacNormal" value="V">휴가
+						                      </div>
+						                    </div>
+						                  </div>
+						                </div>
+						                <div class="modal-body">
+						                  <div class="row">
+						                    <div class="col mb-12">
+						                      <label for="wantToInsert" class="form-label modal-label"  style="color : #696CFF;">생성일수</label>
+						                      <input type="number" id="vacOper" class="form-control" name="vacOper" placeholder="생성하실 날자를 입력해주세요" required>
+						                    </div>
+						                  </div>
+						                </div>
+						                <div class="modal-footer">
+						                  <button type="button" class="btn btn-primary" onclick="go('insertVac();')">생성하기</button>
+						                  <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">목록으로</button>
+						                </div>
+						              </div>
+						            </div>
+						          </div>
+						        </div>
+						      </div>
+					         <!-- 휴가생성모달 -->
                         </div>
                     </div>
                 </div>

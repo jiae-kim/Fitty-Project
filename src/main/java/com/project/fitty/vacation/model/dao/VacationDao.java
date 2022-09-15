@@ -15,5 +15,8 @@ public class VacationDao {
 		return (ArrayList) sqlSession.selectList("vacationMapper.selectEmpVacList", a);
 	}
 	
+	public int insertVacation(SqlSessionTemplate sqlSession, Vacation v) {
+		return sqlSession.insert("vacationMapper.insertVacation", v);
+	}
 
 }
