@@ -133,7 +133,8 @@
                           <tbody id="memListTBody">
                             
                           </tbody>
-                          <input type="hidden" id="invalidNo">
+                          <input type="hidden" id="invalidNoYear">
+                          <input type="hidden" id="invalidNoMon">
                         </table>
                         <div style="height : 20px"></div>
                             <!-- Basic Pagination -->

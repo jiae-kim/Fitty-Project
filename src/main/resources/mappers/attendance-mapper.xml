@@ -346,7 +346,7 @@
                          , to_char(trunc(to_date( #{beforeYear} || '/01/01', 'YY/MM/DD'), 'MM') + level - 1 ,'DY') "요일"
                       from dual
                    connect
-                        by level <= 364
+                        by level <= 365
             )
 	              where 요일 in ('월', '화', '수', '목', '금'))
 	        * 100 , 1)
