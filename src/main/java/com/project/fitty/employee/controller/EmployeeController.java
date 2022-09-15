@@ -2,7 +2,6 @@ package com.project.fitty.employee.controller;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -10,14 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.google.gson.Gson;
-import com.project.fitty.common.model.vo.PageInfo;
+import com.project.fitty.alert.model.service.AlertService;
+import com.project.fitty.alert.model.vo.Alert;
 import com.project.fitty.common.template.FileUpload;
-import com.project.fitty.common.template.Pagination;
 import com.project.fitty.employee.model.service.EmployeeService;
 import com.project.fitty.employee.model.vo.Employee;
 
@@ -27,20 +24,30 @@ public class EmployeeController {
 	@Autowired	
 	private EmployeeService eService;
 	
+	@Autowired	
+	private AlertService aService;
+	
 	
 	
 	@RequestMapping("login.emp")
-	public String loginEmployee(Employee e, HttpSession session) {
+	public String loginEmployee(Employee e, HttpSession session, Model model) {
 		
 		Employee loginUser = eService.loginEmployee(e);
+		
 		
 		if(loginUser == null) {
 			// 애초에 사번부터 틀렸을 경우
 			session.setAttribute("alertMsg", "사번을 다시 확인해주세요.");
 			return "main";
 		} else {
+			// 로그인한 회원의 아이디로 안읽은 메세지 불러오기[노희영]
+			ArrayList<Alert> msgList = aService.selectAlertList(loginUser.getEmpNo());
+			session.setAttribute("msgList", msgList);
+			System.out.println(msgList);
+			
 			// 사번이 맞은 경우 출퇴근 여부 확인
 			Employee attFlag = eService.attFlag(e);
+			
 			loginUser.setAttIn(attFlag.getAttIn());
 			loginUser.setAttOut(attFlag.getAttOut());
 			session.setAttribute("loginUser", loginUser);

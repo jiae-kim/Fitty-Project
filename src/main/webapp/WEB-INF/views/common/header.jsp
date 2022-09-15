@@ -397,7 +397,7 @@
         </aside>
         <!-- / Menu -->
         
-      <!-- Small Modal -->
+      <!-- Small Modal [알림 메세지 모달]-->
     <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true">
       <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -410,9 +410,11 @@
               aria-label="Close"
             ></button>
           </div>
+          <c:forEach var="msg" items="${msgList }">
           <div class="modal-body" id="alertList">
-  		  	
+  		  	${ msg.alMsg }
           </div>
+          </c:forEach>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
               Close
@@ -585,10 +587,12 @@
                     <i class='bx bx-message-rounded-dots'></i>
                 </li>
                 <li class="nav-item lh-1 me-3">
-                    <i class='bx bx-bell dropdown-toggle' id="alertIcon" style="position:relative;">
+                    <i class='bx bx-bell' id="alertIcon" style="position:relative;">
                     <button type="button" data-bs-toggle="modal" data-bs-target="#smallModal"
                            style="position:absolute; top:0px;bottom:0px;right:0px;left:0px;
                                   border=0;opacity:0;"></button>
+                        <c:choose>
+                        <c:when test="${ empty msgList }">
                     	<label id="alertLabel" style="border-radius:50%;
                     				  width:30%;
                     				  height:30%;
@@ -597,6 +601,17 @@
                     				  bottom:-3px;
                     				  right:-3px;
                     				  display:none;"></label>
+                        </c:when>
+                        <c:otherwise>
+                    	<label id="alertLabel" style="border-radius:50%;
+                    				  width:30%;
+                    				  height:30%;
+                    				  background-color:#03c3ec;
+                    				  position:absolute;
+                    				  bottom:-3px;
+                    				  right:-3px;"></label>
+                        </c:otherwise>
+                        </c:choose>
                     				  
                     </i>
                 </li>
