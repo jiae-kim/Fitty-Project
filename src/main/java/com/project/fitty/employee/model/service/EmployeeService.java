@@ -49,5 +49,11 @@ public interface EmployeeService {
 	// 선택된 리스트에서 원하는 리스트 조회
 	ArrayList<Employee> deleteEmpNoList(String empNo);
 	
-	
+
+	// 직원 정보 조회(select)
+	ArrayList<Employee> selectEmployee(Employee e);
+ 	
+	// 직원 정보 수정 (update)
+	int updateEmployee(Employee e);
+
 }

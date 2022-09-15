@@ -9,8 +9,8 @@ import com.project.fitty.mail.model.service.MailService;
 @Controller
 public class MailController {
 	
-	@Autowired
-	private MailService mService;
+//	@Autowired
+//	private MailService mService;
 	
 	@RequestMapping("mail.re")
 	public String selectMailList() {

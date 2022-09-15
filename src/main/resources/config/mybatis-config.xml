@@ -41,6 +41,9 @@
 	 	<mapper resource="/mappers/machine-mapper.xml"/>
 	 	<mapper resource="/mappers/locker-mapper.xml"/>
 	 	<mapper resource="/mappers/class-mapper.xml" />
+
+	 	<!-- <mapper resource="/mappers/mail-mapper.xml" /> -->
+
 	 	<mapper resource="/mappers/alert-mapper.xml"/>
 	 	<mapper resource="/mappers/vacation-mapper.xml"/>
 	 	

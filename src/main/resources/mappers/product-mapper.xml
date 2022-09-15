@@ -4,9 +4,11 @@
 
 	<resultMap type="product" id="productResult">
 		<result column="pro_no" property="proNo" />
-		<result column="pro" property="product" />
+		<result column="product" property="pro" />
 		<result column="pro_price" property="proPrice" />
 		<result column="pro_status" property="proStatus" />
+		<result column="pro_month" property="proMonth" />
+		<result column="month" property="month" />
 	</resultMap>
 
 	<!-- 1. 전체조회 -->
@@ -20,15 +22,39 @@
 		select
 				pro_no
 			  ,	product
-			  , pro_price
-		 <!-- , to_char(pro_price, '999,999,999') AS "pro_price" -->
+		      , to_char(pro_price, '999,999,999') AS "pro_price"
 		   from	tb_product
 		  where	pro_status = 'Y'
 		  order
-		  	 by	pro_no desc
+		  	 by	to_number(pro_month)
 	</select>
 
 	<!-- 2. 이용권 등록 -->
+	<select id="selectProductList" resultMap="productResult">
+	<![CDATA[	
+				select a.month
+		       , b.pro_month
+		       , b.pro_no
+		       , b.product
+		       , b.pro_price
+		  from (
+		            select level as month
+		              from dual
+		             connect by level <= 12
+		         ) a, 
+		         (
+		            select 
+		                      pro_no
+		                    , product
+		                    , substr(product, 0, instr(product, '개') -1 ) as pro_month
+		                    , pro_price
+		              from tb_product
+		        ) b
+		 where a.month =  b.pro_month (+)
+		 order by 1
+	]]>	 
+	</select>
+	
 	<insert id="insertProduct">
 		insert
 	  	  into tb_product
@@ -36,12 +62,14 @@
 		         pro_no
 		     ,   product
 		     ,   pro_price
+		     ,	 pro_month
 		     )
 	    values
 		     (
 		         seq_pro_no.nextval
 		     ,   #{pro} || '개월 이용권'
 		     ,   #{proPrice}
+		     ,	 #{pro}
 		     )
 	</insert>
 	
@@ -58,11 +86,30 @@
 	<update id="updateProduct">
 		update
              	tb_product
-           set  product = #{pro} || '개월 이용권'
-             ,  pro_price = #{proPrice}
+           set  pro_price = #{proPrice}
 		 where  pro_no = #{proNo}
 	</update>
-
-
+	
+	<!-- 4. 이용권 삭제 -->
+	<delete id="deleteProduct">
+		delete
+		  from	tb_product
+		 where	pro_no in
+	 		<foreach item="proNo" collection="arr" open="(" separator="," close=")">
+	 			#{proNo}
+	 		</foreach>
+	</delete>
+	 
+	<!-- 5. 회원 등록서비스 - 이용권 조회 -->
+	<select id="selectProList" resultMap="productResult">
+		select
+	            product
+	          ,	pro_month
+		  from  tb_product
+		 order
+		    by	to_number(pro_month)
+	</select>
+	
+	
 </mapper>
 
