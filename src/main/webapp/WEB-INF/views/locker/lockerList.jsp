@@ -103,7 +103,7 @@
               
               <div class="tab-content" style="width:100%; height:100%">
                 <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
-                <form action="delete.lk">
+                <form id="postForm" action="" method="post">
                   <div style="height : 20px"></div>
                   <table class="pull-right">
                     <tr>
@@ -117,18 +117,25 @@
                   <table style="width:100%;">
                     <tr style="width:100%">
                       <td style="width:20%; text-align:left;">
-                      	<button type="button" class="btn btn-info" data-bs-toggle="modal" data-bs-target="#moveLocker">자리이동</button>
+                      	<button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#moveLocker">자리이동</button>
                       </td>
                       <td style="width:80%; text-align:right;">
                         
                         <button type="button" class="btn btn-primary me-2" data-bs-toggle="modal" data-bs-target="#createLocker">락커생성</button>
-                        <button type="submit" class="btn btn-secondary me-2">락커삭제</button>
+                        <button type="button" class="btn btn-secondary me-2" onclick="postFormSubmit('delete.lk');">락커삭제</button>
+                        <button type="button" class="btn btn-info me-2" onclick="postFormSubmit('repair.lk')">수리완료</button>
                      
                       </td>
                     </tr>
                    
                   </table>
                   <br>
+                  
+                  <script>
+	            	function postFormSubmit(url){
+	            		$("#postForm").attr("action", url).submit();
+	            	}
+	              </script>
                   
                   <div id="machine-area">
                     <table style="width:100%; align:center;">
@@ -155,16 +162,20 @@
 	                        <input type="hidden" class="lk-userNo" value="${ list[i].userNo }">
 	                        <c:if test="${not empty list[i] }">
 	                          <div class="locker">
-	                            <c:if test="${ empty list[i].startDate or list[i].endDate < today }">
+	                            <c:if test="${ empty list[i].startDate }">
 	                            	<input type="checkbox" class="lk-ck form-check-input" name="ckLocker" value="${ list[i].lkNo }">
 	                       		</c:if>
-	                       		<c:if test="${ not empty list[i].startDate and list[i].endDate >= today }">
+	                       		<c:if test="${ not empty list[i].startDate}">
 	                            	<input type="checkbox" class="lk-ck form-check-input" disabled>
 	                       		</c:if>     
 	                            <fmt:parseDate value="${list[i].startDate}" var="startDate" pattern="yyyy-MM-dd"/>
 	                            <c:choose>
-		                            <c:when test="${ empty list[i].startDate or list[i].endDate < today }">
+		                            <c:when test="${ empty list[i].startDate }">
 		                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
+		                            </c:when>
+		                            
+		                            <c:when test="${ list[i].endDate < today }">
+		                            <label class="lk-label" style="background-color:#ff3e1d">기간만료</label>
 		                            </c:when>
 		                            
 		                            <c:when test="${ list[i].startDate <= today }">
@@ -177,19 +188,30 @@
 	                            </c:choose>
 	                            
 	                            <c:choose>
-		                            <c:when test="${ not empty list[i].startDate and list[i].endDate >= today }">
+		                            <c:when test="${ not empty list[i].startDate and list[i].lkBlock == '1' }">
 			                            <button type="button" class="bt-text" data-bs-toggle="modal" data-bs-target="#updateModal">
 			                              ${ list[i].userName } <br>
 			                              ~${ list[i].endDate } <br>
 			                              
-			                              <c:if test="${ list[i].startDate <= today }">
-			                              (${ list[i].toEndDate }일 후 만료)
-			                              </c:if>
+			                             <c:choose>
+			                             <c:when test="${ list[i].endDate >= today && list[i].startDate <= today}">
+			                              	(${ list[i].toEndDate }일 후 만료)
+			                              </c:when>
 			                              
-			                              <c:if test="${ list[i].startDate > today }">
-			                              (${ list[i].toStartDate }일 후 시작)
-			                              </c:if>
+			                              <c:when test="${ list[i].endDate >= today && list[i].startDate > today}">
+			                              	(${ list[i].toStartDate }일 후 시작)
+			                              </c:when>
 			                              
+			                              <c:otherwise>
+			                               
+			                              </c:otherwise>
+			                              </c:choose>
+			                            </button>
+		                            </c:when>
+		                            
+		                            <c:when test="${ list[i].lkBlock == '2' }">
+		                            	<button type="button" class="bt-text" style="font-size:17px;color:#ffab00;">
+		                            	수리중<br>
 			                            </button>
 		                            </c:when>
 		                            <c:otherwise>
@@ -219,16 +241,20 @@
 	                        
 	                          <c:if test="${not empty list[i]}">
 	                          <div class="locker">
-	                            <c:if test="${ empty list[i].startDate or list[i].endDate < today   }">
+	                            <c:if test="${ empty list[i].startDate  }">
 	                            	<input type="checkbox" class="lk-ck form-check-input" name="ckLocker" value="${ list[i].lkNo }">
 	                       		</c:if>
-	                       		<c:if test="${ not empty list[i].startDate and list[i].endDate >= today}">
+	                       		<c:if test="${ not empty list[i].startDate}">
 	                            	<input type="checkbox" class="lk-ck form-check-input" disabled>
 	                       		</c:if> 
 	                            
 	                            <c:choose>
-		                            <c:when test="${ empty list[i].startDate or list[i].endDate < today }">
+		                            <c:when test="${ empty list[i].startDate}">
 		                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
+		                            </c:when>
+		                            
+		                            <c:when test="${ list[i].endDate < today }">
+		                            <label class="lk-label" style="background-color:#ff3e1d">기간만료</label>
 		                            </c:when>
 		                            
 		                            <c:when test="${ list[i].startDate <= today }">
@@ -241,21 +267,37 @@
 	                            </c:choose>
 	                            
 	                            <c:choose>
-		                            <c:when test="${ not empty list[i].startDate and list[i].endDate >= today }">
+		                            <c:when test="${ not empty list[i].startDate and list[i].lkBlock == '1' }">
 			                            <button type="button" class="bt-text" data-bs-toggle="modal" data-bs-target="#updateModal">
 			                              ${ list[i].userName } <br>
 			                              ~${ list[i].endDate } <br>
 			                              
-			                              <c:if test="${ list[i].startDate <= today }">
-			                              (${ list[i].toEndDate }일 후 만료)
-			                              </c:if>
+			                              <c:choose>
 			                              
-			                              <c:if test="${ list[i].startDate > today }">
-			                              (${ list[i].toStartDate }일 후 시작)
-			                              </c:if>
+			                              <c:when test="${ list[i].endDate >= today && list[i].startDate <= today}">
+			                              	(${ list[i].toEndDate }일 후 만료)
+			                              </c:when>
+			                              
+			                              <c:when test="${ list[i].endDate >= today && list[i].startDate > today}">
+			                              	(${ list[i].toStartDate }일 후 시작)
+			                              </c:when>
+			                              
+			                              <c:otherwise>
+			                               
+			                              </c:otherwise>
+			                              </c:choose>
+			                              
 			                              
 			                            </button>
 		                            </c:when>
+		                            
+		                            
+		                            <c:when test="${ list[i].lkBlock == '2' }">
+		                            	<button type="button" class="bt-text" style="font-size:17px;color:#ffab00;">
+		                            	수리중<br>
+			                            </button>
+		                            </c:when>
+		                            
 		                            <c:otherwise>
 		                            	<button type="button" class="bt-text" data-bs-toggle="modal" data-bs-target="#enrollModal">
 		                            	<br><br>
@@ -284,15 +326,19 @@
 	                        
 	                          <c:if test="${not empty list[i] }">
 	                          <div class="locker">
-	                            <c:if test="${ empty list[i].startDate or list[i].endDate < today }">
+	                            <c:if test="${ empty list[i].startDate}">
 	                            	<input type="checkbox" class="lk-ck form-check-input" name="ckLocker" value="${ list[i].lkNo }">
 	                       		</c:if>
-	                       		<c:if test="${ not empty list[i].startDate and list[i].endDate >= today }">
+	                       		<c:if test="${ not empty list[i].startDate}">
 	                            	<input type="checkbox" class="lk-ck form-check-input" disabled>
 	                       		</c:if> 
 	                            <c:choose>
 		                            <c:when test="${ empty list[i].startDate or list[i].endDate < today }">
 		                            <label class="lk-label" style="background-color:#8592A3">미사용</label>
+		                            </c:when>
+		                            
+		                            <c:when test="${ list[i].endDate < today }">
+		                            <label class="lk-label" style="background-color:#ff3e1d">기간만료</label>
 		                            </c:when>
 		                            
 		                            <c:when test="${ list[i].startDate <= today }">
@@ -305,21 +351,35 @@
 	                            </c:choose>
 	                            
 	                            <c:choose>
-		                            <c:when test="${ not empty list[i].startDate and list[i].endDate >= today }">
+		                            <c:when test="${ not empty list[i].startDate and list[i].lkBlock == '1' }">
 			                            <button type="button" class="bt-text" data-bs-toggle="modal" data-bs-target="#updateModal">
 			                              ${ list[i].userName } <br>
 			                              ~${ list[i].endDate } <br>
 			                              
-			                              <c:if test="${ list[i].startDate <= today }">
-			                              (${ list[i].toEndDate }일 후 만료)
-			                              </c:if>
+			                              <c:choose>
 			                              
-			                              <c:if test="${ list[i].startDate > today }">
-			                              (${ list[i].toStartDate }일 후 시작)
-			                              </c:if>
+			                              <c:when test="${ list[i].endDate >= today && list[i].startDate <= today}">
+			                              	(${ list[i].toEndDate }일 후 만료)
+			                              </c:when>
+			                              
+			                              <c:when test="${ list[i].endDate >= today && list[i].startDate > today}">
+			                              	(${ list[i].toStartDate }일 후 시작)
+			                              </c:when>
+			                              
+			                              <c:otherwise>
+			                               
+			                              </c:otherwise>
+			                              </c:choose>
 			                              
 			                            </button>
 		                            </c:when>
+		                            
+		                            <c:when test="${ list[i].lkBlock == '2' }">
+		                            	<button type="button" class="bt-text" style="font-size:17px;color:#ffab00;">
+		                            	수리중<br>
+			                            </button>
+		                            </c:when>
+		                            
 		                            <c:otherwise>
 		                            	<button type="button" class="bt-text" data-bs-toggle="modal" data-bs-target="#enrollModal">
 		                            	<br><br>
@@ -368,7 +428,7 @@
                 <div class="modal fade" id="enrollModal" tabindex="-1" aria-hidden="true">
                   <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                    <form action="assign.lk">
+                    <form id="postForm2" action="" method="post" >
                       <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel1">락커 No.<span id="sp-lkNo"></span></h5>
                         <input type="hidden" id="sm-lkNo" name="lkNo" value="">
@@ -405,10 +465,16 @@
                         </div>
                       </div>
                       <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">락커등록</button>
-                        <a class="btn btn-info" href="broken.lk">고장등록</a>
+                        <button type="button" class="btn btn-primary" onclick="postFormSubmit2('assign.lk');">락커등록</button>
+                        <button type="button" class="btn btn-warning" onclick="postFormSubmit2('broken.lk');">고장등록</button>
                       </div>
                     </form>
+                    
+                    <script>
+                    	function postFormSubmit2(url){
+                    		$("#postForm2").attr("action", url).submit();
+                    	}
+                    </script>
                     </div>
                   </div>
                 </div>

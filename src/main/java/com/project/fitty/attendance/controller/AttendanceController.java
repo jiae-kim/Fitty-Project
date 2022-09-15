@@ -22,6 +22,7 @@ import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.common.template.Pagination;
 import com.project.fitty.employee.model.service.EmployeeService;
 import com.project.fitty.employee.model.vo.Employee;
+import com.project.fitty.vacation.model.service.VacationService;
 
 @Controller
 public class AttendanceController {
@@ -30,6 +31,8 @@ public class AttendanceController {
 	private AttendanceService aService;
 	@Autowired	
 	private EmployeeService eService;
+	@Autowired
+	private VacationService vService;
 	
 	
 	@RequestMapping("main.fitty")
@@ -41,9 +44,17 @@ public class AttendanceController {
 	public ModelAndView updateWorkIn(HttpSession session, Attendance a, ModelAndView mv) {
 		int result = aService.updateWorkIn(a);
 		Attendance att = aService.selectInAttendance(a);
-		if(result > 0 && att != null) {
+		
+		Employee e = new Employee();
+		e.setEmpNo(a.getEmpNo());
+		Employee loginUser = eService.loginEmployee(e);
+		
+		if(result > 0 && att != null && loginUser != null) {
+			Employee attFlag = eService.attFlag(e);
+			loginUser.setAttIn(attFlag.getAttIn());
+			loginUser.setAttOut(attFlag.getAttOut());
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 오늘도 화이팅하세요!💘");
-			mv.addObject("att", att).setViewName("common/mainPage");
+			mv.addObject("att", att).addObject("loginUser", loginUser).setViewName("common/mainPage");
 		} else {
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 출근 실패 관리자에게 문의하세요😅");
 			mv.setViewName("common/mainPage");
@@ -52,33 +63,30 @@ public class AttendanceController {
 		return mv;
 	}
 	
-	/*
-	@RequestMapping("headerAtt.att")
-	public Attendance selectHeaderAttendance(Attendance a) {
-		Attendance att = aService.selectHeaderAttendance(a);
-		return att;
-	}
-	*/
+	
 	
 	@RequestMapping("workOut.att")
 	public ModelAndView  updateWorkOutLogout(HttpSession session, Attendance a, ModelAndView mv) {
 		int result = aService.updateWorkOutLogOut(a);
-		Attendance att = aService.selectOutAttendance(a);
-		if(result > 0 && att != null) {
-			String alertMsg = a.getEmpNo() + "님 금일 근무시간은 " + att.getGapHour() + "시간" + att.getGapMinute() + "분" + att.getGapSecond() + "초 입니다!💘";
-			session.setAttribute("alertMsg", a.getEmpNo() + "님 금일 근무시간은 " + att.getGapHour() + "시간" + att.getGapMinute() + "분" + att.getGapSecond() + "초 입니다!💘");
-			// System.out.println(alertMsg); => 왜 여기까지 가지도 않아?
-			mv.addObject("att", att).setViewName("common/mainPage");
+		Attendance att = aService.selectInAttendance(a);
+		
+		Employee e = new Employee();
+		e.setEmpNo(a.getEmpNo());
+		Employee loginUser = eService.loginEmployee(e);
+
+		if(result > 0 && att != null && loginUser != null) {
+			Employee attFlag = eService.attFlag(e);
+			loginUser.setAttIn(attFlag.getAttIn());
+			loginUser.setAttOut(attFlag.getAttOut());
+			session.setAttribute("alertMsg", a.getEmpNo() + "님 금일 근무시간은 " + att.getGapHour() + " 시간 " + att.getGapMinute() + " 분 " + att.getGapSecond() + " 초 입니다!💘");
+			mv.addObject("att", att).addObject("loginUser", loginUser).setViewName("common/mainPage");
 		} else {
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 퇴근 실패 관리자에게 문의하세요😅");
 			mv.setViewName("common/mainPage");
 		}
 		
 		return mv;
-		
-		
-		// 메인페이지 url 재요청
-		// 그리고 퇴근시간 update 문도 실행해야함!
+	
 	}
 	
 	
@@ -92,7 +100,9 @@ public class AttendanceController {
 	
 	
 	@RequestMapping("myAtt.att")
-	public String goMyAtt() {
+	public String goMyAtt(Attendance a, ModelAndView mv) {
+		//Attendance att = aService.selectMyAttendance(a);
+		
 		return "attendance/myAttendance";
 	}
 	
@@ -196,8 +206,11 @@ public class AttendanceController {
 	@RequestMapping(value="attList.att", produces="application/json; charset=utf-8")
 	public String selectAllAttList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, String thisMonth, String thisYear) {
 		
+		
 		int listCount =  eService.selectEmpListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		System.out.println(pi);
 		
 		ArrayList<Employee> empList =  eService.selectEmpList(pi);
 		
@@ -271,13 +284,82 @@ public class AttendanceController {
 	}
 
 	
-	
-	
 	@RequestMapping("vacControl.att")
-	public String goVacControlAtt() {
+	public String goVacControl() {
 		return "attendance/centerVacControl";
 	}
-
+	
+	
+	@ResponseBody
+	@RequestMapping(value="vacList.att", produces="application/json; charset=utf-8")
+	public String goVacControlAtt(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, String addSql, String sqlEmpName, String searchFlag) {
+		int listCount = 0;
+		
+		if(searchFlag.equals("N")) {
+			// 맨 처음 호출될때
+			listCount = eService.selectEmpListCount();
+			System.out.println(searchFlag + listCount);
+		} else {
+			// 서치된 값으로 호출될때 searchFlag = Y
+			Employee sqlEmp = new Employee();
+			sqlEmp.setAddSql(addSql);
+			sqlEmp.setSqlEmpName(sqlEmpName);
+			listCount = eService.selectVacSearchListCount(sqlEmp);
+			System.out.println(searchFlag + listCount);
+		}
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		pi.setAddSql(addSql);
+		pi.setSqlEmpName(sqlEmpName);
+		System.out.println(pi);
+		ArrayList<Attendance> aList = aService.selectVacList(pi);
+		System.out.println(pi.getAddSql());
+		System.out.println(pi.getSqlEmpName());
+		System.out.println(aList);
+		
+		Calendar calendar = Calendar.getInstance();
+		int tYear = Calendar.getInstance().get(Calendar.YEAR);
+		int bYear = Calendar.getInstance().get(Calendar.YEAR)-1;
+		int bMonth = Calendar.getInstance().get(Calendar.MONTH);
+		calendar.set(bYear, bMonth, 1);
+		int lDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
+		String thisYear = Integer.toString(tYear);
+		String beforeYear = Integer.toString(bYear);
+		String beforeMonth = Integer.toString(bMonth);
+		String lastDay = Integer.toString(lDay);
+		
+		if(aList.isEmpty()) {
+			
+		} else {
+			for(Attendance a: aList) {
+				// 한 회원번호당 1년-한달 근태퍼센트, 남은 휴가등 구하기
+			a.setThisYear(thisYear);
+			a.setBeforeYear(beforeYear);
+			a.setBeforeMonth(beforeMonth);
+			a.setLastDay(lastDay);
+			// null이던 null이 아니던 일단 담고.. 자스에서 undefined 검사..?
+			a.setPerYearMonthList(aService.selectPerYearMonthList(a));
+			a.setEmpVacList(vService.selectEmpVacList(a));
+			}
+		}
+		HashMap <String, Object> map = new HashMap<String, Object>();
+		map.put("pi", pi);
+		map.put("aList", aList);
+		//System.out.println("1번 : " + map);
+		return new Gson().toJson(map);
+		
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="orderByVac.att", produces="application/json; charset=utf-8")
+	public String selectOrderByVac(String orderByWorkTime, String orderByAtt, String searchText, HttpSession session) {
+		System.out.println("실행됨");
+		String searchFlag = "Y";
+		return goVacControlAtt(1, session, orderByWorkTime, searchText, searchFlag );
+		
+		
+	}
 	
 	@RequestMapping("modifyAtt.att")
 	public String goModifyAtt() {

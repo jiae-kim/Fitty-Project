@@ -97,11 +97,9 @@
                           <div class="col-md-3">
                             <select id="defaultSelect" name="userMonth" class="form-select" required>
                               <option disabled selected hidden>이용 개월 선택</option>
-                              <option value="1">1개월</option>
-                              <option value="3">3개월</option>
-                              <option value="6">6개월</option>
-                              <option value="9">9개월</option>
-                              <option value="12">12개월</option>
+                              <c:forEach var="p" items="${product}">
+                              	<option value="${p.proMonth}">${p.pro}</option>
+                              </c:forEach>
                             </select>
                           </div>
                         </div>

@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.project.fitty.attendance.model.vo.Attendance;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
 
@@ -16,6 +17,19 @@ public class EmployeeDao {
 	public Employee loginEmployee(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.selectOne("employeeMapper.loginEmployee", e);
 	}
+	
+	public Employee attFlag(SqlSessionTemplate sqlSession, Employee e) {
+		Attendance a = sqlSession.selectOne("attendanceMapper.attFlag", e);
+		if(a != null) {
+			e.setAttIn(a.getAttIn());
+			e.setAttOut(a.getAttOut());
+			return e;
+		} else {
+			// 아예 해당 회원이 없을경우.. 
+			return e;
+		}
+		
+			}
 	
 	public String selectNextEmpNo(SqlSessionTemplate sqlSession) {
 		return  sqlSession.selectOne("employeeMapper.selectNextEmpNo");
@@ -44,9 +58,13 @@ public class EmployeeDao {
 	
 	// 전체 직원리스트 empList
 	public int selectEmpListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.insert("employeeMapper.selectEmpListCount");
+		return sqlSession.selectOne("employeeMapper.selectEmpListCount");
 	}
 	
+	// sql 문에 해당하는 직원카운트만 불러오기
+	public int selectVacSearchListCount(SqlSessionTemplate sqlSession, Employee sqlEmp) {
+		return sqlSession.selectOne("employeeMapper.selectVacSearchListCount", sqlEmp);
+	}
 	
 	
 	// 주소록용 계층형 empList

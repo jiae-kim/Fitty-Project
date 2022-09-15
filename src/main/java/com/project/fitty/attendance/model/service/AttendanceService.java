@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.project.fitty.attendance.model.vo.Attendance;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
+import com.project.fitty.vacation.model.vo.Vacation;
 
 public interface AttendanceService {
 	
@@ -16,10 +17,13 @@ public interface AttendanceService {
 	Attendance selectInAttendance(Attendance a);
 	
 	// 출석용
-	Attendance selectOutAttendance(Attendance a);
+	//Attendance selectOutAttendance(Attendance a);
 	
 	// 퇴근시간, 최종상태 업데이트
 	int updateWorkOutLogOut(Attendance a);
+	
+	// 내 근태 조회
+	Attendance selectMyAttendance(Attendance a);
 	
 	// 센터 전체 근태 조회 서비스
 	ArrayList<Attendance> selectAllAttList(Employee e);
@@ -38,4 +42,13 @@ public interface AttendanceService {
 	
 	// 1달 통계 구하기
 	ArrayList<Attendance> selectOtherCountList(Employee e);
+	
+	
+	//휴가 연차 관리 기본 aList 구하기
+	ArrayList<Attendance> selectVacList(PageInfo pi);
+	
+	// 기본 a리스트 각 멤버당 년,월 근태퍼센트
+	ArrayList<Attendance> selectPerYearMonthList(Attendance a);
+	
+	
 }

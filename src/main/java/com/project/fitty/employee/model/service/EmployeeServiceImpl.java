@@ -24,6 +24,13 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return eDao.loginEmployee(sqlSession, e);
 	}
 	
+	
+	@Override
+	public Employee attFlag(Employee e) {
+		return eDao.attFlag(sqlSession, e);
+	}
+
+	
 
 	@Override
 	public String selectNextEmpNo() {
@@ -49,6 +56,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public int selectEmpListCount() {
 		return eDao.selectEmpListCount(sqlSession);
+	}
+	
+	@Override
+	public int selectVacSearchListCount(Employee sqlEmp) {
+		return eDao.selectVacSearchListCount(sqlSession, sqlEmp);
 	}
 
 
@@ -93,6 +105,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	}
 
 
+
+	
 
 	
 

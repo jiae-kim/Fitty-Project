@@ -101,8 +101,8 @@
                   <div class="mt-2 btnDiv" align="center">
                   	<c:choose>
 	                  	<c:when test="${ m.ckResult == '1' and (loginUser.empGrade == 'C' or loginUser.empGrade == 'A' )}">
-		                    <a class="btn btn-primary me-2" href="broken.mc?ckNo=${ m.ckNo }&mcNo=${ m.mcNo }">고장등록</a>
-		                    <a class="btn btn-info me-2" href="normal.mc?ckNo=${ m.ckNo }">정상처리</a>
+		                    <button type="button" id="brokenBtn" class="btn btn-primary me-2" onclick="postFormSubmit('broken.mc');">고장등록</button>
+		                    <button type="button" id="normalBtn" class="btn btn-info me-2" onclick="postFormSubmit('normal.mc');">정상처리</button>
 	                    </c:when>
 	                    <c:otherwise>
 	                    	<c:if test="${ loginUser.empNo == m.ckWriter }">
@@ -114,6 +114,81 @@
 		            
 		            
                   </div>
+                  
+                  <form id="postForm" action="" method="post">
+                  	<input type="hidden" name="ckNo" value="${ m.ckNo }">
+                  	<input type="hidden" name="mcNo" value="${ m.mcNo }">
+                  </form>
+                  
+                  <script>
+                  
+	            	function postFormSubmit(url){
+	            		
+	            		// 기구 점검 처리 
+	            		$("#postForm").attr("action", url).submit();
+	            		
+	            		// 서버에 메세지 보내기 
+	            		let socketMsg = "machine," + "${loginUser.empNo}" + "," + "${m.ckWriter}" + "," + ${m.ckNo};
+            			
+            			console.log(socketMsg);
+            			console.log(socket);
+            			socket.send(socketMsg);
+            			
+            			// 기구 완료 메세지 DB에 insert 
+            			$.ajax({
+            				url:"minsert.at",
+            				data:{
+            					alListNo:'${m.ckNo}',
+            				    alSender:'${loginUser.empNo}',
+            					alRecip:'${ m.ckWriter }',
+            					alMsg:socketMsg
+            				},
+            				success:function(result){
+            					if(result == "success"){
+            						selectAlertList();
+            					}
+            				},
+            				error:function(){
+            					console.log("푸시 알림 내용 DB에 insert 실패")
+            				}
+            			})
+	            	}
+	            	
+	            	function selectAlertList(){ // 안읽은 알림 조회용 ajax 함수 (후에 header에 넣어줄거임)
+	            		
+	            		$.ajax({
+	            			url:"alist.at",
+	            			data:{
+	            				alRecip:'${ loginUser.empNo }'
+	            			},
+	            			success:function(list){
+	            				
+	            				console.log(list);
+	            				
+	            				let value1="";
+	            				value1 += '<label id="alertLabel" style="border-radius:50%'
+					                    	     + 'width:30%;'
+				                  				 + 'height:30%;'
+				                  				 + 'background-color:#03c3ec;'
+				                  				 + 'position:absolute;'
+				                  				 + 'bottom:-3px;'
+				                  				 + 'right:-3px;'
+				                  				 + '</label>';
+				               $("#alert-icon").html(value1);
+				               
+				               let value2="";
+				              for(let i=0; i<list.length; i++){
+				            	  value2 += "<div>"
+				            	  			+ list[i].alMsg
+				            	  			+"</div>";
+				              }
+				              $("#alertList").html(value);
+	            				
+	            				
+	            			}
+	            		})
+	            	}
+	              </script>
 
                   <br>
                   

@@ -1,5 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper>
+<mapper namespace="alertMapper">
+
+	<resultMap id="AlertResult" type="Alert">
+		<result column="al_no" property="alNo" />
+		<result column="al_type" property="alType" />
+		<result column="al_recip" property="alRecip" />
+		<result column="al_msg" property="alMsg" />
+		<result column="al_list_no" property="alListNo" />
+		<result column="al_read_yn" property="alReadYn" />
+		<result column="al_date" property="alDate" />
+		<result column="al_sender" property="alSender"/>
+	</resultMap>
+	
+	<insert id="insertAlertM">
+		insert
+		  into tb_push_alert
+		       (
+		       	 al_no
+		       , al_type
+		       , al_recip
+		       , al_msg
+		       )
+		       values
+		       (
+		       	 seq_al_no.nextval
+		       , '1'
+		       , #{alRecip}
+		       , #{alMsg}
+		       )
+	</insert>
+	
+	<select id="selectAlertList" resultMap="AlertResult">
+		select
+				al_no
+			  , al_type
+			  , al_recip
+			  , al_msg
+			  , al_list_no
+			  , al_date
+			  , al_sender
+		   from tb_push_alert
+		  where al_read_yn = 'n'
+		    and al_recip = #{alRecip}  
+	</select>
 
 </mapper>

@@ -11,6 +11,9 @@ public interface EmployeeService {
 	
 	// 직원 로그인 서비스 (select)
 	Employee loginEmployee(Employee e);
+	
+	//attFlag (select)
+	Employee attFlag(Employee e);
 
 	// 다음 회원번호 미리 알아오기 (select)
 	String selectNextEmpNo();
@@ -34,6 +37,9 @@ public interface EmployeeService {
 	// 전체 회원수 알아오기
 	int selectEmpListCount();
 	
+	// sql에 해당하는 회원수 알아오기
+	int selectVacSearchListCount(Employee sqlEmp);
+	
 	// 직원 전체조회 - 주소록용 레벨
 	ArrayList<Employee> selectLevelEmployeeList();
 	
@@ -43,9 +49,11 @@ public interface EmployeeService {
 	// 선택된 리스트에서 원하는 리스트 조회
 	ArrayList<Employee> deleteEmpNoList(String empNo);
 	
+
 	// 직원 정보 조회(select)
 	ArrayList<Employee> selectEmployee(Employee e);
  	
 	// 직원 정보 수정 (update)
 	int updateEmployee(Employee e);
+
 }

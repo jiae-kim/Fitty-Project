@@ -65,21 +65,25 @@
                     <tr>
                       <td width="22px"></td>
                       <td>
-                        <select class="form-control mr-sm-0" name="searchType" id="searchType" style="height: 35px;">                                        
-                                <option value="userId">근속연수 1년이하</option>
-                                <option value="gradeName">근속연수 1~5년</option>
-                                <option value="gradeName">근속연수 5~10년</option>
-                                <option value="gradeName">근속연수 10년이상</option>
-                                <option value="gradeName">작년 근태 80%이상</option>
-                                <option value="gradeName">지난달 근태 100%</option>
+                        <select class="form-control mr-sm-0" name="orderByWorkTime" id="orderByWorkTime" style="height: 35px;"> 
+                        		<option value="allWork" selected>전체선택</option>                                       
+                                <option value="underOne">근속연수 1년이하</option>
+                                <option value="oneToFive">근속연수 1~5년</option>
+                                <option value="overFive">근속연수 5~10년</option>
+                        </select>
+                      </td>
+                      <td>
+                        <select class="form-control mr-sm-0" name="orderByAtt" id="orderByAtt" style="height: 35px;"> 
+                        		<option value="allAttIn" selected>전체선택</option>                                             
+                                <option value="yearOverEighty">작년 근태 80%이상</option>
+                                <option value="monthOverHundred">지난달 근태 100%</option>
                         </select>
                       </td>
                       <td><input type="text" class="form-control" placeholder="검색어 입력" name="searchText" id="searchText"  maxlength="30" style="height: 35px;"></td>
-                      <td><button type="button" id="searchBtn" class="btn btn-primary" onclick="changeSelect();">검색</button></td>
+                      <td><button type="button" id="searchBtn" class="btn btn-primary" onclick="changeSelect();"><i class='bx bx-search' style="color:white;"></i></button></td>
                       <td width="420px"></td>
-                      <td><button class="btn btn-primary" onclick="generalChange();">연월차/휴가발생</button></td>
+                      <td><button class="btn btn-primary" onclick="generalChange();">연월차/휴가생성</button></td>
                       <td><button class="btn btn-secondary" onclick="generalChange();">연월차/휴가소진</button></td>
-                      <td><button class="btn btn-info" onclick="generalChange();">공휴일관리</button></td>
                     </tr>        
                   </table>
                 </div>
@@ -123,81 +127,14 @@
                           </tfoot>
                           
                           <tbody id="memListTBody">
-                            <tr>
-                              <th><input type="checkbox" name="choiceAll" id="choiceAll" onclick="checkAll();"></th>
-                              <th>SS1001</th>
-                              <th>김사장</th>
-                              <th>사장</th>
-                              <th>2020.08.05</th>
-                              <th>2.2</th>
-                              <th>98%</th>
-                              <th>96%</th>
-                              <th>15</th>
-                              <th>3</th>
-                              <th>12</th>
-                              <th>2</th>
-                            </tr>
-                            <tr>
-                              <th><input type="checkbox" name="choiceAll" id="choiceAll" onclick="checkAll();"></th>
-                              <th>SS1001</th>
-                              <th>김사장</th>
-                              <th>사장</th>
-                              <th>2020.08.05</th>
-                              <th>2.2</th>
-                              <th>98%</th>
-                              <th>96%</th>
-                              <th>15</th>
-                              <th>3</th>
-                              <th>12</th>
-                              <th>2</th>
-                            </tr>
-                            <tr>
-                              <th><input type="checkbox" name="choiceAll" id="choiceAll" onclick="checkAll();"></th>
-                              <th>SS1001</th>
-                              <th>김사장</th>
-                              <th>사장</th>
-                              <th>2020.08.05</th>
-                              <th>2.2</th>
-                              <th>98%</th>
-                              <th>96%</th>
-                              <th>15</th>
-                              <th>3</th>
-                              <th>12</th>
-                              <th>2</th>
-                            </tr>
+                            
                           </tbody>
                         </table>
                         <div style="height : 20px"></div>
                             <!-- Basic Pagination -->
                             <nav aria-label="Page navigation pageNav">
                                 <ul class="pagination">
-                                <li class="page-item first">
-                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-left"></i></a>
-                                </li>
-                                <li class="page-item prev">
-                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0);">1</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0);">2</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a class="page-link" href="javascript:void(0);">3</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0);">4</a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:void(0);">5</a>
-                                </li>
-                                <li class="page-item next">
-                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>
-                                </li>
-                                <li class="page-item last">
-                                    <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevrons-right"></i></a>
-                                </li>
+                                
                                 </ul>
                             </nav>
                             <!--/ Basic Pagination -->
@@ -211,5 +148,6 @@
 </div>
 
 <script type="text/javascript" src="resources/js/attendance.js"></script>
+<script type="text/javascript" src="resources/js/attendance/centerVacControl.js"></script>
 </body>
 </html>

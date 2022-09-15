@@ -8,10 +8,10 @@
 <title>Fitty 회원상세조회</title>
 <style>
 #profileImgFile{
-	width:150px;
-	height:150px;
+	width:170px;
+	height:170px;
 	border:1px solid lightgray;
-	border-radius: 50%;
+	border-radius: 80%;
         }
 </style>
 </head>
@@ -23,7 +23,7 @@
         <div class="row">
             <div class="col-xl-12">
                 <div class="nav-align-top mb-4">
-                    <div class="tab-content" style="height: 850px;">
+                    <div class="tab-content" style="height: 880px;">
                         <h5 class="text-muted">🙍‍♀️회원관리 - 상세페이지</h5>
 						<form action="update.ur" id="updateForm" method="post" enctype="multipart/form-data">
                          <!-- 회원번호 -->
@@ -80,18 +80,27 @@
                         <!-- 회원권 구분 (변경가능) -->
                         <div class="col-md">
                           <label for="html5-tel-input" class="col-md-2 col-form-label">회원권 구분</label>
-                            <input type="radio" name="userType" value="H"  id="H" class="form-check-input" />
+                            <input type="radio" name="userType" value="H"  id="H" class="form-check-input defaultRadio" />
                             <label class="form-check-label" for="defaultRadio1">&nbsp;&nbsp;헬스장 이용권</label>
                           &nbsp;&nbsp;&nbsp;
-                            <input type="radio" name="userType" value="P" id="P" class="form-check-input" />
+                            <input type="radio" name="userType" value="P" id="P" class="form-check-input defaultRadio" />
                             <label class="form-check-label" for="defaultRadio1">&nbsp;&nbsp;PT 이용권</label>
                         <script>
 	                        $(function(){
 								$("input[value=${u.userType}]").attr("checked", true);
+								
+								$('.defaultRadio').change(function(){
+									var result = $(".defaultRadio:checked").val();
+									console.log(result);
+									if(result == 'H') {
+										$('#selectBox').show();
+									}else {
+										$('#selectBox').hide();
+									}
+								})
 							})
                         </script>
                         </div> <br>
-                        
 	
                         <!-- 등록일 -->
                         <div class="mb-3 row">
@@ -102,16 +111,14 @@
                         </div>
 
                         <!-- 이용 개월 (변경가능) -->
-                        <div class="mb-3 row">
+                        <div class="mb-3 row" id="selectBox">
                           <label for="html5-date-input" class="col-md-2 col-form-label">이용 개월</label>
                           <div class="col-md-3">
                             <select id="month" name="userMonth" value="${u.userMonth}" class="form-select" >
                               <option disabled selected hidden>이용 개월 선택</option>
-                       		  <option value="1">1개월</option>
-                              <option value="3">3개월</option>
-                              <option value="6">6개월</option>
-                              <option value="9">9개월</option>
-                              <option value="12">12개월</option>
+                       		  <c:forEach var="p" items="${product}">
+                              	<option value="${p.proMonth}">${p.pro}</option>
+                              </c:forEach>
                             </select>
                             <script>
                             	$(function(){
@@ -126,12 +133,25 @@
                         </div>
 
                         <!-- 만료일 -->
-                        <div class="mb-3 row">
+                        <div class="mb-3 row" id="inputEdate">
                           <label for="html5-text-input" class="col-md-2 col-form-label">만료일</label>
                           <div class="col-md-3">
-                            <input class="form-control" type="text" name="userEdate" value="${u.userEdate}" id="html5-text-input" readonly />
+                          	<input class="form-control" type="text" name="userEdate" value="${u.userEdate}" id="html5-text-input" readonly />
                           </div>
                         </div>
+                        <script>
+                        	$(function(){
+                        		$('.defaultRadio').change(function(){
+                        			var result = $(".defaultRadio:checked").val();
+                        			console.log(result);
+                        			if(result == 'H') {
+                        				$('#inputEdate').show();
+                        			}else {
+                        				$('#inputEdate').hide();
+                        			}
+                        		})
+                        	})
+                        </script>
 
                         <!-- 프로필 (변경가능) -->
 						<div class="mb-3 row">

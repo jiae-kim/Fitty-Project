@@ -1,6 +1,8 @@
 package com.project.fitty.employee.controller;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -8,10 +10,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.google.gson.Gson;
+import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.common.template.FileUpload;
+import com.project.fitty.common.template.Pagination;
 import com.project.fitty.employee.model.service.EmployeeService;
 import com.project.fitty.employee.model.vo.Employee;
 
@@ -28,13 +34,19 @@ public class EmployeeController {
 		
 		Employee loginUser = eService.loginEmployee(e);
 		
-		if(loginUser != null) {
-			session.setAttribute("loginUser", loginUser);
-			return "common/mainPage";
-		} else {
+		if(loginUser == null) {
+			// 애초에 사번부터 틀렸을 경우
 			session.setAttribute("alertMsg", "사번을 다시 확인해주세요.");
 			return "main";
+		} else {
+			// 사번이 맞은 경우 출퇴근 여부 확인
+			Employee attFlag = eService.attFlag(e);
+			loginUser.setAttIn(attFlag.getAttIn());
+			loginUser.setAttOut(attFlag.getAttOut());
+			session.setAttribute("loginUser", loginUser);
+			return "common/mainPage";
 		}
+		
 	}
 		
 
@@ -113,7 +125,7 @@ public class EmployeeController {
 		}
 		}
 	
-	
+
 	@RequestMapping("select.emp")
 	public String selectEmployee() {
 		
@@ -141,7 +153,4 @@ public class EmployeeController {
 		}	
 	
 	}
-	
-	
-	
-}
+

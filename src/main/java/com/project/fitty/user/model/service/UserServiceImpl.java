@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.fitty.common.model.vo.PageInfo;
+import com.project.fitty.product.model.vo.Product;
 import com.project.fitty.user.model.dao.UserDao;
 import com.project.fitty.user.model.vo.User;
 
@@ -23,7 +24,14 @@ public class UserServiceImpl implements UserService{
 	public int insertUser(User u) {
 		return uDao.insertUser(sqlSession, u);
 	}
-
+	
+	/*
+	@Override
+	public ArrayList<Product> selectProductList() {
+		return uDao.selectProductList(sqlSession);
+	}
+	*/
+	
 	@Override // [김지애] 2. 회원 전체조회 서비스 (페이징)
 	public int selectListCount() {
 		return uDao.selectListCount(sqlSession);
@@ -53,6 +61,7 @@ public class UserServiceImpl implements UserService{
 	public int deleteUser(int userNo) {
 		return uDao.deleteUser(sqlSession, userNo);
 	}
+
 
 	
 	

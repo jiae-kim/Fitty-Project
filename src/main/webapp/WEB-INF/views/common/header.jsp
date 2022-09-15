@@ -125,6 +125,9 @@
 		  border-right: 0;
 		  background-color: #696CFF;
 		}
+		#socketContent a {
+			color:white !important;
+		}
         
     </style>
 <meta name="description" content="" />
@@ -146,6 +149,24 @@
 
 </head>
 <body>
+	<!-- alert -->
+	<div
+	  id="socketAlert"
+	  style="display:none;float:right;position:absolute;top:5%;right:5%;
+	  		 background-color:rgba(105, 108, 255, 0.95) !important;"
+	  class="bs-toast toast fade show bg-primary"
+	  role="alert"
+	  aria-live="assertive"
+	  aria-atomic="true">
+	  <div class="toast-header">
+	    <i class="bx bx-bell me-2" style="color:white"></i>
+	    <div class="me-auto fw-semibold">알림</div>
+	    <small>지금</small>
+	    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+	  </div>
+	  <div class="toast-body" id="socketContent"></div>
+	</div>
+
 <!-- Layout wrapper -->
 	<c:if test="${ not empty alertMsg }">
 		<script>
@@ -154,7 +175,7 @@
 		<!-- 1회성 메시지 지우기 -->
 		<c:remove var="alertMsg" scope="session"/>
 	</c:if>
-    <div class="layout-wrapper layout-content-navbar">
+    <div class="layout-wrapper layout-content-navbar" style="position:relative">
       <div class="layout-container">
         <!-- Menu -->
 
@@ -295,25 +316,30 @@
             </li>
             <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                  <i class="menu-icon tf-icons bx bxs-book-heart"></i>
                   <div data-i18n="Misc"  class="big-menu-label">수업관리</div>
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item">
-                    <a href="pages-misc-error.html" class="menu-link">
-                      <div data-i18n="Error" class="small-menu-label">수업관리 소메뉴 1</div>
+                    <a href="enrollPage.cl" class="menu-link">
+                      <div data-i18n="Error" class="small-menu-label">수업등록</div>
                     </a>
                   </li>
                   <li class="menu-item">
                     <a href="pages-misc-under-maintenance.html" class="menu-link">
-                      <div data-i18n="Under Maintenance" class="small-menu-label">수업관리 소메뉴 2</div>
+                      <div data-i18n="Under Maintenance" class="small-menu-label">나의 수업조회</div>
+                    </a>
+                  </li>
+                  <li class="menu-item">
+                    <a href="userList.cl" class="menu-link">
+                      <div data-i18n="Under Maintenance" class="small-menu-label">나의 회원조회</div>
                     </a>
                   </li>
                 </ul>
               </li>
             <li class="menu-item">
               <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-box"></i>
+                <i class="menu-icon tf-icons bx bx-buildings"></i>
                 <div data-i18n="User interface"  class="big-menu-label">시설관리</div>
               </a>
               <ul class="menu-sub">
@@ -370,6 +396,32 @@
           </ul>
         </aside>
         <!-- / Menu -->
+        
+      <!-- Small Modal -->
+    <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true">
+      <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel2">알림</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="alertList">
+  		  	
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+              Close
+            </button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
         <!-- Layout container -->
         <div class="layout-page"  style="margin-top: 20px;">
@@ -469,13 +521,24 @@
                   	</c:choose>
                   </span>
                   <c:choose>
-                  	<c:when test="${ empty att }">
-                  		 <button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();">출근</button>
-                  		 <button class="btn btn-sm btn-secondary" id="out-btn" onclick="logout()" disabled>퇴근</button>
+                  	<c:when test="${ loginUser.attIn eq '0'  }">
+                  		<!-- 출근버튼을 누르지 않았을 때 -->
+                  		<button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();">출근</button>
+                  		<button class="btn btn-sm btn-secondary" id="out-btn" onclick="workOut()" disabled>퇴근</button>
                   	</c:when>
                   	<c:otherwise>
-                  		 <button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();" disabled>출근</button>
-                  		 <button class="btn btn-sm btn-secondary" id="out-btn" onclick="logout()">퇴근</button>
+                  		 <c:choose>
+                  			<c:when test="${ loginUser.attOut eq '0'  }">
+                  				<!-- 출근버튼을 눌러서 attIn의 값이 0이 아니고 퇴근시간이 없을 때 -->
+                  				<button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();" disabled>출근</button>
+                  		 		<button class="btn btn-sm btn-secondary" id="out-btn" onclick="workOut()">퇴근</button>
+                  			</c:when>
+                  			<c:otherwise>
+                  				<!-- 출근버튼을 눌렀고 -->
+                  				<button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();" disabled>출근</button>
+                  		 		<button class="btn btn-sm btn-secondary" id="out-btn" onclick="workOut()" disabled>퇴근</button>
+                  			</c:otherwise>
+                  		</c:choose>
                   	</c:otherwise>
                   </c:choose>
                 </div>
@@ -495,13 +558,25 @@
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3" id="about-time">
                   <c:choose>
-                  	<c:when test="${ empty att }">
-                  		 출근버튼을 눌러주세요!
+                  	<c:when test="${ loginUser.attIn eq '0'  }">
+                  		👈 출근버튼을 눌러주세요
                   	</c:when>
                   	<c:otherwise>
-                  		 ${ att.nowTime } 부터 근무중 👏
+                  		<c:choose>
+                  			<c:when test="${ loginUser.attOut eq '0'  }">
+ 		                 		 <span id="workingHours">${ loginUser.attIn } 부터 근무중 👏</span>
+                  			</c:when>
+                  			<c:otherwise>
+                  				<span id="workingHours">오늘 하루도 고생하셨습니다. 로그아웃하시고 쉬세요🎉</span>
+                  			</c:otherwise>
+                  		</c:choose>
                     </c:otherwise>
                   </c:choose>
+                </li>
+                <li class="nav-item lh-1 me-3">
+                	<input type="hidden" id="hiddenAttIn" value="${ loginUser.attIn }">
+                	<input type="hidden" id="hiddenAttOut" value="${ loginUser.attOut }">
+                    <button type="button" class="btn btn-sm btn-info" onclick="logOut();">로그아웃</button>
                 </li>
                 <li class="nav-item lh-1 me-3">
                     <a href="mail.re"><i class='bx bx-envelope'></i></a>
@@ -510,15 +585,49 @@
                     <i class='bx bx-message-rounded-dots'></i>
                 </li>
                 <li class="nav-item lh-1 me-3">
-                    <i class='bx bx-bell' ></i>
+                    <i class='bx bx-bell dropdown-toggle' id="alertIcon" style="position:relative;">
+                    <button type="button" data-bs-toggle="modal" data-bs-target="#smallModal"
+                           style="position:absolute; top:0px;bottom:0px;right:0px;left:0px;
+                                  border=0;opacity:0;"></button>
+                    	<label id="alertLabel" style="border-radius:50%;
+                    				  width:30%;
+                    				  height:30%;
+                    				  background-color:#03c3ec;
+                    				  position:absolute;
+                    				  bottom:-3px;
+                    				  right:-3px;
+                    				  display:none;"></label>
+                    				  
+                    </i>
                 </li>
+                
+
+                
+                
 				
 				<script>
 				
-				 $(function(){
-					 
-				 })
-				 
+				$(function(){
+					if($("#hiddenAttIn").val() == '0') {
+						// 출근시간이 0이면 출근버튼을 눌러야함
+						$("#init-btn").attr("disabled",false);
+						$("#out-btn").attr("disabled",true);
+						let value = "👈 출근버튼을 눌러주세요";
+						$("#workingHours").html(value);
+					} else if ($("#hiddenAttOut").val() != '0'){
+						// 출근시간이 0이 아닌데(출근완) 퇴근시간도 있는경우 (퇴근완)
+						$("#init-btn").attr("disabled",true);
+						$("#out-btn").attr("disabled",true);
+						let value ="오늘 하루도 고생하셨습니다. 로그아웃하시고 쉬세요🎉";
+						$("#workingHours").html(value);
+					} else {
+						// 출근시간이 0이 아닌데 (출근완) 퇴근시간은 없는경우
+						$("#init-btn").attr("disabled",true);
+						$("#out-btn").attr("disabled",false);
+						let value = $("#hiddenAttIn").val() + " 부터 근무중 👏";
+						$("#workingHours").html(value);
+					}
+				})
 				 function go(address){
 						console.log(address);
 						location.href = address;
@@ -526,38 +635,33 @@
 				 
 				 function workIn(){
 					 $("#workInform").submit();
+					 
 				 }
 				 
 				 
-				 /*
+				
 				 
-				 function headerAtt(){
-					 $.ajax({
-			    			url:"headerAtt.att",
-			    			data : {empNo : empNo},
-			    			success:function(att){
-			    				value = att.gapHour + " 시간 " + att.gapMinute + " 분째 근무중"
-			    				$("#about-time").html(value);
-			    				console.log(value);
-			    			},
-			    			error:function(){
-			    				console.log("헤더용 출근시간 체크 ajax 통신 실패");
-			    			}
-			    		})
-				 }
-				 */
-				 
-				 function logout(){
+				 function workOut(){
 						 alertify.confirm("정말 퇴근하시겠습니까?",
 								  function(){
 							 		$("#workOutform").submit();
-							 		 go('logout.me');
+							 		$("#out-btn").attr("disabled", true);
 								  },
 								  function(){
 								    
 								  });
+							 		
 					} 
 				 
+				 function logOut(){
+					 alertify.confirm("로그아웃 하시겠습니까?",
+							  function(){
+							    go('logout.me');
+							  },
+							  function(){
+							    
+							  });
+				 }
 				</script>
 
                 
@@ -603,6 +707,64 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+    
+    <!-- SockJs -->
+    <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+    
+    <script>
+    var socket = null;
+    
+	$(function(){
+		connectWS();
+	})
+	
+	
+	function connectWS(){
+		
+		var ws = new SockJS("/fitty/echo");
+	 	socket = ws;
+	 	
+	 	ws.onopen = onOpen;
+	
+		ws.onmessage = onMessage;
+	
+		ws.onclose = onClose;
+	    
+		ws.onerror = onError;
+		
+		   
+		function onOpen(){
+	   		console.log('Info: connection opened.');
+		}
+		
+		function onMessage(evt){
+			console.log('Info: connection onmessage.');
+	   		console.log("ReceiveMessage:" , event.data+'\n');
+	   		
+	   		let $socketAlert = $("#socketAlert");
+	   		let $socketContent = $("#socketContent");
+	   		
+	   		$socketContent.html(evt.data);
+	   		$socketAlert.css("display", "block");
+	   		
+	   		setTimeout(function(){
+	   			$socketAlert.css('display', 'none');
+	   		}, 7000);
+	   		
+		}
+		
+		function onClose(evt){
+			console.log('Info: connection closed');
+			//setTimeout(function(){connect();}, 1000); // retry connection!!
+		}
+		
+		function onError(err){
+			console.log('Error:', err);
+		}
+	}	
+	
+	
+	</script>
 	
 </body>
 </html>

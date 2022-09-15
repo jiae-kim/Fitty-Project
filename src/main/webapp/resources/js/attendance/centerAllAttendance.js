@@ -21,9 +21,11 @@ $(function(){
     		    nowCheck();
     		}
     		})
-    })
+})
+
+
     
-    $(document).ready(function(){
+$(document).ready(function(){
     	$("#backBtn").on("click",function() {
     		
     		if(month > 1) {
@@ -129,6 +131,8 @@ function selectAllAttList(page){
             let empList = result.empList;
             let countList = result.countList;
             let pi = result.pi;
+            
+            console.log(pi);
 
             if(empList.length == 0) {
                 value += "<tr>"
@@ -232,7 +236,11 @@ function selectOtherAttList(page){
             let empList = result.empList;
             let countList = result.countList;
             let pi = result.pi;
-
+		
+		
+			 console.log(pi);
+			 
+			 
             if(empList.length == 0) {
                 value += "<tr>"
 				       + "<td colspan='32'> 직원이 없습니다. </td>"

@@ -22,4 +22,5 @@ public class Alert {
 	private int alListNo; 
 	private String alReadYn;
 	private Date alDate;
+	private String alSender;
 }

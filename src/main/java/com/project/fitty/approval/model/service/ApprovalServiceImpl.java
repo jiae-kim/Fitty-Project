@@ -25,8 +25,48 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 
 	@Override
-	public ArrayList<Approval> selectList(PageInfo pi) {
-		return aDao.selectList(sqlSession, pi);
+	public ArrayList<Approval> selectList(PageInfo pi, String empNo) {
+		return aDao.selectList(sqlSession, pi, empNo);
+	}
+
+	@Override
+	public int ajaxSelectListCount(Approval ap) {
+		return aDao.ajaxSelectListCount(sqlSession, ap);
+	}
+
+	@Override
+	public ArrayList<Approval> ajaxSelectList(PageInfo pi, Approval ap) {
+		return aDao.ajaxSelectList(sqlSession, pi, ap);
+	}
+
+	@Override
+	public int selectStorageListCount(String empNo) {
+		return aDao.selectStorageListCount(sqlSession, empNo);
+	}
+
+	@Override
+	public ArrayList<Approval> selectStorageList(PageInfo pi, String empNo) {
+		return aDao.selectStorageList(sqlSession, pi, empNo);
+	}
+
+	@Override
+	public int selectSignListCount(String empNo) {
+		return aDao.selectSignListCount(sqlSession, empNo);
+	}
+
+	@Override
+	public ArrayList<Approval> selectSignList(PageInfo pi, String empNo) {
+		return aDao.selectSignList(sqlSession, pi, empNo);
+	}
+
+	@Override
+	public int ajaxSelectSignListCount(Approval ap) {
+		return aDao.ajaxSelectSignListCount(sqlSession, ap);
+	}
+
+	@Override
+	public ArrayList<Approval> ajaxSelectSignList(PageInfo pi, Approval ap) {
+		return aDao.ajaxSelectSignList(sqlSession, pi, ap);
 	}
 
 }

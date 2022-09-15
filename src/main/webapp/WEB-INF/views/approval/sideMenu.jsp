@@ -71,12 +71,20 @@
            </ul>
            <span><b>개인 문서함</b></span>
            <ul>
-             <li><a href="draftList.ap">기안 문서함</a></li>
-             <li><a href="임시저장함.html">임시 저장함</a></li>
-             <li><a href="결재문서함.html">결재 문서함</a></li>
+             <li><a type="button" onclick="postFormSubmit('draftList.ap');">기안 문서함</a></li>
+             <li><a type="button" onclick="postFormSubmit('storageList.ap');">임시 저장함</a></li>
+             <li><a type="button" onclick="postFormSubmit('signList.ap');">결재 문서함</a></li>
            </ul>
          </div>
        </div>
+       <form id="postForm" action="" method="post">
+			<input type="hidden" name="empNo" value="${ loginUser.empNo }">
+		</form>
+       <script>
+       	function postFormSubmit(url){
+       		$("#postForm").attr("action", url).submit();
+       	}
+       </script>
        
      <div
        class="modal fade"

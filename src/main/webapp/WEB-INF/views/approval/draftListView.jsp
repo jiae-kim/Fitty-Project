@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 <style>
 	.main{
-	  width:80%;
+	  width:83%;
 	  height:750px;
 	  float:left;
 	  background-color:white;
@@ -97,111 +97,126 @@
 		
 		<div class="main">
 	        <h4 style="color:rgb(50, 50, 50);">기안 문서함</h4><br>
-	        <button class="m-btn sel" onclick="">전체</button>
-	        <button class="m-btn" onclick="">진행</button>
-	        <button class="m-btn" onclick="">반려</button>
-	        <button class="m-btn" onclick="">완료</button>
+	        <button class="m-btn sel" onclick="changeStatus(this, 1);">전체</button>
+	        <button class="m-btn" onclick="changeStatus(this, 1);" value="2">진행</button>
+	        <button class="m-btn" onclick="changeStatus(this, 1);" value="4">반려</button>
+	        <button class="m-btn" onclick="changeStatus(this, 1);" value="3">완료</button>
 	        <table id="dTable" align="center">
-	          <tr style="background:rgb(231, 231, 255)">
-	            <th>기안일</th>
-	            <th>결재양식</th>
-	            <th width="30%;">제목</th>
-	            <th width="10%;">사유</th>
-	            <th>첨부파일</th>
-	            <th>문서번호</th>
-	            <th height="30" width="7%;">결재상태</th>
-	          </tr>
-	        	<c:choose>
-			        <c:when test="${ not empty list }">
-			          <c:forEach var="a" items="${ list }">
-				          <tr>
-				            <td>${ a.apprEnrollDate }</td>
-				            <c:choose>
-				            	<c:when test="${ a.apprDocType eq 1 }">
-				            		<td>휴가신청</td>
-				            	</c:when>
-				            	<c:when test="${ a.apprDocType eq 2 }">
-				            		<td>연장근무신청</td>
-				            	</c:when>
-				            	<c:otherwise>
-				            		<td>지출결의서</td>
-				            	</c:otherwise>
-				            </c:choose>
-				            <td>${ a.apprTitle }</td>
-				            <td></td>
-				            <td>${ a.apprComment }</td>
-				            <td>${ a.apprNo }</td>
-				            <c:choose>
-				            	<c:when test="${ a.apprStatus eq 1 }">
-						            <td height="30" align="center"><div id="sta1">대기</div></td>
-				            	</c:when>
-				            	<c:when test="${ a.apprStatus eq 2 }">
-						            <td height="30" align="center"><div id="sta1">진행</div></td>
-				            	</c:when>
-				            	<c:when test="${ a.apprStatus eq 3 }">
-				            		<td height="30" align="center"><div id="sta2">완료</div></td>
-				            	</c:when>
-				            	<c:otherwise>
-				            		<td height="30" align="center"><div id="sta3">반려</div></td>
-				            	</c:otherwise>
-				            </c:choose>
-				          </tr>
-			          </c:forEach>
-			        </c:when>
-			        <c:otherwise>
-			        		<tr>
-			        			<td colspan=7 height="30">문서가 없습니다.</td>
-			        		</tr>
-			        </c:otherwise>
-	        	</c:choose>
+	        	<thead>
+			        <tr style="background:rgb(231, 231, 255)">
+			            <th>기안일</th>
+			            <th>결재양식</th>
+			            <th width="30%;">제목</th>
+			            <th width="10%;">사유</th>
+			            <th>첨부파일</th>
+			            <th>문서번호</th>
+			            <th height="30" width="7%;">결재상태</th>
+			        </tr>
+	       		</thead>
+	         	<tbody>
+		        	<c:choose>
+				        <c:when test="${ not empty list }">
+				          <c:forEach var="a" items="${ list }">
+					          <tr>
+					            <td>${ a.apprEnrollDate }</td>
+					            <c:choose>
+					            	<c:when test="${ a.apprDocType eq 1 }">
+					            		<td>휴가신청</td>
+					            	</c:when>
+					            	<c:when test="${ a.apprDocType eq 2 }">
+					            		<td>연장근무신청</td>
+					            	</c:when>
+					            	<c:otherwise>
+					            		<td>지출결의서</td>
+					            	</c:otherwise>
+					            </c:choose>
+					            <td>${ a.apprTitle }</td>
+					            <td>${ a.apprComment }</td>
+					            <td></td>
+					            <td>${ a.apprNo }</td>
+					            <c:choose>
+					            	<c:when test="${ a.apprStatus eq 1 }">
+							            <td height="30" align="center"><div id="sta1">대기</div></td>
+					            	</c:when>
+					            	<c:when test="${ a.apprStatus eq 2 }">
+							            <td height="30" align="center"><div id="sta1">진행</div></td>
+					            	</c:when>
+					            	<c:when test="${ a.apprStatus eq 3 }">
+					            		<td height="30" align="center"><div id="sta2">완료</div></td>
+					            	</c:when>
+					            	<c:otherwise>
+					            		<td height="30" align="center"><div id="sta3">반려</div></td>
+					            	</c:otherwise>
+					            </c:choose>
+					          </tr>
+				          </c:forEach>
+				        </c:when>
+				        <c:otherwise>
+				        		<tr>
+				        			<td colspan=7 height="30">문서가 없습니다.</td>
+				        		</tr>
+				        </c:otherwise>
+		        	</c:choose>
+	        	</tbody>
 	        </table>
 	        <br><br>
 			
-			<nav aria-label="Page navigation">
-              <ul class="pagination justify-content-center">
-              
-              	<c:choose>
-              		<c:when test="${ pi.currentPage eq 1 }">
-              			<li class="page-item prev disabled">
-		                  <a class="page-link"
-		                    ><i class="tf-icon bx bx-chevron-left"></i
-		                  ></a>
-		                </li>
-              		</c:when>
-              		<c:otherwise>
-              			<li class="page-item prev">
-		                  <a class="page-link" href="draftList.ap?cpage=${ pi.currentPage-1 }"
-		                    ><i class="tf-icon bx bx-chevron-left"></i
-		                  ></a>
-		                </li>
-              		</c:otherwise>
-                </c:choose>
-                
-                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
-                <li class="page-item">
-                  <a class="page-link" href="draftList.ap?cpage=${ p }">${ p }</a>
-                </li>
-                </c:forEach>
-                
-                <c:choose>
-              		<c:when test="${ pi.currentPage eq pi.maxPage }">
-              			<li class="page-item next disabled" >
-		                  <a class="page-link"
-		                    ><i class="tf-icon bx bx-chevron-right"></i
-		                  ></a>
-		                </li>
-              		</c:when>
-              		<c:otherwise>
-              			<li class="page-item next">
-		                  <a class="page-link" href="draftList.ap?cpage=${ pi.currentPage+1 }"
-		                    ><i class="tf-icon bx bx-chevron-right"></i
-		                  ></a>
-		                </li>
-              		</c:otherwise>
-                </c:choose>
-                
-              </ul>
-            </nav>
+			<div class="paging-area">
+				<nav aria-label="Page navigation">
+	              <ul class="pagination justify-content-center">
+	              
+	              	<c:choose>
+	              		<c:when test="${ pi.currentPage eq 1 }">
+	              			<li class="page-item prev disabled">
+			                  <a class="page-link"
+			                    ><i class="tf-icon bx bx-chevron-left"></i
+			                  ></a>
+			                </li>
+	              		</c:when>
+	              		<c:otherwise>
+	              			<li class="page-item prev">
+			                  <a class="page-link" href="draftList.ap?cpage=${ pi.currentPage-1 }"
+			                    ><i class="tf-icon bx bx-chevron-left"></i
+			                  ></a>
+			                </li>
+	              		</c:otherwise>
+	                </c:choose>
+	                
+	                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
+	                	<c:choose>
+	                		<c:when test="${ p eq currentPage }">
+				                <li class="page-item active disabled">
+				                  <a class="page-link" href="draftList.ap?cpage=${ p }">${ p }</a>
+				                </li>
+				            </c:when>
+				            <c:otherwise>
+				            	<li class="page-item">
+				                  <a class="page-link" href="draftList.ap?cpage=${ p }">${ p }</a>
+				                </li>
+				            </c:otherwise>
+		                </c:choose>
+	                </c:forEach>
+	                
+	                <c:choose>
+	              		<c:when test="${ pi.currentPage eq pi.maxPage }">
+	              			<li class="page-item next disabled" >
+			                  <a class="page-link"
+			                    ><i class="tf-icon bx bx-chevron-right"></i
+			                  ></a>
+			                </li>
+	              		</c:when>
+	              		<c:otherwise>
+	              			<li class="page-item next">
+			                  <a class="page-link" href="draftList.ap?cpage=${ pi.currentPage+1 }"
+			                    ><i class="tf-icon bx bx-chevron-right"></i
+			                  ></a>
+			                </li>
+	              		</c:otherwise>
+	                </c:choose>
+	                
+	              </ul>
+	            </nav>
+            </div>
             <br>
 			
 	        <div align="center">
@@ -225,7 +240,175 @@
 	      </div>
 	</div>
 	<script>
-		
+		function changeStatus(btn, page){
+			$.ajax({
+				url:"changeDraft.ap",
+				data:{apprStatus:$(btn).val(),
+					  cpage:page,
+					  empNo:"${loginUser.empNo}"},
+				success:function(map){
+					let pi = map.pi;
+					let list = map.list;
+					
+					let value = "";
+					let paging = "";
+
+					
+					if($(btn).text() == "전체"){
+						if(list == ""){
+							value += "<tr><td colspan=7 height='30'>문서가 없습니다.</td></tr>";
+							
+
+						}else{
+								for(let i=0; i<list.length; i++){
+								
+								value += "<tr>"
+									   + "<td>" + list[i].apprEnrollDate + "</td>";
+									   
+								if(list[i].apprDocType == 1){
+									value += "<td>휴가신청</td>"
+								}else if(list[i].apprDocType == 2){
+									value += "<td>연장근무신청</td>"
+								}else{
+									value += "<td>지출결의서</td>"
+								}
+								
+								value += "<td width='30%;'>" + list[i].apprTitle + "</td>"
+									   + "<td width='10%;'>" + list[i].apprComment + "</td>"
+									   + "<td></td>"
+									   + "<td>" + list[i].apprNo + "</td>"
+									   + "<td height='30' width='7%;' align='center'>";
+									   
+								if(list[i].apprStatus == 1){
+									value += "<div id='sta1'>대기</div>"+ "</td></tr>";
+								}else if(list[i].apprStatus == 2){
+								 	value += "<div id='sta1'>진행</div>"+ "</td></tr>";
+								}else if(list[i].apprStatus == 3){
+								 	value += "<div id='sta2'>완료</div>"+ "</td></tr>";
+								}else{
+								 	value += "<div id='sta3'>반려</div>"+ "</td></tr>";
+								}
+									   
+							}
+						}
+					}else if($(btn).text() == "진행"){
+						if(list == ""){
+							value += "<tr><td colspan=7 height='30'>문서가 없습니다.</td></tr>";
+							
+
+						}else{
+							for(let i=0; i<list.length; i++){
+								value += "<tr>"
+									   + "<td>" + list[i].apprEnrollDate + "</td>";
+									   
+								if(list[i].apprDocType == 1){
+									value += "<td>휴가신청</td>"
+								}else if(list[i].apprDocType == 2){
+									value += "<td>연장근무신청</td>"
+								}else{
+									value += "<td>지출결의서</td>"
+								}
+									   
+								value += "<td width='30%;'>" + list[i].apprTitle + "</td>"
+									   + "<td width='10%;'>" + list[i].apprComment + "</td>"
+									   + "<td></td>"
+									   + "<td>" + list[i].apprNo + "</td>"
+									   + "<td height='30' width='7%;' align='center'><div id='sta1'>진행</div></td>"
+									   + "</tr>";
+							}
+						}
+					}else if($(btn).text() == "반려"){
+						if(list == ""){
+							value += "<tr><td colspan=7 height='30'>문서가 없습니다.</td></tr>";
+							
+
+						}else{
+							for(let i=0; i<list.length; i++){
+								value += "<tr>"
+									   + "<td>" + list[i].apprEnrollDate + "</td>";
+									   
+								if(list[i].apprDocType == 1){
+									value += "<td>휴가신청</td>"
+								}else if(list[i].apprDocType == 2){
+									value += "<td>연장근무신청</td>"
+								}else{
+									value += "<td>지출결의서</td>"
+								}
+									   
+								value += "<td width='30%;'>" + list[i].apprTitle + "</td>"
+									   + "<td width='10%;'>" + list[i].apprComment + "</td>"
+									   + "<td></td>"
+									   + "<td>" + list[i].apprNo + "</td>"
+									   + "<td height='30' width='7%;' align='center'><div id='sta3'>반려</div></td>"
+									   + "</tr>";
+							}
+						}
+					}else{
+						if(list == ""){
+							value += "<tr><td colspan=7 height='30'>문서가 없습니다.</td></tr>";
+						}else{
+							for(let i=0; i<list.length; i++){
+							value += "<tr>"
+								   + "<td>" + list[i].apprEnrollDate + "</td>";
+								   
+							if(list[i].apprDocType == 1){
+								value += "<td>휴가신청</td>"
+							}else if(list[i].apprDocType == 2){
+								value += "<td>연장근무신청</td>"
+							}else{
+								value += "<td>지출결의서</td>"
+							}
+								   
+							value += "<td width='30%;'>" + list[i].apprTitle + "</td>"
+								   + "<td width='10%;'>" + list[i].apprComment + "</td>"
+								   + "<td></td>"
+								   + "<td>" + list[i].apprNo + "</td>"
+								   + "<td height='30' width='7%;' align='center'><div id='sta2'>완료</div></td>"
+								   + "</tr>";
+							}
+						}			
+					}
+					
+					
+					if(pi.currentPage != 1) {
+       					paging += '<li class="page-item prev"><a class="page-link" onclick="changeStatus(this,' + (pi.currentPage-1) + ');"'
+       							+ '><i class="tf-icon bx bx-chevron-left"></i></a></li>';
+       				}else{
+       					paging += '<li class="page-item prev disabled"><a class="page-link"'
+							    + '><i class="tf-icon bx bx-chevron-left"></i></a></li>';
+       				}
+       				
+       				
+       				for(let p=pi.startPage; p<=pi.endPage; p++){
+       					
+       					if(p == pi.currentPage){
+       						paging += '<li class="page-item active disabled"><a class="page-link">' + p + '</a></li>';
+       					}else{
+       						paging += '<li class="page-item"><a class="page-link" onclick="changeStatus(this,' + p + '}">'+ p +'</a></li>';
+       					}
+       					
+       					
+       				}
+       				
+       				if(pi.currentPage != pi.maxPage) {
+   						paging += '<li class="page-item next"><a class="page-link" onclick="changeStatus(this,' + (pi.currentPage+1) + ');"'
+  		                        + '><i class="tf-icon bx bx-chevron-right"></i></a></li>';
+       				}else{
+       					paging += '<li class="page-item next disabled" ><a class="page-link"'
+  		                        + '><i class="tf-icon bx bx-chevron-right"></i></a></li>';
+       				}
+					
+       				$("tbody").empty();
+       				$(".paging-area ul").empty(paging);
+       				$(".paging-area ul").append(paging);
+       				$("#dTable tbody").html(value);
+					
+				},error:function(){
+					console.log("ajax 통신 실패");
+				}
+					  
+			})
+		}
 	</script>
 
 </body>

@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.common.template.FileUpload;
 import com.project.fitty.common.template.Pagination;
+import com.project.fitty.product.model.service.ProductService;
+import com.project.fitty.product.model.vo.Product;
 import com.project.fitty.user.model.service.UserService;
 import com.project.fitty.user.model.vo.User;
 
@@ -26,10 +28,20 @@ public class UserController {
 	@Autowired
 	private UserService uService;
 	
-	// [김지애] 1. 회원등록 서비스 
+	@Autowired
+	private ProductService pService;
+	
+	// [김지애] 1. 회원등록 서비스
 	@RequestMapping("enrollForm.ur")
-	public String enrollForm() {
-		return "user/userEnrollForm";
+	public ModelAndView enrollForm(ModelAndView mv) {
+		// db에 있는 이용권 조회해서 mv에 담아 등록페이지 포워딩
+		ArrayList<Product> product = pService.selectProList();
+		
+		//System.out.println(product);
+		mv.addObject("product", product)
+		  .setViewName("user/userEnrollForm");
+		
+		return mv;
 	}
 	
 	// [김지애] 1. 회원등록 서비스 (FileUpload)
@@ -83,14 +95,23 @@ public class UserController {
 	// [김지애] 4. 회원수정 서비스
 	@RequestMapping("updateForm.ur")
 	public String updateForm(int no, Model model) {
-		// 수정할 회원 번호만 받아서 한행 조회 후 model에 담아 수정하기 페이지로 포워딩
+		// 수정할 회원 번호만 받아서 한행 조회 후 model에 담아 수정페이지 포워딩
 		model.addAttribute("u", uService.selectUser(no));
+		
+		// db에 있는 이용권 조회해서 model에 담아 수정페이지 포워딩
+		model.addAttribute("product", pService.selectProList());
+		
 		return "user/userUpdateForm";
 	}
 	
 	// [김지애] 4. 회원수정 서비스
 	@RequestMapping("update.ur")
 	public String updateUser(User u, HttpSession session) {
+		// u로부터 type을 뽑아서 그 값이 P일 경우 => u.setProMonth(0);
+		if(u.getUserType().equals("P")) {
+			u.setUserMonth("0");
+		}
+		
 		int result = uService.updateUser(u);
 		
 		if(result > 0) {// 수정 성공 => 조회페이지

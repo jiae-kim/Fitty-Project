@@ -10,11 +10,19 @@
 		<result column="re_status" property="replyStatus" />
 	</resultMap>
 	
+	
 	<resultMap type="User" id="userResult">
 		<result column="user_no" property="userNo"/>
+		<result column="user_name" property="userName"/>
 		<result column="user_phone" property="userPhone"/>
 		<result column="user_gender" property="userGender"/>
 		<result column="user_birth" property="userBirth"/>
+		<result column="user_type" property="userType"/>
+		<result column="user_profile_url" property="userProfileUrl"/>
+		<result column="user_sdate" property="userStartDate"/>
+		<result column="user_edate" property="userEndDate"/>
+		<result column="user_pt" property="userPt"/>
+		<result column="user_status" property="userStatus"/>
 	</resultMap>
 
 
@@ -32,6 +40,21 @@
 		    by re_no desc
 	</select> 
 	-->
+	
+
+	<select id="selectUser" resultMap="userResult">
+		select 
+			   user_no
+			 , user_name
+			 , user_phone
+			 , user_gender
+			 , to_char(to_date(user_birth), 'YYYY/ MM/ DD') as "user_birth"
+		  from tb_user
+		 where user_type = 'P'
+		   and user_status = 'Y'
+		   and user_pt = 'N'
+		   and user_no = #{ userNo }
+	</select>
 	
 	
 	<insert id="insertClass">
@@ -54,7 +77,7 @@
 		  , #{empNo}
 		  , #{userNo}
 		  , #{userHeight}
-		  , #{userWieght}
+		  , #{userWeight}
 		  , #{classStartDate}
 		  , #{classCount}
 		  , #{classGoal}
@@ -62,18 +85,13 @@
 		  )
 	</insert>
 	
-	<!-- 
-	<select id="selectUser" resultMap="userResult">
-		select 
-			   user_name
-			 , user_phone
-			 , user_gender
-			 , user_birth
-		  from tb_user
-		 where user_type = 'P'
-		   and user_status = 'Y'
-		   and user_pt = 'N'
-		   and user_no = #{ userNo }
-	</select> -->
-
+	
+	
+	<update id="updateStatus">
+		update
+			   tb_user
+		   set user_pt = 'Y'
+		 where user_no = #{userNo}
+	</update>
+	
 </mapper>
