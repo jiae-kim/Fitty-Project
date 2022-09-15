@@ -6,6 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,11 +36,8 @@ public class EmployeeController {
 			return "main";
 		}
 	}
-	
-	
-	
-	
-	
+		
+
 	@ResponseBody
 	@RequestMapping("nextEmpNo.emp")
 	public String selectNextEmpNo() {
@@ -114,5 +112,36 @@ public class EmployeeController {
 			}
 		}
 		}
+	
+	
+	@RequestMapping("select.emp")
+	public String selectEmployee() {
+		
+		return "employee/empMyPage";
+	}
+	
+	@RequestMapping("update.emp")
+	public String updateEmployee(Employee e, Model model, HttpSession session) {
+		
+		int result = eService.updateEmployee(e);
+		
+		if(result > 0) { // 수정 성공
+			
+			// db로부터 갱신된 회원 정보를 다시 조회해와서 session에 담기
+			//Member updateMember = mService.loginMember(m);
+			session.setAttribute("loginUser", eService.loginEmployee(e));
+			session.setAttribute("alertMsg", "성공적으로 회원정보 변경되었습니다.");
+			
+			// 마이페이지 url재요청
+			return "redirect:select.emp";
+			
+		}else { // 수정 실패
+			model.addAttribute("errorMsg", "회원정보 변경 실패");
+			return "common/errorPage";
+		}	
+	
+	}
+	
+	
 	
 }
