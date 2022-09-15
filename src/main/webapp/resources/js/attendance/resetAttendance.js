@@ -35,8 +35,10 @@
 function checkAll() {
          if($("#choiceAll").is(':checked')) {
             $(".empList :checkbox").prop("checked", true);
+             $("tfoot :checkbox").prop("checked", true);
          } else {
             $(".empList :checkbox").prop("checked", false);
+            $("tfoot :checkbox").prop("checked", false);
          }
       }  
 

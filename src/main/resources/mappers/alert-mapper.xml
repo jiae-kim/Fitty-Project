@@ -13,6 +13,7 @@
 		<result column="al_sender" property="alSender"/>
 	</resultMap>
 	
+	
 	<insert id="insertAlertM">
 		insert
 		  into tb_push_alert
@@ -41,7 +42,7 @@
 			  , al_date
 			  , al_sender
 		   from tb_push_alert
-		  where al_read_yn = 'n'
+		  where al_read_yn = 'N'
 		    and al_recip = #{alRecip}  
 	</select>
 

@@ -1,6 +1,7 @@
 package com.project.fitty.employee.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
@@ -38,7 +39,7 @@ public interface EmployeeService {
 	int selectEmpListCount();
 	
 	// sql에 해당하는 회원수 알아오기
-	int selectVacSearchListCount(Employee sqlEmp);
+	int selectVacSearchListCount(HashMap <String, Object> sqlMap);
 	
 	// 직원 전체조회 - 주소록용 레벨
 	ArrayList<Employee> selectLevelEmployeeList();
@@ -48,11 +49,7 @@ public interface EmployeeService {
 	
 	// 선택된 리스트에서 원하는 리스트 조회
 	ArrayList<Employee> deleteEmpNoList(String empNo);
-	
 
-	// 직원 정보 조회(select)
-	ArrayList<Employee> selectEmployee(Employee e);
- 	
 	// 직원 정보 수정 (update)
 	int updateEmployee(Employee e);
 

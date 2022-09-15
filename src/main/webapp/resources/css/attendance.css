@@ -161,7 +161,7 @@ table *{
 
 
 table thead, table tfoot{
-  background-color: #f8f4fc;
+  /*background-color: #f8f4fc;*/
   /* background-color: #e8e4fc; */
 }
 
