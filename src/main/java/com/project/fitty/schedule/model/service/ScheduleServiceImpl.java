@@ -1,5 +1,7 @@
 package com.project.fitty.schedule.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +16,12 @@ public class ScheduleServiceImpl implements ScheduleService{
 	private SqlSessionTemplate sqlSession;
 	
 	@Autowired
-	private ScheduleDao sdDao;
+	private ScheduleDao bDao;
+	
+	@Override // [김지애] 직원용 - 스케줄 전체조회 서비스
+	public ArrayList<Booking> selectList() {
+		return null;
+	}
 	
 	@Override
 	public int insertSchedule(Booking b) {
@@ -45,5 +52,6 @@ public class ScheduleServiceImpl implements ScheduleService{
 	public int deleteBooking(Booking b) {
 		return 0;
 	}
+
 
 }
