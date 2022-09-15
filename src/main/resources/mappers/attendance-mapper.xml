@@ -326,6 +326,10 @@
 			AND TO_DATE((select to_char(add_months(sysdate,-59),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')
 	</if>
 	 and e.emp_name like '%' || #{sqlEmpName } || '%'
+	 order by  case when emp_grade = 'C' then 1
+                    when emp_grade = 'A' then 2
+                    when emp_grade = 'T' then 3
+                    end
   </select>
   
    <select id="selectPerYearMonthList" resultMap="attendanceResult">

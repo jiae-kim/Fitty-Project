@@ -730,6 +730,8 @@
     var socket = null;
     
 	$(function(){
+		
+		
 		connectWS();
 	})
 	

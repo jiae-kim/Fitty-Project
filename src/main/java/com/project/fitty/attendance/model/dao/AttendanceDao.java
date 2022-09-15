@@ -1,6 +1,7 @@
 package com.project.fitty.attendance.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -71,11 +72,11 @@ public class AttendanceDao {
 	
 	
 	
-	public ArrayList<Attendance> selectVacList(SqlSessionTemplate sqlSession, PageInfo pi){
+	public ArrayList<Attendance> selectVacList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap <String, Object> sqlMap){
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage()-1) * limit;
 		RowBounds rowBounds = new RowBounds(offset, limit);
-		return (ArrayList) sqlSession.selectList("attendanceMapper.selectVacList", pi, rowBounds);
+		return (ArrayList) sqlSession.selectList("attendanceMapper.selectVacList", sqlMap, rowBounds);
 	}
 	
 	public ArrayList<Attendance> selectPerYearMonthList(SqlSessionTemplate sqlSession, Attendance a){
