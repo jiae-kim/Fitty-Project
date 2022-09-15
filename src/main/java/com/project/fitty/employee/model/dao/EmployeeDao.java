@@ -58,7 +58,7 @@ public class EmployeeDao {
 	
 	// 전체 직원리스트 empList
 	public int selectEmpListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.insert("employeeMapper.selectEmpListCount");
+		return sqlSession.selectOne("employeeMapper.selectEmpListCount");
 	}
 	
 	

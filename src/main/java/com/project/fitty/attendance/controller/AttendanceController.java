@@ -206,8 +206,11 @@ public class AttendanceController {
 	@RequestMapping(value="attList.att", produces="application/json; charset=utf-8")
 	public String selectAllAttList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, String thisMonth, String thisYear) {
 		
+		
 		int listCount =  eService.selectEmpListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		System.out.println(pi);
 		
 		ArrayList<Employee> empList =  eService.selectEmpList(pi);
 		
@@ -289,11 +292,12 @@ public class AttendanceController {
 	
 	@ResponseBody
 	@RequestMapping(value="vacList.att", produces="application/json; charset=utf-8")
-	public String goVacControlAtt(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session) {
+	public String goVacControlAtt(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, String addSql) {
 		
 		
 		int listCount = eService.selectEmpListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		pi.setAddSql(addSql);
 		ArrayList<Attendance> aList = aService.selectVacList(pi);
 		
 		Calendar calendar = Calendar.getInstance();
@@ -325,32 +329,37 @@ public class AttendanceController {
 		HashMap <String, Object> map = new HashMap<String, Object>();
 		map.put("pi", pi);
 		map.put("aList", aList);
+		//System.out.println("1번 : " + map);
 		return new Gson().toJson(map);
 		
 	}
 	
-	
-	@RequestMapping("orderByVac.att")
-	public String selectOrderByVac(String orderByWorkTime, String orderByAtt, String searchText) {
+	@ResponseBody
+	@RequestMapping(value="orderByVac.att", produces="application/json; charset=utf-8")
+	public Object selectOrderByVac(String orderByWorkTime, String orderByAtt, String searchText, HttpSession session) {
 		
 		String addSqlWorkTime="";
-		String addSqlByAtt ="";
+//		String addSqlByAtt ="";
+		String addSqlEmpName = "and emp_name in ('" + searchText + "')";
+		String addAllSql = "";
+		switch(orderByWorkTime) {
+		case "underOne" : addSqlWorkTime = "and emp_enroll_date"
+										 + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-12),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
+										 + "AND sysdate "; break;
+		case "oneToFive" : addSqlWorkTime = "and emp_enroll_date"
+										  + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-60),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
+										  + " AND TO_DATE((select to_char(add_months(sysdate,-11),'yyyy-mm-dd') from dual), 'YYYY-MM-DD') "; break;
+		case "overFive" : addSqlWorkTime = "and emp_enroll_date"
+									      + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-480),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
+									      + " AND TO_DATE((select to_char(add_months(sysdate,-59),'yyyy-mm-dd') from dual), 'YYYY-MM-DD') "; break;
+		default : addSqlWorkTime = "";
+		}
+		addAllSql = addSqlWorkTime + addSqlEmpName;
+		
 		
 		if(searchText != null && !searchText.equals("")) {
-			// 검색이 없을경우  입사년월 / 근태 퍼센트 구하는 sql
-			switch(orderByWorkTime) {
-			case "underOne" : addSqlWorkTime = "and emp_enroll_date"
-											 + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-12),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
-											 + "AND sysdate"; break;
-			case "oneToFive" : addSqlWorkTime = "and emp_enroll_date"
-											  + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-60),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
-											  + " AND TO_DATE((select to_char(add_months(sysdate,-11),'yyyy-mm-dd') from dual), 'YYYY-MM-DD') "; break;
-			case "overFive" : addSqlWorkTime = "and emp_enroll_date"
-										      + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-240),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
-										      + " AND TO_DATE((select to_char(add_months(sysdate,-59),'yyyy-mm-dd') from dual), 'YYYY-MM-DD') "; break;
-			default : addSqlWorkTime = "";
-			}
-			
+			// 검색된 내용이 있을경우...
+			//System.out.println("2번 : " + goVacControlAtt(1, session, addAllSql ));
 //			switch(addSqlByAtt) {
 //			case "yearOverEighty" : addSqlByAtt = "and emp_enroll_date"
 //											 + "BETWEEN TO_DATE((select to_char(add_months(sysdate,-12),'yyyy-mm-dd') from dual), 'YYYY-MM-DD')"
@@ -360,11 +369,17 @@ public class AttendanceController {
 //											  + " AND TO_DATE((select to_char(add_months(sysdate,-11),'yyyy-mm-dd') from dual), 'YYYY-MM-DD') "; break; 
 //			default : addSqlByAtt = "";
 //			}
+			
+			return goVacControlAtt(1, session, addAllSql );
 			// 위에꺼는 반복문을 돌려서 SQL문을 조회하는 ㅁ[소드를 한 번 더 할 수 있지만.. 아래꺼는 자스에서 VAL 값으로 컨트롤행야할ㄷ긋,,,
+		} else {
+			// 검색된 내용이 없을경우
+			System.out.println("2번 : " + goVacControlAtt(1, session, addSqlWorkTime ));
+			return goVacControlAtt(1, session, addSqlWorkTime );
 		}
 		
 		
-		return "";
+		
 	}
 	
 	@RequestMapping("modifyAtt.att")

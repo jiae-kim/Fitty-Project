@@ -307,6 +307,7 @@
 	  join tb_att a on (e.emp_no = a.emp_no)
 	  join tb_grade g on (e.emp_grade = g.emp_grade)
 	 where emp_status = 'Y'
+	 ${addSql}
   </select>
   
    <select id="selectPerYearMonthList" resultMap="attendanceResult">
