@@ -14,7 +14,9 @@ import lombok.ToString;
 public class Product {
 
 	private int proNo; 
-	private String pro;
+	private String pro; //DB에는 PRODUCT로 되어있음
 	private String proPrice;
 	private String proStatus;
+	private String proMonth;
+	private int month; //DB에는 해당 컬럼 없음
 }
