@@ -21,8 +21,8 @@ public class EcoHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception{
 		
-		System.out.println("웹소켓 연결된 클라이언트 session : " + session);
-		System.out.println("ㄴ 이 사람의 정보 : " + session.getAttributes());
+		//System.out.println("웹소켓 연결된 클라이언트 session : " + session);
+		//System.out.println("ㄴ 이 사람의 정보 : " + session.getAttributes());
 		sessions.add(session);
 		String senderId = getId(session);
 		userSessions.put(senderId, session);
@@ -52,13 +52,8 @@ public class EcoHandler extends TextWebSocketHandler {
 			String trainer = strs[2];
 			String ckNo = strs[3];
 			
-			System.out.println("cmd 내용 >>>>>" + cmd);
-			System.out.println("trainer 이름 >>>>>" + trainer);
-			System.out.println("userSessions에 누가있는지 >>>>>" + userSessions);
-			
 			WebSocketSession trainerSession = userSessions.get(trainer); // 점검을 작성한 트레이너가 세션에 있는지 뽑는거 있으면 값이 담기고 없으면 null
 			
-			System.out.println("trainerSession>>>>> " + trainerSession );
 			
 			// 현재 admin은 사번이기 때문에 이름을 보내주려면 서비스에 요청해서 DB에서 조회해와야함
 			//String adminName = aService.selectAdminMc(admin);
@@ -69,6 +64,12 @@ public class EcoHandler extends TextWebSocketHandler {
 				
 				System.out.println(">>>>>>클라이언트로 메세지 보내기 성공 ");
 			}
+			
+			// if (cmd.equals("")
+			
+			// if (cmd.equals("")
+			
+			
 		}
 	}
 
@@ -87,7 +88,7 @@ public class EcoHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception{
 		
-		System.out.println("웹소켓 나간 클라이언트 session : " + session);
+		//System.out.println("웹소켓 나간 클라이언트 session : " + session);
 	}
 	
 	
