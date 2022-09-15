@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.project.fitty.common.model.vo.PageInfo;
+import com.project.fitty.product.model.vo.Product;
 import com.project.fitty.user.model.vo.User;
 
 @Repository
@@ -16,7 +17,13 @@ public class UserDao {
 	public int insertUser(SqlSessionTemplate sqlSession, User u) {
 		return sqlSession.insert("userMapper.insertUser", u);
 	}
-
+	
+	/*
+	public ArrayList<Product> selectProductList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("userMapper.selectProductList");
+	}
+	*/
+	
 	// [김지애] 2. 회원 전체조회 서비스 (페이징)
 	public int selectListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("userMapper.selectListCount");
@@ -49,5 +56,6 @@ public class UserDao {
 	public int deleteUser(SqlSessionTemplate sqlSession, int userNo) {
 		return sqlSession.update("userMapper.deleteUser", userNo);
 	}
+
 
 }

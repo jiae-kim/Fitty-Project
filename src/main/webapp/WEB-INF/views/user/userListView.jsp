@@ -78,10 +78,16 @@
 		                                    <!-- 등록일 -->
 		                                    <td>${u.userSdate}</td>
 		                                    <!-- 만료일 -->
-		                                    <td>${u.userEdate}</td>
+		                                    <c:choose>
+		                                    <c:when test="${u.userType eq 'P'}">
+		                                    	<td></td>
+		                                    </c:when>
+		                                    <c:otherwise>
+			                                    <td>${u.userEdate}</td>
+		                                    </c:otherwise>
+		                                    </c:choose>
 		                                    <!-- 이용권 구분 -->
 		                                    <td>${u.userType}</td>
-		                                    
 		                                    <c:choose>
 		                                    <c:when test="${u.userType eq 'P' and u.userPt ne 'Y'}">
 		                                    	<td><a class="btn rounded-pill btn-info" href="enroll.cl?no=${ u.userNo }">PT등록</a></td>
