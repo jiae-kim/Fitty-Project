@@ -1,10 +1,13 @@
 package com.project.fitty.schedule.model.service;
 
+import java.util.ArrayList;
+
 import com.project.fitty.schedule.model.vo.Booking;
 
 public interface ScheduleService {
 
 	// [김지애] 직원용 - 스케줄 전체조회 서비스
+	ArrayList<Booking> selectList();
 	
 	// [김지애] 직원용 - 스케줄 등록 서비스
 	int insertSchedule(Booking b);

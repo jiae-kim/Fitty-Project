@@ -15,6 +15,7 @@ import com.project.fitty.approval.model.service.ApprovalService;
 import com.project.fitty.approval.model.vo.Approval;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.common.template.Pagination;
+import com.project.fitty.employee.model.vo.Employee;
 
 @Controller
 public class ApprovalController {
@@ -28,8 +29,21 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping("vacation.ap")
-	public String goVacation() {
-		return "approval/vacationEnrollForm";
+	public ModelAndView goVacation(ModelAndView mv) {
+		ArrayList<Employee> list = aService.selectEmpList();
+		mv.addObject("list", list).setViewName("approval/vacationEnrollForm");
+		
+		return mv;
+	}
+	
+	@RequestMapping("overtime.ap")
+	public String goOvertime() {
+		return "approval/overtimeEnrollForm";
+	}
+	
+	@RequestMapping("expense.ap")
+	public String goExpense() {
+		return "approval/expenseEnrollForm";
 	}
 	
 	

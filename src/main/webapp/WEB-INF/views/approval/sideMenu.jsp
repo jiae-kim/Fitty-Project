@@ -113,8 +113,8 @@
              </div>
              <div class="selthumbnail">
                <img width="330" height="390" src="resources/approval_images/vct.png" style="display:none;" id="img1">
-               <img width="330" height="390" src="resources/approval_images/ovt.png" style="display:none;">
-               <img width="330" height="390" src="resources/approval_images/exp.png" style="display:none;">
+               <img width="330" height="390" src="resources/approval_images/ovt.png" style="display:none;" id="img2">
+               <img width="330" height="390" src="resources/approval_images/exp.png" style="display:none;" id="img3">
              </div>
            </div>
            <div class="modal-footer">
@@ -129,8 +129,21 @@
      		$("#seltn1").click(function(){
      			$("#sub").removeAttr("onclick");
 	    		$("#sub").attr("onclick", "location.href='vacation.ap'");
+     			$(".selthumbnail img").hide();
 	    		$("#img1").show();
+	    	})
+	    	$("#seltn2").click(function(){
+	    		$("#sub").removeAttr("onclick");
+	    		$("#sub").attr("onclick", "location.href='overtime.ap'");
+     			$(".selthumbnail img").hide();
+	    		$("#img2").show();
 	    	 })
+	    	$("#seltn3").click(function(){
+	    		$("#sub").removeAttr("onclick");
+	    		$("#sub").attr("onclick", "location.href='expense.ap'");
+     			$(".selthumbnail img").hide();
+	    		$("#img3").show();
+	    	})
      	})
      </script>
        
