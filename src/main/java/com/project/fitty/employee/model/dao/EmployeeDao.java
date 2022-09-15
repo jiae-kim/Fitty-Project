@@ -90,8 +90,9 @@ public class EmployeeDao {
 	}
 	
 	// 직원 정보조회
-	public ArrayList<Employee> selectEmployee(SqlSessionTemplate sqlSession, Employee e) {
-		return (ArrayList)sqlSession.selectList("employeeMapper.selectEmployee");
+	public int selectEmployee(SqlSessionTemplate sqlSession, Employee e) {
+		
+		return sqlSession.selectOne("employeeMapper.selectEmployee", e);
 	}
 	
 	// 직원 정보수정

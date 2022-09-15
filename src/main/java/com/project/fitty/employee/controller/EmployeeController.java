@@ -140,7 +140,7 @@ public class EmployeeController {
 		if(result > 0) { // 수정 성공
 			
 			// db로부터 갱신된 회원 정보를 다시 조회해와서 session에 담기
-			//Member updateMember = mService.loginMember(m);
+			//Employee updateEmployee = eService.loginEmployee(e);
 			session.setAttribute("loginUser", eService.loginEmployee(e));
 			session.setAttribute("alertMsg", "성공적으로 회원정보 변경되었습니다.");
 			
@@ -153,4 +153,5 @@ public class EmployeeController {
 		}	
 	
 	}
+}
 
