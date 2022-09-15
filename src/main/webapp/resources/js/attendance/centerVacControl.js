@@ -22,19 +22,20 @@ $(function(){
 	
 })
 
-
 function checkAll() {
          if($("#choiceAll").is(':checked')) {
-            $("#memListTBody :checkbox").prop("checked", true);
+            $("#memListTBody :checkbox:not(:disabled)").prop("checked", true);
             $("tfoot :checkbox").prop("checked", true);
          } else {
-            $("#memListTBody :checkbox").prop("checked", false);
+            $("#memListTBody :checkbox:not(:disabled)").prop("checked", false);
             $("tfoot :checkbox").prop("checked", false);
          }
       }  
 
 function selectAllAttList(page){
-
+		
+		$("input:radio[name='orderByPercent']:radio[value='selectAll']").prop('checked', true); 
+		
 		$.ajax({
 			url: "vacList.att",
 			data:{
@@ -118,6 +119,7 @@ function selectAllAttList(page){
 					
 					$("#memListTBody").html(value);
 					$(".pagination").html(pageValue);
+					$("#selectAll").attr("checked", true);
 			}
 		,error:function(){
 				console.log("페이지 로딜 리스트 조회용 ajax통신 실패"); 
@@ -134,8 +136,7 @@ function changeSelect(){
 	let orderByAtt = $("#orderByAtt").val();
 	let memListTBody = $("#memListTBody");
 	
- 
-	
+ 	$("input:radio[name='orderByPercent']:radio[value='selectAll']").prop('checked', true); 
 	
 	 $.ajax({
 			  url:"orderByVac.att",
@@ -218,6 +219,7 @@ function changeSelect(){
 					
 					$("#memListTBody").html(value);
 					$(".pagination").html(pageValue);
+					$("#selectAll").attr("checked", true);
 			   
 			 }
 	   ,
@@ -227,9 +229,12 @@ function changeSelect(){
 	   
 	})
 }
+
+
 function filterPercent(){
 	
 	let orderByPercent = $('input:radio[name=orderByPercent]:checked').val();
+	
 	
 	
 	if(orderByPercent == "over80"){
