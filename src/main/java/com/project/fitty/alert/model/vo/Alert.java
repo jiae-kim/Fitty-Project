@@ -21,6 +21,6 @@ public class Alert {
 	private String alMsg;
 	private int alListNo; 
 	private String alReadYn;
-	private Date alDate;
+	private String alDate;
 	private String alSender;
 }

@@ -44,13 +44,14 @@
 			  , al_recip
 			  , al_msg
 			  , al_list_no
-			  , al_date
+			  , to_char(al_date, 'YYYY.MM.DD HH:MI')
 			  , al_sender
 			  , al_read_yn
 		   from tb_push_alert
-		  where al_recip = #{alRecip}
+		  where al_recip = 'TRN102'
+		    and al_read_yn = 'N'
 		  order
-		     by al_date  
+		     by al_date 
 	</select>
 	
 	<update id="updateReadYn">
