@@ -12,8 +12,7 @@
 <body>
 <jsp:include page="../common/header.jsp"/>
 
-	<input type="text" class="form-control" id="msg" placeholder="웹소켓 실험" name="" value="">
-	<button id="btnSend" class="btn btn-primary me-2">send</button>
+
 	
 	
 	<script>
@@ -33,6 +32,11 @@
 			});
 		});
 	</script>
+	
+	
+	<br><br>
+	
+	<a href="userPage.cl">회원 전용 사이트 (테스트 링크)</a>
 	
 	
 </body>

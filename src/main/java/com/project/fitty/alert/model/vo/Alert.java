@@ -1,7 +1,5 @@
 package com.project.fitty.alert.model.vo;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,6 +19,6 @@ public class Alert {
 	private String alMsg;
 	private int alListNo; 
 	private String alReadYn;
-	private Date alDate;
+	private String alDate;
 	private String alSender;
 }

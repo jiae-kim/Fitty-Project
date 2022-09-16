@@ -2,6 +2,8 @@ package com.project.fitty.schedule.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,12 +35,17 @@ public class ScheduleController {
 	}
 	*/
 	
-	
-	
-	
-	
-	
-	
+	// [김지애] 2. 직원용 - 스케줄 등록 서비스
+	@RequestMapping("enrollForm.ca")
+	public String enrollForm() {
+		return "schedule/scheduleEnrollForm";
+	}
+	/*
+	@RequestMapping("insert.sc")
+	public String insertSchedule(Booking b, HttpSession session) {
+		int result = bService.insert
+	}
+	*/
 	
 	
 	
