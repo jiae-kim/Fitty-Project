@@ -207,7 +207,9 @@
 	            ></button>
 	          </div>
 	          <div class="modal-body" id="alertList">
-	          	신규 알림 내용이 없습니다.
+	          <div style="text-align:center;">신규 알림 내용이 없습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
 	          	<br><br><br>
 	          </div>
 	        </div>
@@ -219,7 +221,7 @@
 <!-- Layout wrapper -->
 	<c:if test="${ not empty alertMsg }">
 		<script>
-			alertify.alert("${ alertMsg }");
+			alertify.alert("${ alertMsg }").set('basic', true);
 		</script>
 		<!-- 1회성 메시지 지우기 -->
 		<c:remove var="alertMsg" scope="session"/>
@@ -335,7 +337,7 @@
                 </li>
                 <li class="menu-item">
                   <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                    <div data-i18n="Basic" class="small-menu-label">스케줄 등록</div>
+                    <div data-i18n="Basic" class="small-menu-label">스케쥴관리 소메뉴 2</div>
                   </a>
                 </li>
                 <li class="menu-item">
