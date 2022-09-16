@@ -25,4 +25,9 @@ public class VacationServiceImpl implements VacationService{
 		return vDao.selectEmpVacList(sqlSession, a);
 	}
 
+	@Override
+	public int insertVacation(Vacation v) {
+		return vDao.insertVacation(sqlSession, v);
+	}
+
 }

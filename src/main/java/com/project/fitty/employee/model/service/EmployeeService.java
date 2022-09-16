@@ -52,5 +52,9 @@ public interface EmployeeService {
 
 	// 직원 정보 수정 (update)
 	int updateEmployee(Employee e);
+	
+	
+	// 모달오픈용 empName 조회
+	ArrayList<Employee> openVacModalSelectEmpName(String empNo);
 
 }

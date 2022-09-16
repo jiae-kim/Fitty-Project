@@ -8,9 +8,14 @@ import org.springframework.stereotype.Repository;
 
 import com.project.fitty.approval.model.vo.Approval;
 import com.project.fitty.common.model.vo.PageInfo;
+import com.project.fitty.employee.model.vo.Employee;
 
 @Repository
 public class ApprovalDao {
+	
+	public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectEmpList");
+	}
 	
 	public int selectListCount(SqlSessionTemplate sqlSession, String empNo) {
 		return sqlSession.selectOne("approvalMapper.selectListCount", empNo);

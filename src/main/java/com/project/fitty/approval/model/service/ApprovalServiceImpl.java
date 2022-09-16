@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.project.fitty.approval.model.dao.ApprovalDao;
 import com.project.fitty.approval.model.vo.Approval;
 import com.project.fitty.common.model.vo.PageInfo;
+import com.project.fitty.employee.model.vo.Employee;
 
 @Service
 public class ApprovalServiceImpl implements ApprovalService{
@@ -18,6 +19,11 @@ public class ApprovalServiceImpl implements ApprovalService{
 	
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	
+	@Override
+	public ArrayList<Employee> selectEmpList() {
+		return aDao.selectEmpList(sqlSession);
+	}
 
 	@Override
 	public int selectListCount(String empNo) {
@@ -68,5 +74,7 @@ public class ApprovalServiceImpl implements ApprovalService{
 	public ArrayList<Approval> ajaxSelectSignList(PageInfo pi, Approval ap) {
 		return aDao.ajaxSelectSignList(sqlSession, pi, ap);
 	}
+
+	
 
 }

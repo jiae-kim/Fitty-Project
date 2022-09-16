@@ -205,7 +205,7 @@
 <!-- Layout wrapper -->
 	<c:if test="${ not empty alertMsg }">
 		<script>
-			alertify.alert("${ alertMsg }");
+			alertify.alert("${ alertMsg }").set('basic', true);
 		</script>
 		<!-- 1회성 메시지 지우기 -->
 		<c:remove var="alertMsg" scope="session"/>
@@ -315,8 +315,8 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                    <div data-i18n="Basic" class="small-menu-label">스케쥴관리 소메뉴 1</div>
+                  <a href="list.ca" class="menu-link" target="_blank">
+                    <div data-i18n="Basic" class="small-menu-label">스케줄 조회</div>
                   </a>
                 </li>
                 <li class="menu-item">

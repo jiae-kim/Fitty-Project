@@ -90,10 +90,16 @@ public class EmployeeDao {
 		return sqlSession.update("employeeMapper.deleteEmployee", empNo);
 	}
 	
+	// 모달오픈용 empNameSelect
+	public ArrayList<Employee> openVacModalSelectEmpName(SqlSessionTemplate sqlSession, String empNo) {
+		return (ArrayList)sqlSession.selectList("employeeMapper.openVacModalSelectEmpName", empNo);
+	}
+	
 	
 	// 직원 정보수정
 	public int updateEmployee(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.updateEmployee", e);
 	}
+	
 	
 }

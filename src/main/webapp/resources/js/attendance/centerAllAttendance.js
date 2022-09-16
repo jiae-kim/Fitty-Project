@@ -132,7 +132,6 @@ function selectAllAttList(page){
             let countList = result.countList;
             let pi = result.pi;
             
-            console.log(pi);
 
             if(empList.length == 0) {
                 value += "<tr>"
