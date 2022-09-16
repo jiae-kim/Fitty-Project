@@ -9,6 +9,10 @@
 	<result column="plus_vac" property="plusVac"/>
 	<result column="minus_vac" property="minusVac"/>
 	<result column="gap_vac" property="gapVac"/>
+	<result column="emp_no" property = "empNo"/>
+	<result column="emp_name" property = "empName"/>
+	<result column="gr_name" property = "grName"/>
+	<result column="emp_photo" property = "empPhoto"/>
 </resultMap>
 
 
@@ -103,4 +107,15 @@
 		      , #{attStatus}
 		    ) 
   </insert>
+  
+  <select id="selectOneVacation" resultMap="vacationResult">
+  	select
+	       e.emp_no
+	     , e.emp_name
+	     , g.gr_name
+	     , e.emp_photo
+	  from tb_emp e
+	  join tb_grade g on (e.emp_grade = g.emp_grade)
+	 where e.emp_no = #{empNo}
+  </select>
 </mapper>

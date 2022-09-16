@@ -17,5 +17,7 @@ public interface VacationService {
 	
 	// 연월차 휴가 삭제
 		int deleteVacation(Vacation v);
-
+	
+	// 상세페이지 조회
+		Vacation selectOneVacation(String no);
 }

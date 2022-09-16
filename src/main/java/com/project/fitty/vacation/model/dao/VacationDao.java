@@ -24,4 +24,8 @@ public class VacationDao {
 		// 말이 delete지 사실상 insert임
 		return sqlSession.insert("vacationMapper.deleteVacation", v);
 	}
+	
+	public Vacation selectOneVacation(SqlSessionTemplate sqlSession, String no) {
+		return sqlSession.selectOne("vacationMapper.selectOneVacation", no);
+	}
 }

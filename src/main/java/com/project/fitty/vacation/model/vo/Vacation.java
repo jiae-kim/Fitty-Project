@@ -37,4 +37,7 @@ public class Vacation {
 	private String plusVac;
 	private String minusVac;
 	private String gapVac;
+	private String empName;
+	private String grName;
+	private String empPhoto;
 }

@@ -19,8 +19,9 @@ $(function(){
 			filterPercent();	
 		})
 	})
+
 	
-	
+
 	
 })
 
@@ -65,7 +66,7 @@ function selectAllAttList(page){
 					for(let i=0; i<aList.length; i++){
 						
 						value += "<tr>"
-							+    "<th><input type='checkbox' id='empNoInput' name='empNoInput' value='" + aList[i].empNo + "'></th>"
+							+    "<th><input type='checkbox' class='no' id='empNoInput' name='empNoInput' value='" + aList[i].empNo + "'></th>"
 							+  	 "<td>" +  aList[i].empNo + "</td>"
 							+  	 "<td>" +  aList[i].empName + "</td>"
 							+  	 "<td>" +  aList[i].grName + "</td>"
@@ -88,6 +89,7 @@ function selectAllAttList(page){
 										+    "<td>" + aList[i].empVacList[0].plusVac + "</td>"
 										+    "<td>" + aList[i].empVacList[0].minusVac + "</td>"
 										+    "<td>" +  aList[i].empVacList[0].gapVac  + "</td>"
+										+    "<td>" + "<a class='btn btn-sm rounded-pill btn-outline-primary' href='detail.vac?no=" + aList[i].empNo + "'>조회</td>"
 							}
 								}
 								
@@ -167,7 +169,7 @@ function changeSelect(){
 					for(let i=0; i<aList.length; i++){
 						
 						value += "<tr>"
-							+    "<th><input type='checkbox' id='empNoInput' name='empNoInput' value='" + aList[i].empNo + "'></th>"
+							+    "<th><input type='checkbox'  class='no' id='empNoInput' name='empNoInput' value='" + aList[i].empNo + "'></th>"
 							+  	 "<td>" +  aList[i].empNo + "</td>"
 							+  	 "<td>" +  aList[i].empName + "</td>"
 							+  	 "<td>" +  aList[i].grName + "</td>"
@@ -190,6 +192,7 @@ function changeSelect(){
 										+    "<td>" + aList[i].empVacList[0].plusVac + "</td>"
 										+    "<td>" + aList[i].empVacList[0].minusVac + "</td>"
 										+    "<td>" + "잔여휴가" + "</td>"
+										+    "<td>" + "<a class='btn btn-sm rounded-pill btn-outline-primary' href='detail.vac?no='" + aList[i].empNo + "'>조회</td>"
 							}
 								}
 								
@@ -357,4 +360,7 @@ function getVacOper(event){
 	$("#deleteVacOper").val(vacOper);
 	}
 }
+
+
+
 

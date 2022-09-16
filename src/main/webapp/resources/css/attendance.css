@@ -551,3 +551,49 @@ textarea{
 
 /*centerEmpAttendance*/
 
+
+/*centerVacDetail*/
+.justPadding{
+	padding : 30px;
+}
+
+.cardBody .verSm{
+	height:80px;
+}
+
+.profileHeader {
+	margin-top:20px;
+	height : 50px;
+	align-items: center;
+    text-align: center;
+    justify-content: center;
+    display : flex;
+}
+
+.profileHeader h5 {
+	margin : 10px;
+	padding : 0px;
+}
+
+#todayWork {
+	align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+#todayWork td {
+	align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.smTd{
+	color: #696CFF;
+}
+
+.bigTd {
+	font-size : 40px;
+}
+
+
+/*centerVacDetail*/

@@ -108,12 +108,13 @@
                                 <th>근속연수</th>
                                 <th>작년근태</th>
                                 <th>지난달근태</th>
-                                <th>발생연월차</th>
-                                <th>차감연월차</th>
-                                <th>잔여연월차</th>
+                                <th>발생연차</th>
+                                <th>차감연차</th>
+                                <th>잔여연차</th>
                                 <th>발생휴가</th>
                                 <th>차감휴가</th>
                                 <th>잔여휴가</th>
+                                <th>조회</th>
                               </tr>
                           </thead>
                           <tfoot>
@@ -126,12 +127,13 @@
                                 <th>근속연수</th>
                                 <th>작년근태</th>
                                 <th>지난달근태</th>
-                                <th>발생연월차</th>
-                                <th>차감연월차</th>
-                                <th>잔여연월차</th>
+                                <th>발생연차</th>
+                                <th>차감연차</th>
+                                <th>잔여연차</th>
                                 <th>발생휴가</th>
                                 <th>차감휴가</th>
                                 <th>잔여휴가</th>
+                                <th>조회</th>
                               </tr>
                           </tfoot>
                           
@@ -239,7 +241,23 @@
 		                      						<input class="form-check-input"  type="radio" name="vacNormal" value="P" requried>패널티&nbsp&nbsp&nbsp&nbsp&nbsp
 							                      </div>
 							                    </div>
+							                  </div>
+							                </div><!--
+							                <div class="modal-body">
+							                  <div class="row">
 							                    <div class="col mb-6">
+							                      <label for="wantToInsert" class="form-label modal-label"  style="color : #696CFF;"requried>시작일</label>
+							                      <input type="date" id="vacStart" class="form-control" name="vacStart">
+							                    </div>
+							                    <div class="col mb-6">
+							                      <label for="wantToInsert" class="form-label modal-label"  style="color : #696CFF;" requried onchange="getVacOper(event);">종료일</label>
+							                      <input type="date" id="vacEnd" class="form-control" name="vacEnd">
+							                    </div>
+							                  </div>
+							                </div>-->
+							                <div class="modal-body">
+							                  <div class="row">
+							                    <div class="col mb-12">
 							                      <label for="vacReason" class="form-label modal-label" style="color : #696CFF;">선택</label>
 							                      <div>
 							                      	<input class="form-check-input"  type="radio" name="attStatus" value="Y" requried>연/월차&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -252,24 +270,14 @@
 							                </div>
 							                <div class="modal-body">
 							                  <div class="row">
-							                    <div class="col mb-6">
-							                      <label for="wantToInsert" class="form-label modal-label"  style="color : #696CFF;"requried>시작일</label>
-							                      <input type="date" id="vacStart" class="form-control" name="vacStart">
-							                    </div>
-							                    <div class="col mb-6">
-							                      <label for="wantToInsert" class="form-label modal-label"  style="color : #696CFF;" requried onchange="getVacOper(event);">종료일</label>
-							                      <input type="date" id="vacEnd" class="form-control" name="vacEnd">
-							                    </div>
-							                  </div>
-							                </div>
-							                <div class="modal-body">
-							                  <div class="row">
 							                    <div class="col mb-12">
 							                      <label for="wantToInsert" class="form-label modal-label"  style="color : #696CFF;">차감일수</label>
 							                      <input type="number" id="deleteVacOper" class="form-control" name="vacOper" placeholder="차감하실 날자를 입력해주세요"  required>
 							                    </div>
 							                  </div>
 							                </div>
+							                 
+							                
 						                <div class="modal-footer">
 						                  <button type="submit" class="btn btn-primary">차감하기</button>
 						                  <button type="button" class="btn btn-outline-secondary" id="closeBtn" data-bs-dismiss="modal">목록으로</button>

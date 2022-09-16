@@ -210,7 +210,6 @@ public class AttendanceController {
 		int listCount =  eService.selectEmpListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		
-		System.out.println(pi);
 		
 		ArrayList<Employee> empList =  eService.selectEmpList(pi);
 		
@@ -339,7 +338,6 @@ public class AttendanceController {
 		HashMap <String, Object> map = new HashMap<String, Object>();
 		map.put("pi", pi);
 		map.put("aList", aList);
-		//System.out.println("1번 : " + map);
 		return new Gson().toJson(map);
 		
 	}
