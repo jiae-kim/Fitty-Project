@@ -17,6 +17,7 @@ import com.project.fitty.alert.model.vo.Alert;
 import com.project.fitty.common.template.FileUpload;
 import com.project.fitty.employee.model.service.EmployeeService;
 import com.project.fitty.employee.model.vo.Employee;
+import com.project.fitty.user.model.vo.User;
 
 @Controller
 public class EmployeeController {
@@ -82,15 +83,12 @@ public class EmployeeController {
 			String saveFilePath = FileUpload.saveFile(uploadFile, session, "resources/profile_images/");
 			e.setEmpPhoto(saveFilePath);
 			
-			
-				// session 에 profileImg 가 업데이트된 새 로그인객체 담기!
-				session.setAttribute("e", e);
+			// session 에 profileImg 가 업데이트된 새 로그인객체 담기!
+			session.setAttribute("e", e);
 			}
 		return e;
 				
 		}
-		
-	
 	
 	
 	@RequestMapping("insert.emp")
@@ -136,7 +134,6 @@ public class EmployeeController {
 	@RequestMapping("select.emp")
 	public String selectEmployee() {
 		
-		System.out.println("ㅎㅎ");
 		return "employee/empMyPage";
 	}
 	
@@ -161,5 +158,7 @@ public class EmployeeController {
 		}	
 	
 	}
+	
+	
 }
 

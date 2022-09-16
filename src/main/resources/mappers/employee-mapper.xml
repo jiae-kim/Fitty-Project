@@ -177,6 +177,13 @@
 	  where emp_no = #{empNo}
   </update>
   
+  
+  	<update id="uploadProfileImg">
+		update
+				tb_emp
+		   set	emp_photo = #{empPhoto}
+		 where	emp_no = #{empNo}
+	</update>
 
 
 </mapper>
