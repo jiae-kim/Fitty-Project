@@ -42,5 +42,8 @@ public class Employee {
 	private String attOut;
 	private String attFlag;
 	private String nowTime;
+	
+	// 결재용
+	private String grApprGrade;
 
 }

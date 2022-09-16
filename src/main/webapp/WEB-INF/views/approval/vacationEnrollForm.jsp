@@ -39,6 +39,7 @@
 	.app-form1 th{background-color: rgba(211, 211, 211, 0.5);}
 	#tb1{width:300px; height:120px; float:left;}
 	#tb2, #tb3{width:100px; height:120px; float:right;}
+	#tb5{width:175px; height:120px; float:right;}
 	#tb4{width:94%;}
 	#tb4 td{text-align:left;}
 	.cmt1{
@@ -87,7 +88,8 @@
 	.addlist th{border-bottom:1px solid lightgray;}
 	.addlist td{border-bottom:1px solid lightgray; text-align: center;}
 	.addlist button, #appr-mem1 button, #appr-mem2 button{border:none; background-color:white;}
-	#mem{width:285px; height:80px; table-layout:fixed; border-bottom:1px solid lightgray;}
+	#mem{width:283px; height:80px; table-layout:fixed; border-bottom:1px solid lightgray;}
+	#insert{height:75px; width:40px;}
 </style>
 </head>
 <body>
@@ -108,7 +110,7 @@
              <i class='bx bx-download'></i>
              임시저장
            </button>
-           <button class="f-btn" onclick="history.go(-1)">
+           <button class="f-btn" onclick="cancel();" type="button">
              <i class='bx bxs-x-circle'></i>
              취소
            </button>
@@ -148,7 +150,7 @@
                        <div id="appr-mem1">
                        	 <c:forEach var="e" items="${ list }">
 	                       	 <c:if test="${ e.empGrade ne 'T' }">
-		                         <li><div class="wd"></div><i class='bx bxs-user'></i><button type="button" onclick="clickMem(this)" value="${e.grName }">${ e.empName }</button></li>
+		                         <li><div class="wd"></div><i class='bx bxs-user'></i><button type="button" onclick="clickMem(this)" value="${e.grApprGrade }">${ e.empName }</button></li>
 	                         </c:if>
 	                       	 	
                          </c:forEach>
@@ -157,7 +159,7 @@
                              <div id="appr-mem2" style="display:none;">
                                <c:forEach var="e" items="${ list }">
                                 <c:if test="${ e.empGrade eq 'T' }">
-                               		<li><div class="wd"></div><i class='bx bxs-user'></i><button type="button" onclick="clickMem(this)" value="${e.grName }">${ e.empName }</button></li>
+                               		<li><div class="wd"></div><i class='bx bxs-user'></i><button type="button" onclick="clickMem(this)" value="${e.grApprGrade }">${ e.empName }</button></li>
                                	</c:if>
                                </c:forEach>
                              </div>
@@ -235,6 +237,11 @@
                      $("#tb1").children().children().eq(1).children().eq(1).append(today);
                    })
                    
+                   function cancel(){
+                	   alertify.confirm('현재 작성 중인 내용을 저장하지 않고 나가시겠습니까?', function(){ location.replace("apprMain.ap"); }
+                       ).set('basic', true);
+                   }
+                   
                    function none(){
                 	   alertify.alert("결재 승인자를 선택해주세요.").set('basic', true);
                    }
@@ -266,7 +273,7 @@
 	                 	   $("#insert").removeAttr("onclick");
 	                	   
                 	   }else{
-                		   alertify.alert("승인자는 2명까지만 선택 가능합니다.");
+                		   alertify.alert("승인자는 2명까지만 선택 가능합니다.").setHeader('');
                 	   }
                    }
                    
@@ -286,10 +293,35 @@
            </div>
            <script>
            		function insertApprLine(){
-           			$("#tb2").show();
            			$("#tb3").show();
-           			let value = $("#mem").children().children().children().eq(1).text();
-           			$("#tb2").children().children().eq(1).children().eq(0).append(value);
+           			
+           			if($("#mem tr").length == 1){
+           				$("#tb5").hide();
+           				$("#tb2 td").empty();
+	           			$("#tb2").show();
+	           			
+	           			let value1 = $("#mem").children().children().children().eq(2).text();
+	           			$("#tb2").children().children().eq(0).children().eq(1).append(value1);
+	           			
+	           			let value2 = $("#mem").children().children().children().eq(1).text();
+	           			$("#tb2").children().children().eq(1).children().eq(0).append(value2);
+           			}else{
+           				$("#tb2").hide();
+           				$("#tb5 td").empty();
+           				$("#tb5").show();
+           				
+           				let value1 = $("#mem").children().children().eq(0).children().eq(2).text();
+	           			$("#tb5").children().children().eq(0).children().eq(1).append(value1);
+           				
+	           			let value2 = $("#mem").children().children().eq(0).children().eq(1).text();
+	           			$("#tb5").children().children().eq(1).children().eq(0).append(value2);
+	           			
+	           			let value3 = $("#mem").children().children().eq(1).children().eq(2).text();
+	           			$("#tb5").children().children().eq(0).children().eq(2).append(value3);
+	           			
+	           			let value4 = $("#mem").children().children().eq(1).children().eq(1).text();
+	           			$("#tb5").children().children().eq(1).children().eq(1).append(value4);
+           			}
            		}
            </script>
 
@@ -313,8 +345,8 @@
              </table>
              <table id="tb2" style="display:none;">
                <tr>
-                 <th rowspan="3" width="25%">신청</th>
-                 <td height="24px">팀장</td>
+                 <th rowspan="3" width="25%">승인</th>
+                 <td height="24px"></td>
                </tr>
                <tr>
                  <td></td>
@@ -323,9 +355,24 @@
                  <td height="24px"></td>
                </tr>
              </table>
+             <table id="tb5" style="display:none;">
+               <tr>
+                 <th rowspan="3" width="25px">승인</th>
+                 <td height="24px" width="75px"></td>
+                 <td></td>
+               </tr>
+               <tr>
+                 <td></td>
+                 <td></td>
+               </tr>
+               <tr>
+                 <td height="24px"></td>
+                 <td></td>
+               </tr>
+             </table>
              <table id="tb3" style="display:none;">
                <tr>
-                 <th rowspan="3" width="25%;">승인</th>
+                 <th rowspan="3" width="25%;">신청</th>
                  <td height="24px">사원</td>
                </tr>
                <tr>
@@ -341,10 +388,9 @@
                  <th width="20%" height="40px;">휴가 종류</th>
                  <td>
                    <select name="" id="sel1">
-                     <option value="">휴가</option>
                      <option value="">연차</option>
+                     <option value="">휴가</option>
                      <option value="">조퇴</option>
-                     <option value="">병가</option>
                    </select>
                  </td>
                </tr>
@@ -352,7 +398,7 @@
                  <th height="40px;">기간 및 일시</th>
                  <td>
                    <input type="date" class="dt"> &nbsp;~ <input type="date" class="dt">&nbsp;&nbsp;&nbsp;
-                   선택일수 : <input type="text" class="dnum" value="1" disabled>
+                   선택일수 : <input type="text" class="dnum" value="1" readonly>
                  </td>
                </tr>
                <tr>
@@ -365,8 +411,8 @@
                <tr>
                  <th height="40px;">연차 일수</th>
                  <td style="padding-left:5px;">
-                   잔여연차 : <input type="text" class="dnum" value="NaN" disabled>&nbsp;&nbsp;&nbsp;
-                   신청연차 : <input type="text" class="dnum" value="1" disabled>
+                   잔여연차 : <input type="text" class="dnum" value="NaN" readonly>&nbsp;&nbsp;&nbsp;
+                   신청연차 : <input type="text" class="dnum" value="1" readonly>
                  </td>
                </tr>
                <tr>
