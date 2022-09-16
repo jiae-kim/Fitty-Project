@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Fitty 스케줄</title>
+<title>Fitty 직원 스케줄</title>
 <!-- fullcalendar -->
 <!-- 
 <link href='resources/fullcalendar/lib/main.css' rel='stylesheet' />

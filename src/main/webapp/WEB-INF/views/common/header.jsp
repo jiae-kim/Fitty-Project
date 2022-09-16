@@ -335,16 +335,6 @@
                     <div data-i18n="Basic" class="small-menu-label">스케줄 조회</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="enrollForm.ca" class="menu-link">
-                    <div data-i18n="Basic" class="small-menu-label">스케줄 등록</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                    <div data-i18n="Basic" class="small-menu-label">스케쥴관리 소메뉴 3</div>
-                  </a>
-                </li>
               </ul>
             </li>
             <li class="menu-item">
