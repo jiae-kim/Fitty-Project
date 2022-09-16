@@ -128,9 +128,6 @@
 		#socketContent a {
 			color:white !important;
 		}
-		#alertList a {
-		color:gray;
-		}
         
     </style>
 <meta name="description" content="" />
@@ -169,65 +166,17 @@
 	  </div>
 	  <div class="toast-body" id="socketContent"></div>
 	</div>
-	
-	  <!-- Small Modal [알림 메세지 모달]-->
-    <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true" >
-      <div class="modal-dialog modal-sm" role="document" style="position:absolute;right:7%;top:10%;" >
-      <c:choose>
-      <c:when test="${ not empty msgList }">
-        <div class="modal-content" >
-          <div class="modal-header">
-            
-            🔔&nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="modal-body" id="alertList">
-          <c:forEach var="msg" items="${msgList }">
-  		  	<span>${ msg.alMsg }</span>
-  		  	<span class="badge bg-label-primary" style="float:right;">${ msg.alDate }</span> <br><br>
-          </c:forEach>
-          </div>
-        </div>
-        </c:when>
-        <c:otherwise>
-	        <div class="modal-content" >
-	          <div class="modal-header">
-	            
-	            🔔&nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
-	            <button
-	              type="button"
-	              class="btn-close"
-	              data-bs-dismiss="modal"
-	              aria-label="Close"
-	            ></button>
-	          </div>
-	          <div class="modal-body" id="alertList">
-	          <div style="text-align:center;">신규 알림 내용이 없습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-	          	<br><br><br>
-	          </div>
-	        </div>
-        </c:otherwise>
-        </c:choose>
-      </div>
-    </div>
 
 <!-- Layout wrapper -->
 	<c:if test="${ not empty alertMsg }">
 		<script>
-			alertify.alert("${ alertMsg }").setHeader('');
+			alertify.alert("${ alertMsg }");
 		</script>
 		<!-- 1회성 메시지 지우기 -->
 		<c:remove var="alertMsg" scope="session"/>
 	</c:if>
     <div class="layout-wrapper layout-content-navbar" style="position:relative">
-      <div class="layout-container" >
+      <div class="layout-container">
         <!-- Menu -->
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
@@ -288,7 +237,7 @@
                   </g>
                 </svg>
               </span>
-              <a class="app-brand-text demo menu-text fw-bolder ms-2" href="main.fitty">Fitty</span>
+              <a class="app-brand-text demo menu-text fw-bolder ms-2" href="userPage.cl">My Fitty</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -302,153 +251,48 @@
 
             <!-- Layouts -->
 
-
-            <li class="menu-header small text-uppercase">
-              <span class="menu-header-text">Fitness Managing System</span>
-            </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class='menu-icon tf-icons bx bxs-edit'></i>
-                <div data-i18n="Account Settings" class="big-menu-label">근태관리</div>
+                <i class='menu-icon tf-icons bx bxs-book-heart'></i>
+                <div data-i18n="Account Settings" class="big-menu-label">운동일지</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="myAtt.att" class="menu-link">
-                    <div data-i18n="Account" class="small-menu-label">내 근태관리</div>
+                  <a href="userEx.cl" class="menu-link">
+                    <div data-i18n="Account" class="small-menu-label">#</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <!-- <li class="menu-item">
                   <a href="centerAtt.att" class="menu-link">
-                    <div data-i18n="Notifications" class="small-menu-label">센터 근태관리</div>
+                    <div data-i18n="Notifications" class="small-menu-label">#</div>
                   </a>
-                </li>
+                </li> -->
               </ul>
             </li>
+            
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class='menu-icon tf-icons bx bx-calendar'></i>
-                <div data-i18n="Authentications"  class="big-menu-label">스케줄관리</div>
+                <i class='menu-icon tf-icons bx bxs-camera'></i>
+                <div data-i18n="Account Settings" class="big-menu-label">식단일기</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="list.ca" class="menu-link">
-                    <div data-i18n="Basic" class="small-menu-label">스케줄 조회</div>
+                  <a href="userDi.cl" class="menu-link">
+                    <div data-i18n="Account" class="small-menu-label">#</div>
                   </a>
                 </li>
-                <li class="menu-item">
-                  <a href="enrollForm.ca" class="menu-link">
-                    <div data-i18n="Basic" class="small-menu-label">스케줄 등록</div>
+                <!-- <li class="menu-item">
+                  <a href="centerAtt.att" class="menu-link">
+                    <div data-i18n="Notifications" class="small-menu-label">#</div>
                   </a>
-                </li>
-                <li class="menu-item">
-                  <a href="auth-forgot-password-basic.html" class="menu-link" target="_blank">
-                    <div data-i18n="Basic" class="small-menu-label">스케쥴관리 소메뉴 3</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class='menu-icon tf-icons bx bx-user-pin'></i>
-                <div data-i18n="Misc"  class="big-menu-label">회원관리</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="list.ur" class="menu-link">
-                    <div data-i18n="Error" class="small-menu-label">회원 조회</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="enrollForm.ur" class="menu-link">
-                    <div data-i18n="Under Maintenance" class="small-menu-label">회원 등록</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-                <a href="javascript:void(0);" class="menu-link menu-toggle">
-                  <i class="menu-icon tf-icons bx bxs-book-heart"></i>
-                  <div data-i18n="Misc"  class="big-menu-label">수업관리</div>
-                </a>
-                <ul class="menu-sub">
-                  <li class="menu-item">
-                    <a href="enrollPage.cl" class="menu-link">
-                      <div data-i18n="Error" class="small-menu-label">수업등록</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="pages-misc-under-maintenance.html" class="menu-link">
-                      <div data-i18n="Under Maintenance" class="small-menu-label">나의 수업조회</div>
-                    </a>
-                  </li>
-                  <li class="menu-item">
-                    <a href="userList.cl?empNo=${loginUser.empNo }" class="menu-link">
-                      <div data-i18n="Under Maintenance" class="small-menu-label">나의 회원조회</div>
-                    </a>
-                  </li>
-                </ul>
-              </li>
-            <li class="menu-item">
-              <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-buildings"></i>
-                <div data-i18n="User interface"  class="big-menu-label">시설관리</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="list.mc" class="menu-link">
-                    <div data-i18n="Accordion" class="small-menu-label">기구 관리</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="list.lk" class="menu-link">
-                    <div data-i18n="Alerts" class="small-menu-label">락커 관리</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-box"></i>
-                <div data-i18n="User interface"  class="big-menu-label">상품관리</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="list.pr" class="menu-link">
-                    <div data-i18n="Accordion" class="small-menu-label">헬스장 이용권</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            <li class="menu-item">
-              <a href="javascript:void(0)" class="menu-link menu-toggle">
-                <i class='menu-icon tf-icons bx bx-bar-chart-alt'></i>
-                <div data-i18n="Extended UI"  class="big-menu-label">통계 - 프로젝트</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="extended-ui-perfect-scrollbar.html" class="menu-link">
-                    <div data-i18n="Perfect Scrollbar" class="small-menu-label">통계</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="extended-ui-text-divider.html" class="menu-link">
-                    <div data-i18n="Text Divider" class="small-menu-label">프로젝트</div>
-                  </a>
-                </li>
+                </li> -->
               </ul>
             </li>
 
-            <li class="menu-item">
-                <a href="apprMain.ap" class="menu-link">
-                    <i class='menu-icon tf-icons bx bx-paste'></i>
-                  <div data-i18n="Extended UI"  class="big-menu-label">결재</div>
-                </a>
-              </li>
-          </ul>
+            
+           
         </aside>
         <!-- / Menu -->
-        
-    
 
         <!-- Layout container -->
         <div class="layout-page"  style="margin-top: 20px;">
@@ -504,7 +348,7 @@
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="select.emp">
+                            <a class="dropdown-item" href="#">
                             <i class="bx bx-user me-2"></i>
                             <span class="align-middle">My Profile</span>
                             </a>
@@ -530,44 +374,14 @@
                         <li>
                             <a class="dropdown-item" href="auth-login-basic.html">
                             <i class="bx bx-power-off me-2"></i>
-                            <span class="align-middle">Log Out</span>
+                            <span class="align-middle">Logout</span>
                             </a>
                         </li>
                         </ul>
                     </li>
                   <!--/ User -->
-                  <span id="helloMan"><b>${ loginUser.empName }</b>
-                  	
-                  	<c:choose>
-                  		<c:when test="${ loginUser.empGrade eq 'T' }">
-                  			트레이너님 오늘도 힘내요💜
-                  		</c:when>
-                  		<c:otherwise>
-                  			관리자님 오늘도 힘내요💜
-                  		</c:otherwise>
-                  	</c:choose>
-                  </span>
-                  <c:choose>
-                  	<c:when test="${ loginUser.attIn eq '0'  }">
-                  		<!-- 출근버튼을 누르지 않았을 때 -->
-                  		<button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();">출근</button>
-                  		<button class="btn btn-sm btn-secondary" id="out-btn" onclick="workOut()" disabled>퇴근</button>
-                  	</c:when>
-                  	<c:otherwise>
-                  		 <c:choose>
-                  			<c:when test="${ loginUser.attOut eq '0'  }">
-                  				<!-- 출근버튼을 눌러서 attIn의 값이 0이 아니고 퇴근시간이 없을 때 -->
-                  				<button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();" disabled>출근</button>
-                  		 		<button class="btn btn-sm btn-secondary" id="out-btn" onclick="workOut()">퇴근</button>
-                  			</c:when>
-                  			<c:otherwise>
-                  				<!-- 출근버튼을 눌렀고 -->
-                  				<button class="btn btn-sm btn-primary" id="init-btn"  onclick="workIn();" disabled>출근</button>
-                  		 		<button class="btn btn-sm btn-secondary" id="out-btn" onclick="workOut()" disabled>퇴근</button>
-                  			</c:otherwise>
-                  		</c:choose>
-                  	</c:otherwise>
-                  </c:choose>
+                  <span id="helloMan"><b>USERNAME</b></span>
+
                 </div>
               </div>
               <form action="workIn.att" method="post" id="workInform">
@@ -584,21 +398,7 @@
               <ul class="navbar-nav flex-row align-items-center ms-auto">
                 <!-- Place this tag where you want the button to render. -->
                 <li class="nav-item lh-1 me-3" id="about-time">
-                  <c:choose>
-                  	<c:when test="${ loginUser.attIn eq '0'  }">
-                  		👈 출근버튼을 눌러주세요
-                  	</c:when>
-                  	<c:otherwise>
-                  		<c:choose>
-                  			<c:when test="${ loginUser.attOut eq '0'  }">
- 		                 		 <span id="workingHours">${ loginUser.attIn } 부터 근무중 👏</span>
-                  			</c:when>
-                  			<c:otherwise>
-                  				<span id="workingHours">오늘 하루도 고생하셨습니다. 로그아웃하시고 쉬세요🎉</span>
-                  			</c:otherwise>
-                  		</c:choose>
-                    </c:otherwise>
-                  </c:choose>
+                  
                 </li>
                 <li class="nav-item lh-1 me-3">
                 	<input type="hidden" id="hiddenAttIn" value="${ loginUser.attIn }">
@@ -606,105 +406,12 @@
                     <button type="button" class="btn btn-sm btn-info" onclick="logOut();">로그아웃</button>
                 </li>
                 <li class="nav-item lh-1 me-3">
-                    <a href="mail.re"><i class='bx bx-envelope'></i></a>
+                    <a href="#"><i class='bx bx-envelope'></i></a>
                 </li>
                 <li class="nav-item lh-1 me-3">
-                    <i class='bx bx-message-rounded-dots'></i>
+                    <i class='bx bx-bell' ></i>
                 </li>
-                <li class="nav-item lh-1 me-3">
-                    <i class='bx bx-bell' id="alertIcon" style="position:relative;">
-                    <button id="alertListBtn" type="button" data-bs-toggle="modal" data-bs-target="#smallModal"
-                           style="position:absolute; top:0px;bottom:0px;right:0px;left:0px;
-                                  border=0;opacity:0;"></button>
-                        <c:choose>
-                        <c:when test="${ empty msgList }">
-                    	<label id="alertLabel" style="border-radius:50%;
-                    				  width:25%;
-                    				  height:25%;
-                    				  background-color:#03c3ec;
-                    				  position:absolute;
-                    				  bottom:-3px;
-                    				  right:-3px;
-                    				  display:none;"></label>
-                        </c:when>
-                        <c:otherwise>
-                    	<label id="alertLabel" style="border-radius:50%;
-                    				  width:25%;
-                    				  height:25%;
-                    				  background-color:#03c3ec;
-                    				  position:absolute;
-                    				  bottom:-3px;
-                    				  right:-3px;"></label>
-                        </c:otherwise>
-                        </c:choose>
-                    				  
-                    </i>
-                </li>
-                
-
-                
-                
 				
-				<script>
-				
-				$(function(){
-					if($("#hiddenAttIn").val() == '0') {
-						// 출근시간이 0이면 출근버튼을 눌러야함
-						$("#init-btn").attr("disabled",false);
-						$("#out-btn").attr("disabled",true);
-						let value = "👈 출근버튼을 눌러주세요";
-						$("#workingHours").html(value);
-					} else if ($("#hiddenAttOut").val() != '0'){
-						// 출근시간이 0이 아닌데(출근완) 퇴근시간도 있는경우 (퇴근완)
-						$("#init-btn").attr("disabled",true);
-						$("#out-btn").attr("disabled",true);
-						let value ="오늘 하루도 고생하셨습니다. 로그아웃하시고 쉬세요🎉";
-						$("#workingHours").html(value);
-					} else {
-						// 출근시간이 0이 아닌데 (출근완) 퇴근시간은 없는경우
-						$("#init-btn").attr("disabled",true);
-						$("#out-btn").attr("disabled",false);
-						let value = $("#hiddenAttIn").val() + " 부터 근무중 👏";
-						$("#workingHours").html(value);
-					}
-				})
-				 function go(address){
-						console.log(address);
-						location.href = address;
-					}
-				 
-				 function workIn(){
-					 $("#workInform").submit();
-					 
-				 }
-				 
-				 
-				
-				 
-				 function workOut(){
-						 alertify.confirm("정말 퇴근하시겠습니까?",
-								  function(){
-							 		$("#workOutform").submit();
-							 		$("#out-btn").attr("disabled", true);
-								  },
-								  function(){
-								    
-								  });
-							 		
-					} 
-				 
-				 function logOut(){
-					 alertify.confirm("로그아웃 하시겠습니까?",
-							  function(){
-							    go('logout.me');
-							  },
-							  function(){
-							    
-							  });
-				 }
-				</script>
-
-                
               </ul>
             </div>
           </nav>
@@ -755,8 +462,6 @@
     var socket = null;
     
 	$(function(){
-		
-		
 		connectWS();
 	})
 	
@@ -791,7 +496,7 @@
 	   		
 	   		setTimeout(function(){
 	   			$socketAlert.css('display', 'none');
-	   		}, 3000);
+	   		}, 7000);
 	   		
 		}
 		

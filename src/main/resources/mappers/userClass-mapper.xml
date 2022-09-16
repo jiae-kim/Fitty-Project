@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="userClassMapper">
+
+
+	<resultMap id="userClassResult" type="UserClass">
+		<result column="user_no" property="userNo" />
+		<result column="user_name" property="userName" />
+		<result column="user_phone" property="userPhone" />
+		<result column="user_gender" property="userGender" />
+		<result column="user_birth" property="userBirth" />
+		<result column="user_profile_url" property="userProfileUrl" />
+		<result column="cl_no" property="classNo" />
+		<result column="emp_no" property="empNo" />
+		<result column="user_height" property="userHeight" />
+		<result column="user_weight" property="userWeight" />
+		<result column="cl_sdate" property="classStartDate" />
+		<result column="cl_count" property="classCount" />
+		<result column="cl_goal" property="classGoal" />
+		<result column="cl_result" property="classResult" />
+	</resultMap> 
+
+
+
+   <select id="loginUser" resultMap="userClassResult">
+		select 
+               u.user_no
+		 	 , u.user_name
+		 	 , u.user_phone
+		 	 , u.user_gender
+		 	 , u.user_birth
+		 	 , u.user_profile_url
+		 	 , c.cl_no
+		 	 , c.emp_no
+		 	 , c.user_height
+		 	 , c.user_weight
+		 	 , c.cl_sdate
+		 	 , c.cl_count
+		 	 , c.cl_goal
+		 	 , c.cl_result
+		  from tb_user u 
+		  join tb_class c
+		    on (u.user_no = c.user_no)
+		 where u.user_type = 'P'
+		   and u.user_status = 'Y'
+		   and u.user_phone = #{userPhone}
+		   and u.user_birth = #{userBirth}
+   </select>  
+  
+  
+  <!-- 
+	<select>
+		select * 
+  	   	  from tb_diet
+	 	 where di_date = to_date( '220915', 'YY/MM/DD')
+	</select>
+   -->
+   
+   
+   
+</mapper>
