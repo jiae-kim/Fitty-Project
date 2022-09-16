@@ -703,74 +703,7 @@
 							  });
 				 }
 				 
-				/*  $("#alertListBtn").click(function(){
-					 $.ajax({
-	            			url:"alist.at",
-	            			data:{
-	            				alRecip:'${ loginUser.empNo }'
-	            			},
-	            			success:function(list){
-	            				
-	            				console.log(list);
-	            				
-	            				let value1="";
-	            				value1 += 
-	            					'<div class="modal-dialog modal-sm" role="document" style="position:absolute;right:7%;top:10%;" >'
-	            			      + '<c:choose>'
-	            			      + '<c:when test="${ not empty msgList }">
-	            			        <div class="modal-content" >
-	            			          <div class="modal-header">
-	            			            
-	            			            🔔&nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
-	            			            <button
-	            			              type="button"
-	            			              class="btn-close"
-	            			              data-bs-dismiss="modal"
-	            			              aria-label="Close"
-	            			            ></button>
-	            			          </div>
-	            			          <div class="modal-body" id="alertList">
-	            			          <c:forEach var="msg" items="${msgList }">
-	            			  		  	<span>${ msg.alMsg }</span>
-	            			  		  	<span class="badge bg-label-primary" style="float:right;">${ msg.alDate }</span> <br><br>
-	            			          </c:forEach>
-	            			          </div>
-	            			        </div>
-	            			        </c:when>
-	            			        <c:otherwise>
-	            				        <div class="modal-content" >
-	            				          <div class="modal-header">
-	            				            
-	            				            🔔&nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
-	            				            <button
-	            				              type="button"
-	            				              class="btn-close"
-	            				              data-bs-dismiss="modal"
-	            				              aria-label="Close"
-	            				            ></button>
-	            				          </div>
-	            				          <div class="modal-body" id="alertList">
-	            				          <div style="text-align:center;">신규 알림 내용이 없습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	            				          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	            				          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-	            				          	<br><br><br>
-	            				          </div>
-	            				        </div>
-	            			        </c:otherwise>
-	            			        </c:choose>
-	            			      </div>
-				               
-				               let value2="";
-				              for(let i=0; i<list.length; i++){
-				            	  value2 += "<div>"
-				            	  			+ list[i].alMsg
-				            	  			+"</div>";
-				              }
-				              $("#alertList").html(value);
-	            				
-	            				
-	            			}
-	            		}) */
+				
 				 })
 				</script>
 
