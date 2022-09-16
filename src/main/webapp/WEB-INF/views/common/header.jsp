@@ -331,7 +331,7 @@
                     </a>
                   </li>
                   <li class="menu-item">
-                    <a href="userList.cl" class="menu-link">
+                    <a href="userList.cl?empNo=${loginUser.empNo }" class="menu-link">
                       <div data-i18n="Under Maintenance" class="small-menu-label">나의 회원조회</div>
                     </a>
                   </li>
