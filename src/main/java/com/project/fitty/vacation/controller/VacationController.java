@@ -29,8 +29,6 @@ public class VacationController {
 			int result = 0;
 			for(int i=0; i<arr.length; i++) {
 				v.setEmpNo(arr[i].trim());
-				System.out.println(v.getEmpNo());
-				System.out.println(v.getVacStatus());
 				if(v.getVacStatus().equals("P")) {
 					result += vService.insertVacation(v);
 				}else {

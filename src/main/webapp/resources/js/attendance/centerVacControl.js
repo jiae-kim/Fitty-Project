@@ -83,9 +83,11 @@ function selectAllAttList(page){
 								value +=	"<td colspan='4'>미정</td>"
 							} else {
 								value +=	"<td>" + aList[i].empVacList[0].plusYearVac + "</td>"
-									   +    "<td>" + aList[i].empVacList[0].minusYearVac + "</td>"
-									   +    "<td>" + aList[i].empVacList[0].plusVac + "</td>"
-									   +    "<td>" + aList[i].empVacList[0].minusVac + "</td>"
+										+    "<td>" + aList[i].empVacList[0].minusYearVac + "</td>"
+										+    "<td>" +  aList[i].empVacList[0].gapYearVac  + "</td>"
+										+    "<td>" + aList[i].empVacList[0].plusVac + "</td>"
+										+    "<td>" + aList[i].empVacList[0].minusVac + "</td>"
+										+    "<td>" +  aList[i].empVacList[0].gapVac  + "</td>"
 							}
 								}
 								
@@ -169,7 +171,7 @@ function changeSelect(){
 							+  	 "<td>" +  aList[i].empNo + "</td>"
 							+  	 "<td>" +  aList[i].empName + "</td>"
 							+  	 "<td>" +  aList[i].grName + "</td>"
-							+  	 "<td>" +  aList[i].empEnrollDate.substr(0, 10) + "</td>"
+							+  	 "<td>" +  aList[i].empEnrollDate.substr(0, 11) + "</td>"
 							+  	 "<td>" +  aList[i].workYear + "</td>"
 							
 							if(aList[i].perYearMonthList[0].perYear === undefined) {
@@ -184,8 +186,10 @@ function changeSelect(){
 							} else {
 								value +=	"<td>" + aList[i].empVacList[0].plusYearVac + "</td>"
 										+    "<td>" + aList[i].empVacList[0].minusYearVac + "</td>"
+										+    "<td>" + "잔여연월차" + "</td>"
 										+    "<td>" + aList[i].empVacList[0].plusVac + "</td>"
 										+    "<td>" + aList[i].empVacList[0].minusVac + "</td>"
+										+    "<td>" + "잔여휴가" + "</td>"
 							}
 								}
 								

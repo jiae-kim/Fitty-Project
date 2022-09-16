@@ -5,22 +5,33 @@
 <resultMap id="vacationResult" type="Vacation">
 	<result column="plus_year_vac" property="plusYearVac"/>
 	<result column="minus_year_vac" property="minusYearVac"/>
+	<result column="gap_year_vac" property="gapYearVac"/>
 	<result column="plus_vac" property="plusVac"/>
 	<result column="minus_vac" property="minusVac"/>
+	<result column="gap_vac" property="gapVac"/>
 </resultMap>
 
 
 <select id="selectEmpVacList" resultMap="vacationResult">
   	select (select nvl(sum(vac_oper), 0)
             from tb_vacation
-            where emp_no = #{empNo}
+            where emp_no =#{empNo}
             and att_status in ('Y', 'H')
             and vac_status = 'P') as "PLUS_YEAR_VAC"
      , (select nvl(sum(vac_oper), 0)
             from tb_vacation
-            where emp_no = #{empNo}
+            where emp_no =#{empNo}
             and att_status in ('Y', 'H')
             and vac_status = 'M') as "MINUS_YEAR_VAC"
+     , ((select nvl(sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no =#{empNo}
+            and att_status in ('Y', 'H')
+            and vac_status = 'P') - (select nvl(sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no =#{empNo}
+            and att_status in ('Y', 'H')
+            and vac_status = 'M')) as "GAP_YEAR_VAC"
      , (select nvl(sum(vac_oper), 0)
             from tb_vacation
             where emp_no = #{empNo}
@@ -31,6 +42,15 @@
             where emp_no = #{empNo}
             and att_status in ('V')
             and vac_status = 'M') as "MINUS_VAC"
+      ,  ((select nvl(sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no = #{empNo}
+            and att_status in ('V')
+            and vac_status = 'P') - (select nvl( sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no = #{empNo}
+            and att_status in ('V')
+            and vac_status = 'M'))  as "GAP_VAC"
 	from tb_vacation
   </select>
   
