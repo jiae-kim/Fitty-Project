@@ -35,12 +35,12 @@ public class AlertController {
 		
 		System.out.println(a);
 		
-		//현재 마지막으로 실행된 alNo를 조회해오기 
-		int lastNo = aService.selectLastAlNo();
+		//다음에 실행될 alNo를 조회해오기 
+		int nextNo = aService.selectNextAlNo();
 		
 		String senderName = aService.selectSenderName(a.getAlSender());
 		
-	    a.setAlMsg("<a href='ckList2.mc?alNo=" + lastNo + "&alRecip="+ a.getAlRecip() +"'>"+ senderName + "님이 " + a.getAlListNo() + "번 기구점검을 처리완료 하였습니다.</a>");
+	    a.setAlMsg("<a href='ckList2.mc?alNo=" + nextNo + "&alRecip="+ a.getAlRecip() +"'>"+ senderName + "님이 " + a.getAlListNo() + "번 기구점검을 처리완료 하였습니다.</a>");
 		int result = aService.insertAlertM(a); 
 		
 		return result > 0 ? "success" : "fail";

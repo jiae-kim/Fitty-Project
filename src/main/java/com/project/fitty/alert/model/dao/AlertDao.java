@@ -25,9 +25,13 @@ public class AlertDao {
 	public String selectSenderName(SqlSessionTemplate sqlSession, String empNo) {
 		return sqlSession.selectOne("alertMapper.selectSenderName", empNo);
 	}
-
-    public int selectLastAlNo(SqlSessionTemplate sqlSession) {
+	
+	public int selectLastAlNo(SqlSessionTemplate sqlSession) {
     	return sqlSession.selectOne("alertMapper.selectLastAlNo");
+    }
+
+    public int selectNextAlNo(SqlSessionTemplate sqlSession) {
+    	return sqlSession.selectOne("alertMapper.selectNextAlNo");
     }
 
 }

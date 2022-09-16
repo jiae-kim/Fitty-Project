@@ -38,9 +38,14 @@ public class AlertService {
 		return aDao.selectSenderName(sqlSession, empNo);
 	}
 	
-	// 현재 마지막으로 실행된 alNo를 조회해오기 
+	// 현재 마지막으로 실행된 alNo조회해오기
 	public int selectLastAlNo() {
 		return aDao.selectLastAlNo(sqlSession);
+	}
+	
+	// 곧 실행될 alNo를 조회해오기 
+	public int selectNextAlNo() {
+		return aDao.selectNextAlNo(sqlSession);
 	}
 	
 }
