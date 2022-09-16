@@ -24,6 +24,7 @@
 		<!-- <typeAlias type="com.project.fitty.ptclass.model.vo.Reply" alias="Reply" /> -->
 		<typeAlias type="com.project.fitty.vacation.model.vo.Vacation" alias="Vacation"/>
 		<typeAlias type="com.project.fitty.userClass.model.vo.UserClass" alias="UserClass" />
+		<typeAlias type="com.project.fitty.userClass.model.vo.Diet" alias="Diet" />
 	</typeAliases>
 	
 	<!-- environment
