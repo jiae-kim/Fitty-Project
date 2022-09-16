@@ -28,8 +28,8 @@ public class EmployeeController {
 	@Autowired	
 	private EmployeeService eService;
 	
-	@Autowired	
-	private AlertService aService;
+	//@Autowired	
+	//private AlertService aService;
 	
 	
 	
@@ -45,9 +45,9 @@ public class EmployeeController {
 			return "main";
 		} else {
 			// 로그인한 회원의 아이디로 안읽은 메세지 불러오기[노희영]
-			ArrayList<Alert> msgList = aService.selectAlertList(loginUser.getEmpNo());
-			session.setAttribute("msgList", msgList);
-			System.out.println(msgList);
+			//ArrayList<Alert> msgList = aService.selectAlertList(loginUser.getEmpNo());
+			//session.setAttribute("msgList", msgList);
+			//System.out.println(msgList);
 			
 			// 사번이 맞은 경우 출퇴근 여부 확인
 			Employee attFlag = eService.attFlag(e);

@@ -131,6 +131,16 @@
 		#alertList a {
 		color:gray;
 		}
+		
+		#alertLabel{
+		  border-radius:50%;
+		  width:25%;
+		  height:25%;
+		  background-color:#03c3ec;
+		  position:absolute;
+		  bottom:-3px;
+		  right:-3px;
+}
         
     </style>
 <meta name="description" content="" />
@@ -173,11 +183,8 @@
 	  <!-- Small Modal [알림 메세지 모달]-->
     <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true" >
       <div class="modal-dialog modal-sm" id="area1" role="document" style="position:absolute;right:7%;top:10%;" >
-      <c:choose>
-      <c:when test="${ not empty msgList }">
-        <div class="modal-content" id="modalContent1" >
+        <div class="modal-content" id="modalContent" >
           <div class="modal-header" >
-            
             🔔&nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
             <button
               type="button"
@@ -187,36 +194,47 @@
             ></button>
           </div>
           <div class="modal-body" id="alertList">
-          <c:forEach var="msg" items="${msgList }">
-  		  	<span>${ msg.alMsg }</span>
-  		  	<span class="badge bg-label-primary" style="float:right;">${ msg.alDate }</span> <br><br>
-          </c:forEach>
+          
           </div>
         </div>
-        </c:when>
-        <c:otherwise>
-	        <div class="modal-content" id="modalContent2" >
-	          <div class="modal-header">
-	            
-	            🔔&nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
-	            <button
-	              type="button"
-	              class="btn-close"
-	              data-bs-dismiss="modal"
-	              aria-label="Close"
-	            ></button>
-	          </div>
-	          <div class="modal-body" id="alertList">
-	          <div style="text-align:center;">신규 알림 내용이 없습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-	          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
-	          	<br><br><br>
-	          </div>
-	        </div>
-        </c:otherwise>
-        </c:choose>
       </div>
     </div>
+    
+    <script>
+    	$(function(){
+    		$.ajax({
+    			url:"alist.at",
+    			data:{
+    				alRecip:'${ loginUser.empNo }'
+    			},
+    			success:function(list){
+    				
+    				console.log(list);
+					
+    				let value = "";
+    				if(list.length == 0){
+    					value += 
+    						'<div style="text-align:center;">신규 알림 내용이 없습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    				         + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    				         + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>'
+    				         + 	'<br><br><br>'
+    				}else{
+    					for(let i=0; i<list.length; i++){
+    						value +=
+    							'<span>' +  list[i].alMsg +'</span>'
+    				  		  	+ '<span class="badge bg-label-primary" style="float:right;">' + list[i].alDate + '</span>' 
+    					}
+    					
+    				}
+    				$('#alertList').html(value);
+    				
+    			},
+    			error:function(){
+    				console.log("알림리스트 조회용 ajax통신 실패");
+    				}
+    			})
+    	})
+    </script>
 
 <!-- Layout wrapper -->
 	<c:if test="${ not empty alertMsg }">
@@ -606,27 +624,9 @@
                     <button id="alertListBtn" type="button" data-bs-toggle="modal" data-bs-target="#smallModal"
                            style="position:absolute; top:0px;bottom:0px;right:0px;left:0px;
                                   border=0;opacity:0;"></button>
-                        <c:choose>
-                        <c:when test="${ empty msgList }">
-                    	<label id="alertLabel" style="border-radius:50%;
-                    				  width:25%;
-                    				  height:25%;
-                    				  background-color:#03c3ec;
-                    				  position:absolute;
-                    				  bottom:-3px;
-                    				  right:-3px;
-                    				  display:none;"></label>
-                        </c:when>
-                        <c:otherwise>
-                    	<label id="alertLabel" style="border-radius:50%;
-                    				  width:25%;
-                    				  height:25%;
-                    				  background-color:#03c3ec;
-                    				  position:absolute;
-                    				  bottom:-3px;
-                    				  right:-3px;"></label>
-                        </c:otherwise>
-                        </c:choose>
+                        
+                   	<label id="alertLabel" style="display:none;"></label>
+                        
                     				  
                     </i>
                 </li>
