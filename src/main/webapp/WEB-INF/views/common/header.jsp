@@ -173,6 +173,8 @@
 	  <!-- Small Modal [알림 메세지 모달]-->
     <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true" >
       <div class="modal-dialog modal-sm" role="document" style="position:absolute;right:7%;top:10%;" >
+      <c:choose>
+      <c:when test="${ not empty msgList }">
         <div class="modal-content" >
           <div class="modal-header">
             
@@ -187,25 +189,39 @@
           <div class="modal-body" id="alertList">
           <c:forEach var="msg" items="${msgList }">
   		  	<span>${ msg.alMsg }</span>
-  		  	<c:choose>
-  		  	<c:when test="${ msg.alReadYn eq 'N' }">
-  		  		<span class="badge rounded-pill bg-label-secondary">안읽음</span>
-  		  	</c:when>
-  		  	<c:otherwise>
-  		  		<span class="badge rounded-pill bg-label-primary">읽음</span>
-  		  	</c:otherwise>
-  		  	</c:choose>
-  		  	<span class="badge bg-label-info" style="float:right;">${ msg.alDate }</span> <br><br>
+  		  	<span class="badge bg-label-primary" style="float:right;">${ msg.alDate }</span> <br><br>
           </c:forEach>
           </div>
         </div>
+        </c:when>
+        <c:otherwise>
+	        <div class="modal-content" >
+	          <div class="modal-header">
+	            
+	            🔔&nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
+	            <button
+	              type="button"
+	              class="btn-close"
+	              data-bs-dismiss="modal"
+	              aria-label="Close"
+	            ></button>
+	          </div>
+	          <div class="modal-body" id="alertList">
+	          <div style="text-align:center;">신규 알림 내용이 없습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+	          	<br><br><br>
+	          </div>
+	        </div>
+        </c:otherwise>
+        </c:choose>
       </div>
     </div>
 
 <!-- Layout wrapper -->
 	<c:if test="${ not empty alertMsg }">
 		<script>
-			alertify.alert("${ alertMsg }");
+			alertify.alert("${ alertMsg }").setHeader('');
 		</script>
 		<!-- 1회성 메시지 지우기 -->
 		<c:remove var="alertMsg" scope="session"/>
@@ -320,8 +336,13 @@
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="auth-register-basic.html" class="menu-link" target="_blank">
+<<<<<<< HEAD
+                  <a href="enrollForm.ca" class="menu-link" target="_blank">
                     <div data-i18n="Basic" class="small-menu-label">스케줄 등록</div>
+=======
+                  <a href="auth-register-basic.html" class="menu-link" target="_blank">
+                    <div data-i18n="Basic" class="small-menu-label">스케쥴관리 소메뉴 2</div>
+>>>>>>> f22bd7489c990d9dec71799eb97a522da48bd203
                   </a>
                 </li>
                 <li class="menu-item">
