@@ -331,12 +331,12 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="list.ca" class="menu-link" target="_blank">
+                  <a href="list.ca" class="menu-link">
                     <div data-i18n="Basic" class="small-menu-label">스케줄 조회</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="enrollForm.ca" class="menu-link" target="_blank">
+                  <a href="enrollForm.ca" class="menu-link">
                     <div data-i18n="Basic" class="small-menu-label">스케줄 등록</div>
                   </a>
                 </li>
