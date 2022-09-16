@@ -18,12 +18,12 @@ public class ScheduleServiceImpl implements ScheduleService{
 	@Autowired
 	private ScheduleDao bDao;
 	
-	@Override // [김지애] 직원용 - 스케줄 전체조회 서비스
+	@Override // [김지애] 1. 직원용 - 스케줄 전체조회 서비스
 	public ArrayList<Booking> selectList() {
 		return null;
 	}
 	
-	@Override
+	@Override // [김지애] 2. 직원용 - 스케줄 등록 서비스
 	public int insertSchedule(Booking b) {
 		return 0;
 	}
