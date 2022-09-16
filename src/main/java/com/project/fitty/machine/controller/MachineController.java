@@ -116,7 +116,7 @@ public class MachineController {
 
 		return "machine/machineCheckList";
 	}
-
+	
 	@RequestMapping("ckEnrollForm.mc") /** 기구 점검폼 **/
 	public String selectCkEnrollForm(Model model) {
 

@@ -30,6 +30,11 @@ public class ProductServiceImpl implements ProductService{
 	}
 	
 	@Override // [김지애] 2. 헬스장이용권 등록 서비스
+	public ArrayList<Product> selectProductList() {
+		return pDao.selectProductList(sqlSession);
+	}
+	
+	@Override 
 	public int insertProduct(Product p) {
 		return pDao.insertProduct(sqlSession, p);
 	}
@@ -43,11 +48,15 @@ public class ProductServiceImpl implements ProductService{
 	public int updateProduct(Product p) {
 		return pDao.updateProduct(sqlSession, p);
 	}
-
+	
 	@Override // [김지애] 4. 헬스장이용권 삭제 서비스
-	public int deleteProduct(int proNo) {
-		return 0;
+	public int deleteProduct(String proNo) {
+		return pDao.deleteProduct(sqlSession, proNo);
 	}
 
+	@Override // [김지애] 5. 회원등록 서비스 - 이용권 조회
+	public ArrayList<Product> selectProList() {
+		return pDao.selectProList(sqlSession);
+	}
 
 }

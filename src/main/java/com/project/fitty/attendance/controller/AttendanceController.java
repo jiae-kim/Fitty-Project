@@ -294,28 +294,22 @@ public class AttendanceController {
 	@RequestMapping(value="vacList.att", produces="application/json; charset=utf-8")
 	public String goVacControlAtt(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, String addSql, String sqlEmpName, String searchFlag) {
 		int listCount = 0;
+		HashMap <String, Object> sqlMap = new HashMap<String, Object>();
+		sqlMap.put("addSql", addSql);
+		sqlMap.put("sqlEmpName", sqlEmpName);
 		
 		if(searchFlag.equals("N")) {
 			// 맨 처음 호출될때
 			listCount = eService.selectEmpListCount();
-			System.out.println(searchFlag + listCount);
 		} else {
 			// 서치된 값으로 호출될때 searchFlag = Y
-			Employee sqlEmp = new Employee();
-			sqlEmp.setAddSql(addSql);
-			sqlEmp.setSqlEmpName(sqlEmpName);
-			listCount = eService.selectVacSearchListCount(sqlEmp);
-			System.out.println(searchFlag + listCount);
+			listCount = eService.selectVacSearchListCount(sqlMap);
 		}
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-		pi.setAddSql(addSql);
-		pi.setSqlEmpName(sqlEmpName);
-		System.out.println(pi);
-		ArrayList<Attendance> aList = aService.selectVacList(pi);
-		System.out.println(pi.getAddSql());
-		System.out.println(pi.getSqlEmpName());
-		System.out.println(aList);
+		
+		
+		ArrayList<Attendance> aList = aService.selectVacList(pi, sqlMap);
 		
 		Calendar calendar = Calendar.getInstance();
 		int tYear = Calendar.getInstance().get(Calendar.YEAR);
@@ -354,7 +348,6 @@ public class AttendanceController {
 	@ResponseBody
 	@RequestMapping(value="orderByVac.att", produces="application/json; charset=utf-8")
 	public String selectOrderByVac(String orderByWorkTime, String orderByAtt, String searchText, HttpSession session) {
-		System.out.println("실행됨");
 		String searchFlag = "Y";
 		return goVacControlAtt(1, session, orderByWorkTime, searchText, searchFlag );
 		
@@ -371,6 +364,7 @@ public class AttendanceController {
 	public String goEnrollForm() {
 		return "attendance/employeeEnrollForm";
 	}
+	
 	
 	
 	

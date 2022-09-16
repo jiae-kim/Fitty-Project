@@ -1,6 +1,7 @@
 package com.project.fitty.employee.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -62,8 +63,8 @@ public class EmployeeDao {
 	}
 	
 	// sql 문에 해당하는 직원카운트만 불러오기
-	public int selectVacSearchListCount(SqlSessionTemplate sqlSession, Employee sqlEmp) {
-		return sqlSession.selectOne("employeeMapper.selectVacSearchListCount", sqlEmp);
+	public int selectVacSearchListCount(SqlSessionTemplate sqlSession, HashMap <String, Object> sqlMap) {
+		return sqlSession.selectOne("employeeMapper.selectVacSearchListCount", sqlMap);
 	}
 	
 	
@@ -88,5 +89,17 @@ public class EmployeeDao {
 	public int deleteEmployee(SqlSessionTemplate sqlSession, String empNo) {
 		return sqlSession.update("employeeMapper.deleteEmployee", empNo);
 	}
+	
+	// 모달오픈용 empNameSelect
+	public ArrayList<Employee> openVacModalSelectEmpName(SqlSessionTemplate sqlSession, String empNo) {
+		return (ArrayList)sqlSession.selectList("employeeMapper.openVacModalSelectEmpName", empNo);
+	}
+	
+	
+	// 직원 정보수정
+	public int updateEmployee(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.updateEmployee", e);
+	}
+	
 	
 }

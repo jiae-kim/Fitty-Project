@@ -5,11 +5,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.project.fitty.alert.model.service.AlertService;
 import com.project.fitty.employee.model.vo.Employee;
 
 public class EcoHandler extends TextWebSocketHandler {
@@ -17,12 +19,15 @@ public class EcoHandler extends TextWebSocketHandler {
 	List<WebSocketSession> sessions = new ArrayList<>();
 	Map<String, WebSocketSession> userSessions = new HashMap<>();
 	
+	@Autowired
+	private AlertService aService;
+	
 
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception{
 		
-		System.out.println("웹소켓 연결된 클라이언트 session : " + session);
-		System.out.println("ㄴ 이 사람의 정보 : " + session.getAttributes());
+		//System.out.println("웹소켓 연결된 클라이언트 session : " + session);
+		//System.out.println("ㄴ 이 사람의 정보 : " + session.getAttributes());
 		sessions.add(session);
 		String senderId = getId(session);
 		userSessions.put(senderId, session);
@@ -52,23 +57,33 @@ public class EcoHandler extends TextWebSocketHandler {
 			String trainer = strs[2];
 			String ckNo = strs[3];
 			
-			System.out.println("cmd 내용 >>>>>" + cmd);
-			System.out.println("trainer 이름 >>>>>" + trainer);
-			System.out.println("userSessions에 누가있는지 >>>>>" + userSessions);
-			
 			WebSocketSession trainerSession = userSessions.get(trainer); // 점검을 작성한 트레이너가 세션에 있는지 뽑는거 있으면 값이 담기고 없으면 null
 			
-			System.out.println("trainerSession>>>>> " + trainerSession );
 			
-			// 현재 admin은 사번이기 때문에 이름을 보내주려면 서비스에 요청해서 DB에서 조회해와야함
-			//String adminName = aService.selectAdminMc(admin);
 			
 			if(cmd.equals("machine") && trainerSession != null) {
-				TextMessage tmpMsg = new TextMessage("<a href='ckList.mc'>"+ admin + "님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
+				
+				//사번으로 이름 조회해오기
+				admin = aService.selectSenderName(admin);
+				
+				//현재 마지막으로 실행된 alNo를 조회해오기 
+				int lastNo = aService.selectLastAlNo(); 
+				
+				TextMessage tmpMsg = new TextMessage("<a href='ckList2.mc?alNo=" + lastNo + "&alRecip="+ trainer +"'>"+ admin + "님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
+				
+				
 				trainerSession.sendMessage(tmpMsg);
 				
 				System.out.println(">>>>>>클라이언트로 메세지 보내기 성공 ");
+				
+				
 			}
+			
+			// if (cmd.equals("")
+			
+			// if (cmd.equals("")
+			
+			
 		}
 	}
 
@@ -87,7 +102,7 @@ public class EcoHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception{
 		
-		System.out.println("웹소켓 나간 클라이언트 session : " + session);
+		//System.out.println("웹소켓 나간 클라이언트 session : " + session);
 	}
 	
 	

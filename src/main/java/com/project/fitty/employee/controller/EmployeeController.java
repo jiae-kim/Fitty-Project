@@ -8,15 +8,17 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
 
 import com.google.gson.Gson;
-import com.project.fitty.common.model.vo.PageInfo;
+import com.project.fitty.alert.model.service.AlertService;
+import com.project.fitty.alert.model.vo.Alert;
 import com.project.fitty.common.template.FileUpload;
-import com.project.fitty.common.template.Pagination;
 import com.project.fitty.employee.model.service.EmployeeService;
 import com.project.fitty.employee.model.vo.Employee;
 
@@ -26,6 +28,9 @@ public class EmployeeController {
 	@Autowired	
 	private EmployeeService eService;
 	
+	@Autowired	
+	private AlertService aService;
+	
 	
 	
 	@RequestMapping("login.emp")
@@ -33,13 +38,20 @@ public class EmployeeController {
 		
 		Employee loginUser = eService.loginEmployee(e);
 		
+		
 		if(loginUser == null) {
 			// 애초에 사번부터 틀렸을 경우
 			session.setAttribute("alertMsg", "사번을 다시 확인해주세요.");
 			return "main";
 		} else {
+			// 로그인한 회원의 아이디로 안읽은 메세지 불러오기[노희영]
+			ArrayList<Alert> msgList = aService.selectAlertList(loginUser.getEmpNo());
+			session.setAttribute("msgList", msgList);
+			System.out.println(msgList);
+			
 			// 사번이 맞은 경우 출퇴근 여부 확인
 			Employee attFlag = eService.attFlag(e);
+			
 			loginUser.setAttIn(attFlag.getAttIn());
 			loginUser.setAttOut(attFlag.getAttOut());
 			session.setAttribute("loginUser", loginUser);
@@ -47,11 +59,8 @@ public class EmployeeController {
 		}
 		
 	}
-	
-	
-	
-	
-	
+		
+
 	@ResponseBody
 	@RequestMapping("nextEmpNo.emp")
 	public String selectNextEmpNo() {
@@ -127,11 +136,43 @@ public class EmployeeController {
 		}
 		}
 	
-	
-	
-	
-	
-	
 
+	@RequestMapping("select.emp")
+	public String selectEmployee() {
+		
+		System.out.println("ㅎㅎ");
+		return "employee/empMyPage";
+	}
+	
+	@RequestMapping("update.emp")
+	public String updateEmployee(Employee e, Model model, HttpSession session) {
+		
+		int result = eService.updateEmployee(e);
+		
+		if(result > 0) { // 수정 성공
+			
+			// db로부터 갱신된 회원 정보를 다시 조회해와서 session에 담기
+			//Employee updateEmployee = eService.loginEmployee(e);
+			session.setAttribute("loginUser", eService.loginEmployee(e));
+			session.setAttribute("alertMsg", "성공적으로 회원정보 변경되었습니다.");
+			
+			// 마이페이지 url재요청
+			return "redirect:select.emp";
+			
+		}else { // 수정 실패
+			model.addAttribute("errorMsg", "회원정보 변경 실패");
+			return "common/errorPage";
+		}	
+	
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="openVacModal.emp", produces="application/json; charset=utf-8")
+	public String openVacModalSelectEmpName(String empNo, HttpSession session) {
+		ArrayList<Employee> empList = eService.openVacModalSelectEmpName(empNo);
+		return new Gson().toJson(empList);
+		
+	}
 	
 }
+

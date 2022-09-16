@@ -12,6 +12,7 @@ public interface ProductService {
 	ArrayList<Product> selectList(PageInfo pi);
 	
 	// [김지애] 2. 헬스장이용권 등록 서비스
+	ArrayList<Product> selectProductList();
 	int insertProduct(Product p);
 	
 	// [김지애] 3. 헬스장이용권 수정 서비스
@@ -19,6 +20,8 @@ public interface ProductService {
 	int updateProduct(Product p);
 	
 	// [김지애] 4. 헬스장이용권 삭제 서비스
-	// 상품번호만 전달받아 상태 update
-	int deleteProduct(int proNo);
+	int deleteProduct(String proNo);
+	
+	// [김지애] 5. 회원등록 서비스 - 이용권 조회
+	ArrayList<Product> selectProList();
 }

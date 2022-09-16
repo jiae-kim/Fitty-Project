@@ -2,6 +2,7 @@ package com.project.fitty.attendance.model.service;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.project.fitty.attendance.model.vo.Attendance;
 import com.project.fitty.common.model.vo.PageInfo;
@@ -45,7 +46,7 @@ public interface AttendanceService {
 	
 	
 	//휴가 연차 관리 기본 aList 구하기
-	ArrayList<Attendance> selectVacList(PageInfo pi);
+	ArrayList<Attendance> selectVacList(PageInfo pi, HashMap <String, Object> sqlMap);
 	
 	// 기본 a리스트 각 멤버당 년,월 근태퍼센트
 	ArrayList<Attendance> selectPerYearMonthList(Attendance a);

@@ -18,20 +18,25 @@
 </resultMap>
 
 	<select id="loginEmployee" resultMap="employeeResult">
-		select   emp_no
-			   , emp_name
-			   , emp_grade
-			   , emp_gender
-			   , emp_mail
-			   , emp_phone
-			   , emp_birth
-			   , emp_status
-			   , emp_photo
-			   , emp_enroll_date
-			   , emp_modify_date
-		  from   tb_emp
-		 where   emp_no = #{empNo}
-		   and  emp_status = 'Y'
+		select distinct e.emp_no
+			   , e.emp_name
+			   , e.emp_grade
+			   , e.emp_gender
+			   , e.emp_mail
+			   , e.emp_phone
+			   , e.emp_birth
+			   , e.emp_status
+			   , e.emp_photo
+			   , e.emp_enroll_date
+			   , e.emp_modify_date
+               , a.att_date
+			   , nvl(a.att_in, 0)
+			   , nvl(a.att_out, 0)
+		  from   tb_emp e
+		  join   tb_att a on (a.emp_no = e.emp_no)
+		 where   e.emp_no = #{empNo}
+		   and  e.emp_status = 'Y'
+           and  a.att_date = to_char(sysdate, 'yyyy-mm-dd')
 	</select>
 	
 	
@@ -161,6 +166,27 @@
 	  	 where emp_no in (${empNo})
 	  </update>
 	  
-	
+	  <select id="openVacModalSelectEmpName" resultMap="employeeResult">
+		  select emp_name
+		  	   , emp_no
+		    from tb_emp
+		    <if test="empNo != null">
+		   		where emp_no in (${empNo})
+			</if>
+	  </select>
+	  
+	  
+  <update id="updateEmployee">
+   	update 
+   			tb_emp
+	   set	emp_name = #{empName}
+	 	  , emp_grade = #{empGrade}
+		  , emp_gender = #{empGender}
+		  , emp_phone = #{empPhone}
+		  , emp_birth = #{empBirth}
+	  where emp_no = #{empNo}
+  </update>
+  
+
 
 </mapper>

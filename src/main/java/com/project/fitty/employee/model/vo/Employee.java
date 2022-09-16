@@ -42,8 +42,5 @@ public class Employee {
 	private String attOut;
 	private String attFlag;
 	private String nowTime;
-	
-	private String addSql;
-	private String sqlEmpName;
 
 }

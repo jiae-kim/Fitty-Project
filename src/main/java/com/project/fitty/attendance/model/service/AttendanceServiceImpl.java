@@ -1,6 +1,7 @@
 package com.project.fitty.attendance.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,8 +123,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 	}
 
 	@Override
-	public ArrayList<Attendance> selectVacList(PageInfo pi) {
-		return aDao.selectVacList(sqlSession, pi);
+	public ArrayList<Attendance> selectVacList(PageInfo pi, HashMap <String, Object> sqlMap) {
+		return aDao.selectVacList(sqlSession, pi, sqlMap );
 	}
 
 	@Override

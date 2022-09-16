@@ -128,6 +128,9 @@
 		#socketContent a {
 			color:white !important;
 		}
+		#alertList a {
+		color:gray;
+		}
         
     </style>
 <meta name="description" content="" />
@@ -166,17 +169,65 @@
 	  </div>
 	  <div class="toast-body" id="socketContent"></div>
 	</div>
+	
+	  <!-- Small Modal [알림 메세지 모달]-->
+    <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true" >
+      <div class="modal-dialog modal-sm" role="document" style="position:absolute;right:7%;top:10%;" >
+      <c:choose>
+      <c:when test="${ not empty msgList }">
+        <div class="modal-content" >
+          <div class="modal-header">
+            
+            🔔&nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="alertList">
+          <c:forEach var="msg" items="${msgList }">
+  		  	<span>${ msg.alMsg }</span>
+  		  	<span class="badge bg-label-primary" style="float:right;">${ msg.alDate }</span> <br><br>
+          </c:forEach>
+          </div>
+        </div>
+        </c:when>
+        <c:otherwise>
+	        <div class="modal-content" >
+	          <div class="modal-header">
+	            
+	            🔔&nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
+	            <button
+	              type="button"
+	              class="btn-close"
+	              data-bs-dismiss="modal"
+	              aria-label="Close"
+	            ></button>
+	          </div>
+	          <div class="modal-body" id="alertList">
+	          <div style="text-align:center;">신규 알림 내용이 없습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+	          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+	          	<br><br><br>
+	          </div>
+	        </div>
+        </c:otherwise>
+        </c:choose>
+      </div>
+    </div>
 
 <!-- Layout wrapper -->
 	<c:if test="${ not empty alertMsg }">
 		<script>
-			alertify.alert("${ alertMsg }");
+			alertify.alert("${ alertMsg }").setHeader('');
 		</script>
 		<!-- 1회성 메시지 지우기 -->
 		<c:remove var="alertMsg" scope="session"/>
 	</c:if>
     <div class="layout-wrapper layout-content-navbar" style="position:relative">
-      <div class="layout-container">
+      <div class="layout-container" >
         <!-- Menu -->
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
@@ -280,13 +331,13 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="auth-login-basic.html" class="menu-link" target="_blank">
-                    <div data-i18n="Basic" class="small-menu-label">스케쥴관리 소메뉴 1</div>
+                  <a href="list.ca" class="menu-link" target="_blank">
+                    <div data-i18n="Basic" class="small-menu-label">스케줄 조회</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                    <div data-i18n="Basic" class="small-menu-label">스케쥴관리 소메뉴 2</div>
+                  <a href="enrollForm.ca" class="menu-link" target="_blank">
+                    <div data-i18n="Basic" class="small-menu-label">스케줄 등록</div>
                   </a>
                 </li>
                 <li class="menu-item">
@@ -396,6 +447,8 @@
           </ul>
         </aside>
         <!-- / Menu -->
+        
+    
 
         <!-- Layout container -->
         <div class="layout-page"  style="margin-top: 20px;">
@@ -451,7 +504,7 @@
                             <div class="dropdown-divider"></div>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="select.emp">
                             <i class="bx bx-user me-2"></i>
                             <span class="align-middle">My Profile</span>
                             </a>
@@ -559,8 +612,38 @@
                     <i class='bx bx-message-rounded-dots'></i>
                 </li>
                 <li class="nav-item lh-1 me-3">
-                    <i class='bx bx-bell' ></i>
+                    <i class='bx bx-bell' id="alertIcon" style="position:relative;">
+                    <button id="alertListBtn" type="button" data-bs-toggle="modal" data-bs-target="#smallModal"
+                           style="position:absolute; top:0px;bottom:0px;right:0px;left:0px;
+                                  border=0;opacity:0;"></button>
+                        <c:choose>
+                        <c:when test="${ empty msgList }">
+                    	<label id="alertLabel" style="border-radius:50%;
+                    				  width:25%;
+                    				  height:25%;
+                    				  background-color:#03c3ec;
+                    				  position:absolute;
+                    				  bottom:-3px;
+                    				  right:-3px;
+                    				  display:none;"></label>
+                        </c:when>
+                        <c:otherwise>
+                    	<label id="alertLabel" style="border-radius:50%;
+                    				  width:25%;
+                    				  height:25%;
+                    				  background-color:#03c3ec;
+                    				  position:absolute;
+                    				  bottom:-3px;
+                    				  right:-3px;"></label>
+                        </c:otherwise>
+                        </c:choose>
+                    				  
+                    </i>
                 </li>
+                
+
+                
+                
 				
 				<script>
 				
@@ -672,6 +755,8 @@
     var socket = null;
     
 	$(function(){
+		
+		
 		connectWS();
 	})
 	
@@ -706,7 +791,7 @@
 	   		
 	   		setTimeout(function(){
 	   			$socketAlert.css('display', 'none');
-	   		}, 7000);
+	   		}, 3000);
 	   		
 		}
 		

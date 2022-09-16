@@ -4,8 +4,11 @@ import java.util.ArrayList;
 
 import com.project.fitty.approval.model.vo.Approval;
 import com.project.fitty.common.model.vo.PageInfo;
+import com.project.fitty.employee.model.vo.Employee;
 
 public interface ApprovalService {
+	// 직원리스트
+	ArrayList<Employee> selectEmpList();
 	
 	// 기안문서함(페이징)
 	int selectListCount(String empNo);
