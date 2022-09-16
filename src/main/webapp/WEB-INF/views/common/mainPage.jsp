@@ -12,8 +12,7 @@
 <body>
 <jsp:include page="../common/header.jsp"/>
 
-	<input type="text" class="form-control" id="msg" placeholder="웹소켓 실험" name="" value="">
-	<button id="btnSend" class="btn btn-primary me-2">send</button>
+
 	
 	
 	<script>

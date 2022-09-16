@@ -172,11 +172,11 @@
 	
 	  <!-- Small Modal [알림 메세지 모달]-->
     <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true" >
-      <div class="modal-dialog modal-sm" role="document" style="position:absolute;right:7%;top:10%;" >
+      <div class="modal-dialog modal-sm" id="area1" role="document" style="position:absolute;right:7%;top:10%;" >
       <c:choose>
       <c:when test="${ not empty msgList }">
-        <div class="modal-content" >
-          <div class="modal-header">
+        <div class="modal-content" id="modalContent1" >
+          <div class="modal-header" >
             
             🔔&nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
             <button
@@ -195,7 +195,7 @@
         </div>
         </c:when>
         <c:otherwise>
-	        <div class="modal-content" >
+	        <div class="modal-content" id="modalContent2" >
 	          <div class="modal-header">
 	            
 	            🔔&nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
@@ -701,7 +701,25 @@
 							  function(){
 							    
 							  });
+					 
+				
 				 }
+				/*  $(function(){
+					 $("#alertListBtn").click(function(){
+						 $.ajax({
+		            			url:"alist.at",
+		            			data:{
+		            				alRecip:'${ loginUser.empNo }'
+		            			},
+		            			success:function(list){
+		            				
+		            				console.log(list);
+									
+		            				let value="";
+		            				
+		            				
+		            			}
+				 }) */
 				</script>
 
                 

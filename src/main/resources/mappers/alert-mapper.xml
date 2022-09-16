@@ -51,7 +51,7 @@
 		  where al_recip = #{alRecip}
 		    and al_read_yn = 'N'
 		  order
-		     by al_date 
+		     by al_date desc 
 	</select>
 	
 	<update id="updateReadYn">
