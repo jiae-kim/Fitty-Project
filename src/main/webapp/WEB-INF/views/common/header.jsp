@@ -336,13 +336,8 @@
                   </a>
                 </li>
                 <li class="menu-item">
-<<<<<<< HEAD
                   <a href="enrollForm.ca" class="menu-link" target="_blank">
                     <div data-i18n="Basic" class="small-menu-label">스케줄 등록</div>
-=======
-                  <a href="auth-register-basic.html" class="menu-link" target="_blank">
-                    <div data-i18n="Basic" class="small-menu-label">스케쥴관리 소메뉴 2</div>
->>>>>>> f22bd7489c990d9dec71799eb97a522da48bd203
                   </a>
                 </li>
                 <li class="menu-item">
