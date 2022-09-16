@@ -13,6 +13,11 @@
 		<result column="al_sender" property="alSender"/>
 	</resultMap>
 	
+	<resultMap id="EmployeeResult" type="Employee">
+	<result column="emp_name" property="empName" />
+	<result column="emp_no" property="empNo" />
+	</resultMap>
+	
 	
 	<insert id="insertAlertM">
 		insert
@@ -41,9 +46,29 @@
 			  , al_list_no
 			  , al_date
 			  , al_sender
+			  , al_read_yn
 		   from tb_push_alert
-		  where al_read_yn = 'N'
-		    and al_recip = #{alRecip}  
+		  where al_recip = #{alRecip}
+		  order
+		     by al_date  
 	</select>
+	
+	<update id="updateReadYn">
+		update
+				tb_push_alert
+		    set al_read_yn = 'Y'
+		  where al_no = #{alNo}
+	</update>
 
+	<select id="selectSenderName" resultType="String">
+		select emp_name
+		  from tb_emp
+		 where emp_no = #{empNo}
+	</select>
+	
+	<select id="selectLastAlNo" resultType="_int">
+		select last_number "al_no" 
+		  from user_sequences 
+		 where sequence_name = 'SEQ_AL_NO'
+	</select>
 </mapper>

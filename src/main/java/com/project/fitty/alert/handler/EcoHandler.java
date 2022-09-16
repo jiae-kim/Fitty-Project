@@ -5,17 +5,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.socket.CloseStatus;
 import org.springframework.web.socket.TextMessage;
 import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
+import com.project.fitty.alert.model.service.AlertService;
 import com.project.fitty.employee.model.vo.Employee;
 
 public class EcoHandler extends TextWebSocketHandler {
 	
 	List<WebSocketSession> sessions = new ArrayList<>();
 	Map<String, WebSocketSession> userSessions = new HashMap<>();
+	
+	@Autowired
+	private AlertService aService;
 	
 
 	@Override
@@ -55,14 +60,23 @@ public class EcoHandler extends TextWebSocketHandler {
 			WebSocketSession trainerSession = userSessions.get(trainer); // 점검을 작성한 트레이너가 세션에 있는지 뽑는거 있으면 값이 담기고 없으면 null
 			
 			
-			// 현재 admin은 사번이기 때문에 이름을 보내주려면 서비스에 요청해서 DB에서 조회해와야함
-			//String adminName = aService.selectAdminMc(admin);
 			
 			if(cmd.equals("machine") && trainerSession != null) {
-				TextMessage tmpMsg = new TextMessage("<a href='ckList.mc'>"+ admin + "님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
+				
+				//사번으로 이름 조회해오기
+				admin = aService.selectSenderName(admin);
+				
+				//현재 마지막으로 실행된 alNo를 조회해오기 
+				int alNo = aService.selectLastAlNo(); // 다음에 nextval될 숫자를 가져오는거 
+				
+				TextMessage tmpMsg = new TextMessage("<a href='ckList2.mc?alNo=" + alNo + "&alRecip="+ trainer +"'>"+ admin + "님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
+				
+				
 				trainerSession.sendMessage(tmpMsg);
 				
 				System.out.println(">>>>>>클라이언트로 메세지 보내기 성공 ");
+				
+				
 			}
 			
 			// if (cmd.equals("")
