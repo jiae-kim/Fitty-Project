@@ -2,6 +2,7 @@ package com.project.fitty.employee.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,7 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+
+import com.google.gson.Gson;
 import com.project.fitty.alert.model.service.AlertService;
 import com.project.fitty.alert.model.vo.Alert;
 import com.project.fitty.common.template.FileUpload;
@@ -25,8 +29,8 @@ public class EmployeeController {
 	@Autowired	
 	private EmployeeService eService;
 	
-	@Autowired	
-	private AlertService aService;
+	//@Autowired	
+	//private AlertService aService;
 	
 	
 	
@@ -42,9 +46,9 @@ public class EmployeeController {
 			return "main";
 		} else {
 			// 로그인한 회원의 아이디로 안읽은 메세지 불러오기[노희영]
-			ArrayList<Alert> msgList = aService.selectAlertList(loginUser.getEmpNo());
-			session.setAttribute("msgList", msgList);
-			System.out.println(msgList);
+			//ArrayList<Alert> msgList = aService.selectAlertList(loginUser.getEmpNo());
+			//session.setAttribute("msgList", msgList);
+			//System.out.println(msgList);
 			
 			// 사번이 맞은 경우 출퇴근 여부 확인
 			Employee attFlag = eService.attFlag(e);
@@ -159,6 +163,13 @@ public class EmployeeController {
 	
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="openVacModal.emp", produces="application/json; charset=utf-8")
+	public String openVacModalSelectEmpName(String empNo, HttpSession session) {
+		ArrayList<Employee> empList = eService.openVacModalSelectEmpName(empNo);
+		return new Gson().toJson(empList);
+		
+	}
 	
 }
 

@@ -166,6 +166,16 @@
 	  	 where emp_no in (${empNo})
 	  </update>
 	  
+	  <select id="openVacModalSelectEmpName" resultMap="employeeResult">
+		  select emp_name
+		  	   , emp_no
+		    from tb_emp
+		    <if test="empNo != null">
+		   		where emp_no in (${empNo})
+			</if>
+	  </select>
+	  
+	  
   <update id="updateEmployee">
    	update 
    			tb_emp

@@ -22,8 +22,20 @@ $(function(){
 	
 })
 
-function selectAllAttList(page){
+function checkAll() {
+         if($("#choiceAll").is(':checked')) {
+            $("#memListTBody :checkbox:not(:disabled)").prop("checked", true);
+            $("tfoot :checkbox").prop("checked", true);
+         } else {
+            $("#memListTBody :checkbox:not(:disabled)").prop("checked", false);
+            $("tfoot :checkbox").prop("checked", false);
+         }
+      }  
 
+function selectAllAttList(page){
+		
+		$("input:radio[name='orderByPercent']:radio[value='selectAll']").prop('checked', true); 
+		
 		$.ajax({
 			url: "vacList.att",
 			data:{
@@ -107,6 +119,7 @@ function selectAllAttList(page){
 					
 					$("#memListTBody").html(value);
 					$(".pagination").html(pageValue);
+					$("#selectAll").attr("checked", true);
 			}
 		,error:function(){
 				console.log("페이지 로딜 리스트 조회용 ajax통신 실패"); 
@@ -123,8 +136,7 @@ function changeSelect(){
 	let orderByAtt = $("#orderByAtt").val();
 	let memListTBody = $("#memListTBody");
 	
- 
-	
+ 	$("input:radio[name='orderByPercent']:radio[value='selectAll']").prop('checked', true); 
 	
 	 $.ajax({
 			  url:"orderByVac.att",
@@ -161,8 +173,8 @@ function changeSelect(){
 							if(aList[i].perYearMonthList[0].perYear === undefined) {
 								value +=	"<td colspan='2'>미정</td>"
 							} else {
-								value +=	"<td>" + aList[i].perYearMonthList[0].perYear + "%</td>"
-									  +     "<td>" + aList[i].perYearMonthList[0].perMonth + "%</td>"
+								value +=	"<td>" + aList[i].perYearMonthList[0].perYear + "%<input type='hidden' value='" + (i) + "'></td>"
+									  +     "<td>" + aList[i].perYearMonthList[0].perMonth + "%<input type='hidden' value='" + (i) + "'></td>"
 							}
 							
 							if(aList[i].empVacList[0].plusYearVac === undefined) {
@@ -207,6 +219,7 @@ function changeSelect(){
 					
 					$("#memListTBody").html(value);
 					$(".pagination").html(pageValue);
+					$("#selectAll").attr("checked", true);
 			   
 			 }
 	   ,
@@ -221,38 +234,173 @@ function changeSelect(){
 function filterPercent(){
 	
 	let orderByPercent = $('input:radio[name=orderByPercent]:checked').val();
-	console.log(orderByPercent);
+	
+	
 	
 	if(orderByPercent == "over80"){
+		$("#memListTBody tr th" ).css( 'background-color', 'white' );
+		$("#memListTBody tr th input" ).removeAttr( 'disabled' );
 		
-		// memListTBody의 tr의 6번째 td의 텍스트값 중 퍼센트를 떼고 숫자로 변환한 값이 80보다 크면	
-		 let perYear = $("#memListTBody tr td:nth-child(7)").text()
+		 let perYear = $("#memListTBody tr td:nth-child(7)").text();
 		 const perYearArr = perYear.split("%");
-		 
+		 let value = "";
 		 for(let i=0; i<perYearArr.length-1; i++){
 		 	if(Number(perYearArr[i]) < 80) {
-		 		console.log(i + "번------");
-		 		console.log(Number(perYearArr[i]));
-		 		console.log(i + "번------");
-		 		
-		 		$("#invalidNo").val((i+1) + "%");
-		 		console.log($("#invalidNo").val());
-		 		
-		 		$("#memListTBody checkbox : nth-child()").attr("disabled", true);
+				value += i + "%";
 		 	}
 		 }
-		 const disabledNo = ($("#invalidNo").val().split("%"));
-		 
-		 for(int i = 0; i<disabledNo.length; i++){
-		 	$("#memListTBody checkbox : nth-child(disabledNo[i])").attr("disabled", true);
-		 	console.log(disabledNo[i]);
+		 $("#invalidNoYear").val(value);
+		 let disabledNo = ($("#invalidNoYear").val().split("%"));
+		 for(let i=0; i<disabledNo.length-1; i++){
+		  $("#memListTBody tr th" ).eq( disabledNo[i] ).css( 'background-color', '#f0f0f0' );
+		  $("#memListTBody tr th input" ).eq( disabledNo[i] ).attr( 'disabled', 'true' );
 		 }
+		 
 	} else if(orderByPercent == "over100") {
-		console.log("오버백");
-	} else {
-		console.log("전체");
-	}
+		$("#memListTBody tr th" ).css( 'background-color', 'white' );
+		$("#memListTBody tr th input" ).removeAttr( 'disabled' );
 	
+		let perMonth = $("#memListTBody tr td:nth-child(8)").text();
+		const perMonthArr = perMonth.split("%");
+		 
+		 let value = "";
+		 
+		 for(let i=0; i<perMonthArr.length-1; i++){
+		 	if(Number(perMonthArr[i]) != 80) {
+				value += i + "%";
+		 	}
+		 }
+		 $("#invalidNoMon").val(value);
+		 let disabledNo = ($("#invalidNoMon").val().split("%"));
+		 for(let i=0; i<disabledNo.length-1; i++){
+		  $("#memListTBody tr th" ).eq( disabledNo[i] ).css( 'background-color', '#f0f0f0' );
+		  $("#memListTBody tr th input" ).eq( disabledNo[i] ).attr( 'disabled', 'true' );
+         }
+	} else {
+		$("#memListTBody tr th" ).css( 'background-color', 'white' );
+		$("#memListTBody tr th input" ).removeAttr( 'disabled' );
+	}
+
 	
 }
+
+
+
+function openVacationModal(){
+		let strInsertVacListEmpNo = "";
+   
+	   $("#memListTBody :checkbox:checked").each(function(){
+	     strInsertVacListEmpNo += "'" + $(this).val() + "',";
+	   })
+	   
+	   strInsertVacListEmpNo = strInsertVacListEmpNo.substring(0, strInsertVacListEmpNo.lastIndexOf(","));
+	   $("#strInsertVacListEmpNo").val(strInsertVacListEmpNo);
+	   
+	   //console.log(strInsertVacListEmpNo);
+	   //console.log($("#strInsertVacListEmpNo").val());
+	   
+		$.ajax({
+			url: "openVacModal.vac",
+			data:{
+				empNo : $("#strInsertVacListEmpNo").val()
+			},
+			type:"post",
+			success:function(empList){
+			
+				let empValue = "";
+				let empNoValue = "";
+				
+				if(empList.length == 0) {
+					$("#modalEmpList").val("선택된 직원이 없습니다.");
+				} else {
+					for(let i=0; i<empList.length; i++){
+						empValue += empList[i].empName
+								 + ", " 
+						empNoValue += empList[i].empNo
+								 + ", " 
+					}
+				 empValue = empValue.substring(0, empValue.lastIndexOf(","));
+				 empNoValue = empNoValue.substring(0, empNoValue.lastIndexOf(","));
+				 $("#modalEmpList").val(empValue);
+				 $("#modalEmpNoList").val(empNoValue);
+				}
+			}
+		,error:function(){
+				console.log("페이지 로딜 리스트 조회용 ajax통신 실패"); 
+		}
 	
+
+	})
+}
+
+
+function openVacationModal(){
+		let strInsertVacListEmpNo = "";
+   
+	   $("#memListTBody :checkbox:checked").each(function(){
+	     strInsertVacListEmpNo += "'" + $(this).val() + "',";
+	   })
+	   
+	   strInsertVacListEmpNo = strInsertVacListEmpNo.substring(0, strInsertVacListEmpNo.lastIndexOf(","));
+	   $("#strInsertVacListEmpNo").val(strInsertVacListEmpNo);
+	   
+	   
+		$.ajax({
+			url: "openVacModal.emp",
+			data:{
+				empNo : $("#strInsertVacListEmpNo").val()
+			},
+			type:"post",
+			success:function(empList){
+			
+				let empValue = "";
+				let empNoValue = "";
+				
+				if(empList.length == 0) {
+					$("#modalEmpList").val("선택된 직원이 없습니다.");
+				} else {
+					for(let i=0; i<empList.length; i++){
+						empValue += empList[i].empName
+								 + ", " 
+						empNoValue += empList[i].empNo
+								 + ", " 
+					}
+				 empValue = empValue.substring(0, empValue.lastIndexOf(","));
+				 empNoValue = empNoValue.substring(0, empNoValue.lastIndexOf(","));
+				 $("#modalEmpList").val(empValue);
+				 $("#modalEmpNoList").val(empNoValue);
+				}
+			}
+		,error:function(){
+				console.log("페이지 로딜 리스트 조회용 ajax통신 실패"); 
+		}
+	
+
+	})
+}
+
+function insertVac(){
+let vacNormal = $('input[name=vacNormal]:checked').val();
+console.log(vacNormal);
+
+$.ajax({
+			url: "insertVac.vac",
+			data:{
+				empNo : $("#empNo").val(),
+				vacNormal :  vacNormal,
+				vacOper : $("#vacOper").val()
+			},
+			type:"post",
+			success:function(result){
+				alertyfy.alert(alertMsg);
+				$('#insertVac').modal('hide');
+				selectAllAttList(1);
+			}
+		,error:function(){
+				console.log("페이지 로딜 리스트 조회용 ajax통신 실패"); 
+		}
+	
+
+	})
+
+}

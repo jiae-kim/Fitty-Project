@@ -23,6 +23,11 @@
 		<typeAlias type="com.project.fitty.approval.model.vo.ApprovalMember" alias="ApprovalMember"/>
 		<!-- <typeAlias type="com.project.fitty.ptclass.model.vo.Reply" alias="Reply" /> -->
 		<typeAlias type="com.project.fitty.vacation.model.vo.Vacation" alias="Vacation"/>
+		<typeAlias type="com.project.fitty.userClass.model.vo.UserClass" alias="UserClass" />
+		<typeAlias type="com.project.fitty.approval.model.vo.ApprVacation" alias="ApprVacation"/>
+		<typeAlias type="com.project.fitty.approval.model.vo.ApprOvertime" alias="ApprOvertime"/>
+		<typeAlias type="com.project.fitty.approval.model.vo.ApprExpense" alias="ApprExpense"/>
+		<typeAlias type="com.project.fitty.approval.model.vo.ApprExpDetail" alias="ApprExpDetail"/>
 	</typeAliases>
 	
 	<!-- environment
@@ -46,7 +51,7 @@
 
 	 	<mapper resource="/mappers/alert-mapper.xml"/>
 	 	<mapper resource="/mappers/vacation-mapper.xml"/>
-	 	
+	 	<mapper resource="/mappers/userClass-mapper.xml" />
 	 </mappers>
 	 
 </configuration>
