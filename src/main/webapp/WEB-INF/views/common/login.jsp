@@ -126,30 +126,68 @@
               <span class="app-brand-text demo text-body fw-bolder">Fitty</span>
             </a>
           </div>
+          
           <!-- /Logo -->
-          <h4 class="mb-2" style="font-size:50px; text-align:center;">🏋️‍♂</h4>
-          <p class="mb-4" style="font-size:13px; color:#696CFF; text-align:center;">Fitty는 피트니스 전용 그룹웨어입니다!<br>오늘도 Fitty와 함께 즐거운 운동😊</p>
-
-          <form id="formAuthentication" class="mb-3" action="login.emp" method="POST">
-            <div class="mb-3">
-              <label for="email" class="form-label" style="font-size:13px; color:#696CFF; text-align:center;">Account-Id</label>
-              <input type="text" class="form-control" id="empNo" name="empNo" placeholder="사번을 적어주세요" autofocus>
-            </div>
-             <!-- 
-            <div class="mb-3">
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" id="remember-me">
-                <label class="form-check-label" for="remember-me">
-                  내 사번 기억하기
-                </label>
-              </div>
-            </div>
-             --> 
-            <div class="mb-3" align="center">
-              <button class="btn btn-primary d-grid w-100" type="submit">로그인</button>
-               <small style="font-size:8px;">사번을 잊으셨다면 관리자에게 문의하세요!</small><br>
-            </div>
-          </form>
+          
+          
+          
+          
+<div class="col-xl-12">
+<div class="nav-align-top mb-4">
+	<ul class="nav nav-pills mb-3 nav-fill" role="tablist">
+	  <li class="nav-item">
+	    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-home" aria-controls="navs-pills-justified-home" aria-selected="true"><i class="tf-icons bx bx-home"></i>트레이너</button>
+	  </li>
+	  <li class="nav-item">
+	    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-profile" aria-controls="navs-pills-justified-profile" aria-selected="false"><i class="tf-icons bx bx-user"></i>회원</button>
+	  </li>
+	</ul>
+      
+      
+	<div class="tab-content">
+      
+		<!-- 트레이너 -->
+		<div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
+		  <h4 class="mb-2" style="font-size:50px; text-align:center;">🏋️‍♂</h4>
+		  <p class="mb-4" style="font-size:13px; color:#696CFF; text-align:center;">Fitty는 피트니스 전용 그룹웨어입니다!<br>오늘도 Fitty와 함께 즐거운 운동😊</p>
+		  <form id="formAuthentication" class="mb-3" action="login.emp" method="POST">
+		    <div class="mb-3">
+		      <label for="email" class="form-label" style="font-size:13px; color:#696CFF; text-align:center;">Account-Id</label>
+		      <input type="text" class="form-control" id="empNo" name="empNo" placeholder="사번을 적어주세요" autofocus>
+		    </div>
+		    <div class="mb-3" align="center">
+		      <button class="btn btn-primary d-grid w-100" type="submit">로그인</button>
+		       <small style="font-size:8px;">사번을 잊으셨다면 관리자에게 문의하세요!</small><br>
+		    </div>
+		  </form>
+		</div>
+		
+		
+		
+		<!-- 회원 -->
+		<div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
+		<h4 class="mb-2" style="font-size:50px; text-align:center;">🏋️‍♂</h4>
+		  <p class="mb-4" style="font-size:13px; color:#696CFF; text-align:center;">My Fitty<br>오늘도 Fitty와 함께 즐거운 운동😊</p>
+		  <form id="formAuthentication" class="mb-3" action="login.user" method="POST">
+		    <div class="mb-3">
+		      <label for="email" class="form-label" style="font-size:13px; color:#696CFF; text-align:center;">ID</label>
+		      <input type="text" class="form-control" id="userPhone" name="userPhone" placeholder="아이디를 입력해주세요" autofocus>
+		      <label for="email" class="form-label" style="font-size:13px; color:#696CFF; text-align:center;">Password</label>
+		      <input type="password" class="form-control" id="userBirth" name="userBirth" placeholder="비밀번호를 입력해주세요" autofocus>
+		    </div>
+		    <div class="mb-3" align="center">
+		      <button class="btn btn-primary d-grid w-100" type="submit">로그인</button>
+		       <small style="font-size:8px;">아이디와 비밀번호를 잊으셨다면 관리자에게 문의하세요!</small><br>
+		    </div>
+		  </form>
+		</div>
+		
+	</div>
+</div>
+</div>
+          
+          
+          
 
         </div>
       </div>

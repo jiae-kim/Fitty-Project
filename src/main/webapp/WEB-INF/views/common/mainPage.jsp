@@ -34,5 +34,10 @@
 	</script>
 	
 	
+	<br><br>
+	
+	<a href="userPage.cl">회원 전용 사이트 (테스트 링크)</a>
+	
+	
 </body>
 </html>
