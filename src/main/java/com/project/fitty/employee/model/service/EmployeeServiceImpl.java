@@ -72,7 +72,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
 	@Override
 	public int uploadProfileImg(Employee e) {
-		return 0;
+		return eDao.uploadProfileImg(sqlSession, e);
 	}
 
 
