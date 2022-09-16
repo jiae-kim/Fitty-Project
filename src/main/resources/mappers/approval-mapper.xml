@@ -13,15 +13,19 @@
 	</resultMap>
 	<resultMap id="empResult" type="Employee">
 		<result column="emp_name" property="empName"/>
-		<result column="gr_name" property="grName"/>
+		<result column="emp_no" property="empNo"/>
+		<result column="gr_appr_grade" property="grApprGrade"/>
+		<result column="gr_grade" property="grGrade"/>
 		<result column="emp_grade" property="empGrade"/>
 	</resultMap>
 	
 	<select id="selectEmpList" resultMap="empResult">
 		select 
 			   emp_name
+			 , emp_no
 			 , gr_name
 			 , emp_grade
+			 , gr_appr_grade
 		  from tb_emp
 		  join tb_grade using (emp_grade)
 		 order by gr_name, emp_name
