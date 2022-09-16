@@ -128,6 +128,9 @@
 		#socketContent a {
 			color:white !important;
 		}
+		#alertList a {
+		color:gray;
+		}
         
     </style>
 <meta name="description" content="" />
@@ -166,6 +169,38 @@
 	  </div>
 	  <div class="toast-body" id="socketContent"></div>
 	</div>
+	
+	  <!-- Small Modal [알림 메세지 모달]-->
+    <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true" >
+      <div class="modal-dialog modal-sm" role="document" style="position:absolute;right:7%;top:10%;" >
+        <div class="modal-content" >
+          <div class="modal-header">
+            
+            🔔&nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body" id="alertList">
+          <c:forEach var="msg" items="${msgList }">
+  		  	<span>${ msg.alMsg }</span>
+  		  	<c:choose>
+  		  	<c:when test="${ msg.alReadYn eq 'N' }">
+  		  		<span class="badge rounded-pill bg-label-secondary">안읽음</span>
+  		  	</c:when>
+  		  	<c:otherwise>
+  		  		<span class="badge rounded-pill bg-label-primary">읽음</span>
+  		  	</c:otherwise>
+  		  	</c:choose>
+  		  	<span class="badge bg-label-info" style="float:right;">${ msg.alDate }</span> <br><br>
+          </c:forEach>
+          </div>
+        </div>
+      </div>
+    </div>
 
 <!-- Layout wrapper -->
 	<c:if test="${ not empty alertMsg }">
@@ -176,7 +211,7 @@
 		<c:remove var="alertMsg" scope="session"/>
 	</c:if>
     <div class="layout-wrapper layout-content-navbar" style="position:relative">
-      <div class="layout-container">
+      <div class="layout-container" >
         <!-- Menu -->
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
@@ -397,33 +432,7 @@
         </aside>
         <!-- / Menu -->
         
-      <!-- Small Modal [알림 메세지 모달]-->
-    <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true">
-      <div class="modal-dialog modal-sm" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel2">알림</h5>
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="modal"
-              aria-label="Close"
-            ></button>
-          </div>
-          <c:forEach var="msg" items="${msgList }">
-          <div class="modal-body" id="alertList">
-  		  	${ msg.alMsg }
-          </div>
-          </c:forEach>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
-              Close
-            </button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
+    
 
         <!-- Layout container -->
         <div class="layout-page"  style="margin-top: 20px;">
@@ -594,8 +603,8 @@
                         <c:choose>
                         <c:when test="${ empty msgList }">
                     	<label id="alertLabel" style="border-radius:50%;
-                    				  width:30%;
-                    				  height:30%;
+                    				  width:25%;
+                    				  height:25%;
                     				  background-color:#03c3ec;
                     				  position:absolute;
                     				  bottom:-3px;
@@ -604,8 +613,8 @@
                         </c:when>
                         <c:otherwise>
                     	<label id="alertLabel" style="border-radius:50%;
-                    				  width:30%;
-                    				  height:30%;
+                    				  width:25%;
+                    				  height:25%;
                     				  background-color:#03c3ec;
                     				  position:absolute;
                     				  bottom:-3px;
