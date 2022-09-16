@@ -380,34 +380,21 @@ function openVacationModal(){
 }
 
 function insertVac(){
+let vacNormal = $('input[name=vacNormal]:checked').val();
+console.log(vacNormal);
 
 $.ajax({
 			url: "insertVac.vac",
 			data:{
 				empNo : $("#empNo").val(),
-				vacNormal : $("#vacNormal").val(),
+				vacNormal :  vacNormal,
 				vacOper : $("#vacOper").val()
 			},
 			type:"post",
-			success:function(empList){
-			
-				let empValue = "";
-				let empNoValue = "";
-				
-				if(empList.length == 0) {
-					$("#modalEmpList").val("선택된 직원이 없습니다.");
-				} else {
-					for(let i=0; i<empList.length; i++){
-						empValue += empList[i].empName
-								 + ", " 
-						empNoValue += empList[i].empNo
-								 + ", " 
-					}
-				 empValue = empValue.substring(0, empValue.lastIndexOf(","));
-				 empNoValue = empNoValue.substring(0, empNoValue.lastIndexOf(","));
-				 $("#modalEmpList").val(empValue);
-				 $("#modalEmpNoList").val(empNoValue);
-				}
+			success:function(result){
+				alertyfy.alert(alertMsg);
+				$('#insertVac').modal('hide');
+				selectAllAttList(1);
 			}
 		,error:function(){
 				console.log("페이지 로딜 리스트 조회용 ajax통신 실패"); 

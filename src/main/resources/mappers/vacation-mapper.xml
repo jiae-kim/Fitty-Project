@@ -33,4 +33,27 @@
             and vac_status = 'M') as "MINUS_VAC"
 	from tb_vacation
   </select>
+  
+  <insert id="insertVacation">
+  	insert
+		into tb_vacation(
+	        vac_no
+	      , emp_no
+	      , vac_oper
+	      , vac_status
+	      , vac_normal
+	      , vac_create_date
+	      , att_status
+	    ) 
+		values
+		    (
+		        SEQ_VAC_NO.NEXTVAL
+		      , #{empNo}
+		      , #{vacOper}
+		      , 'P'
+		      , #{vacNormal}
+		      , sysdate
+		      , #{attStatus}
+		    ) 
+  </insert>
 </mapper>
