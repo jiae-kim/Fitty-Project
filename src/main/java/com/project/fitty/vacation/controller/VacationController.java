@@ -19,17 +19,23 @@ public class VacationController {
 	@Autowired
 	private VacationService vService;
 	
-	@RequestMapping("insertVac.vac")
-	public String insertVacation(Vacation v, HttpSession session) {
-		if(v.getEmpNo().length() == 0) {
-			session.setAttribute("alertMsg",  "❌ 선택된 직원이 없습니다! 다시 선택해주세요 ❌");
-		} else {
-			String empNoListStr = v.getEmpNo();
+	
+	
+	@RequestMapping("changeVac.vac")
+	public String changeVacation(Vacation v, HttpSession session) {
+		
+			//String empNoListStr = v.getEmpNo();
 			String[] arr = (v.getEmpNo().split(","));
 			int result = 0;
 			for(int i=0; i<arr.length; i++) {
 				v.setEmpNo(arr[i].trim());
-				result += vService.insertVacation(v);
+				System.out.println(v.getEmpNo());
+				System.out.println(v.getVacStatus());
+				if(v.getVacStatus().equals("P")) {
+					result += vService.insertVacation(v);
+				}else {
+					result += vService.deleteVacation(v);
+				}
 			}
 			
 			if(result > 0) {
@@ -37,9 +43,11 @@ public class VacationController {
 			} else {
 				session.setAttribute("alertMsg",  "❌ 연월차/휴가 지급 시류ㅐ ❌");
 			}
-		}	
+		
 		
 		return "redirect:vacControl.att";
 	}
+	
+	
 	
 }

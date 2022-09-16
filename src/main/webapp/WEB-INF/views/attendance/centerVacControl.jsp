@@ -150,7 +150,7 @@
 					           <div class="modal fade" id="insertVac" tabindex="-1" aria-hidden="true">
 						            <div class="modal-dialog modal-dialog-centered" role="document">
 						              <div class="modal-content">
-						                <form action="insertVac.vac" method="post">
+						                <form action="changeVac.vac" method="post">
 						                <div class="modal-header">
 						                  <h5 class="modal-title" id="modalCenterTitle">연월차 / 휴가 생성</h5>
 						                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -159,8 +159,9 @@
 							                  <div class="row">
 							                    <div class="col mb-12">
 							                      <label for="modalEmpList" class="form-label modal-label" style="color : #696CFF;">생성 대상자</label>
-							                      <input type="text" id="modalEmpList" name="empName" class="form-control" placeholder="직원을 먼저 선택해주세요" readOnly>
-							                      <input type="hidden" id="modalEmpNoList" name="empNo">
+							                      <input type="text" class="modalEmpList form-control" name="empName" id="modalEmpList" requried placeholder="직원을 먼저 선택해주세요" readOnly>
+							                      <input type="hidden" class="modalEmpNoList" name="empNo">
+							                      <input type="hidden" name="vacStatus" value="P">
 							                    </div>
 							                  </div>
 							                </div>
@@ -169,8 +170,8 @@
 							                    <div class="col mb-12">
 							                      <label for="vacReason" class="form-label modal-label" style="color : #696CFF;">선택</label>
 							                      <div>
-							                      	<input class="form-check-input"  type="radio" name="vacNormal" value="N">정기생성&nbsp&nbsp&nbsp&nbsp&nbsp
-		                      						<input class="form-check-input"  type="radio" name="vacNormal" value="B">보너스&nbsp&nbsp&nbsp&nbsp&nbsp
+							                      	<input class="form-check-input"  type="radio" name="vacNormal" value="N" requried>정기생성&nbsp&nbsp&nbsp&nbsp&nbsp
+		                      						<input class="form-check-input"  type="radio" name="vacNormal" value="B" requried>보너스&nbsp&nbsp&nbsp&nbsp&nbsp
 							                      </div>
 							                    </div>
 							                  </div>
@@ -180,8 +181,8 @@
 							                    <div class="col mb-12">
 							                      <label for="vacReason" class="form-label modal-label" style="color : #696CFF;">선택</label>
 							                      <div>
-							                      	<input class="form-check-input"  type="radio" name="attStatus" value="Y">연/월차&nbsp&nbsp&nbsp&nbsp&nbsp
-		                      						<input class="form-check-input"  type="radio" name="attStatus" value="V">휴가&nbsp&nbsp&nbsp&nbsp&nbsp
+							                      	<input class="form-check-input"  type="radio" name="attStatus" value="Y" requried>연/월차&nbsp&nbsp&nbsp&nbsp&nbsp
+		                      						<input class="form-check-input"  type="radio" name="attStatus" value="V" requried>휴가&nbsp&nbsp&nbsp&nbsp&nbsp
 							                      </div>
 							                    </div>
 							                  </div>
@@ -210,7 +211,7 @@
 					           <div class="modal fade" id="deleteVac" tabindex="-1" aria-hidden="true">
 						            <div class="modal-dialog modal-dialog-centered" role="document">
 						              <div class="modal-content">
-						                <form action="deleteVac.vac" method="post">
+						                <form action="changeVac.vac" method="post">
 						                <div class="modal-header">
 						                  <h5 class="modal-title" id="modalCenterTitle">연월차 / 휴가 소진</h5>
 						                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -219,8 +220,9 @@
 							                  <div class="row">
 							                    <div class="col mb-12">
 							                      <label for="modalEmpList" class="form-label modal-label" style="color : #696CFF;">소진 대상자</label>
-							                      <input type="text" id="modalEmpList" name="empName" class="form-control" placeholder="직원을 먼저 선택해주세요" readOnly>
-							                      <input type="hidden" id="modalEmpNoList" name="empNo">
+							                      <input type="text" class="modalEmpList form-control" name="empName" requried placeholder="직원을 먼저 선택해주세요" readOnly>
+							                      <input type="hidden" class="modalEmpNoList" name="empNo">
+							                      <input type="hidden" name="vacStatus" value="M">
 							                    </div>
 							                  </div>
 							                </div>
@@ -229,15 +231,17 @@
 							                    <div class="col mb-6">
 							                      <label for="vacReason" class="form-label modal-label" style="color : #696CFF;">선택</label>
 							                      <div>
-							                      	<input class="form-check-input"  type="radio" name="vacNormal" value="N">정기소진&nbsp&nbsp&nbsp&nbsp&nbsp
-		                      						<input class="form-check-input"  type="radio" name="vacNormal" value="P">패널티&nbsp&nbsp&nbsp&nbsp&nbsp
+							                      	<input class="form-check-input"  type="radio" name="vacNormal" value="N" requried>정기소진&nbsp&nbsp&nbsp&nbsp&nbsp
+		                      						<input class="form-check-input"  type="radio" name="vacNormal" value="P" requried>패널티&nbsp&nbsp&nbsp&nbsp&nbsp
 							                      </div>
 							                    </div>
 							                    <div class="col mb-6">
 							                      <label for="vacReason" class="form-label modal-label" style="color : #696CFF;">선택</label>
 							                      <div>
-							                      	<input class="form-check-input"  type="radio" name="attStatus" value="Y">연/월차&nbsp&nbsp&nbsp&nbsp&nbsp
-		                      						<input class="form-check-input"  type="radio" name="attStatus" value="V">휴가&nbsp&nbsp&nbsp&nbsp&nbsp
+							                      	<input class="form-check-input"  type="radio" name="attStatus" value="Y" requried>연/월차&nbsp&nbsp&nbsp&nbsp&nbsp
+							                      	<input class="form-check-input"  type="radio" name="attStatus" value="Q" requried>오전반차&nbsp&nbsp&nbsp&nbsp&nbsp
+							                      	<input class="form-check-input"  type="radio" name="attStatus" value="Z" requried>오후반차&nbsp&nbsp&nbsp&nbsp&nbsp
+		                      						<input class="form-check-input"  type="radio" name="attStatus" value="V" requried>휴가&nbsp&nbsp&nbsp&nbsp&nbsp
 							                      </div>
 							                    </div>
 							                  </div>
@@ -245,11 +249,11 @@
 							                <div class="modal-body">
 							                  <div class="row">
 							                    <div class="col mb-6">
-							                      <label for="wantToInsert" class="form-label modal-label"  style="color : #696CFF;">시작일</label>
+							                      <label for="wantToInsert" class="form-label modal-label"  style="color : #696CFF;"requried>시작일</label>
 							                      <input type="date" id="vacStart" class="form-control" name="vacStart">
 							                    </div>
 							                    <div class="col mb-6">
-							                      <label for="wantToInsert" class="form-label modal-label"  style="color : #696CFF;">종료일</label>
+							                      <label for="wantToInsert" class="form-label modal-label"  style="color : #696CFF;" requried onchange="getVacOper(event);">종료일</label>
 							                      <input type="date" id="vacEnd" class="form-control" name="vacEnd">
 							                    </div>
 							                  </div>
@@ -258,7 +262,7 @@
 							                  <div class="row">
 							                    <div class="col mb-12">
 							                      <label for="wantToInsert" class="form-label modal-label"  style="color : #696CFF;">차감일수</label>
-							                      <input type="number" id="vacOper" class="form-control" name="vacOper" placeholder="차감하실 날자를 입력해주세요" required>
+							                      <input type="number" id="deleteVacOper" class="form-control" name="vacOper" placeholder="차감하실 날자를 입력해주세요"  required>
 							                    </div>
 							                  </div>
 							                </div>

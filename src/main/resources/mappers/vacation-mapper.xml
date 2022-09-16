@@ -56,4 +56,31 @@
 		      , #{attStatus}
 		    ) 
   </insert>
+  
+  <insert id="deleteVacation">
+  	insert
+		into tb_vacation(
+	        vac_no
+	      , emp_no
+	      , vac_oper
+	      , vac_status
+	      , vac_normal
+          , vac_start
+          , vac_end
+	      , vac_create_date
+	      , att_status
+	    ) 
+		values
+		    (
+		        SEQ_VAC_NO.NEXTVAL
+		      , #{empNo}
+		      , #{vacOper}
+		      , 'M'
+		      , #{vacNormal}
+              , #{vacStart}
+              , #{vacEnd}
+		      , sysdate
+		      , #{attStatus}
+		    ) 
+  </insert>
 </mapper>

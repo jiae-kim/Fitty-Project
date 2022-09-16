@@ -301,7 +301,6 @@ public class AttendanceController {
 		if(searchFlag.equals("N")) {
 			// 맨 처음 호출될때
 			listCount = eService.selectEmpListCount();
-			System.out.println(listCount);
 		} else {
 			// 서치된 값으로 호출될때 searchFlag = Y
 			listCount = eService.selectVacSearchListCount(sqlMap);

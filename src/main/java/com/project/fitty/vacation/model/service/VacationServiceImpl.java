@@ -30,4 +30,9 @@ public class VacationServiceImpl implements VacationService{
 		return vDao.insertVacation(sqlSession, v);
 	}
 
+	@Override
+	public int deleteVacation(Vacation v) {
+		return vDao.deleteVacation(sqlSession, v);
+	}
+
 }

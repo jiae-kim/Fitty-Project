@@ -14,6 +14,8 @@ public interface VacationService {
 	
 	// 연월차 휴가 생성
 		int insertVacation(Vacation v);
-
+	
+	// 연월차 휴가 삭제
+		int deleteVacation(Vacation v);
 
 }
