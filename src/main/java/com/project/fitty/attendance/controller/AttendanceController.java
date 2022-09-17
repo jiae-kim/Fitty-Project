@@ -276,9 +276,8 @@ public class AttendanceController {
 	    	count = i;
 	    }
 	    
-	   
 	    	session.setAttribute("alertMsg", (count+1) + "명 근태초기화에 성공했습니다.");
-	    	return "attendance/centerAllAttendance";
+	    	return "redirect:centerAtt.att";
 	   
 	}
 

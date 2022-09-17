@@ -111,6 +111,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 		Attendance a = new Attendance();
 		a.setEmpNo(empNo);
 		a.setThisYear(thisYear);
+		//System.out.println(a.getEmpNo());
+		//System.out.println(a.getThisYear());
 		return aDao.insertAttendance(sqlSession, a);
 	}
 

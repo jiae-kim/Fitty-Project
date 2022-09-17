@@ -26,8 +26,7 @@
 
 function paintNoAndMail(){
     let empGrade = $('input[name=empGrade]:checked').val();
-
-    let empNo = $('#empNo');
+    let empNo = $('input[name=empNo]');
     let empMail = $('#empMail');
 
     $.ajax({

@@ -2,6 +2,7 @@ package com.project.fitty.employee.controller;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
@@ -18,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.project.fitty.alert.model.service.AlertService;
 import com.project.fitty.alert.model.vo.Alert;
+import com.project.fitty.attendance.model.service.AttendanceService;
 import com.project.fitty.common.template.FileUpload;
 import com.project.fitty.employee.model.service.EmployeeService;
 import com.project.fitty.employee.model.vo.Employee;
@@ -31,6 +33,9 @@ public class EmployeeController {
 	
 	//@Autowired	
 	//private AlertService aService;
+	
+	@Autowired
+	private AttendanceService aService;
 	
 	
 	
@@ -86,7 +91,7 @@ public class EmployeeController {
 			// 넘어온 파일이 있을 경우
 			String saveFilePath = FileUpload.saveFile(uploadFile, session, "resources/profile_images/");
 			e.setEmpPhoto(saveFilePath);
-			
+			System.out.println(saveFilePath);
 			// session 에 profileImg 가 업데이트된 새 로그인객체 담기!
 			session.setAttribute("e", e);
 			}
@@ -106,6 +111,21 @@ public class EmployeeController {
 		
 		int result = eService.insertEmployee(e);
 		if(result > 0) {
+			// 인서트 되고 1행이 넘어온 상태
+			
+			//근태 초기화 진행
+			/*String thisYear = Integer.toString(Calendar.getInstance().get(Calendar.YEAR));
+		    System.out.println(thisYear);
+			int resetStatusB = aService.insertAttendance(e.getEmpNo(), thisYear);
+		    int setWeekDaysX = aService.updateAttendanceStatus(e.getEmpNo(), thisYear);
+		    
+		    if(resetStatusB + setWeekDaysX < 0) {
+		    	session.setAttribute("alertMsg", "❌ 근태초기화에 실패했습니다! ❌");
+				return "redirect:enrollForm.emp";
+		    } else {
+		    	session.setAttribute("alertMsg", "✔ 신규 직원 등록 성공! ✔");
+				return "redirect:centerAtt.att";
+		    }*/
 			session.setAttribute("alertMsg", "✔ 신규 직원 등록 성공! ✔");
 			return "redirect:centerAtt.att";
 		} else {
