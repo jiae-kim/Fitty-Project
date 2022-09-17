@@ -20,4 +20,10 @@ public interface VacationService {
 	
 	// 상세페이지 조회
 		Vacation selectOneVacation(String no);
+		
+	// 연월차 사용리스트 조회(개인)
+		ArrayList<Vacation> selectYearVacList(HashMap <String, Object> map);
+		
+	// 휴가 사용 리스트(개인)
+		ArrayList<Vacation> selectRealVacList(HashMap <String, Object> map);
 }

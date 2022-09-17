@@ -555,6 +555,7 @@ textarea{
 /*centerVacDetail*/
 .justPadding{
 	padding : 30px;
+	overflow: auto;
 }
 
 .cardBody .verSm{

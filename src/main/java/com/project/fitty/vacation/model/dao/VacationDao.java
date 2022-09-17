@@ -28,4 +28,12 @@ public class VacationDao {
 	public Vacation selectOneVacation(SqlSessionTemplate sqlSession, String no) {
 		return sqlSession.selectOne("vacationMapper.selectOneVacation", no);
 	}
+	
+	public ArrayList<Vacation> selectYearVacList(SqlSessionTemplate sqlSession, HashMap <String, Object> map) {
+		return (ArrayList)sqlSession.selectList("vacationMapper.selectYearVacList", map);
+	}
+	
+	public ArrayList<Vacation> selectRealVacList(SqlSessionTemplate sqlSession, HashMap <String, Object> map) {
+		return (ArrayList)sqlSession.selectList("vacationMapper.selectRealVacList", map);
+	}
 }
