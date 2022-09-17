@@ -31,6 +31,8 @@
 		<result column="work_year" property="workYear"/>
 		<result column="per_year" property="perYear"/>
 		<result column="per_month" property="perMonth"/>
+		<result column="gap_year_vac" property="gapYearVac"/>
+		<result column="gap_vac" property="gapVac"/>
 </resultMap>
 
 <select id="attFlag" resultMap="attendanceResult">
@@ -113,7 +115,32 @@
  </update>
 
   <select id="selectMyAttendance" resultMap="attendanceResult">
-  
+  select
+distinct emp_no
+     , att_date
+     , nvl(att_in, '출근전') as att_in
+     , nvl(att_out, '퇴근전') as att_out
+     , ((select nvl(sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no = #{empNo}
+            and att_status in ('Y', 'H')
+            and vac_status = 'P') - (select nvl(sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no = #{empNo}
+            and att_status in ('Y', 'H')
+            and vac_status = 'M')) as "GAP_YEAR_VAC"
+    , ((select nvl(sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no = #{empNo}
+            and att_status in ('V')
+            and vac_status = 'P') - (select nvl( sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no = #{empNo}
+            and att_status in ('V')
+            and vac_status = 'M'))  as "GAP_VAC"
+    from tb_att
+  where emp_no = #{empNo}
+    and att_date = to_char(sysdate,'yyyy-mm-dd')
   </select>
   
   <select id="selectAllAttList" resultMap="attendanceResult">

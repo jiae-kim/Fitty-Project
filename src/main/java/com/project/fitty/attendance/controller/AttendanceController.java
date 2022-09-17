@@ -100,10 +100,10 @@ public class AttendanceController {
 	
 	
 	@RequestMapping("myAtt.att")
-	public String goMyAtt(Attendance a, ModelAndView mv) {
-		//Attendance att = aService.selectMyAttendance(a);
-		
-		return "attendance/myAttendance";
+	public ModelAndView goMyAtt(HttpSession session, Attendance a, ModelAndView mv) {
+		Attendance myAtt = aService.selectMyAttendance(a);
+		mv.addObject("myAtt", myAtt).setViewName("attendance/myAttendance");
+		return mv;
 	}
 	
 	@RequestMapping("attModifyForm.att")

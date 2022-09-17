@@ -35,6 +35,7 @@ public class AttendanceDao {
 	}
 */	
 	public Attendance selectMyAttendance(SqlSessionTemplate sqlSession, Attendance a) {
+		Attendance att = sqlSession.selectOne("attendanceMapper.selectMyAttendance", a);
 		return sqlSession.selectOne("attendanceMapper.selectMyAttendance", a);
 	}
 	

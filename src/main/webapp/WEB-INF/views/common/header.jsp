@@ -345,7 +345,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="myAtt.att" class="menu-link">
+                  <a href="myAtt.att?empNo=${loginUser.empNo }" class="menu-link">
                     <div data-i18n="Account" class="small-menu-label">내 근태관리</div>
                   </a>
                 </li>
