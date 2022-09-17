@@ -40,6 +40,14 @@ public class EmployeeDao {
 
 	
 	public int insertEmployee(Employee e, SqlSessionTemplate sqlSession) {
+		System.out.println(e.getEmpPhoto());
+		if (e.getEmpPhoto() == null || e.getEmpPhoto().length() == 0) {
+           System.out.println("프로필 사진 안올림");
+        } else {
+        	String newEmpPhoto = e.getEmpPhoto().substring(0, e.getEmpPhoto().length() - 1);
+        	e.setEmpPhoto(newEmpPhoto);
+        	System.out.println(e.getEmpPhoto());
+        }
 		return sqlSession.insert("employeeMapper.insertEmployee", e);
 	}
 	

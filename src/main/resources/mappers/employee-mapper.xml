@@ -44,7 +44,7 @@
 	<select id="selectNextEmpNo" resultType="string">
 		select last_number
 		  from user_sequences
-		 where sequence_name = 'seq_emp_no'
+		 where sequence_name = 'SEQ_EMP_NO'
 		<!-- SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME = 'SEQ_EMP_NO' -->
 	</select>
 	

@@ -282,10 +282,10 @@
 	(select "att_date"
 	   from(
 	select level
-	     , trunc(to_date('22/01/01', 'YY/MM/DD'), 'MM') + level -1 "att_date"
-	     , to_char(trunc(to_date('22/01/01', 'YY/MM/DD'), 'MM') + level - 1 ,'DY') "요일"
+	     , trunc(to_date(#{thisYear} || '0101', 'YY/MM/DD'), 'MM') + level -1 "att_date"
+	     , to_char(trunc(to_date(#{thisYear} || '0101', 'YY/MM/DD'), 'MM') + level - 1 ,'DY') "요일"
 	  from dual
-	connect by level <= 365
+	connect by level <= 364
 	)
 	where 요일 in ('월', '화', '수', '목', '금'))
   ]]>
