@@ -134,24 +134,6 @@
             			console.log(socket);
             			socket.send(socketMsg);
             			
-            			// 기구 완료 메세지 DB에 insert 
-            			$.ajax({
-            				url:"minsert.at",
-            				data:{
-            					alListNo:'${m.ckNo}',
-            				    alSender:'${loginUser.empNo}',
-            					alRecip:'${ m.ckWriter }',
-            					alMsg:socketMsg
-            				},
-            				success:function(result){
-            					if(result == "success"){
-            						selectAlertList();
-            					}
-            				},
-            				error:function(){
-            					console.log("푸시 알림 내용 DB에 insert 실패")
-            				}
-            			})
 	            	}
 	            	
 	            	function selectAlertList(){ // 안읽은 알림 조회용 ajax 함수 (후에 header에 넣어줄거임)

@@ -810,11 +810,11 @@
 	   		$socketContent.html(evt.data);
 	   		$socketAlert.css("display", "block");
 	   		
-	   		selectAlertList();
-	   		
 	   		setTimeout(function(){
 	   			$socketAlert.css('display', 'none');
 	   		}, 3000);
+	   		
+	   		selectAlertList();
 	   		
 		}
 		

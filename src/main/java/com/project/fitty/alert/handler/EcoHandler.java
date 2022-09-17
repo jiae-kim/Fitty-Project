@@ -12,6 +12,7 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 import com.project.fitty.alert.model.service.AlertService;
+import com.project.fitty.alert.model.vo.Alert;
 import com.project.fitty.employee.model.vo.Employee;
 
 public class EcoHandler extends TextWebSocketHandler {
@@ -64,17 +65,22 @@ public class EcoHandler extends TextWebSocketHandler {
 			if(cmd.equals("machine") && trainerSession != null) {
 				
 				//사번으로 이름 조회해오기
-				admin = aService.selectSenderName(admin);
+				String adminName = aService.selectSenderName(admin);
 				
-				//현재 마지막으로 실행된 alNo를 조회해오기 
-				int lastNo = aService.selectLastAlNo(); 
-				
-				TextMessage tmpMsg = new TextMessage("<a href='ckList2.mc?alNo=" + lastNo + "&alRecip="+ trainer +"'>"+ "<b>" + admin + "</b>님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
+				//다음 insert에 실행될 alNo를 조회해오기 
+				int nextNo = aService.selectNextAlNo();
 				
 				
+				
+				TextMessage tmpMsg = new TextMessage("<a href='ckList2.mc?alNo=" + nextNo + "&alRecip="+ trainer +"'>"+ "<b>" + adminName + "</b>님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
 				trainerSession.sendMessage(tmpMsg);
 				
 				System.out.println(">>>>>>클라이언트로 메세지 보내기 성공 ");
+				
+				Alert a = new Alert();
+				a.setAlRecip(trainer);
+			    a.setAlMsg("<a href='ckList2.mc?alNo=" + nextNo + "&alRecip="+ a.getAlRecip() +"'><b>"+ adminName + "</b>님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
+				int result = aService.insertAlertM(a); 
 				
 				
 			}
