@@ -57,5 +57,10 @@ public class UserDao {
 		return sqlSession.update("userMapper.deleteUser", userNo);
 	}
 
+	// [김지애] 7. 회원등록 시 전화번호 중복체크 - ajax
+	public int telCheck(SqlSessionTemplate sqlSession, String userPhone) {
+		return sqlSession.selectOne("userMapper.telCheck", userPhone);
+	}
+
 
 }

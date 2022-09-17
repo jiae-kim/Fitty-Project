@@ -170,7 +170,14 @@ public class UserController {
 		}
 	}
 	
-	
-	
+	// [김지애] 7. 회원등록 시 전화번호 중복체크
+	@ResponseBody
+	@RequestMapping("telCheck.ur")
+	public String ajaxTelCheck(String checkTel) {
+		// 사용자가 입력했던 전화번호값 == 중복확인해볼 전화번호
+		int result = uService.telCheck(checkTel);
+		
+		return result>0 ? "fail" : "success";
+	}
 	
 }

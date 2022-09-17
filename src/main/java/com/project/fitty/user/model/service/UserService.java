@@ -29,4 +29,10 @@ public interface UserService {
 	// 문자열로 탈퇴시킬 회원번호만 전달받아 상태 update
 	int deleteUser(int userNo);
 
+	// [김지애] 7. 회원등록 시 전화번호 중복체크 - ajax
+	// 문자열로 중복검사할 회원 전화번호만 전달받음
+	int telCheck(String userPhone);
+	
+	
+
 }
