@@ -33,14 +33,12 @@ public class AlertController {
 	@RequestMapping("minsert.at") /** 기구 점검 alert insert **/
 	public String ajaxInsertAlertM(Alert a) {
 		
-		System.out.println(a);
-		
 		//다음에 실행될 alNo를 조회해오기 
 		int nextNo = aService.selectNextAlNo();
 		
 		String senderName = aService.selectSenderName(a.getAlSender());
 		
-	    a.setAlMsg("<a href='ckList2.mc?alNo=" + nextNo + "&alRecip="+ a.getAlRecip() +"'>"+ senderName + "님이 " + a.getAlListNo() + "번 기구점검을 처리완료 하였습니다.</a>");
+	    a.setAlMsg("<a href='ckList2.mc?alNo=" + nextNo + "&alRecip="+ a.getAlRecip() +"'><b>"+ senderName + "</b>님이 " + a.getAlListNo() + "번 기구점검을 처리완료 하였습니다.</a>");
 		int result = aService.insertAlertM(a); 
 		
 		return result > 0 ? "success" : "fail";
@@ -51,7 +49,6 @@ public class AlertController {
 	public String ajaxSelectAlertList(String alRecip) {
 		
 		ArrayList<Alert> list = aService.selectAlertList(alRecip);
-		System.out.println("실행 잘됨 ");
 		return new Gson().toJson(list);
 	}
 	

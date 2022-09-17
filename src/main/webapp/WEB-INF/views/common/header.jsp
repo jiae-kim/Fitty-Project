@@ -129,7 +129,7 @@
 			color:white !important;
 		}
 		#alertList a {
-		color:gray;
+		color:#566a7f;
 		}
 		
 		#alertLabel{
@@ -182,7 +182,7 @@
 	
 	  <!-- Small Modal [알림 메세지 모달]-->
     <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true" >
-      <div class="modal-dialog modal-sm" id="area1" role="document" style="position:absolute;right:7%;top:10%;" >
+      <div class="modal-dialog modal-lg" id="area1" role="document" style="position:absolute;right:7%;top:10%;" >
         <div class="modal-content" id="modalContent" >
           <div class="modal-header" >
             🔔&nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
@@ -201,7 +201,13 @@
     </div>
     
     <script>
+    
     	$(function(){
+    		selectAlertList();
+    	
+    	})
+    	
+    	function selectAlertList(){
     		$.ajax({
     			url:"alist.at",
     			data:{
@@ -212,28 +218,36 @@
     				console.log(list);
 					
     				let value = "";
+    				let value2 = "";
     				if(list.length == 0){
     					value += 
     						'<div style="text-align:center;">신규 알림 내용이 없습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
     				         + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
     				         + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>'
-    				         + 	'<br><br><br>'
+    				         + 	'<br><br><br>';
+    				    value2 += '<label id="alertLabel" style="display:none;"></label>';
+    				    	 
     				}else{
     					for(let i=0; i<list.length; i++){
     						value +=
-    							'<span>' +  list[i].alMsg +'</span>'
-    				  		  	+ '<span class="badge bg-label-primary" style="float:right;">' + list[i].alDate + '</span>' 
+    							  '<div>'
+    							+ '<span>' +  list[i].alMsg +'</span>'
+    				  		  	+ '&nbsp;&nbsp;<span class="badge bg-label-secondary">' + list[i].alDate + '</span>'
+    				  		  	+ '</div><br>';
     					}
+    						value2 += '<label id="alertLabel"></label>';
     					
     				}
     				$('#alertList').html(value);
+    				$('#alertIcon').append(value2);
+    				
     				
     			},
     			error:function(){
     				console.log("알림리스트 조회용 ajax통신 실패");
     				}
     			})
-    	})
+    		}
     </script>
 
 <!-- Layout wrapper -->
@@ -625,9 +639,8 @@
                            style="position:absolute; top:0px;bottom:0px;right:0px;left:0px;
                                   border=0;opacity:0;"></button>
                         
-                   	<label id="alertLabel" style="display:none;"></label>
-                        
-                    				  
+                   	
+                        			  
                     </i>
                 </li>
                 
@@ -796,6 +809,8 @@
 	   		
 	   		$socketContent.html(evt.data);
 	   		$socketAlert.css("display", "block");
+	   		
+	   		selectAlertList();
 	   		
 	   		setTimeout(function(){
 	   			$socketAlert.css('display', 'none');

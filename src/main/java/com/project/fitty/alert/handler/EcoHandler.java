@@ -69,7 +69,7 @@ public class EcoHandler extends TextWebSocketHandler {
 				//현재 마지막으로 실행된 alNo를 조회해오기 
 				int lastNo = aService.selectLastAlNo(); 
 				
-				TextMessage tmpMsg = new TextMessage("<a href='ckList2.mc?alNo=" + lastNo + "&alRecip="+ trainer +"'>"+ admin + "님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
+				TextMessage tmpMsg = new TextMessage("<a href='ckList2.mc?alNo=" + lastNo + "&alRecip="+ trainer +"'>"+ "<b>" + admin + "</b>님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
 				
 				
 				trainerSession.sendMessage(tmpMsg);
