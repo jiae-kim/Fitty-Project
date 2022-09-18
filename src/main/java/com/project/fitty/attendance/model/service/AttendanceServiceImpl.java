@@ -146,6 +146,16 @@ public class AttendanceServiceImpl implements AttendanceService{
 		return aDao.selectAttNo(sqlSession, m);
 	}
 
+	@Override
+	public int AdminUpdateAttInStatus(Attendance a) {
+		return aDao.AdminUpdateAttInStatus(sqlSession, a);
+	}
+
+	@Override
+	public int AdminUpdateAttOutStatus(Attendance a) {
+		return aDao.AdminUpdateAttOutStatus(sqlSession, a);
+	}
+
 
 	
 

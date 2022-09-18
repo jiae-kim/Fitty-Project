@@ -94,4 +94,12 @@ public class AttendanceDao {
 		return sqlSession.selectOne("attendanceMapper.selectAttNo", m);
 	}
 	
+	public int AdminUpdateAttInStatus(SqlSessionTemplate sqlSession, Attendance a) {
+		return sqlSession.selectOne("attendanceMapper.AdminUpdateAttInStatus", a);
+	}
+	
+	public int AdminUpdateAttOutStatus(SqlSessionTemplate sqlSession, Attendance a) {
+		return sqlSession.selectOne("attendanceMapper.AdminUpdateAttOutStatus", a);
+	}
+	
 }

@@ -119,7 +119,7 @@ function selectMoAttForm(){
 				  +						"</div>"
 				  +						"<div class='mb-3 col-md-4'>"
 				  +						"<label for='address' class='form-label' style='font-size: 10px; width:50px'>수정시</label>"
-				  +                       "<input type='time' class='form-control' id='moAttModifyTime' name='moAttModifyTime'>"
+				  +                       "<input type='text' placeholder='00:00:00 으로 입력해주세요.' class='form-control' id='moAttModifyTime' name='moAttModifyTime'>"
 				  +						"</div>"
 				  +						"<div class='mb-3 col-md-4'>"
 				  +						"<label for='organization' class='form-label'>수정요청선택</label>"

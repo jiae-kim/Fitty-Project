@@ -26,4 +26,12 @@ public class ModifyAttDao {
 	public ArrayList<ModifyAtt> selectAllModifyList(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("modifyAttMapper.selectAllModifyList");
 	}
+	
+	public int updateModifyAtt(SqlSessionTemplate sqlSession, ModifyAtt m) {
+		return sqlSession.update("modifyAttMapper.updateModifyAtt", m);
+		}
+	
+	public int cantUpdateModifyAtt(SqlSessionTemplate sqlSession, ModifyAtt m) {
+		return sqlSession.update("modifyAttMapper.cantUpdateModifyAtt", m);
+		}
 }

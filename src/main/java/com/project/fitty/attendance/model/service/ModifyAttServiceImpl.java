@@ -38,4 +38,14 @@ public class ModifyAttServiceImpl implements ModifyAttService{
 	public ArrayList<ModifyAtt> selectAllModifyList() {
 		return mDao.selectAllModifyList(sqlSession);
 	}
+
+	@Override
+	public int updateModifyAtt(ModifyAtt m) {
+		return mDao.updateModifyAtt(sqlSession, m);
+	}
+
+	@Override
+	public int cantUpdateModifyAtt(ModifyAtt m) {
+		return mDao.cantUpdateModifyAtt(sqlSession, m);
+	}
 }

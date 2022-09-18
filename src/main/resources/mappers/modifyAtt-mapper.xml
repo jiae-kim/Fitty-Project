@@ -126,5 +126,21 @@
 		 order
 	        by mo_att_enroll_d desc
 	</select>
+	
+	<update id="updateModifyAtt">
+	update tb_mo_att
+	   set mo_att_status = 'M'
+	     , mo_att_back = #{moAttBack}
+	     , mo_read_flag = 'N'
+	 where mo_att_no = #{moAttNo}
+	</update>
+	
+	<update id="cantUpdateModifyAtt">
+	update tb_mo_att
+	   set mo_att_status = 'N'
+	     , mo_att_back = #{moAttBack}
+	     , mo_read_flag = 'N'
+	 where mo_att_no = #{moAttNo}
+	</update>
 </mapper>
 

@@ -417,7 +417,25 @@ distinct emp_no
   	   and att_date = #{attDate}
   </select>
   
+  
+  <update id="AdminUpdateAttInStatus">
+  update tb_att
+	set att_status = #{attStatus}
+	where att_no = #{attNo}
+   <!--update tb_att
+	set att_status = #{attStatus}
+	    , att_in = #{attIn} 
+	where emp_no = #{empNo}
+	and att_no = #{attNo}-->
+  </update>
+  
+  <update id="AdminUpdateAttOutStatus">
+  update tb_att
+	set att_status = #{attStatus}
+	where att_no = #{attNo}
+  </update>
    
+  
   
 
 </mapper>

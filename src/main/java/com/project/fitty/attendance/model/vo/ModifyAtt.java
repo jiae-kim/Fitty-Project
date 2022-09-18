@@ -27,11 +27,13 @@ public class ModifyAtt {
 	private String moAttModifyTime;
 	private String moAttDeleteFlag;
 	
+	
 	// 추가생성 필드
 	private String empName;
 	private String empPhoto;
 	private String grName;
-
+	private String newAttStatus;
+	
 	private String gapHour;
 	private String gapMinute;
 	private String gapSecond;

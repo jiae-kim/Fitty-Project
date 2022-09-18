@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.project.fitty.attendance.model.service.AttendanceService;
 import com.project.fitty.attendance.model.service.ModifyAttService;
+import com.project.fitty.attendance.model.vo.Attendance;
 import com.project.fitty.attendance.model.vo.ModifyAtt;
 import com.project.fitty.employee.model.service.EmployeeService;
 import com.project.fitty.employee.model.vo.Employee;
@@ -109,11 +110,50 @@ public class ModifyAttController {
 	
 	
 	@RequestMapping("updateModifyMo.mo")
-	public String updatemodifyAtt(ModifyAtt m) {
-		return "";
+	public String updatemodifyAtt(ModifyAtt m, HttpSession session) {
+		
+		int updateMo = mService.updateModifyAtt(m);
+		
+		if(updateMo > 0) {
+		
+		Attendance a = new Attendance();
+		a.setAttNo(m.getAttNo());
+		a.setAttDate(m.getAttDate());
+		a.setEmpNo(m.getEmpNo());
+		a.setAttStatus(m.getNewAttStatus());
+		
+		int updateAttIn = 0;
+		int updateAttOut = 0;
+		if(m.getMoAttType().equals('I')) {
+			//int updateAttIn = 
+			a.setAttIn(m.getMoAttModifyTime());
+			updateAttIn = aService.AdminUpdateAttInStatus(a);
+		} else {
+			a.setAttOut(m.getMoAttModifyTime());
+			updateAttOut = aService.AdminUpdateAttOutStatus(a);
+		}
+		
+		if(updateAttIn > 0 || updateAttOut > 0) {
+			session.setAttribute("alertMsg","근태수정완료💘");
+		} else {
+			session.setAttribute("alertMsg","근태수정실패😅");
+		}
+		
+		} else {
+			session.setAttribute("alertMsg","근태수정실패😅");
+		}
+		return "redirect:centerAtt.att";
 	}
 	
-	
+	@RequestMapping("cantModifyAtt.mo")
+	public String cantUpdateModifyAtt (ModifyAtt m, HttpSession session) {
+		int updateMo = mService.cantUpdateModifyAtt(m);
+		if(updateMo > 0) {
+		} else {
+			session.setAttribute("alertMsg","근태수정실패😅");
+		}
+		return "redirect:centerAtt.att";
+	}
 	
 	
 	
