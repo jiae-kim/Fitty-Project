@@ -25,4 +25,10 @@ public class User {
 	private String userEdate;
 	private String userPt;
 	private String userStatus;
+	
+	// 통계
+	private int userCount;
+	private String userCountMonth;
+	private int couCount;
+	
 }

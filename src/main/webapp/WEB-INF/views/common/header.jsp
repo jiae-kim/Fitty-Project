@@ -185,7 +185,7 @@
       <div class="modal-dialog modal-lg" id="area1" role="document" style="position:absolute;right:7%;top:10%;" >
         <div class="modal-content" id="modalContent" >
           <div class="modal-header" >
-            🔔&nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
+            &nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
             <button
               type="button"
               class="btn-close"
@@ -193,6 +193,7 @@
               aria-label="Close"
             ></button>
           </div>
+          <hr>
           <div class="modal-body" id="alertList">
           
           </div>
@@ -223,7 +224,9 @@
     					value += 
     						'<div style="text-align:center;">신규 알림 내용이 없습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
     				         + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-    				         + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>'
+    				         + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    				         + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    				         + '</div>'
     				         + 	'<br><br><br>';
     				    value2 += '<label id="alertLabel" style="display:none;"></label>';
     				    	 
@@ -448,7 +451,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="extended-ui-perfect-scrollbar.html" class="menu-link">
+                  <a href="list.st" class="menu-link">
                     <div data-i18n="Perfect Scrollbar" class="small-menu-label">통계</div>
                   </a>
                 </li>

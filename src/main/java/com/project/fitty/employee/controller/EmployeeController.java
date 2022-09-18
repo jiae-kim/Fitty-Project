@@ -17,8 +17,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 
 import com.google.gson.Gson;
-import com.project.fitty.alert.model.service.AlertService;
-import com.project.fitty.alert.model.vo.Alert;
 import com.project.fitty.attendance.model.service.AttendanceService;
 import com.project.fitty.common.template.FileUpload;
 import com.project.fitty.employee.model.service.EmployeeService;
@@ -30,9 +28,6 @@ public class EmployeeController {
 	
 	@Autowired	
 	private EmployeeService eService;
-	
-	//@Autowired	
-	//private AlertService aService;
 	
 	@Autowired
 	private AttendanceService aService;
@@ -50,11 +45,6 @@ public class EmployeeController {
 			session.setAttribute("alertMsg", "사번을 다시 확인해주세요.");
 			return "main";
 		} else {
-			// 로그인한 회원의 아이디로 안읽은 메세지 불러오기[노희영]
-			//ArrayList<Alert> msgList = aService.selectAlertList(loginUser.getEmpNo());
-			//session.setAttribute("msgList", msgList);
-			//System.out.println(msgList);
-			
 			// 사번이 맞은 경우 출퇴근 여부 확인
 			Employee attFlag = eService.attFlag(e);
 			

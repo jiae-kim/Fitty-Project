@@ -48,8 +48,8 @@
 	 	<mapper resource="/mappers/class-mapper.xml" />
 
 	 	<!-- <mapper resource="/mappers/mail-mapper.xml" /> -->
-
 	 	<mapper resource="/mappers/alert-mapper.xml"/>
+		<mapper resource="/mappers/statistics-mapper.xml"/>
 	 	<mapper resource="/mappers/vacation-mapper.xml"/>
 	 	<mapper resource="/mappers/userClass-mapper.xml" />
 	 </mappers>

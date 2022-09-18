@@ -16,7 +16,6 @@ import com.project.fitty.alert.model.service.AlertService;
 import com.project.fitty.alert.model.vo.Alert;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.common.template.Pagination;
-import com.project.fitty.employee.model.vo.Employee;
 import com.project.fitty.machine.model.service.MachineService;
 import com.project.fitty.machine.model.vo.Machine;
 
@@ -49,12 +48,7 @@ public class AlertController {
 		// alNo로 읽음처리 해주기
 	    int result = aService.updateReadYn(alNo);
 		
-	    if(result > 0) {
-	    	
-	    	// session.setAttribute("msgList"로 메세지 조회해와서 담아주기)
-//	    	ArrayList<Alert> msgList = aService.selectAlertList(alRecip);
-//	    	session.setAttribute("msgList", msgList);
-	    	
+	    if(result > 0) { 	
 			model.addAttribute("pi", pi);
 			model.addAttribute("list", list);
 

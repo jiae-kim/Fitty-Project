@@ -44,5 +44,8 @@ public class UserClass {
 	private int classCount;
 	private String classGoal;
 	private String classResult;
+	
+	// 통계 추가
+	private String empName;
 
 }
