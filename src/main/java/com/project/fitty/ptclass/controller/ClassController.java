@@ -23,7 +23,7 @@ public class ClassController {
 	private ClassService cService;
 	
 	
-	//수업등록 페이지 (회원정보 조회 포함)
+	//회원페이지에서 수업등록 페이지 이동(회원정보 조회 포함)
 	@RequestMapping("enroll.cl")
 	public ModelAndView classEnrollForm(int no, ModelAndView mv) {
 		
@@ -36,6 +36,13 @@ public class ClassController {
 		}
 		
 		return mv;
+	}
+	
+	
+	//수업등록 페이지 이동
+	@RequestMapping("enrollPage.cl")
+	public String enrollForm() {
+		return "class/classEnroll";
 	}
 	
 	
@@ -58,6 +65,34 @@ public class ClassController {
 	
 	
 	
+	//내 회원 목록 조회
+	@RequestMapping("userList.cl")
+	public ModelAndView selectUserList(String empNo, ModelAndView mv) {
+		
+		//페이징처리 필요
+		ArrayList<User> list = cService.selectUserList(empNo);
+		
+		if(!list.isEmpty()) {
+			mv.addObject("list", list).setViewName("class/classList");
+		}else {
+			mv.addObject("alertMsg", "회원 조회에 실패했습니다.").setViewName("class/classList");
+		}
+		
+		return mv;
+	}
+	
+	
+	
+	
+	//회원 okr페이지로 이동
+	@RequestMapping("okr.cl")
+	public String userDetailView(int userNo) {
+		return "class/dietDetailView";
+	}
+	
+	
+	
+	//댓글 조회 (회원 : rlist.di)
 	@ResponseBody
 	@RequestMapping(value="rlist.di", produces="application/json; charset=UTF-8")
 	public String ajaxSelectReplyList(int no) {
@@ -66,9 +101,20 @@ public class ClassController {
 	}
 	
 	
+	//댓글 등록 (회원 : rinsert.di)
+	@ResponseBody
 	@RequestMapping("rinsert.di")
-	public void ajaxInsertReply() {
-		
+	public int ajaxInsertReply(Reply r) {
+		int result = cService.insertReply(r);
+		return result;
 	}
 
+	
+	
+	
+	
+	
+	
+	
+	
 }

@@ -14,10 +14,13 @@ import lombok.ToString;
 public class Reply {
 	
 	private int replyNo;
-	private int dietBoardNo;
+	private int dietNo; //변수명 컬럼명 확인해봐야할지도
 	private String replyWriter;
 	private String replyContent;
 	private String replyDate;
 	private String replyStatus;
+	
+	private String writerName;
+	private String writerType;
 	
 }

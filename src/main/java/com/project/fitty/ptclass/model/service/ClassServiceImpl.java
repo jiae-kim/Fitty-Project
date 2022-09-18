@@ -20,17 +20,6 @@ public class ClassServiceImpl implements ClassService{
 	@Autowired
 	private ClassDao cDao;
 	
-	//댓글 리스트 조회
-	@Override
-	public ArrayList<Reply> selectReplyList(int boardNo) {
-		return cDao.selectReplyList(sqlSession, boardNo);
-	}
-
-	//댓글 등록
-	@Override
-	public int insertReply(Reply r) {
-		return 0;
-	}
 
 	//수업 등록
 	@Override
@@ -49,5 +38,24 @@ public class ClassServiceImpl implements ClassService{
 	public int updateStatus(int userNo) {
 		return cDao.updateStatus(sqlSession, userNo);
 	}
+
+	//내 회원 리스트 조회
+	@Override
+	public ArrayList<User> selectUserList(String empNo) {
+		return cDao.selectUserList(sqlSession, empNo);
+	}
+	
+	//댓글 리스트 조회
+	@Override
+	public ArrayList<Reply> selectReplyList(int dietNo) {
+		return cDao.selectReplyList(sqlSession, dietNo);
+	}
+
+	//댓글 등록
+	@Override
+	public int insertReply(Reply r) {
+		return cDao.insertReply(sqlSession, r);
+	}
+
 	
 }

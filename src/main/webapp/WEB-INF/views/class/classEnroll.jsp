@@ -25,7 +25,7 @@
 </head>
 <body>
 
-<!-- 회원조회에서 수업등록으로 넘어갈 때 나타나는 페이지 -->
+<!-- 수업관리/수업등록 페이지 -->
 
 	<jsp:include page="../common/header.jsp" />
 	
@@ -50,28 +50,49 @@
 	                   	<div class="mb-3 row">
 	                    <label for="html5-text-input" class="col-md-2 col-form-label">회원번호</label>
 	                       	<div class="col-md-10">
-	                        	<input class="form-control userNo" name="userNo" type="text" id="html5-text-input" value="${u.userNo }" readonly/>
+	                        	<input class="form-control userNo" name="userNo" type="text" id="html5-text-input" />
 	                       	</div>
 	                    </div>
+	                     
+	                     
+						<script>
+							$(function(){
+								$(".userNo").keyup(function(){
+									if($("userNo").val().length >= 1){
+										$.ajax({
+											url:"selectUser.cl",
+											data:{userNo:$(".userNo").val()},
+											success:function(u){
+												console.log(u);
+											},
+											error:function(){
+												
+											}
+										})
+									}
+								})
+							})
+						</script>
+	                     
 	                     
                      	<div class="mb-3 row">
                        	<label for="html5-text-input" class="col-md-2 col-form-label">이름</label>
 	                       	<div class="col-md-10">
-	                        	<input class="form-control" type="text" id="html5-text-input" value="${u.userName }" readonly/>
+	                        	<input class="form-control" type="text" id="html5-text-input" />
 	                       	</div>
                      	</div>
 
                      	<div class="mb-3 row">
                        	<label for="html5-text-input" class="col-md-2 col-form-label">전화번호</label>
 	                       	<div class="col-md-10">
-	                         	<input class="form-control" type="text" id="html5-text-input" value="${u.userPhone }" readonly/>
+	                         	<input class="form-control" type="text" id="html5-text-input" />
 	                       	</div>
                      	</div>
 
                      	<div class="mb-3 row">
                        	<label for="html5-text-input" class="col-md-2 col-form-label">생년월일</label>
 	                       	<div class="col-md-10">
-	                        	<input class="form-control" type="text" id="html5-text-input" value="${u.userBirth }" readonly/>
+	                        	<input class="form-control" type="text" id="html5-text-input" />
 	                       	</div>
 						</div><br><br>
 

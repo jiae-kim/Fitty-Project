@@ -12,14 +12,10 @@ import com.project.fitty.user.model.vo.User;
 @Repository
 public class ClassDao {
 	
-	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int boardNo) {
-		return (ArrayList)sqlSession.selectList("classMapper.selectReplyList", boardNo);
-	}
-
+	
 	public User selectUser(SqlSessionTemplate sqlSession, int userNo) {
 		return sqlSession.selectOne("classMapper.selectUser", userNo);
 	}
-	
 	
 	public int insertClass(SqlSessionTemplate sqlSession, PtClass pt) {
 		return sqlSession.insert("classMapper.insertClass", pt);
@@ -27,5 +23,17 @@ public class ClassDao {
 	
 	public int updateStatus(SqlSessionTemplate sqlSession, int userNo) {
 		return sqlSession.update("classMapper.updateStatus", userNo);
+	}
+
+	public ArrayList<User> selectUserList(SqlSessionTemplate sqlSession, String empNo){
+		return (ArrayList)sqlSession.selectList("classMapper.selectUserList", empNo);
+	}
+	
+	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int dietNo) {
+		return (ArrayList)sqlSession.selectList("classMapper.selectReplyList", dietNo);
+	}
+
+	public int insertReply(SqlSessionTemplate sqlSession, Reply r) {
+		return sqlSession.insert("classMapper.insertReply", r);
 	}
 }

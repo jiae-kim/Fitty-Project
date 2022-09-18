@@ -8,6 +8,8 @@
 		<result column="re_content" property="replyContent" />
 		<result column="re_date" property="replyDate" />
 		<result column="re_status" property="replyStatus" />
+		<result column="writer_name" property="writerName" />
+		<result column="writer_type" property="writerType" />
 	</resultMap>
 	
 	
@@ -23,24 +25,14 @@
 		<result column="user_edate" property="userEndDate"/>
 		<result column="user_pt" property="userPt"/>
 		<result column="user_status" property="userStatus"/>
+		
+		<result column="cl_no" property="classNo" />
+		<result column="emp_no" property="empNo" />
+		<result column="cl_sdate" property="classStartDate" />
+		<result column="cl_count" property="classCount" />
 	</resultMap>
 
 
-	<!-- 
-	<select id="selectReplyList" resultMap="">
-		select 
-			   re_no
-			 , re_writer
-			 , re_content
-			 , to_char(re_date, 'YYYY.MM.DD HH:MM:SS') as "re_date"
-		  from reply
-		 where re_status = 'Y'
-		   and di_no = #{boardNo}
-		 order 
-		    by re_no desc
-	</select> 
-	-->
-	
 
 	<select id="selectUser" resultMap="userResult">
 		select 
@@ -93,5 +85,67 @@
 		   set user_pt = 'Y'
 		 where user_no = #{userNo}
 	</update>
+	
+	
+	
+	<select id="selectUserList" resultMap="userResult">
+		select 
+			   user_no
+			 , user_name
+			 , user_gender
+			 , user_birth
+			 , user_phone
+			 , cl_no
+			 , cl_sdate
+			 , cl_count
+		  from tb_user
+		  join tb_class
+		 using (user_no)
+		 where emp_no = #{empNo}
+	</select>
+	
+	
+	
+	<insert id="insertReply">
+		insert
+		  into tb_reply
+		  (
+		  	re_no
+	  	  , di_no
+	  	  , re_writer
+	  	  , re_content
+	  	  , re_date
+	  	  , writer_name
+	  	  , writer_type
+		  )
+		  values
+		  (
+		  	seq_reno.nextval
+		  , #{dietNo}
+		  , #{replyWriter}
+		  , #{replyContent}
+		  , sysdate
+		  , #{writerName}
+		  , #{writerType}
+		  )
+	</insert>
+	
+	
+
+	<select id="selectReplyList" resultMap="replyResult">
+		select 
+			   re_no
+			 , writer_name
+			 , re_content
+			 , to_char(re_date, 'YYYY.MM.DD HH24:MI:SS') as "re_date"
+			 , writer_type
+		  from tb_reply
+		 where re_status = 'Y'
+		   and di_no = #{dietNo}
+		 order 
+		    by re_no
+	</select> 
+	
+	
 	
 </mapper>
