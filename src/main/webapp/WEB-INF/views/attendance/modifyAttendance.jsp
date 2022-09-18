@@ -196,5 +196,6 @@
        </div>
 </div>
 <script type="text/javascript" src="resources/js/attendance.js"></script>
+<script type="text/javascript" src="resources/js/attendance/modifyAttendance.js"></script>
 </body>
 </html>

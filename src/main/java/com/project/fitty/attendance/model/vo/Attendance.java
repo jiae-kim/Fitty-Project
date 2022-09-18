@@ -62,4 +62,7 @@ public class Attendance {
 	private String gapMinute;
 	private String gapSecond;
 	
+	private String gapYearVac;
+	private String gapVac;
+	
 }
