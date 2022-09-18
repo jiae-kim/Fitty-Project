@@ -27,13 +27,15 @@
                 <img src="<c:out value='${loginUser.empPhoto}' default='resources/profile_images/defaultProfile.png' />" alt="Avatar" class="rounded-circle" width="120px;" height="120px;"/>
                 <br><span class="myName"><b>${loginUser.empName}</b></span>
                 <br><span class="myName">${loginUser.grName }</span>
+                <input type="hidden" value="${loginUser.empNo }" id="loginUserEmp">
+				<input type="hidden" value="${ loginUser.attIn }" id="loginUserAttin">
+				<input type="hidden" value="${ loginUser.attOut }" id="loginUserAttOut">
               </div>
             </div>
             
             <table id="todayWork" style="font-size:15px; margin-top:30px;">
               <tr>
-              	  <c:set var="TextValue" value="${ att.nowTime }"/>
-                  <td id="intervalTime" colspan="3">55:88:88</td>
+                  <td id="intervalTime" colspan="3"><span id="hour"></span>:<span id="minute"></span>:<span id="second"></span></td>
               </tr>
               <tr>
                   <th>출근</th>
@@ -45,13 +47,14 @@
               </tr>
               
             </table>
-            <button class="btn btn-primary myAttBtn" onclick="go('attModifyForm.att')">근태수정요청</button>
-            <button class="btn btn-info modifyBtn" onclick="go('attModifyForm.att')">야근하기</button>
-            <button class="btn btn-secondary exelDownBtn">엑셀다운로드</button>
+            <button class="btn btn-primary modifyBtn myAttBtn" style="margin-top : 20px;" onclick="go('attModifyForm.att')">근태수정요청</button>
+            <button class="btn btn-info modifyBtn myAttBtn" onclick="go('attModifyForm.att')">야근하기</button>
+            <button class="btn btn-secondary modifyBtn myAttBtn" style="margin-bottom:20px;">엑셀다운로드</button>
 
             <div class="vacation">
               <div class="yearVac">
-                <span style="font-size:30px;">🎁<br></span>
+              	<div style="height:6px;"></div>
+                <span style="font-size:25px;">🎁<br></span>
                 <span>올해의 연차<br></span>
                 <span class="gapSpan">${ myAtt.gapYearVac }<br></span>
                 <span>일 남았어요!<br></span>
@@ -59,7 +62,8 @@
               <div class="emptyVac" style="width:12px; background-color: white;">
               </div>
               <div class="realVac">
-                <span style="font-size:30px;">🎉<br></span>
+              <div style="height:6px;"></div>
+                <span style="font-size:25px;">🎉<br></span>
                 <span>올해의 휴가<br></span>
                 <span class="gapSpan">${ myAtt.gapVac }<br></span>
                 <span>일 남았어요!<br></span>

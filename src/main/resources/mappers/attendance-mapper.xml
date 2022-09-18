@@ -73,9 +73,11 @@
 
 <select id="selectInAttendance" resultMap="attendanceResult">
  	select to_char(sysdate, 'yyyy-mm-dd HH24:MI:SS') as "nowTime"
-	     , trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')), 1) * 24) as "gapHour"
-	     , lpad(trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')) * 24, 1) * 60), 2, '0') as "gapMinute"
-	     , lpad(trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')) * 24 * 60, 1) * 60), 2, '0') AS "gapSecond"
+	     , nvl(lpad(trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')), 1) * 24),2 ,'0'), 0) as "gapHour"
+	     , nvl(lpad(trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')) * 24, 1) * 60), 2, '0'), 0) as "gapMinute"
+	     , nvl(lpad(trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')) * 24 * 60, 1) * 60), 2, '0'), 0) as "gapSecond"
+	     , nvl(att_in, 0) "att_in"
+	     , nvl(att_out, 0) "att_out"
 		from tb_att
 		where emp_no = #{empNo}
 		 and att_date = to_char(sysdate, 'yyyy-mm-dd')
