@@ -16,7 +16,7 @@
 		<result column="user_name" property="userName" />
 	</resultMap>
 	
-	<!-- 1. 전체조회 -->
+	<!-- 1. 직원 스케줄 전체조회 -->
 	<select id="selectList" resultMap="bookingResult">
 		select
 			    b.book_no <!-- pk조회 -->
@@ -28,8 +28,24 @@
 		 from 	tb_booking b, tb_emp e, tb_user u
 		where 	b.user_no = u.user_no
 		  and 	b.emp_no = e.emp_no
+		  and	b.book_status = 'Y'
 	</select>
 	
+	
+	<!-- 회원입장에서 예약 상세조회 -->
+	<!-- 
+	  select
+	            e.emp_name
+	        ,   b.cl_no
+	        ,   b.book_date
+	        ,   b.book_stime
+	        ,   b.book_etime
+	     from 	tb_booking b, tb_emp e, tb_user u
+		where   b.user_no = u.user_no
+	      and 	b.emp_no = e.emp_no
+	      and 	b.book_status = 'Y'
+	      and 	b.user_no = #{userNo}
+	 -->
 	
 	
 	

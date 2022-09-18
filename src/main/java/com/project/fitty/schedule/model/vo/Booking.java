@@ -26,4 +26,5 @@ public class Booking {
 	// 뿌려줄 것 (이름) 필드 추가
 	private String empName;  // 직원 이름
 	private String userName; // 회원 이름
+	
 }

@@ -49,6 +49,7 @@ html, body{
       		<div class="col-xl-12">
         		<div class="nav-align-top mb-4">
           			<div class="tab-content" style="height: 900px;">
+          			<!-- 회원 페이지 : 스케줄 조회 / 등록 -->
             		<h5 class="text-muted" style="padding-bottom: 2px;">📅내 스케줄 관리</h5>
 					<!-- 예약 등록 버튼 -->
 					<div class="btn-group2" style="float: right; display: inline-block;">
@@ -96,12 +97,27 @@ html, body{
 		              </div>
 		            </div>
 					</div>
-					<br><br><br>		
+					<br><br><br>	
+					
+					<!-- 외부 JSP모달 불러오기 : 예약상세조회(scheduleUdetailView) 페이지 -->
+					<!-- 예약 상세조회 모달 -->
+					<div class="modal fade insertModal" id="myModal1">
+					<div class="modal-dialog">
+					  <div class="modal-content"></div>
+					</div>
+					</div>	
+					
+					<script>
+					</script>
+						
+					<!-- 외부 JSP모달로 불러오기 : 예약정보 상세조회 -->
+					
+						
+					<!-- 캘린더 태그 -->
 					<div id="wrap">
-						<!-- 캘린더 태그 -->
-						<div id='calendar-container'>
-							<div id='calendar'></div>
-						</div> 
+					<div id='calendar-container'>
+						<div id='calendar'></div>
+					</div> 
 					</div>
 								
 					<script>
