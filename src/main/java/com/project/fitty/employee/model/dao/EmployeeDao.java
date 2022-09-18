@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.project.fitty.attendance.model.vo.Attendance;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
+import com.project.fitty.user.model.vo.User;
 
 @Repository
 public class EmployeeDao {
@@ -102,4 +103,8 @@ public class EmployeeDao {
 	}
 	
 	
+	public int uploadProfileImg(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.uploadProfileImg", e);
+	}
+
 }

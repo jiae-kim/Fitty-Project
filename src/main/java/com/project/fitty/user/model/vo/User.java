@@ -25,4 +25,11 @@ public class User {
 	private String userEdate;
 	private String userPt;
 	private String userStatus;
+	
+	//[정다혜] 
+	private int classNo;
+	private String empNo;
+	private String classStartDate;
+	private int classCount;
+	
 }

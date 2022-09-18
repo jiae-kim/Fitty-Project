@@ -21,17 +21,52 @@
                   <h5 class="card-header secondHeader" style="margin-bottom: 50px;">🏋️‍♂️ My Profile</h5>
                   <div class="row">
 	                <div class="d-flex align-items-start align-items-sm-center gap-4">
-	                  <c:choose>
+                 	 <c:choose>
 	                  	<c:when test="${empty e.empPhoto }">
 	                  		<img  id="roundPhoto" src='resources/profile_images/defaultProfile.png' onclick="$('#empPhoto').click();" >
 	                  	</c:when>
 	                  	<c:otherwise>
 	                  		<input type="hidden"  name="empPhoto" value="${ e.empPhoto }">
-	                  		<img  id="roundPhoto" src='${ e.empPhoto }' onclick="$('#empPhoto').click();" >
+	                  		<img  id="roundPhoto" src="<c:out value='${  e.empPhoto }' />" onclick="$('#empPhoto').click();" >
 	                  	</c:otherwise>
 	                  </c:choose>
                 	  <input type="file" id="empPhoto" style="display:none;" name="empPhoto">
 	                </div>
+	                
+	                <script>
+	                
+	                $(function(){
+	                    $('#empPhoto').change(function(){
+	                    let roundPhoto = $('#roundPhoto');
+	             		// AJAX로 파일을 넘기고자 할 경우 가상의 form 요소를 만들어서 담은 후 전달
+	             		// => FormData 객체
+	             		let formData = new FormData();
+	             		let uploadFile = this.files[0]; // 현재 선택된 파일객체 (사용자가 선택한 첨부파일)
+	             		
+	             		formData.append("uploadFile", uploadFile); // 취소버튼 클릭시 undefined가 담김
+	             		formData.append("empNo", "${e.empNo}");
+	             		formData.append("originalFile", "${e.empPhoto}.val()"); // 기존의 프로필 이미지가 없었을경우 "" 문자열 넘어감
+	             		
+	             		$.ajax({
+	             			url:"uploadProfile.emp",
+	             			data:formData, // 파일자체가 담겨있는 가상의 form 그대로 전달
+	             			processData: false,
+	             			contentType: false,
+	             			type:"POST",
+	             			success:function(e){
+	             				location.reload(e);
+	             				roundPhoto.attr( 'class', 'd-block rounded');
+	             			},
+	             			error:function(){
+	             				console.log("프로필 이미지 파일전송을 위한 ajax 통신 실패");
+	              			}
+	             		})
+	             	})
+	             }) 
+	                
+	                
+	                
+	                </script>
                     <div class="mb-3 col-md-6">
                       <label for="empName" class="form-label">이름</label>
                       <input class="form-control" type="text" id="empName" value="${loginUser.empName }" name="empName" placeholder="이름" autofocus required/>
@@ -40,7 +75,9 @@
                       <label for="empGrade" class="form-label">직급</label>
                       <div style="height : 10px"></div>
                       <input class="form-check-input"  type="radio" name="empGrade" value="T">트레이너&nbsp&nbsp&nbsp&nbsp&nbsp
-                      <input class="form-check-input"  type="radio" name="empGrade" value="A">관리자
+                      <input class="form-check-input"  type="radio" name="empGrade" value="A">관리자&nbsp&nbsp&nbsp&nbsp&nbsp
+                      <input class="form-check-input"  type="radio" name="empGrade" value="C">대표
+                      
                     </div>
                     <div class="mb-3 col-md-3">
                       <label for="empGender" class="form-label">성별</label>
@@ -98,6 +135,5 @@
           </div>
         </div>
       
-<!-- <script type="text/javascript" src="resources/js/employee.js"></script> -->
 </body>
 </html>

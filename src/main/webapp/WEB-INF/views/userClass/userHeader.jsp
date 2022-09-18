@@ -250,23 +250,22 @@
           <ul class="menu-inner py-1">
 
             <!-- Layouts -->
-
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class='menu-icon tf-icons bx bxs-book-heart'></i>
-                <div data-i18n="Account Settings" class="big-menu-label">운동일지</div>
-              </a>
+			<li class="menu-item">
+			  <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bx-calendar'></i>
+                <div data-i18n="Authentications"  class="big-menu-label">스케줄관리</div>
+           	  </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="userEx.cl" class="menu-link">
-                    <div data-i18n="Account" class="small-menu-label">#</div>
+                  <a href="list.sc" class="menu-link">
+                    <div data-i18n="Account" class="small-menu-label">스케줄 조회</div>
                   </a>
                 </li>
-                <!-- <li class="menu-item">
-                  <a href="centerAtt.att" class="menu-link">
-                    <div data-i18n="Notifications" class="small-menu-label">#</div>
+                <li class="menu-item">
+                  <a href="enrollForm.sc" class="menu-link">
+                    <div data-i18n="Notifications" class="small-menu-label">수업 예약</div>
                   </a>
-                </li> -->
+                </li>
               </ul>
             </li>
             
@@ -288,8 +287,25 @@
                 </li> -->
               </ul>
             </li>
-
             
+            <li class="menu-item">
+              <a href="javascript:void(0);" class="menu-link menu-toggle">
+                <i class='menu-icon tf-icons bx bxs-book-heart'></i>
+                <div data-i18n="Account Settings" class="big-menu-label">운동일지</div>
+              </a>
+              <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="userEx.cl" class="menu-link">
+                    <div data-i18n="Account" class="small-menu-label">#</div>
+                  </a>
+                </li>
+                <!-- <li class="menu-item">
+                  <a href="centerAtt.att" class="menu-link">
+                    <div data-i18n="Notifications" class="small-menu-label">#</div>
+                  </a>
+                </li> -->
+              </ul>
+            </li>
            
         </aside>
         <!-- / Menu -->

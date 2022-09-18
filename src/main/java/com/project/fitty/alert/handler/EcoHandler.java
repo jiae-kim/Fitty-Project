@@ -32,7 +32,7 @@ public class EcoHandler extends TextWebSocketHandler {
 		String senderId = getId(session);
 		userSessions.put(senderId, session);
 		
-		System.out.println("웹소켓 연결된 사람들 :" + userSessions);
+		//System.out.println("웹소켓 연결된 사람들 :" + userSessions);
 	}
 	
 	@Override
