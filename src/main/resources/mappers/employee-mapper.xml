@@ -178,6 +178,15 @@
 			</if>
 	  </select>
 	  
+	  <select id="selectByEmpNo" resultMap="employeeResult">
+	  	select e.emp_no
+	  		 , e.emp_name
+	  		 , g.gr_name
+	  	from tb_emp e
+	  	join tb_grade g on(e.emp_grade = g.emp_grade)
+	  	where e.emp_no = #{empNo}
+	  </select>
+	  
 	  
   <update id="updateEmployee">
    	update 

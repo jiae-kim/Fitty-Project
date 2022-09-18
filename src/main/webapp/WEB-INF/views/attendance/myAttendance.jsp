@@ -45,11 +45,10 @@
                   <th>퇴근</th>
                   <td class="goRight">${ myAtt.attOut }</td>
               </tr>
-              
             </table>
-            <button class="btn btn-primary modifyBtn myAttBtn" style="margin-top : 20px;" onclick="go('attModifyForm.att')">근태수정요청</button>
-            <button class="btn btn-info modifyBtn myAttBtn" onclick="go('attModifyForm.att')">야근하기</button>
-            <button class="btn btn-secondary modifyBtn myAttBtn" style="margin-bottom:20px;">엑셀다운로드</button>
+            <a class="btn btn-primary modifyBtn myAttBtn" style="margin-top : 20px;" href="modifyList.mo?empNo=${loginUser.empNo }">근태수정요청</a>
+            <a class="btn btn-info modifyBtn myAttBtn" onclick="go('attModifyForm.att')">연장근무하기</a>
+            <a class="btn btn-secondary modifyBtn myAttBtn" style="margin-bottom:20px;">엑셀다운로드</a>
 
             <div class="vacation">
               <button class="yearVac" type="button">

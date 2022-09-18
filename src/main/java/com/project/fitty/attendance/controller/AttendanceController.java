@@ -122,10 +122,6 @@ public class AttendanceController {
 		return new Gson().toJson(att);
 	}
 	
-	@RequestMapping("attModifyForm.att")
-	public String goMyModifyForm() {
-		return "attendance/myAttendanceModify";
-	}
 	
 	
 	

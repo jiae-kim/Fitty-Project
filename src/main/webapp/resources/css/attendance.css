@@ -327,7 +327,7 @@ table thead, table tfoot{
 
 
 .simple{
-    height: 120px;
+    height: 150px;
     width: 95%;
     margin: auto;
     margin-top: 10px;
@@ -400,7 +400,7 @@ table thead, table tfoot{
 
 
 .modifyTable thead{
-  color: #696CFF;
+  /*color: #696CFF;*/
   font-weight: 600;
 }
 
@@ -413,7 +413,7 @@ table thead, table tfoot{
   margin-top: 20px;
   margin-bottom: 10px;
   background-color: #f8f4fc;
-  height: 450px;
+  height: 530px;
   border-radius: 10px;
   text-align:center;
   justify-content: center;
@@ -424,7 +424,7 @@ textarea{
   resize: none;
   margin-top: -10px;
   width: 80%;
-  height: 80px;
+  height: 100px;
   border: 0.5px solid #696CFF;
   border-radius: 7px;
   padding: 5px;
@@ -444,7 +444,8 @@ textarea{
   margin-top: 20px;
   width: 80%;
   display: flex;
-  padding:25px;
+  padding:0px;
+  padding-bottom:40px;
   box-sizing:border-box;
 }
 

@@ -104,6 +104,11 @@ public class EmployeeDao {
 		return (ArrayList)sqlSession.selectList("employeeMapper.openVacModalSelectEmpName", empNo);
 	}
 	
+	// 근무시간 수정용
+		public Employee selectByEmpNo(SqlSessionTemplate sqlSession, String empNo) {
+			return sqlSession.selectOne("employeeMapper.selectByEmpNo", empNo);
+		}
+	
 	
 	// 직원 정보수정
 	public int updateEmployee(SqlSessionTemplate sqlSession, Employee e) {
@@ -114,5 +119,7 @@ public class EmployeeDao {
 	public int uploadProfileImg(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.uploadProfileImg", e);
 	}
+	
+	
 
 }

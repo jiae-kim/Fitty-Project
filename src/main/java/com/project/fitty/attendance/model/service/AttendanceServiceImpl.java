@@ -66,7 +66,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 			case "X" : a.setAttStatus("#E74C3C"); ; break; //결석
 			case "L" : a.setAttStatus("#F1C40F"); ; break; // 지각
 			case "E" : a.setAttStatus("#BF5BC7"); ; break; // 조퇴
-			case "H" : a.setAttStatus("green"); ; break; // 승인
+			case "Q" : a.setAttStatus("green"); ; break; // 오전반차
+			case "Z" : a.setAttStatus("green"); ; break; // 오후반차
 			case "V" : a.setAttStatus("#29CCF9"); ; break; // 휴가
 			case "Y" : a.setAttStatus("green"); ; break; // 연월차
 			case "B" : a.setAttStatus("#FFFFFF"); ; break; // 베이직
@@ -87,7 +88,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 			case "X" : a.setAttStatus("#E74C3C"); ; break; //결석
 			case "L" : a.setAttStatus("#F1C40F"); ; break; // 지각
 			case "E" : a.setAttStatus("#BF5BC7"); ; break; // 조퇴
-			case "H" : a.setAttStatus("green"); ; break; // 승인
+			case "Q" : a.setAttStatus("green"); ; break; // 오전반차
+			case "Z" : a.setAttStatus("green"); ; break; // 오후반차
 			case "V" : a.setAttStatus("#29CCF9"); ; break; // 휴가
 			case "Y" : a.setAttStatus("green"); ; break; // 연월차
 			case "B" : a.setAttStatus("#FFFFFF"); ; break; // 베이직
