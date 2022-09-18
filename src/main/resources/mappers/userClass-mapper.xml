@@ -19,6 +19,22 @@
 		<result column="cl_goal" property="classGoal" />
 		<result column="cl_result" property="classResult" />
 	</resultMap> 
+	
+	
+	<resultMap id="dietResult" type="Diet">
+		<result column="di_no" property="dietNo" />
+		<result column="cl_no" property="classNo" />
+		<result column="di_date" property="dietDate" />
+		<result column="di_bf_content" property="bfContent" />
+		<result column="di_bf_img" property="bfImage" />
+		<result column="di_lc_content" property="lcContent" />
+		<result column="di_lc_img" property="lcImage" />
+		<result column="di_dn_content" property="dnContent" />
+		<result column="di_dn_img" property="dnImage" />
+		<result column="di_enroll" property="dietEnroll" />
+		<result column="di_re_content" property="reContent" />
+		<result column="di_re_img" property="reImage" />
+	</resultMap>
 
 
 
@@ -46,16 +62,80 @@
 		   and u.user_phone = #{userPhone}
 		   and u.user_birth = #{userBirth}
    </select>  
-  
-  
-  <!-- 
-	<select>
-		select * 
-  	   	  from tb_diet
-	 	 where di_date = to_date( '220915', 'YY/MM/DD')
-	</select>
-   -->
    
    
    
+   <select id="selectUserDiet" resultMap="dietResult">
+		select di_no
+		     , cl_no
+		     , di_date
+		     , di_bf_content
+		     , di_bf_img
+		     , di_lc_content
+		     , di_lc_img
+		     , di_dn_content
+		     , di_dn_img
+		     , di_enroll
+		     , di_re_content
+		     , di_re_img
+		  from tb_diet
+		 where di_date = to_date(#{dietDate}, 'YY/MM/DD')
+		   and cl_no = #{classNo}
+   </select>
+   
+   
+   
+	<insert id="insertUserDiet">
+		insert
+		  into tb_diet
+		  (
+		  	di_no
+		  , cl_no
+		  , di_date
+		  , di_bf_content
+		  , di_bf_img
+		  , di_lc_content
+		  , di_lc_img
+		  , di_dn_content
+		  , di_dn_img
+		  , di_enroll
+		  , di_re_content
+		  , di_re_img
+		  )
+		  values
+		  (
+		  	seq_dino.nextval
+		  , #{classNo}
+		  , #{dietDate}
+		  , #{bfContent}
+		  , #{bfImage}
+		  , #{lcContent}
+		  , #{lcImage}
+		  , #{dnContent}
+		  , #{dnImage}
+		  , 'Y'
+		  , #{reContent}
+		  , #{reImage}
+		  )
+	</insert>
+
+
+	<update id="updateDietBoard">
+		update tb_diet
+           set
+           	   di_bf_content = #{bfContent}
+             , di_bf_img = #{bfImage}
+             , di_lc_content = #{lcContent}
+             , di_lc_img = #{lcImage}
+             , di_dn_content = #{dnContent}
+             , di_dn_img = #{dnImage}
+             , di_re_content = #{reContent}
+             , di_re_img = #{reImage}
+         where di_no = #{dietNo}
+           and di_enroll = 'Y'
+	</update>
+
+
+
+
 </mapper>

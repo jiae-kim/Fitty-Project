@@ -56,62 +56,96 @@
 		<!-- <h5 class="card-header"></h5> -->
 		<div class="card-body row" style="height:790px">
 		
+			<div>
+	        	<div id="calendar"></div>
+			</div>
 		
 		
-      <div>
-        <div id="calendar"></div>
-
-          <script>
-            var date = new Date();
+		<script>
+		$(function(){
+			
+			var date = new Date();
+			var today = new Date();
+			/* calrendarMaker(); */
+		
+           $(document).on("click", ".pre", function() { // 이전달
+                today = new Date ( today.getFullYear(), today.getMonth()-1, today.getDate());
+           		console.log(today);
+           		
+           		calrendarMaker();
+            })
+		
+           $(document).on("click", ".next", function() { // 이전달
+                today = new Date ( today.getFullYear(), today.getMonth()+1, today.getDate());
+           		console.log(today);
+           		
+           		calrendarMaker();
+            })
+		
+            
+			function calrendarMaker(){
+					
+            /* var date = new Date(); */
             
             // 달력 연도
-            var calendarYear = date.getFullYear();
+            var calendarYear = today.getFullYear();
             // 달력 월
-            var calendarMonth = date.getMonth() + 1;
+            var calendarMonth = today.getMonth() + 1;
             // 달력 일
-            var calendarToday = date.getDate();
+            var calendarToday = today.getDate();
             
-            var monthLastDate = new Date(calendarYear, calendarMonth, 0);
             // 달력 월의 마지막 일
+            var monthLastDate = new Date(calendarYear, calendarMonth, 0);
             var calendarMonthLastDate = monthLastDate.getDate();
             
-            var monthStartDay = new Date(calendarYear, date.getMonth(), 1);
             // 달력 월의 시작 요일
+            var monthStartDay = new Date(calendarYear, date.getMonth(), 1);
             var calendarMonthStartDay = monthStartDay.getDay();
             
             // 주 카운트
             var calendarWeekCount = Math.ceil((calendarMonthStartDay + calendarMonthLastDate) / 7);
             
             var html = "";
-                html += "<div align=\"center\">"
-                html += "<a href=''><i class=\"tf-icon bx bx-chevron-left\"></i></a> &nbsp;&nbsp;&nbsp;"
-                html += "<label class=\"mm\">" 
-                      + calendarMonth + "월</label> &nbsp;&nbsp;&nbsp;";
-                html += "<a href=''><i class=\"tf-icon bx bx-chevron-right\"></i></a>"
-                html += "</div><br>"
-                html += "<table>";
+                html += "<div align='center' class='calMove'>";
+                
+                html += "<button type='button' class='pre'><i class='tf-icon bx bx-chevron-left'></i></button> &nbsp;&nbsp;&nbsp;";
+                html += "<label class='mm'>" + calendarMonth + "월</label> &nbsp;&nbsp;&nbsp;";
+                html += "<button type='button' class='next'><i class='tf-icon bx bx-chevron-right'></i></button>";
+                
+                html += "</div><br>";
+                
+                html += "<table class='calrendar'>";
                 html += "<thead>";
-                html += "<tr align=\"center\">";
-                html += "<th style=\"color:red\">SUN</th><th>MON</th><th>THU</th><th>WEN</th><th>THU</th><th>FRI</th><th>SAT</th>";
+                html += "<tr align='center'>";
+                html += "<th style='color:red'>SUN</th><th>MON</th><th>THU</th><th>WEN</th><th>THU</th><th>FRI</th><th>SAT</th>";
                 html += "</tr>";
                 html += "</thead>";
                 html += "<tbody>";
+                
                 // 위치
                 var calendarPos = 0;
                 // 날짜
                 var calendarDay = 0;
+                
                 for (var index1 = 0; index1 < calendarWeekCount; index1++) {
                   html += "<tr>";
                   for (var index2 = 0; index2 < 7; index2++) {
                     html += "<td>";
                     if (calendarMonthStartDay <= calendarPos && calendarDay < calendarMonthLastDate) {
-                      calendarDay++;
-                      html += "<div class=\"div\"><span >" + calendarDay + "</span>"
-                           + "<div class='day'>"
-                           +  ""
-                           + "</div>"
-                           + "</div>";
+                    	calendarDay++;
+                      
+                      	if(calendarDay == calendarToday){
+                      		html += "<div class='div' style='background-color:lavender'><span>" + calendarDay + "</span>";
+                      	}else{
+	                      	html += "<div class='div'><span>" + calendarDay + "</span>";
+                      	}
+	                      
+                      	html += "<div class='day'>"
+                             +  ""
+                             + "</div>"
+                             + "</div></div>";
                     }
+                    
                     html += "</td>";
                     calendarPos++;
                   }
@@ -119,11 +153,10 @@
                 }
                 html += "</tbody>";
                 html += "</table>";
+                
                 $("#calendar").html(html);
 
-
-
-
+                
                 $(".div").click(function(){
                   let dd = $(this).children().text();
                   if(dd>0 && dd<10){
@@ -138,18 +171,16 @@
                   let yy = calendarYear.toString();
                   yy =yy.substring(2);
 
+                  let dietDate = yy + "/" + mm + "/" + dd;
                   
-                  let dietDate = yy + mm + dd;
-                  console.log(dietDate);
-
-
-                  location.href = 'userDiDetail.cl?dietDate=' + dietDate + '&userNo=${loginU.userNo}';
-
-                })
+                  location.href = 'userDiDetail.cl?dietDate=' + dietDate + '&classNo=${loginU.classNo}';
+                }) 
+                
+			}
+           calrendarMaker();
+			
+		  })
           </script>
-      </div>
-		
-		
 		
           
 		</div>
