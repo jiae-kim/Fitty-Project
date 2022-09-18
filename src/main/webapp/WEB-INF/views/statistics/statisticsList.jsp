@@ -13,6 +13,7 @@
 
         table thead, table tfoot{
           background-color: #f8f4fc;
+		 
           /* background-color: #e8e4fc; */
         }
 
@@ -37,7 +38,7 @@
         #approve{ background-color: #e1ffdd;}
         /* #yearVac{ background-color: #e7fdf9;} */
         #vacation{ background-color: #f2f2f2;}
-        #plus{ background-color: #c8c9ff;}
+        #plus{ background-color: rgb(200, 201, 255);}
 </style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
@@ -57,19 +58,20 @@
 			<div class="col-lg-8 mb-4 order-0">
 
 				<div class="col-xl-12">
-
+				
 					<div class="nav-align-top mb-4">
-						<div class="tab-content " style="width: 100%; height: 100%">
-							<div class="tab-pane fade show active"
-								id="navs-pills-justified-home" role="tabpanel">
-								<canvas id="myChart1"></canvas>
-
-
-
-							</div>
+						<div class="tab-content" style="width:100%; height:100%">
+						<div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
+						<h5>헬스장 회원 수 추이 (2021.10 - 2022.8)</h5>
+							<canvas id="myChart3"></canvas>
+							
+		
+							
+						</div>
 						</div>
 					</div>
 
+					
 				</div>
 			</div>
 
@@ -82,8 +84,9 @@
 						<div class="tab-content " style="width: 100%; height: 100%">
 							<div class="tab-pane fade show active"
 								id="navs-pills-justified-home" role="tabpanel">
+								<h5>이용권 개월별 선호도</h5>
 								<canvas id="myChart2"></canvas>
-
+								<br>
 
 
 							</div>
@@ -98,15 +101,18 @@
 				<div class="col-xl-12">
 
 					<div class="nav-align-top mb-4">
-						<div class="tab-content" style="width:100%; height:100%">
-						<div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
-							<canvas id="myChart3"></canvas>
-							
-		
-							
-						</div>
+						<div class="tab-content " style="width: 100%; height: 100%">
+							<div class="tab-pane fade show active"
+								id="navs-pills-justified-home" role="tabpanel">
+								<h5>트레이너별 누적 회원 수</h5>
+								<canvas id="myChart1"></canvas>
+
+
+
+							</div>
 						</div>
 					</div>
+					
 				
 				</div>
 			</div>
@@ -144,6 +150,9 @@
 						}
 						
 						let myChart3 = document.getElementById('myChart3').getContext('2d');
+						const gradientFill = myChart3.createLinearGradient(0,0,0,200);
+    					gradientFill.addColorStop(0, 'rgb(200, 201, 255, 1)');
+    					gradientFill.addColorStop(1, 'rgb(200, 201, 255, 0.1)');
 						let lineChart = new Chart(myChart3, {
 
 							type : 'line', //pie, line, doughnut, polarArea
@@ -151,11 +160,21 @@
 								labels : userCountMonth,
 								datasets : [{
 									label : '회원 수 추이',
-									data : userCount
+									data : userCount,
+									backgroundColor:'rgb(200, 201, 255, 0.3)',
+									fill:true,
+									borderColor : '#696cff',
+									borderJoinStyle : 'round',
+									pointRadius:3.5,
+									lineTension:0.35
+
 								}]
 							},
 							options: {
-								display:true
+								display:true,
+								text : '2021-2022 회원 수 추이',
+								fontSize:30
+								
 							}
 
 						})
@@ -184,8 +203,13 @@
 							data : {
 								labels : empName,
 								datasets : [{
-									label : '현재 트레이너별 수업 수',
-									data : classCount
+									label : '트레이너별 수업 누적 수',
+									data : classCount,
+									backgroundColor:['rgb(105, 108, 255, 0.5)',
+										'rgb(3, 195, 236, 0.5)',
+										'rgb(255, 171, 0, 0.5)',
+										'rgb(32, 201, 151, 0.5)'
+									]
 								}]
 							}
 
@@ -209,12 +233,17 @@
 
 						new Chart(document.getElementById('myChart2').getContext('2d'),{
 
-							type : 'pie', //pie, line, doughnut, polarArea
+							type : 'doughnut', //pie, line, doughnut, polarArea
 							data : {
 								labels : userMonth,
 								datasets : [{
-									label : '개월 별 이용권 비율',
-									data : couCount
+									label : '개월별 이용권 비율',
+									data : couCount,
+									backgroundColor:['rgb(105, 108, 255)',
+										'rgb(3, 195, 236)',
+										'rgb(32, 201, 151)',
+										'rgb(255, 171, 0)'
+									]
 								}]
 							}
 

@@ -50,6 +50,8 @@
     <script src="resources/bootTemplate/sneat-1.0.0/assets/js/config.js"></script>
         <!-- jQuery 라이브러리 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!-- chart.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     
     
     <!-- 구글폰트 notosans -->
