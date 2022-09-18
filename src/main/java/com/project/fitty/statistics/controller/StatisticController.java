@@ -29,9 +29,9 @@ public class StatisticController {
 		// pt이용하는 사람들 중에 몇개월 이용권 사용이 많은지
 		ArrayList<User> pList = sService.selectCouponRateByUser();
 		
-		model.addAttribute("uList", uList);
-		model.addAttribute("cList", cList);
-		model.addAttribute("pList", pList);
+		model.addAttribute("uList", uList); // {userCount 3, userCountMonth 20-06}
+		model.addAttribute("cList", cList); // {empNo TRN102, empName 최헬트, clCount 5}
+		model.addAttribute("pList", pList); // {userMonth 3(개월), couCount 2} 
 		
 		return "statistics/statisticsList";
 		
