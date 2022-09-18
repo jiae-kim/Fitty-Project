@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.project.fitty.attendance.model.vo.Attendance;
+import com.project.fitty.attendance.model.vo.ModifyAtt;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
-import com.project.fitty.vacation.model.vo.Vacation;
 
 public interface AttendanceService {
 	
@@ -25,6 +25,9 @@ public interface AttendanceService {
 	
 	// 내 근태 조회
 	Attendance selectMyAttendance(Attendance a);
+	
+	// 퇴근버튼 찍은 후 오늘 일한시간 구하기
+	Attendance selectLastWorkTime(Attendance a);
 	
 	// 센터 전체 근태 조회 서비스
 	ArrayList<Attendance> selectAllAttList(Employee e);
@@ -50,6 +53,15 @@ public interface AttendanceService {
 	
 	// 기본 a리스트 각 멤버당 년,월 근태퍼센트
 	ArrayList<Attendance> selectPerYearMonthList(Attendance a);
+	
+	// 근태수정리스트 작성시 attNo 조회
+	int selectAttNo (ModifyAtt m);
+	
+	// 출근시간 수정
+	int AdminUpdateAttInStatus (Attendance a);
+	
+	//퇴근시간 수정
+	int AdminUpdateAttOutStatus (Attendance a);
 	
 	
 }

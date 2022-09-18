@@ -33,6 +33,11 @@ public class Vacation {
 	private ArrayList<Vacation> empVacList;
 	private String plusYearVac;
 	private String minusYearVac;
+	private String gapYearVac;
 	private String plusVac;
 	private String minusVac;
+	private String gapVac;
+	private String empName;
+	private String grName;
+	private String empPhoto;
 }

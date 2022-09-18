@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.project.fitty.attendance.model.vo.Attendance;
+import com.project.fitty.attendance.model.vo.ModifyAtt;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
 
@@ -35,7 +36,12 @@ public class AttendanceDao {
 	}
 */	
 	public Attendance selectMyAttendance(SqlSessionTemplate sqlSession, Attendance a) {
+		Attendance att = sqlSession.selectOne("attendanceMapper.selectMyAttendance", a);
 		return sqlSession.selectOne("attendanceMapper.selectMyAttendance", a);
+	}
+	
+	public Attendance selectLastWorkTime(SqlSessionTemplate sqlSession, Attendance a) {
+		return sqlSession.selectOne("attendanceMapper.selectLastWorkTime",a);
 	}
 	
 	public ArrayList<Attendance> selectAllAttList(SqlSessionTemplate sqlSession, Employee e) {
@@ -83,5 +89,17 @@ public class AttendanceDao {
 		return (ArrayList) sqlSession.selectList("attendanceMapper.selectPerYearMonthList", a);
 	}
 	
+	
+	public int selectAttNo(SqlSessionTemplate sqlSession, ModifyAtt m) {
+		return sqlSession.selectOne("attendanceMapper.selectAttNo", m);
+	}
+	
+	public int AdminUpdateAttInStatus(SqlSessionTemplate sqlSession, Attendance a) {
+		return sqlSession.selectOne("attendanceMapper.AdminUpdateAttInStatus", a);
+	}
+	
+	public int AdminUpdateAttOutStatus(SqlSessionTemplate sqlSession, Attendance a) {
+		return sqlSession.selectOne("attendanceMapper.AdminUpdateAttOutStatus", a);
+	}
 	
 }

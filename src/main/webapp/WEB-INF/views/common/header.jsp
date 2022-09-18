@@ -50,6 +50,8 @@
     <script src="resources/bootTemplate/sneat-1.0.0/assets/js/config.js"></script>
         <!-- jQuery 라이브러리 -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<!-- chart.js -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
     
     
     <!-- 구글폰트 notosans -->
@@ -129,7 +131,7 @@
 			color:white !important;
 		}
 		#alertList a {
-		color:gray;
+		color:#566a7f;
 		}
 		
 		#alertLabel{
@@ -182,10 +184,10 @@
 	
 	  <!-- Small Modal [알림 메세지 모달]-->
     <div class="modal fade" id="smallModal" tabindex="-1" aria-hidden="true" >
-      <div class="modal-dialog modal-sm" id="area1" role="document" style="position:absolute;right:7%;top:10%;" >
+      <div class="modal-dialog modal-lg" id="area1" role="document" style="position:absolute;right:7%;top:10%;" >
         <div class="modal-content" id="modalContent" >
           <div class="modal-header" >
-            🔔&nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
+            &nbsp;&nbsp;<h5 class="modal-title" id="exampleModalLabel2">알림</h5>&nbsp;
             <button
               type="button"
               class="btn-close"
@@ -193,6 +195,7 @@
               aria-label="Close"
             ></button>
           </div>
+          <hr>
           <div class="modal-body" id="alertList">
           
           </div>
@@ -201,7 +204,13 @@
     </div>
     
     <script>
+    
     	$(function(){
+    		selectAlertList();
+    	
+    	})
+    	
+    	function selectAlertList(){
     		$.ajax({
     			url:"alist.at",
     			data:{
@@ -212,28 +221,38 @@
     				console.log(list);
 					
     				let value = "";
+    				let value2 = "";
     				if(list.length == 0){
     					value += 
     						'<div style="text-align:center;">신규 알림 내용이 없습니다.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
     				         + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
-    				         + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>'
-    				         + 	'<br><br><br>'
+    				         + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    				         + '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'
+    				         + '</div>'
+    				         + 	'<br><br><br>';
+    				    value2 += '<label id="alertLabel" style="display:none;"></label>';
+    				    	 
     				}else{
     					for(let i=0; i<list.length; i++){
     						value +=
-    							'<span>' +  list[i].alMsg +'</span>'
-    				  		  	+ '<span class="badge bg-label-primary" style="float:right;">' + list[i].alDate + '</span>' 
+    							  '<div>'
+    							+ '<span>' +  list[i].alMsg +'</span>'
+    				  		  	+ '&nbsp;&nbsp;<span class="badge bg-label-secondary">' + list[i].alDate + '</span>'
+    				  		  	+ '</div><br>';
     					}
+    						value2 += '<label id="alertLabel"></label>';
     					
     				}
     				$('#alertList').html(value);
+    				$('#alertIcon').append(value2);
+    				
     				
     			},
     			error:function(){
     				console.log("알림리스트 조회용 ajax통신 실패");
     				}
     			})
-    	})
+    		}
     </script>
 
 <!-- Layout wrapper -->
@@ -320,7 +339,7 @@
 
             <!-- Layouts -->
 
-
+			
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Fitness Managing System</span>
             </li>
@@ -331,7 +350,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="myAtt.att" class="menu-link">
+                  <a href="myAtt.att?empNo=${loginUser.empNo }" class="menu-link">
                     <div data-i18n="Account" class="small-menu-label">내 근태관리</div>
                   </a>
                 </li>
@@ -434,7 +453,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="extended-ui-perfect-scrollbar.html" class="menu-link">
+                  <a href="list.st" class="menu-link">
                     <div data-i18n="Perfect Scrollbar" class="small-menu-label">통계</div>
                   </a>
                 </li>
@@ -480,7 +499,7 @@
                     <li class="nav-item navbar-dropdown dropdown-user dropdown">
                         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                         <div class="avatar avatar-online">
-                            <img src="resources/bootTemplate/sneat-1.0.0/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                            <img src="<c:out value='${loginUser.empPhoto}' default='resources/profile_images/defaultProfile.png' />"  alt class="w-px-40 h-auto rounded-circle" />
                         </div>
                         </a>
                         <ul class="dropdown-menu dropdown-menu-end">
@@ -623,11 +642,10 @@
                     <i class='bx bx-bell' id="alertIcon" style="position:relative;">
                     <button id="alertListBtn" type="button" data-bs-toggle="modal" data-bs-target="#smallModal"
                            style="position:absolute; top:0px;bottom:0px;right:0px;left:0px;
-                                  border=0;opacity:0;"></button>
+                                  border:0;opacity:0;"></button>
                         
-                   	<label id="alertLabel" style="display:none;"></label>
-                        
-                    				  
+                   	
+                        			  
                     </i>
                 </li>
                 
@@ -800,6 +818,8 @@
 	   		setTimeout(function(){
 	   			$socketAlert.css('display', 'none');
 	   		}, 3000);
+	   		
+	   		selectAlertList();
 	   		
 		}
 		

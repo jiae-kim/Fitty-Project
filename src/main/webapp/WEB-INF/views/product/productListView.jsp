@@ -20,8 +20,8 @@
     <div class="row">
       <div class="col-xl-12">
         <div class="nav-align-top mb-4">
-          <div class="tab-content" style="height: 750px;">
-            <h5 class="text-muted">🎫상품관리 - 헬스장이용권</h5>
+          <div class="tab-content" style="height: 700px;">
+            <h5 class="text-muted" style="padding-top: 3%;">🎫상품관리 - 헬스장이용권</h5>
             <div class="btn-group2" style="float: right; display: inline-block;">
             <!-- 등록 버튼 -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ProductEnroll">이용권 등록</button>
@@ -99,26 +99,20 @@
 	        			return false;
 	        		}else {
 	        			// 선택한 경우
-	        			
 	        			if(confirm("선택한 이용권을 삭제하시겠습니까?")){
-	        				
 	        				let checkArr = [];
 	        				
 	        				$checked.each(function(){
 	        					checkArr.push($(this).val());
-	        					
 	        				});
 	        				// [1, 2]
 	        				
 	        				const ckPro = checkArr.toString(); // "1,2"
-	        				
 	        				//console.log(ckPro);
 	        				
 	        				$.ajax({
 	        					url:"delete.pr",
-	        					data: {
-	        						ckPro : ckPro
-	        					},
+	        					data:{ckPro : ckPro},
 	        					success: function(result){
 	        						if(result == 'success'){
 	        							alertify.alert("✔ 성공적으로 헬스장 이용권이 삭제되었습니다 ✔").set('basic', true);
@@ -136,7 +130,7 @@
 	        	}
             </script>
           </div>
-          <br><br><br><br><br>
+          <br><br><br><br>
 
           <div class="card">
             <div class="table-responsive text-nowrap">
@@ -208,7 +202,7 @@
             </tbody>
           </table>
         </div>
-       </div> <br><br><br><br>
+       </div> <br><br>
        
        <!-- 페이징 -->
    		<nav aria-label="Page navigation">

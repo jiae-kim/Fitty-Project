@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.fitty.attendance.model.dao.AttendanceDao;
 import com.project.fitty.attendance.model.vo.Attendance;
+import com.project.fitty.attendance.model.vo.ModifyAtt;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
 import com.project.fitty.vacation.model.vo.Vacation;
@@ -52,6 +53,10 @@ public class AttendanceServiceImpl implements AttendanceService{
 		return aDao.selectMyAttendance(sqlSession, a);
 	}
 
+	@Override
+	public Attendance selectLastWorkTime(Attendance a) {
+		return aDao.selectLastWorkTime(sqlSession, a);
+	}
 	
 	
 	@Override
@@ -62,7 +67,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 			case "X" : a.setAttStatus("#E74C3C"); ; break; //결석
 			case "L" : a.setAttStatus("#F1C40F"); ; break; // 지각
 			case "E" : a.setAttStatus("#BF5BC7"); ; break; // 조퇴
-			case "H" : a.setAttStatus("green"); ; break; // 승인
+			case "Q" : a.setAttStatus("green"); ; break; // 오전반차
+			case "Z" : a.setAttStatus("green"); ; break; // 오후반차
 			case "V" : a.setAttStatus("#29CCF9"); ; break; // 휴가
 			case "Y" : a.setAttStatus("green"); ; break; // 연월차
 			case "B" : a.setAttStatus("#FFFFFF"); ; break; // 베이직
@@ -83,7 +89,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 			case "X" : a.setAttStatus("#E74C3C"); ; break; //결석
 			case "L" : a.setAttStatus("#F1C40F"); ; break; // 지각
 			case "E" : a.setAttStatus("#BF5BC7"); ; break; // 조퇴
-			case "H" : a.setAttStatus("green"); ; break; // 승인
+			case "Q" : a.setAttStatus("green"); ; break; // 오전반차
+			case "Z" : a.setAttStatus("green"); ; break; // 오후반차
 			case "V" : a.setAttStatus("#29CCF9"); ; break; // 휴가
 			case "Y" : a.setAttStatus("green"); ; break; // 연월차
 			case "B" : a.setAttStatus("#FFFFFF"); ; break; // 베이직
@@ -111,6 +118,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 		Attendance a = new Attendance();
 		a.setEmpNo(empNo);
 		a.setThisYear(thisYear);
+		//System.out.println(a.getEmpNo());
+		//System.out.println(a.getThisYear());
 		return aDao.insertAttendance(sqlSession, a);
 	}
 
@@ -131,6 +140,22 @@ public class AttendanceServiceImpl implements AttendanceService{
 	public ArrayList<Attendance> selectPerYearMonthList(Attendance a) {
 		return aDao.selectPerYearMonthList(sqlSession, a);
 	}
+
+	@Override
+	public int selectAttNo(ModifyAtt m) {
+		return aDao.selectAttNo(sqlSession, m);
+	}
+
+	@Override
+	public int AdminUpdateAttInStatus(Attendance a) {
+		return aDao.AdminUpdateAttInStatus(sqlSession, a);
+	}
+
+	@Override
+	public int AdminUpdateAttOutStatus(Attendance a) {
+		return aDao.AdminUpdateAttOutStatus(sqlSession, a);
+	}
+
 
 	
 

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="statisticsMapper">
+
+	<resultMap type="User" id="userResult">
+		<result column="user_no" property="userNo" />
+		<result column="user_sdate" property="userSdate" />
+		<result column="user_count_month" property="userCountMonth" />
+		<result column="user_month" property="userMonth" />
+		<result column="user_edate" property="userEdate" />
+		<result column="user_pt" property="userPt" />
+		<result column="user_status" property="userStatus" />
+		<result column="user_count" property="userCount" />
+		<result column="cou_count" property="couCount" />
+	</resultMap>
+	
+	<resultMap id="userClassResult" type="UserClass">
+		<result column="user_no" property="userNo" />
+		<result column="cl_no" property="classNo" />
+		<result column="cl_count" property="classCount" />
+		<result column="emp_no" property="empNo" />
+		<result column="emp_name" property="empName" />
+	</resultMap>
+	
+	<resultMap id="employeeResult" type="Employee">
+		<result column="emp_no" property="empNo"/>
+		<result column="emp_name" property="empName"/>
+		<result column="emp_grade" property="empGrade"/>
+	</resultMap>
+	
+	<select id="selectUserCountForYear" resultMap="userResult">
+	  select
+         	  count(*) as "user_count"
+            , TO_CHAR(TO_DATE(user_sdate, 'YYYY-MM-DD'), 'YY-MM') as "user_count_month"
+	     from tb_user
+	    group
+	       by TO_CHAR(TO_DATE(user_sdate, 'YYYY-MM-DD'), 'YY-MM') 
+	    order
+	       by TO_CHAR(TO_DATE(user_sdate, 'YYYY-MM-DD'), 'YY-MM')
+	</select>
+	
+	<select id="selectClassCountByEmp" resultMap="userClassResult">
+		select
+		        emp_no
+		      , emp_name
+		      , count(*) as "cl_count"
+		  from tb_class
+		  join tb_emp using(emp_no)
+		 group by emp_no, emp_name
+	</select>
+	
+	<select id="selectCouponRateByUser" resultMap="userResult">
+		select
+		        count(*) as "cou_count"
+		      , user_month
+		   from tb_user
+		  group by user_month
+		  order by user_month desc
+	</select>
+
+</mapper>

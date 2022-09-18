@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.project.fitty.attendance.model.service.AttendanceService;
 import com.project.fitty.attendance.model.vo.Attendance;
+import com.project.fitty.attendance.model.vo.ModifyAtt;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.common.template.Pagination;
 import com.project.fitty.employee.model.service.EmployeeService;
@@ -54,7 +55,8 @@ public class AttendanceController {
 			loginUser.setAttIn(attFlag.getAttIn());
 			loginUser.setAttOut(attFlag.getAttOut());
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 오늘도 화이팅하세요!💘");
-			mv.addObject("att", att).addObject("loginUser", loginUser).setViewName("common/mainPage");
+			mv.addObject("att", att).setViewName("common/mainPage");
+			session.setAttribute("loginUser", loginUser);
 		} else {
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 출근 실패 관리자에게 문의하세요😅");
 			mv.setViewName("common/mainPage");
@@ -79,7 +81,8 @@ public class AttendanceController {
 			loginUser.setAttIn(attFlag.getAttIn());
 			loginUser.setAttOut(attFlag.getAttOut());
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 금일 근무시간은 " + att.getGapHour() + " 시간 " + att.getGapMinute() + " 분 " + att.getGapSecond() + " 초 입니다!💘");
-			mv.addObject("att", att).addObject("loginUser", loginUser).setViewName("common/mainPage");
+			mv.addObject("att", att).setViewName("common/mainPage");
+			session.setAttribute("loginUser", loginUser);
 		} else {
 			session.setAttribute("alertMsg", a.getEmpNo() + "님 퇴근 실패 관리자에게 문의하세요😅");
 			mv.setViewName("common/mainPage");
@@ -100,16 +103,28 @@ public class AttendanceController {
 	
 	
 	@RequestMapping("myAtt.att")
-	public String goMyAtt(Attendance a, ModelAndView mv) {
-		//Attendance att = aService.selectMyAttendance(a);
-		
-		return "attendance/myAttendance";
+	public ModelAndView goMyAtt(HttpSession session, Attendance a, ModelAndView mv) {
+		Attendance myAtt = aService.selectMyAttendance(a);
+		mv.addObject("myAtt", myAtt).setViewName("attendance/myAttendance");
+		return mv;
 	}
 	
-	@RequestMapping("attModifyForm.att")
-	public String goMyModifyForm() {
-		return "attendance/myAttendanceModify";
+	//modifyAtt.att는 ModifyController로 이동함!
+	
+	@ResponseBody
+	@RequestMapping(value="getWorkTimeOneSec.att", produces="application/json; charset=utf-8")
+	public String selectWorkTimeOneSec(Attendance a) {
+		Attendance att = aService.selectInAttendance(a);
+		return new Gson().toJson(att);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="getLastWorkTime.att", produces="application/json; charset=utf-8")
+	public String selectLastWorkTime(Attendance a) {
+		Attendance att = aService.selectLastWorkTime(a);
+		return new Gson().toJson(att);
+	}
+	
 	
 	
 	
@@ -210,7 +225,6 @@ public class AttendanceController {
 		int listCount =  eService.selectEmpListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		
-		System.out.println(pi);
 		
 		ArrayList<Employee> empList =  eService.selectEmpList(pi);
 		
@@ -277,9 +291,8 @@ public class AttendanceController {
 	    	count = i;
 	    }
 	    
-	   
 	    	session.setAttribute("alertMsg", (count+1) + "명 근태초기화에 성공했습니다.");
-	    	return "attendance/centerAllAttendance";
+	    	return "redirect:centerAtt.att";
 	   
 	}
 
@@ -301,7 +314,6 @@ public class AttendanceController {
 		if(searchFlag.equals("N")) {
 			// 맨 처음 호출될때
 			listCount = eService.selectEmpListCount();
-			System.out.println(listCount);
 		} else {
 			// 서치된 값으로 호출될때 searchFlag = Y
 			listCount = eService.selectVacSearchListCount(sqlMap);
@@ -340,7 +352,6 @@ public class AttendanceController {
 		HashMap <String, Object> map = new HashMap<String, Object>();
 		map.put("pi", pi);
 		map.put("aList", aList);
-		//System.out.println("1번 : " + map);
 		return new Gson().toJson(map);
 		
 	}
@@ -354,11 +365,12 @@ public class AttendanceController {
 		
 	}
 	
+	/*
 	@RequestMapping("modifyAtt.att")
 	public String goModifyAtt() {
 		return "attendance/modifyAttendance";
 	}
-
+*/
 	
 	@RequestMapping("enrollForm.emp")
 	public String goEnrollForm() {

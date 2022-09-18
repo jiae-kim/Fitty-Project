@@ -2,4 +2,51 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="scheduleMapper">
 
+	<resultMap type="Booking" id="bookingResult">
+		<result column="book_no" property="bookNo" />
+		<result column="cl_no" property="clNo" />
+		<result column="user_no" property="userNo" />
+		<result column="emp_no" property="empNo" />
+		<result column="book_date" property="bookDate" />
+		<result column="book_stime" property="bookStime" />
+		<result column="book_etime" property="bookEtime" />
+		<result column="book_status" property="bookStatus" />
+		<result column="cl_status" property="clStatus" />
+		<result column="emp_name" property="empName" />
+		<result column="user_name" property="userName" />
+	</resultMap>
+	
+	<!-- 1. 직원 스케줄 전체조회 -->
+	<select id="selectList" resultMap="bookingResult">
+		select
+			    b.book_no <!-- pk조회 -->
+			,   e.emp_name
+			,   u.user_name
+			,   b.book_date
+			,   b.book_stime
+			,   b.book_etime
+		 from 	tb_booking b, tb_emp e, tb_user u
+		where 	b.user_no = u.user_no
+		  and 	b.emp_no = e.emp_no
+		  and	b.book_status = 'Y'
+	</select>
+	
+	
+	<!-- 회원입장에서 예약 상세조회 -->
+	<!-- 
+	  select
+	            e.emp_name
+	        ,   b.cl_no
+	        ,   b.book_date
+	        ,   b.book_stime
+	        ,   b.book_etime
+	     from 	tb_booking b, tb_emp e, tb_user u
+		where   b.user_no = u.user_no
+	      and 	b.emp_no = e.emp_no
+	      and 	b.book_status = 'Y'
+	      and 	b.user_no = #{userNo}
+	 -->
+	
+	
+	
 </mapper>

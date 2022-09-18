@@ -31,6 +31,8 @@
 		<result column="work_year" property="workYear"/>
 		<result column="per_year" property="perYear"/>
 		<result column="per_month" property="perMonth"/>
+		<result column="gap_year_vac" property="gapYearVac"/>
+		<result column="gap_vac" property="gapVac"/>
 </resultMap>
 
 <select id="attFlag" resultMap="attendanceResult">
@@ -71,11 +73,22 @@
 
 <select id="selectInAttendance" resultMap="attendanceResult">
  	select to_char(sysdate, 'yyyy-mm-dd HH24:MI:SS') as "nowTime"
-	     , trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')), 1) * 24) as "gapHour"
-	     , lpad(trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')) * 24, 1) * 60), 2, '0') as "gapMinute"
-	     , lpad(trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')) * 24 * 60, 1) * 60), 2, '0') AS "gapSecond"
+	     , nvl(lpad(trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')), 1) * 24),2 ,'0'), 0) as "gapHour"
+	     , nvl(lpad(trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')) * 24, 1) * 60), 2, '0'), 0) as "gapMinute"
+	     , nvl(lpad(trunc(mod((sysdate - to_date(att_in, 'HH24:MI:SS')) * 24 * 60, 1) * 60), 2, '0'), 0) as "gapSecond"
+	     , nvl(att_in, 0) "att_in"
+	     , nvl(att_out, 0) "att_out"
 		from tb_att
 		where emp_no = #{empNo}
+		 and att_date = to_char(sysdate, 'yyyy-mm-dd')
+ </select>
+ 
+ <select id="selectLastWorkTime" resultMap="attendanceResult">
+ 	select nvl(lpad(trunc(mod((to_date(att_out, 'HH24:MI:SS') - to_date(att_in, 'HH24:MI:SS')), 1) * 24),2 ,'0'), 0) as "gapHour"
+	     , nvl(lpad(trunc(mod((to_date(att_out, 'HH24:MI:SS') - to_date(att_in, 'HH24:MI:SS')) * 24, 1) * 60), 2, '0'), 0) as "gapMinute"
+	     , nvl(lpad(trunc(mod((to_date(att_out, 'HH24:MI:SS') - to_date(att_in, 'HH24:MI:SS')) * 24 * 60, 1) * 60), 2, '0'), 0) as "gapSecond"
+	from tb_att
+   where emp_no = #{empNo}
 		 and att_date = to_char(sysdate, 'yyyy-mm-dd')
  </select>
  
@@ -113,7 +126,32 @@
  </update>
 
   <select id="selectMyAttendance" resultMap="attendanceResult">
-  
+  select
+distinct emp_no
+     , att_date
+     , nvl(att_in, '출근전') as att_in
+     , nvl(att_out, '퇴근전') as att_out
+     , ((select nvl(sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no = #{empNo}
+            and att_status in ('Y', 'H')
+            and vac_status = 'P') - (select nvl(sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no = #{empNo}
+            and att_status in ('Y', 'H')
+            and vac_status = 'M')) as "GAP_YEAR_VAC"
+    , ((select nvl(sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no = #{empNo}
+            and att_status in ('V')
+            and vac_status = 'P') - (select nvl( sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no = #{empNo}
+            and att_status in ('V')
+            and vac_status = 'M'))  as "GAP_VAC"
+    from tb_att
+  where emp_no = #{empNo}
+    and att_date = to_char(sysdate,'yyyy-mm-dd')
   </select>
   
   <select id="selectAllAttList" resultMap="attendanceResult">
@@ -282,10 +320,10 @@
 	(select "att_date"
 	   from(
 	select level
-	     , trunc(to_date('22/01/01', 'YY/MM/DD'), 'MM') + level -1 "att_date"
-	     , to_char(trunc(to_date('22/01/01', 'YY/MM/DD'), 'MM') + level - 1 ,'DY') "요일"
+	     , trunc(to_date(#{thisYear} || '0101', 'YY/MM/DD'), 'MM') + level -1 "att_date"
+	     , to_char(trunc(to_date(#{thisYear} || '0101', 'YY/MM/DD'), 'MM') + level - 1 ,'DY') "요일"
 	  from dual
-	connect by level <= 365
+	connect by level <= 364
 	)
 	where 요일 in ('월', '화', '수', '목', '금'))
   ]]>
@@ -372,8 +410,32 @@
 		 ]]>
   </select>
   
+  <select id="selectAttNo" resultType="_int">
+  	select att_no
+  	  from tb_att
+  	 where emp_no = #{empNo}
+  	   and att_date = #{attDate}
+  </select>
   
+  
+  <update id="AdminUpdateAttInStatus">
+  update tb_att
+	set att_status = #{attStatus}
+	where att_no = #{attNo}
+   <!--update tb_att
+	set att_status = #{attStatus}
+	    , att_in = #{attIn} 
+	where emp_no = #{empNo}
+	and att_no = #{attNo}-->
+  </update>
+  
+  <update id="AdminUpdateAttOutStatus">
+  update tb_att
+	set att_status = #{attStatus}
+	where att_no = #{attNo}
+  </update>
    
+  
   
 
 </mapper>

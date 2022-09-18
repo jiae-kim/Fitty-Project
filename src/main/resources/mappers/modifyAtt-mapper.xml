@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="modifyAttMapper">
+	<resultMap id="modifyAttResult" type="ModifyAtt">
+		<result column="mo_att_no" property="moAttNo"/>
+		<result column="emp_no" property="empNo"/>
+		<result column="att_no" property="attNo"/>
+		<result column="mo_att_reason" property="moAttReason"/>
+		<result column="mo_att_back" property="moAttBack"/>
+		<result column="mo_att_status" property="moAttStatus"/>
+		<result column="mo_att_type" property="moAttType"/>
+		<result column="mo_att_enroll_d" property="moAttEnrollD"/>
+		<result column="mo_att_modify_d" property="moAttModifyD"/>
+		<result column="mo_read_flag" property="moReadFlag"/>
+		<result column="mo_att_modify_time" property="moAttModifyTime"/>
+		<result column="emp_name" property="empName"/>
+		<result column="emp_photo" property="empPhoto"/>
+		<result column="gr_name" property="grName"/>
+		<result column="gapHour" property="gapHour"/>
+		<result column="gapMinute" property="gapMinute"/>
+		<result column="gapSecond" property="gapSecond"/>
+		<result column="att_in" property="attIn"/>
+		<result column="att_out" property="attOut"/>
+		<result column="att_status" property="attStatus"/>
+		<result column="att_date" property="attDate"/>
+		<result column="mo_att_delete_flag" property="moAttDeleteFlag"/>
+	</resultMap>
+	
+	<select id="selectModifyList" resultMap="modifyAttResult">
+	select mo_att_no
+	     , emp_no
+	     , att_no
+	     , mo_att_reason
+	     , mo_att_back
+	     , mo_att_status
+	     , mo_att_type
+	     , to_char(mo_att_enroll_d,'yyyy/mm/dd') as "mo_att_enroll_d"
+     	 , to_char(mo_att_modify_d,'yyyy/mm/dd') as "mo_att_modify_d"
+     	 , mo_read_flag
+	  from tb_modify_att
+	 where emp_no = #{empNo}
+	   and mo_att_delete_flag = 'O'
+	 order
+        by mo_att_enroll_d desc
+	</select>
+	
+	<select id="selectModifyDetail" resultMap="modifyAttResult">
+	 select mo_att_no
+	     , m.emp_no
+	     , a.att_no
+	     , mo_att_reason
+	     , nvl(mo_att_back, '아직 사유가 작성되지 않았습니다.') as "mo_att_back"
+	     , mo_att_status
+	     , mo_att_type
+	     , to_char(mo_att_enroll_d,'yyyy/mm/dd') as "mo_att_enroll_d"
+     	 , to_char(mo_att_modify_d,'yyyy/mm/dd') as "mo_att_modify_d"
+     	 , mo_read_flag
+         , e.emp_name
+         , nvl(e.emp_photo, 'resources/profile_images/defaultProfile.png') as "emp_photo"
+         , g.gr_name
+         , nvl(a.att_in, '출근전') as "att_in"
+         , nvl(a.att_out, '퇴근전') as "att_out"
+         , nvl(lpad(trunc(mod((to_date(a.att_out, 'HH24:MI:SS') - to_date(a.att_in, 'HH24:MI:SS')), 1) * 24),2 ,'0'), '00') as "gapHour"
+	     , nvl(lpad(trunc(mod((to_date(a.att_out, 'HH24:MI:SS') - to_date(a.att_in, 'HH24:MI:SS')) * 24, 1) * 60), 2, '0'), '00') as "gapMinute"
+	     , nvl(lpad(trunc(mod((to_date(a.att_out, 'HH24:MI:SS') - to_date(a.att_in, 'HH24:MI:SS')) * 24 * 60, 1) * 60), 2, '0'), '00') as "gapSecond"
+	     , a.att_status
+	     , to_date(a.att_date, 'yyyy-mm-dd') as "att_date"
+	     , nvl(mo_att_modify_time, '00:00:00') as "mo_att_modify_time"
+	  from tb_modify_att m
+      join tb_emp e on(e.emp_no = m.emp_no)
+      join tb_grade g on (e.emp_grade = g.emp_grade)
+      join tb_att a on (a.att_no = m.att_no)
+	 where mo_att_no =  #{moAttNo}
+	</select>
+	
+	<insert id="insertMoAtt">
+		insert
+		  into tb_modify_att
+		    (  
+		       mo_att_no
+		     , emp_no
+		     , att_no
+		     , mo_att_reason
+		     , mo_att_back
+		     , mo_att_status
+		     , mo_att_type
+		     , mo_att_enroll_d
+		     , mo_att_modify_d
+		     , mo_read_flag
+		     , mo_att_delete_flag
+		     )
+		values
+		    (
+		       SEQ_MOATT_NO.nextval
+		     , #{empNo}
+		     , #{attNo}
+		     , #{moAttReason}
+		     , null
+		     , 'W'
+		     , #{moAttType}
+		     , sysdate
+		     , #{attDate}
+		     , 'N'
+		     , 'O'
+		    )
+	</insert>
+	
+	<select id="selectAllModifyList" resultMap="modifyAttResult">
+		select mo_att_no
+		     , m.emp_no
+		     , att_no
+		     , mo_att_reason
+		     , mo_att_back
+		     , mo_att_status
+		     , mo_att_type
+		     , to_char(mo_att_enroll_d,'yyyy/mm/dd') as "mo_att_enroll_d"
+	     	 , to_char(mo_att_modify_d,'yyyy/mm/dd') as "mo_att_modify_d"
+	     	 , mo_read_flag
+	         , emp_name
+	         , emp_photo
+	         , gr_name
+		  from tb_modify_att m
+	      join tb_emp e on (e.emp_no = m.emp_no)
+	      join tb_grade g on (e.emp_grade = g.emp_grade)
+		 where mo_att_delete_flag = 'O'
+		 order
+	        by mo_att_enroll_d desc
+	</select>
+	
+	<update id="updateModifyAtt">
+	update tb_mo_att
+	   set mo_att_status = 'M'
+	     , mo_att_back = #{moAttBack}
+	     , mo_read_flag = 'N'
+	 where mo_att_no = #{moAttNo}
+	</update>
+	
+	<update id="cantUpdateModifyAtt">
+	update tb_mo_att
+	   set mo_att_status = 'N'
+	     , mo_att_back = #{moAttBack}
+	     , mo_read_flag = 'N'
+	 where mo_att_no = #{moAttNo}
+	</update>
+</mapper>
+

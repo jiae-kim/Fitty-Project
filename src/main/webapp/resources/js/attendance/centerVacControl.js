@@ -19,6 +19,9 @@ $(function(){
 			filterPercent();	
 		})
 	})
+
+	
+
 	
 })
 
@@ -63,7 +66,7 @@ function selectAllAttList(page){
 					for(let i=0; i<aList.length; i++){
 						
 						value += "<tr>"
-							+    "<th><input type='checkbox' id='empNoInput' name='empNoInput' value='" + aList[i].empNo + "'></th>"
+							+    "<th><input type='checkbox' class='no' id='empNoInput' name='empNoInput' value='" + aList[i].empNo + "'></th>"
 							+  	 "<td>" +  aList[i].empNo + "</td>"
 							+  	 "<td>" +  aList[i].empName + "</td>"
 							+  	 "<td>" +  aList[i].grName + "</td>"
@@ -81,9 +84,12 @@ function selectAllAttList(page){
 								value +=	"<td colspan='4'>미정</td>"
 							} else {
 								value +=	"<td>" + aList[i].empVacList[0].plusYearVac + "</td>"
-									   +    "<td>" + aList[i].empVacList[0].minusYearVac + "</td>"
-									   +    "<td>" + aList[i].empVacList[0].plusVac + "</td>"
-									   +    "<td>" + aList[i].empVacList[0].minusVac + "</td>"
+										+    "<td>" + aList[i].empVacList[0].minusYearVac + "</td>"
+										+    "<td>" +  aList[i].empVacList[0].gapYearVac  + "</td>"
+										+    "<td>" + aList[i].empVacList[0].plusVac + "</td>"
+										+    "<td>" + aList[i].empVacList[0].minusVac + "</td>"
+										+    "<td>" +  aList[i].empVacList[0].gapVac  + "</td>"
+										+    "<td>" + "<a class='btn btn-sm rounded-pill btn-outline-primary' href='detail.vac?no=" + aList[i].empNo + "'>조회</td>"
 							}
 								}
 								
@@ -163,11 +169,11 @@ function changeSelect(){
 					for(let i=0; i<aList.length; i++){
 						
 						value += "<tr>"
-							+    "<th><input type='checkbox' id='empNoInput' name='empNoInput' value='" + aList[i].empNo + "'></th>"
+							+    "<th><input type='checkbox'  class='no' id='empNoInput' name='empNoInput' value='" + aList[i].empNo + "'></th>"
 							+  	 "<td>" +  aList[i].empNo + "</td>"
 							+  	 "<td>" +  aList[i].empName + "</td>"
 							+  	 "<td>" +  aList[i].grName + "</td>"
-							+  	 "<td>" +  aList[i].empEnrollDate.substr(0, 10) + "</td>"
+							+  	 "<td>" +  aList[i].empEnrollDate.substr(0, 11) + "</td>"
 							+  	 "<td>" +  aList[i].workYear + "</td>"
 							
 							if(aList[i].perYearMonthList[0].perYear === undefined) {
@@ -182,8 +188,11 @@ function changeSelect(){
 							} else {
 								value +=	"<td>" + aList[i].empVacList[0].plusYearVac + "</td>"
 										+    "<td>" + aList[i].empVacList[0].minusYearVac + "</td>"
+										+    "<td>" + "잔여연월차" + "</td>"
 										+    "<td>" + aList[i].empVacList[0].plusVac + "</td>"
 										+    "<td>" + aList[i].empVacList[0].minusVac + "</td>"
+										+    "<td>" + "잔여휴가" + "</td>"
+										+    "<td>" + "<a class='btn btn-sm rounded-pill btn-outline-primary' href='detail.vac?no='" + aList[i].empNo + "'>조회</td>"
 							}
 								}
 								
@@ -295,56 +304,12 @@ function openVacationModal(){
 	   
 	   strInsertVacListEmpNo = strInsertVacListEmpNo.substring(0, strInsertVacListEmpNo.lastIndexOf(","));
 	   $("#strInsertVacListEmpNo").val(strInsertVacListEmpNo);
+	   console.log($("#strInsertVacListEmpNo").val());
 	   
-	   //console.log(strInsertVacListEmpNo);
-	   //console.log($("#strInsertVacListEmpNo").val());
-	   
-		$.ajax({
-			url: "openVacModal.vac",
-			data:{
-				empNo : $("#strInsertVacListEmpNo").val()
-			},
-			type:"post",
-			success:function(empList){
-			
-				let empValue = "";
-				let empNoValue = "";
-				
-				if(empList.length == 0) {
-					$("#modalEmpList").val("선택된 직원이 없습니다.");
-				} else {
-					for(let i=0; i<empList.length; i++){
-						empValue += empList[i].empName
-								 + ", " 
-						empNoValue += empList[i].empNo
-								 + ", " 
-					}
-				 empValue = empValue.substring(0, empValue.lastIndexOf(","));
-				 empNoValue = empNoValue.substring(0, empNoValue.lastIndexOf(","));
-				 $("#modalEmpList").val(empValue);
-				 $("#modalEmpNoList").val(empNoValue);
-				}
-			}
-		,error:function(){
-				console.log("페이지 로딜 리스트 조회용 ajax통신 실패"); 
-		}
-	
-
-	})
-}
-
-
-function openVacationModal(){
-		let strInsertVacListEmpNo = "";
-   
-	   $("#memListTBody :checkbox:checked").each(function(){
-	     strInsertVacListEmpNo += "'" + $(this).val() + "',";
-	   })
-	   
-	   strInsertVacListEmpNo = strInsertVacListEmpNo.substring(0, strInsertVacListEmpNo.lastIndexOf(","));
-	   $("#strInsertVacListEmpNo").val(strInsertVacListEmpNo);
-	   
-	   
+	   if(	$("#strInsertVacListEmpNo").val() === '' ) {
+	   		alert("직원을 먼저 선택해주세요");
+	   		
+	   } else {  
 		$.ajax({
 			url: "openVacModal.emp",
 			data:{
@@ -367,8 +332,8 @@ function openVacationModal(){
 					}
 				 empValue = empValue.substring(0, empValue.lastIndexOf(","));
 				 empNoValue = empNoValue.substring(0, empNoValue.lastIndexOf(","));
-				 $("#modalEmpList").val(empValue);
-				 $("#modalEmpNoList").val(empNoValue);
+				 $(".modalEmpList").val(empValue);
+				 $(".modalEmpNoList").val(empNoValue);
 				}
 			}
 		,error:function(){
@@ -377,30 +342,25 @@ function openVacationModal(){
 	
 
 	})
+	}
 }
 
-function insertVac(){
-let vacNormal = $('input[name=vacNormal]:checked').val();
-console.log(vacNormal);
+function getVacOper(event){
 
-$.ajax({
-			url: "insertVac.vac",
-			data:{
-				empNo : $("#empNo").val(),
-				vacNormal :  vacNormal,
-				vacOper : $("#vacOper").val()
-			},
-			type:"post",
-			success:function(result){
-				alertyfy.alert(alertMsg);
-				$('#insertVac').modal('hide');
-				selectAllAttList(1);
-			}
-		,error:function(){
-				console.log("페이지 로딜 리스트 조회용 ajax통신 실패"); 
-		}
+	console.log($("#vacStart").val())
+	console.log($("#vacEnd").val())
 	
-
-	})
-
+	if($("#vacStart").val() === "") {
+		alertyfy.alert("시작일을 먼저 선택해주세요.");
+	} else {
+	
+	let gap = $("#vacEnd").val().getTime() - $("#vacStart").val().getTime() ;
+	let vacOper = ( gap / (1000*60*60*24) ) + 1 ;
+	
+	$("#deleteVacOper").val(vacOper);
+	}
 }
+
+
+
+

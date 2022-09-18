@@ -10,12 +10,10 @@
 <!-- 
 <link href='resources/fullcalendar/lib/main.css' rel='stylesheet' />
 <script src='resources/fullcalendar/lib/main.js'></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
 -->
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
-<!-- 
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
--->
 
 <!-- 화면 해상도에 따라 글자 크기 대응(모바일 대응) -->  
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">  
@@ -35,7 +33,6 @@
 /* body 스타일 */
 html, body{
 	/* overflow: hidden; */
-	font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
 	font-size: 16px;
 }
 
@@ -80,7 +77,7 @@ html, body{
 }    */
 
 #calendar {    
-	max-width: 1100px;    
+	max-width: 1200px;    
 	margin: 0 auto;  
 }
 </style>
@@ -95,45 +92,21 @@ html, body{
     	<div class="row">
       		<div class="col-xl-12">
         		<div class="nav-align-top mb-4">
-          			<div class="tab-content" style="height: 1100px;">
+          			<div class="tab-content" style="height: 900px;">
             		<h5 class="text-muted">📅스케줄관리 - 스케줄 조회</h5>
 					<br><br>
 			
 					<div id="wrap">
-						<!-- 드래그 박스 -->
-						<div id="external-events">
-							<h4>트레이너 목록</h4>
-							<div id="external-events-list"></div>
-						</div>
-
 						<!-- 캘린더 태그 -->
 						<div id='calendar-container'>
 							<div id='calendar'></div>
 						</div> 
 					</div>
-								
+					
+					<!--
 					<script>
 						(function(){
 							$(function(){
-								// 드래그 박스 취득
-								var containerEl = $('#external-events-list')[0];
-								//설정하기
-								new FullCalendar.Draggable(containerEl, {
-									itemSelector: '.fc-event',
-									eventData: function(eventEl) {
-										return {
-											title: eventEl.innerText.trim()
-										}
-									}
-								});
-
-								// 드래그 아이템 추가하기
-								for(var i=1; i<=5; i++) {
-									var $div = $("<div class='fc-event fc-h-event fc-daygrid-event fc-daygrid-block-event'></div>");
-									$event = $("<div class='fc-event-main'></div>").text("트레이너 " + i);
-									$('#external-events-list').append($div.append($event));
-								}
-								
 								// calendar element 취득
 								var calendarEl = $('#calendar')[0];
 
@@ -169,10 +142,6 @@ html, body{
 									locale: 'ko',
 									// 드래그 가능
 									droppable: true,
-									// 드래그 앤 드롭 성공시 드래그 박스에서 아이템 삭제
-									drop: function(arg) {
-										arg.draggedEl.parentNode.removeChild(arg.draggedEl);
-									},
 									// 이벤트 추가되면 발생하는 이벤트
 									eventAdd: function(obj){
 										console.log(obj);
@@ -186,6 +155,7 @@ html, body{
 										console.log(obj);
 									},
 									// 드래그로 이벤트 생성 
+									/*
 									select: function(arg){
 										var title = prompt('Event Title:');
 										if(title){
@@ -198,11 +168,13 @@ html, body{
 										}
 										calendar.unselect()
 									}
+									*/
 								})
 								calendar.render();
 							});
 						})();
 					</script>
+					-->
 
 					<!--  
 					<script>
@@ -221,32 +193,89 @@ html, body{
 					</script>
 					-->
 
-
-					<!-- 
 					<script>
 					$(function(){
-							// -------------------- 캘린더 렌더링 --------------------
-							var calendarEl = document.getElementById('calendar');
-							var calendar = new FullCalendar.Calendar(calendarEl, {
-								initialView : 'dayGridMonth',
-								locale : 'ko', // 한국어 설정
-								headerToolbar : {
-											start : "",
-											center : "prev title next",
-											end : 'dayGridMonth,dayGridWeek,dayGridDay'
-										},
-								selectable : true,
-								droppable : true,
-								editable : true,
-								events : data
+						selectList();
+					})
+					
+					function selectList() {
+
+						$.ajax({
+							url : "list.ca",
+							success : function(list) {
+								/*
+								console.log(list);
+								[{"bookNo":"1","bookDate":"2022-09-03","bookStime":"09:00","bookEtime":"10:00","empName":"김사장","userName":"차은우"}
+								,{"bookNo":"2","bookDate":"2022-09-10","bookStime":"11:00","bookEtime":"13:00","empName":"박관리","userName":"이지은"}
+								,{"bookNo":"3","bookDate":"2022-09-09","bookStime":"14:00","bookEtime":"15:00","empName":"박관리","userName":"정수정"}
+								,{"bookNo":"5","bookDate":"2022-09-17","bookStime":"15:00","bookEtime":"17:00","empName":"최헬트","userName":"쯔위"}
+								,{"bookNo":"4","bookDate":"2022-09-15","bookStime":"10:00","bookEtime":"11:00","empName":"박관리","userName":"쯔위"}
+								,{"bookNo":"6","bookDate":"2022-09-20","bookStime":"17:00","bookEtime":"18:00","empName":"최헬트","userName":"토마스"}
+								,{"bookNo":"7","bookDate":"2022-09-25","bookStime":"15:00","bookEtime":"17:00","empName":"윤단백","userName":"정재현"}
+								,{"bookNo":"8","bookDate":"2022-09-27","bookStime":"17:00","bookEtime":"19:00","empName":"윤단백","userName":"김현빈"}]
+								*/
+
+								// 내가 넘겨주고자 하는 값을 리스트로 다시 담아줌
+								let data = [];
+								for (let i=0; i < list.length; i++) {
+									let obj = {
+										title : list[i].bookNo,
+										start : list[i].bookDate,
+										end : list[i].bookDate,
+										textColor : list[i].textColor,
+										backgroundColor : list[i].backgroundColor
+									};
+									data.push(obj);
+								}
+								
+								// calendar element 취득
+								//var calendarEl = $('#calendar')[0];
+								const calendarEl = document.getElementById("calendar");
+								// full-calendar 생성하기
+								var calendar = new FullCalendar.Calendar(calendarEl, {
+									// calendar 높이 설정
+									height: '750px',
+									// 화면에 맞게 높이 재설정
+									expandRows: true,
+									// Day 캘린더에서 시작 시간
+									slotMinTime: '09:00',
+									// Day 캘린더에서 종료 시간
+									slotMaxTime: '22:00',
+									// 헤더에 표시할 툴바
+									headerToolbar: {
+										left: 'prev,next today',
+										center: 'title',
+										right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+									},
+									// 초기 로드 될때 보이는 캘린더 화면 (기본설정 : 달)
+									initialView: 'dayGridMonth',
+									// 날짜를 선택하면 day 캘린더나 week캘린더로 링크
+									navLinks: true,
+									// 수정 가능
+									editable: true,
+									// 달력 일자 드래그 설정 가능
+									selectable: true,
+									// 현재 시간 마크
+									nowIndicator: true,
+									// 이벤트가 오버되면 높이 제한 (+ 몇개 식으로 표현)
+									dayMaxEvents: true,
+									// 한국어 설정
+									locale: 'ko',
+									// 드래그 가능
+									droppable: true,
+									events : data,
+									ventClick:function(arg) {
+										ModalOpen(arg);
+									}
 								});
-							
-							calendar.render();
-							// ------------------------------------------------------------
+								calendar.render();
+							},
+							error : function() {
+								console.log("통신 실패");
+							}
 						})
-					});
+					}
 					</script>
-					-->
 
 
           			</div>

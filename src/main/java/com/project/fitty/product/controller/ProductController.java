@@ -98,7 +98,7 @@ public class ProductController {
 		}
 	}
 	
-	// [김지애] 4. 헬스장이용권 삭제 서비스
+	// [김지애] 4. 헬스장이용권 삭제 서비스 - ajax
 	@ResponseBody
 	@RequestMapping("delete.pr")
 	public String deleteProduct(String ckPro, HttpSession session) {

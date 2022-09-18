@@ -32,4 +32,9 @@ public class User {
 	private String classStartDate;
 	private int classCount;
 	
+	// 통계
+	private int userCount;
+	private String userCountMonth;
+	private int couCount;
+	
 }

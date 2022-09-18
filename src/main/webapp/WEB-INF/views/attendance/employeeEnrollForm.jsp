@@ -50,11 +50,11 @@
                     </div>
                     <div class="mb-3 col-md-6">
                       <label for="empNo" class="form-label">사번</label>
-                      <input class="form-control" type="text" name="empNo" id="empNo" value="이미입력된사번" readonly/>
+                      <input class="form-control" type="text" name="empNo" id="empNo" placeholder="직급을 선택해주세요" value="" readonly/>
                     </div>
                     <div class="mb-3 col-md-6">
                       <label for="empMail" class="form-label">이메일</label>
-                      <input class="form-control" type="text" id="empMail" name="empMail" value="이미입력된이메일@example.com" placeholder="john.doe@example.com" readonly/>
+                      <input class="form-control" type="text" id="empMail" name="empMail"  placeholder="사번@fitty.com" readonly/>
                     </div>
                     <div class="mb-3 col-md-6">
                       <label class="form-label" for="empPhone">전화번호</label>

@@ -253,17 +253,12 @@
 			<li class="menu-item">
 			  <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bx-calendar'></i>
-                <div data-i18n="Authentications"  class="big-menu-label">스케줄관리</div>
+                <div data-i18n="Authentications"  class="big-menu-label">스케줄 관리</div>
            	  </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="list.sc" class="menu-link">
-                    <div data-i18n="Account" class="small-menu-label">스케줄 조회</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="enrollForm.sc" class="menu-link">
-                    <div data-i18n="Notifications" class="small-menu-label">수업 예약</div>
+                    <div data-i18n="Account" class="small-menu-label">스케줄 조회 및 수업 예약</div>
                   </a>
                 </li>
               </ul>

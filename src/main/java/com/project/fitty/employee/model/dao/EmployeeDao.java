@@ -40,6 +40,14 @@ public class EmployeeDao {
 
 	
 	public int insertEmployee(Employee e, SqlSessionTemplate sqlSession) {
+		System.out.println(e.getEmpPhoto());
+		if (e.getEmpPhoto() == null || e.getEmpPhoto().length() == 0) {
+           System.out.println("프로필 사진 안올림");
+        } else {
+        	String newEmpPhoto = e.getEmpPhoto().substring(0, e.getEmpPhoto().length() - 1);
+        	e.setEmpPhoto(newEmpPhoto);
+        	System.out.println(e.getEmpPhoto());
+        }
 		return sqlSession.insert("employeeMapper.insertEmployee", e);
 	}
 	
@@ -96,6 +104,11 @@ public class EmployeeDao {
 		return (ArrayList)sqlSession.selectList("employeeMapper.openVacModalSelectEmpName", empNo);
 	}
 	
+	// 근무시간 수정용
+		public Employee selectByEmpNo(SqlSessionTemplate sqlSession, String empNo) {
+			return sqlSession.selectOne("employeeMapper.selectByEmpNo", empNo);
+		}
+	
 	
 	// 직원 정보수정
 	public int updateEmployee(SqlSessionTemplate sqlSession, Employee e) {
@@ -106,5 +119,7 @@ public class EmployeeDao {
 	public int uploadProfileImg(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.uploadProfileImg", e);
 	}
+	
+	
 
 }

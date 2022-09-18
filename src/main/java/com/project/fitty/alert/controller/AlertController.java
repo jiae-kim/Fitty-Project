@@ -16,7 +16,6 @@ import com.project.fitty.alert.model.service.AlertService;
 import com.project.fitty.alert.model.vo.Alert;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.common.template.Pagination;
-import com.project.fitty.employee.model.vo.Employee;
 import com.project.fitty.machine.model.service.MachineService;
 import com.project.fitty.machine.model.vo.Machine;
 
@@ -30,28 +29,10 @@ public class AlertController {
 	private MachineService mService;
 	
 	@ResponseBody
-	@RequestMapping("minsert.at") /** 기구 점검 alert insert **/
-	public String ajaxInsertAlertM(Alert a) {
-		
-		System.out.println(a);
-		
-		//다음에 실행될 alNo를 조회해오기 
-		int nextNo = aService.selectNextAlNo();
-		
-		String senderName = aService.selectSenderName(a.getAlSender());
-		
-	    a.setAlMsg("<a href='ckList2.mc?alNo=" + nextNo + "&alRecip="+ a.getAlRecip() +"'>"+ senderName + "님이 " + a.getAlListNo() + "번 기구점검을 처리완료 하였습니다.</a>");
-		int result = aService.insertAlertM(a); 
-		
-		return result > 0 ? "success" : "fail";
-	}
-	
-	@ResponseBody
 	@RequestMapping(value="alist.at", produces="application/json; charset=utf-8")
 	public String ajaxSelectAlertList(String alRecip) {
 		
 		ArrayList<Alert> list = aService.selectAlertList(alRecip);
-		System.out.println("실행 잘됨 ");
 		return new Gson().toJson(list);
 	}
 	
@@ -67,12 +48,7 @@ public class AlertController {
 		// alNo로 읽음처리 해주기
 	    int result = aService.updateReadYn(alNo);
 		
-	    if(result > 0) {
-	    	
-	    	// session.setAttribute("msgList"로 메세지 조회해와서 담아주기)
-	    	ArrayList<Alert> msgList = aService.selectAlertList(alRecip);
-	    	session.setAttribute("msgList", msgList);
-	    	
+	    if(result > 0) { 	
 			model.addAttribute("pi", pi);
 			model.addAttribute("list", list);
 

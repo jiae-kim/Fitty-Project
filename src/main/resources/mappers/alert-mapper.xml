@@ -68,7 +68,7 @@
 	</select>
 	
 	<select id="selectLastAlNo" resultType="_int">
-		select last_number - 1 "al_no" 
+		select last_number "al_no" 
 		  from user_sequences 
 		 where sequence_name = 'SEQ_AL_NO'
 	</select>

@@ -56,5 +56,7 @@ public interface EmployeeService {
 	
 	// 모달오픈용 empName 조회
 	ArrayList<Employee> openVacModalSelectEmpName(String empNo);
-
+	
+	// 근무시간 수정용 empNo 조회
+	Employee selectByEmpNo(String empNo);
 }

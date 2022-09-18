@@ -17,7 +17,23 @@ public class VacationDao {
 	}
 	
 	public  int insertVacation(SqlSessionTemplate sqlSession, Vacation v) {
-		return sqlSession.update("vacationMapper.insertVacation", v);
+		return sqlSession.insert("vacationMapper.insertVacation", v);
 	}
-
+	
+	public  int deleteVacation(SqlSessionTemplate sqlSession, Vacation v) {
+		// 말이 delete지 사실상 insert임
+		return sqlSession.insert("vacationMapper.deleteVacation", v);
+	}
+	
+	public Vacation selectOneVacation(SqlSessionTemplate sqlSession, String no) {
+		return sqlSession.selectOne("vacationMapper.selectOneVacation", no);
+	}
+	
+	public ArrayList<Vacation> selectYearVacList(SqlSessionTemplate sqlSession, HashMap <String, Object> map) {
+		return (ArrayList)sqlSession.selectList("vacationMapper.selectYearVacList", map);
+	}
+	
+	public ArrayList<Vacation> selectRealVacList(SqlSessionTemplate sqlSession, HashMap <String, Object> map) {
+		return (ArrayList)sqlSession.selectList("vacationMapper.selectRealVacList", map);
+	}
 }

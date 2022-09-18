@@ -59,136 +59,87 @@
                     <div class="row">
                   <!-- 수정요청관리 -->
                   <div class="col-md-2 ">
-                    <div class="card mb-4 attModifyDiv">
+                    <div class="card mb-4 attModifyDiv" style="overflow: auto;">
                         <h5 class="card-header"><b>⏰ 수정요청 타임라인</b></h5>
                         <div class="card-body modifyWrap">
-                          <button class="simple">
-                            <div class="profileDiv">
-                              <i class='bx bxs-user-circle'></i>
-                              <span class="profileName"><b>홍길동</b></span>
-                              <span class="profileName">트레이너</span>
-                            </div>
-                            <div>
-                              <table class="table modifyList">
-                                <tr>
-                                  <th>변경요청일</th>
-                                  <td>2022.08.16</td>
-                                </tr>
-                                <tr>
-                                  <th>비고</th>
-                                  <td>출근수정</td>
-                                </tr>
-                                <tr>
-                                  <td colspan="2" style="text-align:center"><button class="btn btn-sm btn-primary">처리하기</button></td>
-                                </tr>
-                              </table>
-                            </div>
-                          </button>
-                          <button class="simple">
-                            <div class="profileDiv">
-                              <i class='bx bxs-user-circle'></i>
-                              <span class="profileName"><b>홍길동</b></span>
-                              <span class="profileName">트레이너</span>
-                            </div>
-                            <div>
-                              <table class="modifyList">
-                                <tr>
-                                  <th>변경요청일</th>
-                                  <td>2022.08.16</td>
-                                </tr>
-                                <tr>
-                                  <th>비고</th>
-                                  <td>출근수정</td>
-                                </tr>
-                                <tr>
-                                  <td colspan="2" style="text-align:center"><button class="btn btn-sm btn-secondary">처리완료</button></td>
-                                </tr>
-                              </table>
-                            </div>
-                          </button>
-                        </div>
-                        <div class="endDiv">
+                          
+                          <c:choose>
+                  	<c:when test="${ empty list }">
+                  		<span>📃 리스트가 없습니다. 📃</span>
+                  	</c:when>
+                  	<c:otherwise>
+                  		<c:forEach var="m" items="${ list }">
+                  		<button class="simple" name="simple">
+                  		<input type="hidden" value="${ m.moAttNo }" id="moAttNo">
+                  		 <!--  <a  href="modifyDetail.mo?moAttNo=${ m.moAttNo }"> -->
+			             <div class="profileDiv">
+			               <img src="<c:out value='${ m.empPhoto }' default='resources/profile_images/defaultProfile.png' />" alt="Avatar" class="rounded-circle" width="20px;" height="20px;"/>
+			               <span class="profileName"><b>${m.empName}</b></span>
+			               <span class="profileName">${m.grName }</span>
+			             </div>
+			             <div>
+			               <table class="modifyList">
+			                  <tr>
+			                   <th>작성일</th>
+			                   <td>${ m.moAttEnrollD }</td>
+			                 </tr>
+			                 <tr>
+			                   <th>수정요청일</th>
+			                   <td>${ m.moAttModifyD }</td>
+			                 </tr>
+			                 <tr>
+			                   <th>비고</th>
+			                   <c:choose>
+			                   		<c:when test="${ m.moAttType eq 'I' }">
+			                   			<td><span class="badge rounded-pill bg-label-primary">출근수정</span></td>
+			                   		</c:when>
+			                   		<c:when test="${ m.moAttType eq 'O' }">
+			                   			<td><span class="badge rounded-pill bg-label-info">퇴근수정</span></td>
+			                   		</c:when>
+			                   		<c:otherwise>
+			                   			<td><span class="badge rounded-pill bg-label-secondary">기타수정</span></td>
+			                   		</c:otherwise>
+			                   </c:choose>
+			                 </tr>
+			                 <tr>
+			                 	<c:choose>
+			                   		<c:when test="${ m.moAttStatus eq 'W' }">
+			                   			<td colspan="2" style="text-align:center"><button class="btn btn-sm btn-secondary">대기중</button></td>
+			                   		</c:when>
+			                   		<c:when test="${ m.moAttStatus eq 'M' }">
+			                   			<td colspan="2" style="text-align:center"><button class="btn btn-sm btn-success">승인됨</button></td>
+			                   		</c:when>
+			                   		<c:otherwise>
+			                   			<td colspan="2" style="text-align:center"><button class="btn btn-sm btn-danger">반려됨</button></td>
+			                   		</c:otherwise>
+			                   </c:choose>
+			                 </tr>
+			               </table>
+			             </div>
+			            
+			           </button>
+                  	</c:forEach>
+                 </c:otherwise>
+              </c:choose>
+                    <!--<div class="endDiv">
                           <button class="btn btn-primary">📝 근태 수정</button>
-                          <!-- Basic Pagination 최대를 3으로 하던가ㅜㅜ-->
-                          <div aria-label="Page navigation pageNav">
-                            <ul class="pagination smallPagination">
-                              <li class="page-item prev">
-                                <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>
-                              </li>
-                              <li class="page-item">
-                                <a class="page-link" href="javascript:void(0);">1</a>
-                              </li>
-                              <li class="page-item">
-                                <a class="page-link" href="javascript:void(0);">2</a>
-                              </li>
-                              <li class="page-item active">
-                                <a class="page-link" href="javascript:void(0);">3</a>
-                              </li>
-                              <li class="page-item next">
-                                <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>
-                              </li>
-                            </ul>
-                          </div>
-                          <!--/ Basic Pagination -->
-                        </div>
+                          <div class="endDiv">
+				           <div style="backgorund-color:white; height:20px; position: fixed;"> 
+				           <button style="position: fixed;" class="btn btn-primary" onclick="selectMoAttForm();">📝 새 수정요청</button>
+						   <input type="hidden" value="${ loginUser.empNo }" id="empNo">
+				           <div aria-label="Page navigation pageNav">
+				             <ul class="pagination">
+				             </ul>
+				           </div>-->
+				           <!--/ Basic Pagination -->
+				         </div>
                     </div>
                     
                   </div>
                 
                   <!-- 휴가관리 -->
-                  <div class="col-md-10 ">
-                    <div class="card mb-4 modifyDiv" style="height: 680px;">
-                        <h5 class="card-header"><b>📝 근태 수정요청안</b></h5>
-                        <div class="card-body" style="width: 95%;">
-                          <form id="formAccountSettings" method="POST" onsubmit="return false">
-                            <table class="table table-hover modifyTable">
-                              <thead>
-                                <tr>
-                                  <td colspan="6" class="profileTd" style="background-color:white;">
-                                    <i class='bx bxs-user-circle'></i>
-                                    <span class="profileName"><b>홍길동</b></span>
-                                    <span class="profileName">트레이너</span>
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td>수정요청일</td>
-                                  <td>출근시간</td>
-                                  <td>휴식시간</td>
-                                  <td>퇴근시간</td>
-                                  <td>총 근무시간</td>
-                                  <td>상태</td>
-                                </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>2022/08/15</td>
-                                  <td>10:13:21</td>
-                                  <td>59:31</td>
-                                  <td>18:15:35</td>
-                                  <td>06:58:36</td>
-                                  <td>지각</td>
-                                </tr>
-                              </tbody>
-                            </table>
-                          </form>
-                          <form class="mb-3 col-md-12 reason" style="margin-top: 15px;">
-                            <h5 class="card-header" style="margin-bottom : 15px"><b>🧾 출근수정사유</b></h5>
-                            <textarea class="textarea" autofocus readonly>이미 작성된 구차한 변명</textarea>
-                            <h5 class="card-header" style="margin-bottom : 15px"><b>📋 수정의견</b></h5>
-                            <textarea class="textarea" autofocus required>수정 의견을 적어주세요</textarea>
-                            <div class="row submitDiv" style="margin-left: 90px;">
-                              <div class="mt-2 btnDiv col-md-7">
-                                <label for="address" class="form-label" style="font-size: 10px; width:50px">수정시간</label>
-                                <input type="time" class="form-control" id="birth" name="birth" />
-                              </div>
-                              <div class="mt-2 btnDiv col-md-5">
-                                <button type="submit" class="btn btn-primary me-2">수정하기</button>
-                                <button type="button" class="btn btn-secondary me-2">반려하기</button>
-                              </div>
-                            </div>
-                          </form>
-                        </div>
-                    
+                  <div class="col-md-10 printModifyDiv">
+                   
                  
                  </div>
              </div>
@@ -196,5 +147,6 @@
        </div>
 </div>
 <script type="text/javascript" src="resources/js/attendance.js"></script>
+<script type="text/javascript" src="resources/js/attendance/modifyAttendance.js"></script>
 </body>
 </html>

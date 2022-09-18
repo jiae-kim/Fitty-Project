@@ -3,24 +3,49 @@
 <mapper namespace="vacationMapper">
 
 <resultMap id="vacationResult" type="Vacation">
+	<result column="vac_no" property="vacNo"/>
+	<result column="emp_no" property="empNo"/>
+	<result column="vac_oper" property="vacOper"/>
+	<result column="vac_status" property="vacStatus"/>
+	<result column="vac_normal" property="vacNormal"/>
+	<result column="vac_start" property="vacStart"/>
+	<result column="vac_end" property="vacEnd"/>
+	<result column="vac_reason" property="vacReason"/>
+	<result column="vac_create_date" property="vacCreateDate"/>
+	<result column="att_status" property="attStatus"/>
+
 	<result column="plus_year_vac" property="plusYearVac"/>
 	<result column="minus_year_vac" property="minusYearVac"/>
+	<result column="gap_year_vac" property="gapYearVac"/>
 	<result column="plus_vac" property="plusVac"/>
 	<result column="minus_vac" property="minusVac"/>
+	<result column="gap_vac" property="gapVac"/>
+	<result column="emp_name" property = "empName"/>
+	<result column="gr_name" property = "grName"/>
+	<result column="emp_photo" property = "empPhoto"/>
 </resultMap>
 
 
 <select id="selectEmpVacList" resultMap="vacationResult">
   	select (select nvl(sum(vac_oper), 0)
             from tb_vacation
-            where emp_no = #{empNo}
+            where emp_no =#{empNo}
             and att_status in ('Y', 'H')
             and vac_status = 'P') as "PLUS_YEAR_VAC"
      , (select nvl(sum(vac_oper), 0)
             from tb_vacation
-            where emp_no = #{empNo}
+            where emp_no =#{empNo}
             and att_status in ('Y', 'H')
             and vac_status = 'M') as "MINUS_YEAR_VAC"
+     , ((select nvl(sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no =#{empNo}
+            and att_status in ('Y', 'H')
+            and vac_status = 'P') - (select nvl(sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no =#{empNo}
+            and att_status in ('Y', 'H')
+            and vac_status = 'M')) as "GAP_YEAR_VAC"
      , (select nvl(sum(vac_oper), 0)
             from tb_vacation
             where emp_no = #{empNo}
@@ -31,6 +56,15 @@
             where emp_no = #{empNo}
             and att_status in ('V')
             and vac_status = 'M') as "MINUS_VAC"
+      ,  ((select nvl(sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no = #{empNo}
+            and att_status in ('V')
+            and vac_status = 'P') - (select nvl( sum(vac_oper), 0)
+            from tb_vacation
+            where emp_no = #{empNo}
+            and att_status in ('V')
+            and vac_status = 'M'))  as "GAP_VAC"
 	from tb_vacation
   </select>
   
@@ -56,4 +90,96 @@
 		      , #{attStatus}
 		    ) 
   </insert>
+  
+  <insert id="deleteVacation">
+  	insert
+		into tb_vacation(
+	        vac_no
+	      , emp_no
+	      , vac_oper
+	      , vac_status
+	      , vac_normal
+          , vac_start
+          , vac_end
+	      , vac_create_date
+	      , att_status
+	    ) 
+		values
+		    (
+		        SEQ_VAC_NO.NEXTVAL
+		      , #{empNo}
+		      , #{vacOper}
+		      , 'M'
+		      , #{vacNormal}
+              , #{vacStart}
+              , #{vacEnd}
+		      , sysdate
+		      , #{attStatus}
+		    ) 
+  </insert>
+  
+  <select id="selectOneVacation" resultMap="vacationResult">
+  	select
+	       e.emp_no
+	     , e.emp_name
+	     , g.gr_name
+	     , e.emp_photo
+	  from tb_emp e
+	  join tb_grade g on (e.emp_grade = g.emp_grade)
+	 where e.emp_no = #{empNo}
+  </select>
+  
+  <select id="selectYearVacList" resultMap="vacationResult">
+  	select
+	       emp_no
+	     , nvl(vac_start, '일반') as vac_start
+	     , nvl(vac_end,'일반') as vac_end
+	     , vac_oper
+	     , att_status
+	     , vac_normal
+	     , vac_status
+	     , vac_create_date
+	  from tb_vacation
+	 where emp_no = #{empNo}
+	   and att_status = 'Y'
+	   <if test = "orderByYear == 'all'">
+				
+	   </if>
+	   <if test = "orderByYear == 'give'">
+		and	vac_status = 'P'	
+	   </if>
+	   <if test = "orderByYear == 'take'">
+		and	vac_status = 'M'	
+	   </if>
+	 order
+    	by vac_create_date desc
+  </select>
+  
+  <select id="selectRealVacList" resultMap="vacationResult">
+  select
+	       emp_no
+	     , nvl(vac_start, '일반') as vac_start
+	     , nvl(vac_end,'일반') as vac_end
+	     , vac_oper
+	     , att_status
+	     , vac_normal
+	     , vac_status
+	     , vac_create_date
+	  from tb_vacation
+	 where emp_no = #{empNo}
+	   and att_status = 'V'
+	   <if test = "orderByVac == 'all'">
+				
+	   </if>
+	   <if test = "orderByVac == 'give'">
+		and	vac_status = 'P'	
+	   </if>
+	   <if test = "orderByVac == 'take'">
+		and	vac_status = 'M'	
+	   </if>
+	 order
+    	by vac_create_date desc
+  </select>
+  
+  
 </mapper>

@@ -62,6 +62,11 @@ public class UserServiceImpl implements UserService{
 		return uDao.deleteUser(sqlSession, userNo);
 	}
 
+	@Override // [김지애] 7. 회원등록 시 전화번호 중복체크 - ajax
+	public int telCheck(String userPhone) {
+		return uDao.telCheck(sqlSession, userPhone);
+	}
+
 
 	
 	
