@@ -52,6 +52,10 @@ public class AttendanceServiceImpl implements AttendanceService{
 		return aDao.selectMyAttendance(sqlSession, a);
 	}
 
+	@Override
+	public Attendance selectLastWorkTime(Attendance a) {
+		return aDao.selectLastWorkTime(sqlSession, a);
+	}
 	
 	
 	@Override

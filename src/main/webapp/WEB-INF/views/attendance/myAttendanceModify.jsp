@@ -18,9 +18,9 @@
          <div class="card-body">
            <button class="simple">
              <div class="profileDiv">
-               <i class='bx bxs-user-circle'></i>
-               <span class="profileName"><b>홍길동</b></span>
-               <span class="profileName">트레이너</span>
+               <img src="<c:out value='${loginUser.empPhoto}' default='resources/profile_images/defaultProfile.png' />" alt="Avatar" class="rounded-circle" width="20px;" height="20px;"/>
+               <span class="profileName"><b>${loginUser.empName}</b></span>
+               <span class="profileName">${loginUser.grName }</span>
              </div>
              <div>
                <table class="modifyList">
@@ -66,21 +66,7 @@
            <!-- Basic Pagination 최대를 3으로 하던가ㅜㅜ-->
            <div aria-label="Page navigation pageNav">
              <ul class="pagination">
-               <li class="page-item prev">
-                 <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>
-               </li>
-               <li class="page-item">
-                 <a class="page-link" href="javascript:void(0);">1</a>
-               </li>
-               <li class="page-item">
-                 <a class="page-link" href="javascript:void(0);">2</a>
-               </li>
-               <li class="page-item active">
-                 <a class="page-link" href="javascript:void(0);">3</a>
-               </li>
-               <li class="page-item next">
-                 <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-right"></i></a>
-               </li>
+               
              </ul>
            </div>
            <!--/ Basic Pagination -->
@@ -123,5 +109,6 @@
   </div>
 </div>
 <script type="text/javascript" src="resources/js/attendance.js"></script>
+<script type="text/javascript" src="resources/js/attendance/myAttendanceModify.js"></script>
 </body>
 </html>

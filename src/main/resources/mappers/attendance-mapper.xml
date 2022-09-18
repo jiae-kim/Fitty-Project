@@ -83,6 +83,15 @@
 		 and att_date = to_char(sysdate, 'yyyy-mm-dd')
  </select>
  
+ <select id="selectLastWorkTime" resultMap="attendanceResult">
+ 	select nvl(lpad(trunc(mod((to_date(att_out, 'HH24:MI:SS') - to_date(att_in, 'HH24:MI:SS')), 1) * 24),2 ,'0'), 0) as "gapHour"
+	     , nvl(lpad(trunc(mod((to_date(att_out, 'HH24:MI:SS') - to_date(att_in, 'HH24:MI:SS')) * 24, 1) * 60), 2, '0'), 0) as "gapMinute"
+	     , nvl(lpad(trunc(mod((to_date(att_out, 'HH24:MI:SS') - to_date(att_in, 'HH24:MI:SS')) * 24 * 60, 1) * 60), 2, '0'), 0) as "gapSecond"
+	from tb_att
+   where emp_no = #{empNo}
+		 and att_date = to_char(sysdate, 'yyyy-mm-dd')
+ </select>
+ 
   <update id="updateWorkOutTime">
  	update tb_att
 	   set att_out = (select TO_CHAR(SYSDATE, 'HH24:MI:SS') from dual)

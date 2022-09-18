@@ -334,8 +334,7 @@
 
             <!-- Layouts -->
 
-			<input type="hidden" value="${loginUser.empNo }" id="loginUserEmp">
-			<input type="hidden" value="${ loginUser.attIn }" id="loginUserAttin">
+			
             <li class="menu-header small text-uppercase">
               <span class="menu-header-text">Fitness Managing System</span>
             </li>

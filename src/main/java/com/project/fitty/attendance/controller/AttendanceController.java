@@ -110,9 +110,15 @@ public class AttendanceController {
 	
 	@ResponseBody
 	@RequestMapping(value="getWorkTimeOneSec.att", produces="application/json; charset=utf-8")
-	public String selectWorkTimeOneSec(Attendance a, ModelAndView mv) {
+	public String selectWorkTimeOneSec(Attendance a) {
 		Attendance att = aService.selectInAttendance(a);
-		//mv.addObject("att", att).setViewName("attendance/myAttendance");
+		return new Gson().toJson(att);
+	}
+	
+	@ResponseBody
+	@RequestMapping(value="getLastWorkTime.att", produces="application/json; charset=utf-8")
+	public String selectLastWorkTime(Attendance a) {
+		Attendance att = aService.selectLastWorkTime(a);
 		return new Gson().toJson(att);
 	}
 	

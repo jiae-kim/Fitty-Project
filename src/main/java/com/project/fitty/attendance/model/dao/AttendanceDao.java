@@ -39,6 +39,10 @@ public class AttendanceDao {
 		return sqlSession.selectOne("attendanceMapper.selectMyAttendance", a);
 	}
 	
+	public Attendance selectLastWorkTime(SqlSessionTemplate sqlSession, Attendance a) {
+		return sqlSession.selectOne("attendanceMapper.selectLastWorkTime",a);
+	}
+	
 	public ArrayList<Attendance> selectAllAttList(SqlSessionTemplate sqlSession, Employee e) {
 	
 		return (ArrayList)sqlSession.selectList("attendanceMapper.selectAllAttList", e);

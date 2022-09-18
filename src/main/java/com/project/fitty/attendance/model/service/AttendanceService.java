@@ -26,6 +26,9 @@ public interface AttendanceService {
 	// 내 근태 조회
 	Attendance selectMyAttendance(Attendance a);
 	
+	// 퇴근버튼 찍은 후 오늘 일한시간 구하기
+	Attendance selectLastWorkTime(Attendance a);
+	
 	// 센터 전체 근태 조회 서비스
 	ArrayList<Attendance> selectAllAttList(Employee e);
 	

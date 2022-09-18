@@ -13,6 +13,7 @@
  		let interval = setInterval(getWorkTimeOneSec, 1000);
  	} else {
  		getLastWorkTime();
+ 		//$("#intervalTime").html("<span style='font-size : 20px;' class='badge rounded-pill bg-label-success'>퇴근완료</span>");
  	}
  	
  })
@@ -49,7 +50,7 @@ function getLastWorkTime(){
  
  
     $.ajax({
-        url: "getWorkTimeOneSec.att",
+        url: "getLastWorkTime.att",
 		data:{
 		    empNo : loginUserEmp
 		},

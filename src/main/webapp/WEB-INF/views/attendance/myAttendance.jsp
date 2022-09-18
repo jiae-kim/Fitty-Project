@@ -52,27 +52,30 @@
             <button class="btn btn-secondary modifyBtn myAttBtn" style="margin-bottom:20px;">엑셀다운로드</button>
 
             <div class="vacation">
-              <div class="yearVac">
+              <button class="yearVac" type="button">
+              	<a href="detail.vac?no=${loginUser.empNo } ">
               	<div style="height:6px;"></div>
                 <span style="font-size:25px;">🎁<br></span>
                 <span>올해의 연차<br></span>
                 <span class="gapSpan">${ myAtt.gapYearVac }<br></span>
                 <span>일 남았어요!<br></span>
-              </div>
+                </a>
+              </button>
               <div class="emptyVac" style="width:12px; background-color: white;">
               </div>
-              <div class="realVac">
+              <button class="realVac" type="button">
               <div style="height:6px;"></div>
+              	<a href="detail.vac?no=${loginUser.empNo } ">
                 <span style="font-size:25px;">🎉<br></span>
                 <span>올해의 휴가<br></span>
                 <span class="gapSpan">${ myAtt.gapVac }<br></span>
                 <span>일 남았어요!<br></span>
-              </div>
+                </a>
+              </button>
             </div>
           </div>
       </div>
     </div>
-  
     <!-- 휴가관리 -->
     <div class="col-md-10 ">
       <div class="card mb-4 vacDetailDiv">
