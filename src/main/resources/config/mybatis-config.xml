@@ -43,7 +43,7 @@
 	 	<mapper resource="/mappers/product-mapper.xml"/>
 	 	<mapper resource="/mappers/schedule-mapper.xml"/>
 	 	<mapper resource="/mappers/attendance-mapper.xml"/>
-	 	<mapper resource="/mappers/ModifyAtt-mapper.xml"/>
+	 	<mapper resource="/mappers/modifyAtt-mapper.xml"/>
 	 	<mapper resource="/mappers/approval-mapper.xml"/>
 	 	<mapper resource="/mappers/machine-mapper.xml"/>
 	 	<mapper resource="/mappers/locker-mapper.xml"/>
