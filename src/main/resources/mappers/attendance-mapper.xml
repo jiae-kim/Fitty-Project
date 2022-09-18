@@ -410,6 +410,12 @@ distinct emp_no
 		 ]]>
   </select>
   
+  <select id="selectAttNo" resultType="_int">
+  	select att_no
+  	  from tb_att
+  	 where emp_no = #{empNo}
+  	   and att_date = #{attDate}
+  </select>
   
    
   

@@ -27,4 +27,15 @@ public class ModifyAttServiceImpl implements ModifyAttService{
 	public ModifyAtt selectModifyDetail(String moAttNo) {
 		return mDao.selectModifyDetail(sqlSession, moAttNo);
 	}
+
+	@Override
+	public int insertMoAtt(ModifyAtt m) {
+		return mDao.insertMoAtt(sqlSession, m);
+	}
+	
+	// 어드민쪽 수정리스트 전체조회
+	@Override
+	public ArrayList<ModifyAtt> selectAllModifyList() {
+		return mDao.selectAllModifyList(sqlSession);
+	}
 }

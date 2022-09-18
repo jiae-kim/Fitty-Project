@@ -25,7 +25,7 @@ public class ModifyAtt {
 	private String moAttModifyD;
 	private String moReadFlag;
 	private String moAttModifyTime;
-	
+	private String moAttDeleteFlag;
 	
 	// 추가생성 필드
 	private String empName;
@@ -38,6 +38,6 @@ public class ModifyAtt {
 	private String attIn;
 	private String attOut;
 	private String attStatus;
-	private Date attDate;
+	private String attDate;
 	private String attTime;
 }

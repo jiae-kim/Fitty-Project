@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.fitty.attendance.model.dao.AttendanceDao;
 import com.project.fitty.attendance.model.vo.Attendance;
+import com.project.fitty.attendance.model.vo.ModifyAtt;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
 import com.project.fitty.vacation.model.vo.Vacation;
@@ -138,6 +139,11 @@ public class AttendanceServiceImpl implements AttendanceService{
 	@Override
 	public ArrayList<Attendance> selectPerYearMonthList(Attendance a) {
 		return aDao.selectPerYearMonthList(sqlSession, a);
+	}
+
+	@Override
+	public int selectAttNo(ModifyAtt m) {
+		return aDao.selectAttNo(sqlSession, m);
 	}
 
 

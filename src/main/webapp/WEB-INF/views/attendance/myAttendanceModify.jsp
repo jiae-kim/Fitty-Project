@@ -14,6 +14,7 @@
    <!-- 수정요청관리 -->
    <div class="col-md-2 ">
      <div class="card mb-4 vacDetailDiv" style="overflow: auto;">
+     
          <h5 class="card-header"><b>📜 내 수정요청</b></h5>
          <div class="card-body">
            
@@ -24,7 +25,7 @@
                   	</c:when>
                   	<c:otherwise>
                   		<c:forEach var="m" items="${ list }">
-                  		<button class="simple">
+                  		<button class="simple"  name="simple">
                   		<input type="hidden" value="${ m.moAttNo }" id="moAttNo">
                   		 <!--  <a  href="modifyDetail.mo?moAttNo=${ m.moAttNo }"> -->
 			             <div class="profileDiv">
@@ -71,17 +72,13 @@
 			                 </tr>
 			               </table>
 			             </div>
-			            
 			           </button>
                   	</c:forEach>
                  </c:otherwise>
               </c:choose>
-           
-           
-           
-         </div>
+      </div>
          <div class="endDiv">
-           <button class="btn btn-primary" onclick="insertMoAtt();">📝 새 수정요청</button>
+           <button class="btn btn-primary" onclick="selectMoAttForm();">📝 새 수정요청</button>
 		   <input type="hidden" value="${ loginUser.empNo }" id="empNo">
            <!-- Basic Pagination 최대를 3으로 하던가ㅜㅜ-->
            <div aria-label="Page navigation pageNav">

@@ -23,6 +23,7 @@
 		<result column="att_out" property="attOut"/>
 		<result column="att_status" property="attStatus"/>
 		<result column="att_date" property="attDate"/>
+		<result column="mo_att_delete_flag" property="moAttDeleteFlag"/>
 	</resultMap>
 	
 	<select id="selectModifyList" resultMap="modifyAttResult">
@@ -38,6 +39,9 @@
      	 , mo_read_flag
 	  from tb_modify_att
 	 where emp_no = #{empNo}
+	   and mo_att_delete_flag = 'O'
+	 order
+        by mo_att_enroll_d desc
 	</select>
 	
 	<select id="selectModifyDetail" resultMap="modifyAttResult">
@@ -67,6 +71,60 @@
       join tb_grade g on (e.emp_grade = g.emp_grade)
       join tb_att a on (a.att_no = m.att_no)
 	 where mo_att_no =  #{moAttNo}
+	</select>
+	
+	<insert id="insertMoAtt">
+		insert
+		  into tb_modify_att
+		    (  
+		       mo_att_no
+		     , emp_no
+		     , att_no
+		     , mo_att_reason
+		     , mo_att_back
+		     , mo_att_status
+		     , mo_att_type
+		     , mo_att_enroll_d
+		     , mo_att_modify_d
+		     , mo_read_flag
+		     , mo_att_delete_flag
+		     )
+		values
+		    (
+		       SEQ_MOATT_NO.nextval
+		     , #{empNo}
+		     , #{attNo}
+		     , #{moAttReason}
+		     , null
+		     , 'W'
+		     , #{moAttType}
+		     , sysdate
+		     , #{attDate}
+		     , 'N'
+		     , 'O'
+		    )
+	</insert>
+	
+	<select id="selectAllModifyList" resultMap="modifyAttResult">
+		select mo_att_no
+		     , m.emp_no
+		     , att_no
+		     , mo_att_reason
+		     , mo_att_back
+		     , mo_att_status
+		     , mo_att_type
+		     , to_char(mo_att_enroll_d,'yyyy/mm/dd') as "mo_att_enroll_d"
+	     	 , to_char(mo_att_modify_d,'yyyy/mm/dd') as "mo_att_modify_d"
+	     	 , mo_read_flag
+	         , emp_name
+	         , emp_photo
+	         , gr_name
+		  from tb_modify_att m
+	      join tb_emp e on (e.emp_no = m.emp_no)
+	      join tb_grade g on (e.emp_grade = g.emp_grade)
+		 where mo_att_delete_flag = 'O'
+		 order
+	        by mo_att_enroll_d desc
 	</select>
 </mapper>
 

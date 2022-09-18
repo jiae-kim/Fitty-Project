@@ -18,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.project.fitty.attendance.model.service.AttendanceService;
 import com.project.fitty.attendance.model.vo.Attendance;
+import com.project.fitty.attendance.model.vo.ModifyAtt;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.common.template.Pagination;
 import com.project.fitty.employee.model.service.EmployeeService;
@@ -107,6 +108,8 @@ public class AttendanceController {
 		mv.addObject("myAtt", myAtt).setViewName("attendance/myAttendance");
 		return mv;
 	}
+	
+	//modifyAtt.att는 ModifyController로 이동함!
 	
 	@ResponseBody
 	@RequestMapping(value="getWorkTimeOneSec.att", produces="application/json; charset=utf-8")
@@ -362,11 +365,12 @@ public class AttendanceController {
 		
 	}
 	
+	/*
 	@RequestMapping("modifyAtt.att")
 	public String goModifyAtt() {
 		return "attendance/modifyAttendance";
 	}
-
+*/
 	
 	@RequestMapping("enrollForm.emp")
 	public String goEnrollForm() {

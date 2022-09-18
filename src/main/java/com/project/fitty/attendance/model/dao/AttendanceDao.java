@@ -8,6 +8,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.project.fitty.attendance.model.vo.Attendance;
+import com.project.fitty.attendance.model.vo.ModifyAtt;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
 
@@ -88,5 +89,9 @@ public class AttendanceDao {
 		return (ArrayList) sqlSession.selectList("attendanceMapper.selectPerYearMonthList", a);
 	}
 	
+	
+	public int selectAttNo(SqlSessionTemplate sqlSession, ModifyAtt m) {
+		return sqlSession.selectOne("attendanceMapper.selectAttNo", m);
+	}
 	
 }

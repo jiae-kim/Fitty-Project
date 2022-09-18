@@ -2,6 +2,8 @@ package com.project.fitty.attendance.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +35,13 @@ public class ModifyAttController {
 	public ModelAndView selectMyModifyList(String empNo, ModelAndView mv) {
 		ArrayList<ModifyAtt> list = mService.selectModifyList(empNo);
 		mv.addObject("list", list).setViewName("attendance/myAttendanceModify");
+		return mv;
+	}
+	
+	@RequestMapping("modifyAtt.att")
+	public ModelAndView selectAllModifyAtt(ModelAndView mv) {
+		ArrayList<ModifyAtt> list = mService.selectAllModifyList();
+		mv.addObject("list", list).setViewName("attendance/modifyAttendance");
 		return mv;
 	}
 	
@@ -77,10 +86,48 @@ public class ModifyAttController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="insertMoAttForm.mo", produces="application/json; charset=utf-8")
-	public String insertModifyAttForm(String empNo) {
+	@RequestMapping(value="selectMoAttForm.mo", produces="application/json; charset=utf-8")
+	public String selectModifyAttForm(String empNo) {
 		Employee e = eService.selectByEmpNo(empNo);
 		return new Gson().toJson(e);
 	}
+	
+	@RequestMapping("insertMoAtt.mo")
+	public String insertMoAtt(ModifyAtt m, HttpSession session) {
+		
+		m.setAttNo(aService.selectAttNo(m));
+		int result = mService.insertMoAtt(m);
+		
+		if(result > 0) {
+			session.setAttribute("alertMsg","근태수정요청이 등록되었습니다💘");
+		} else {
+			session.setAttribute("alertMsg","근태수정요청이 등록 실패 😅");
+		}
+
+		return "redirect:myAtt.att";
+	}
+	
+	
+	@RequestMapping("updateModifyMo.mo")
+	public String updatemodifyAtt(ModifyAtt m) {
+		return "";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 }

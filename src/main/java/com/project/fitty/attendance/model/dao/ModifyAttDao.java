@@ -18,4 +18,12 @@ public class ModifyAttDao {
 	public ModifyAtt selectModifyDetail(SqlSessionTemplate sqlSession, String moAttNo) {
 		return sqlSession.selectOne("modifyAttMapper.selectModifyDetail",moAttNo);
 	}
+	
+	public int insertMoAtt(SqlSessionTemplate sqlSession, ModifyAtt m) {
+		return sqlSession.insert("modifyAttMapper.insertMoAtt", m);
+	}
+	
+	public ArrayList<ModifyAtt> selectAllModifyList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("modifyAttMapper.selectAllModifyList");
+	}
 }

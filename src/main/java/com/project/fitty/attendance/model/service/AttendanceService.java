@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import com.project.fitty.attendance.model.vo.Attendance;
+import com.project.fitty.attendance.model.vo.ModifyAtt;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
-import com.project.fitty.vacation.model.vo.Vacation;
 
 public interface AttendanceService {
 	
@@ -54,7 +54,8 @@ public interface AttendanceService {
 	// 기본 a리스트 각 멤버당 년,월 근태퍼센트
 	ArrayList<Attendance> selectPerYearMonthList(Attendance a);
 	
-	
+	// 근태수정리스트 작성시 attNo 조회
+	int selectAttNo (ModifyAtt m);
 	
 	
 }

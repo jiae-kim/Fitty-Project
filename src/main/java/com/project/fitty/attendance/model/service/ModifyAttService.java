@@ -10,4 +10,10 @@ public interface ModifyAttService {
 	ArrayList<ModifyAtt> selectModifyList(String empNo);
 	
 	ModifyAtt selectModifyDetail(String moAttNo);
+	
+	int insertMoAtt(ModifyAtt m);
+	
+	
+	// 어드민쪽 수정리스트 전체조회
+	ArrayList<ModifyAtt> selectAllModifyList();
 }
