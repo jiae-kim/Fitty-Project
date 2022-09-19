@@ -257,7 +257,7 @@
            	  </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="list.sc" class="menu-link">
+                  <a href="listSchedule.sc" class="menu-link">
                     <div data-i18n="Account" class="small-menu-label">스케줄 조회 및 수업 예약</div>
                   </a>
                 </li>
