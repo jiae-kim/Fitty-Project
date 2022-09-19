@@ -29,24 +29,77 @@
 		where 	b.user_no = u.user_no
 		  and 	b.emp_no = e.emp_no
 		  and	b.book_status = 'Y'
+		  and   b.cl_status = 'Y'
 	</select>
 	
+	<!-- 2. 회원 스케줄 전체조회 -->
+	<select id="selectEmp" resultType="string">
+		 select	  DISTINCT
+	              emp_no
+	       from   tb_booking
+	      where   user_no = #{userNo}
+	        and   book_status = 'Y'
+	        and   cl_status = 'Y'
+	</select>
 	
-	<!-- 회원입장에서 예약 상세조회 -->
+	<select id="selectUlist" resultMap="bookingResult">
+		select
+	              b.book_no    
+	          ,   b.user_no
+	          ,   e.emp_name
+	          ,   b.cl_no
+	          ,   b.book_date
+	          ,   b.book_stime
+	          ,   b.book_etime
+		   from   tb_booking b, tb_emp e, tb_user u
+		  where   b.user_no = u.user_no
+		    and   b.emp_no = e.emp_no
+		    and   b.book_status = 'Y'
+		    and   b.cl_status = 'Y'
+		    and   b.emp_no = #{empNo}
+	</select>
+	
+	<!-- 3. 회원 예약 상세조회 -->
 	<!-- 
 	  select
-	            e.emp_name
+	            b.book_no    
+	        ,   e.emp_name
 	        ,   b.cl_no
 	        ,   b.book_date
 	        ,   b.book_stime
 	        ,   b.book_etime
-	     from 	tb_booking b, tb_emp e, tb_user u
-		where   b.user_no = u.user_no
-	      and 	b.emp_no = e.emp_no
-	      and 	b.book_status = 'Y'
-	      and 	b.user_no = #{userNo}
+		from 	tb_booking b, tb_emp e, tb_user u
+	   where 	b.user_no = u.user_no
+	   	 and 	b.emp_no = e.emp_no
+	     and 	b.book_status = 'Y'
+	     and 	b.cl_status = 'Y'
+	     and 	b.book_no = #{bookNo}
 	 -->
-	
+	 
+	 <!-- 4. 회원 수업 예약 -->
+	<insert id="insertBooking">
+		insert
+		  into	tb_booking
+		  	 (
+		  	 	book_no
+		  	 ,	cl_no
+		  	 ,	user_no
+		  	 ,	emp_no
+		  	 ,	book_date
+		  	 ,	book_stime
+		  	 ,	book_etime
+		     )
+	    values
+	    	 (
+	    	 	seq_book_no.nextval
+	    	 ,	#{clNo}
+	    	 ,	#{userNo}
+	    	 ,	#{empNo}
+	    	 ,	#{bookDate}
+	    	 ,	#{bookStime}
+	    	 ,	#{bookEtime}
+	    	 )
+	</insert>
 	
 	
 </mapper>

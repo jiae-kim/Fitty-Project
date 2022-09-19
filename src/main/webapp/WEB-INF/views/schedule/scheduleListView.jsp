@@ -120,11 +120,9 @@ html, body{
 								for(let i=0; i<list.length; i++){
 									let obj = {
 									    id : list[i].bookNo,
-										title : list[i].empName,
-										start : list[i].bookDate, 
-										end : list[i].bookDate
-										//startTime : list[i].bookStime,
-										//endTime : list[i].bookEtime
+										title : list[i].empName + " " + list[i].bookStime + "~" + list[i].bookEtime,
+										start : list[i].bookDate + " " + list[i].bookStime, 
+										end : list[i].bookDate + " " + list[i].bookEtime
 									};
 									data.push(obj);
 								}
@@ -247,47 +245,6 @@ html, body{
 					</script>
 					-->
 					
-					<!--  
-					<script>
-					document.addEventListener('DOMContentLoaded', function(){
-						$(function (){
-							var request = $.ajax({
-								url : "list.ca",
-								method : "GET",
-								dataType : "json"
-							});
-							
-							request.done(function(data){
-								console.log(data);
-								
-								var calendarEl = document.getElementById('calendar');
-								
-								var calendar = new FullCalendar.Calendar(calendarEl, {
-									initialView : 'timeGridWeek',
-									headerToolbar: {
-										left: 'prev,next today',
-										center: 'title',
-										right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-									},
-									editable: true,
-									droppable: true,
-									drop: function(arg){
-										if(document.getElementById('drop-remove').checked){
-											arg.fraggedEl.parentNode.removeChild(arg.draggedEl);
-										}
-									},
-									events: data
-								});
-								calendar.render();
-							});
-							request.fail(function(jqXHR, textStatus){
-								alert("Request failed: " + textStatus);
-							});
-						});
-					});
-					</script>
-					-->
-
           			</div>
         		</div>
       		</div>

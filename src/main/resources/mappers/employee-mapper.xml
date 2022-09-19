@@ -34,7 +34,7 @@
 			   , nvl(a.att_in, 0)
 			   , nvl(a.att_out, 0)
 			   , g.gr_name
-			   , c.cl_no
+			   <!-- , c.cl_no -->
 		  from   tb_emp e
 		  join   tb_att a on (a.emp_no = e.emp_no)
 		  join   tb_grade g on (e.emp_grade = g.emp_grade)

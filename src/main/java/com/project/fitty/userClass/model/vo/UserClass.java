@@ -30,6 +30,7 @@ public class UserClass {
 	
 	//회원정보
 	private int userNo;
+	private int clNo;
 	private String userName;
 	private String userPhone;
 	private String userGender;
