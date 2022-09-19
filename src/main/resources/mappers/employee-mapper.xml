@@ -16,7 +16,6 @@
 		<result column="attIn" property="attOut"/>
 		<result column="attOut" property="attOut"/>
 		<result column="gr_name" property = "grName"/>
-		<result column="cl_no" property="classNo" />
 </resultMap>
 
 	<select id="loginEmployee" resultMap="employeeResult">
@@ -39,7 +38,6 @@
 		  from   tb_emp e
 		  join   tb_att a on (a.emp_no = e.emp_no)
 		  join   tb_grade g on (e.emp_grade = g.emp_grade)
-		  <!-- join   tb_class c on (c.emp_no = e.emp_no) -->
 		 where   e.emp_no = #{empNo}
 		   and  e.emp_status = 'Y'
            and  a.att_date = to_char(sysdate, 'yyyy-mm-dd')
