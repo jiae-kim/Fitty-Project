@@ -26,6 +26,14 @@
 }
 
 
+#empListBtn{
+	background-color : white;
+}
+
+
+
+
+
 /* 채팅창 */
 .chatMenu{
   height: 759px;
@@ -90,4 +98,9 @@ ul li b{
   font-size: 13px;
   color: #696CFF;
 }
+
+
+
+
+
 /*chatEmpList*/

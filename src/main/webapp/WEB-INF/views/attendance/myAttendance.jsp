@@ -10,6 +10,12 @@
 
 <!-- 해당페이지 css 외부로딩 : 새로고침시 컨트롤 + f5로 강력새로고침 하세요 -->
 <link type="text/css" rel="stylesheet" href="resources/css/attendance.css" />
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
+
+
 </head>
 <body>
 <jsp:include page="../common/header.jsp"/>
@@ -23,7 +29,7 @@
           <h5 class="card-header" style="margin-bottom:20px;"><b>📑 오늘의 근태확인</b></h5>
           <div class="card-body row">
             <div class="vacSimple">
-              <div>
+              <div id="loginUserDiv">
                 <img src="<c:out value='${loginUser.empPhoto}' default='resources/profile_images/defaultProfile.png' />" alt="Avatar" class="rounded-circle" width="120px;" height="120px;"/>
                 <br><span class="myName"><b>${loginUser.empName}</b></span>
                 <br><span class="myName">${loginUser.grName }</span>
@@ -57,7 +63,7 @@
                 <span style="font-size:25px;">🎁<br></span>
                 <span>올해의 연차<br></span>
                 <span class="gapSpan">${ myAtt.gapYearVac }<br></span>
-                <span>일 남았어요!<br></span>
+                <span>일 있어요!<br></span>
                 </a>
               </button>
               <div class="emptyVac" style="width:12px; background-color: white;">
@@ -68,7 +74,7 @@
                 <span style="font-size:25px;">🎉<br></span>
                 <span>올해의 휴가<br></span>
                 <span class="gapSpan">${ myAtt.gapVac }<br></span>
-                <span>일 남았어요!<br></span>
+                <span>일 있어요!<br></span>
                 </a>
               </button>
             </div>
@@ -79,15 +85,32 @@
     <div class="col-md-10 ">
       <div class="card mb-4 vacDetailDiv">
           <h5 class="card-header"><b>⏱ 이번달 근태확인</b></h5>
-          <div class="card-body row">
-            
-          
+          <div class="card-body row" id='calendar-container'>
+            <div id='calendar'>
+        
+				
+				</div>
           </div>
       </div>
     </div>
 </div>
-
 <script type="text/javascript" src="resources/js/attendance.js"></script>
 <script type="text/javascript" src="resources/js/attendance/myAttendance.js"></script>
+<!-- 화면 해상도에 따라 글자 크기 대응(모바일 대응) -->  
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">  
+<!-- jquery CDN -->  
+<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>   -->
+<script src="https://code.jquery.com/jquery-latest.min.js"></script>
+<!-- fullcalendar CDN -->  
+<!-- <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet' />  
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>   -->
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
+<!-- fullcalendar 언어 CDN -->  
+<!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script> -->
+<script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js'></script>
+
+<style type="text/css">
+
 </body>
 </html>

@@ -74,7 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int uploadProfileImg(Employee e) {
 		return eDao.uploadProfileImg(sqlSession, e);
 	}
-
+	
 
 	@Override
 	public ArrayList<Employee> selectLevelEmployeeList() {
@@ -109,5 +109,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee selectByEmpNo(String empNo) {
 		return eDao.selectByEmpNo(sqlSession, empNo);
+	}
+
+	// 프로필수정_마이페이지용
+	@Override
+	public int uploadProfileImg2(Employee e) {
+		return eDao.uploadProfileImg2(sqlSession, e);
 	}
 }

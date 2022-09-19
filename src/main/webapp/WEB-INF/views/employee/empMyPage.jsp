@@ -21,16 +21,21 @@
                   <h5 class="card-header secondHeader" style="margin-bottom: 50px;">🏋️‍♂️ My Profile</h5>
                   <div class="row">
 	                <div class="d-flex align-items-start align-items-sm-center gap-4">
-                 	 <c:choose>
-	                  	<c:when test="${empty e.empPhoto }">
+                 	 <!-- 
+                 	 <<c:choose>
+	                  	<c:when test="${empty loginUser.empPhoto }">
 	                  		<img  id="roundPhoto" src='resources/profile_images/defaultProfile.png' onclick="$('#empPhoto').click();" >
 	                  	</c:when>
+	                  	 
 	                  	<c:otherwise>
-	                  		<input type="hidden"  name="empPhoto" value="${ e.empPhoto }">
-	                  		<img  id="roundPhoto" src="<c:out value='${  e.empPhoto }' />" onclick="$('#empPhoto').click();" >
+	                  		<input type="hidden"  name="empPhoto" value="${ loginUser.empPhoto }">
+	                  		<img  id="roundPhoto" src="<c:out value='${  loginUser.empPhoto }' />" onclick="$('#empPhoto').click();" >
 	                  	</c:otherwise>
 	                  </c:choose>
-                	  <input type="file" id="empPhoto" style="display:none;" name="empPhoto">
+	                  -->
+	                  
+	                  <img id="roundPhoto" src="<c:out value='${ loginUser.empPhoto }' default='resources/profile_images/defaultProfile.png' />" onclick="$('#empPhoto').click();">
+                	  <input type="file" id="empPhoto" style="display:none;">
 	                </div>
 	                
 	                <script>
@@ -44,17 +49,17 @@
 	             		let uploadFile = this.files[0]; // 현재 선택된 파일객체 (사용자가 선택한 첨부파일)
 	             		
 	             		formData.append("uploadFile", uploadFile); // 취소버튼 클릭시 undefined가 담김
-	             		formData.append("empNo", "${e.empNo}");
-	             		formData.append("originalFile", "${e.empPhoto}.val()"); // 기존의 프로필 이미지가 없었을경우 "" 문자열 넘어감
+	             		formData.append("empNo", "${loginUser.empNo}");
+	             		formData.append("originalFile", "${loginUser.empPhoto}"); // 기존의 프로필 이미지가 없었을경우 "" 문자열 넘어감
 	             		
 	             		$.ajax({
-	             			url:"uploadProfile.emp",
+	             			url:"uploadProfile2.emp",
 	             			data:formData, // 파일자체가 담겨있는 가상의 form 그대로 전달
 	             			processData: false,
 	             			contentType: false,
 	             			type:"POST",
-	             			success:function(e){
-	             				location.reload(e);
+	             			success:function(){
+	             				location.reload();
 	             				roundPhoto.attr( 'class', 'd-block rounded');
 	             			},
 	             			error:function(){

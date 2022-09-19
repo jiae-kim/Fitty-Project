@@ -115,10 +115,15 @@ public class EmployeeDao {
 		return sqlSession.update("employeeMapper.updateEmployee", e);
 	}
 	
-	
+	// 직원 프로필 정보 수정 
 	public int uploadProfileImg(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.uploadProfileImg", e);
 	}
+	
+	public int uploadProfileImg2(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.uploadProfileImg2", e);
+	}
+	
 	
 	
 

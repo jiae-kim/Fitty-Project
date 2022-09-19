@@ -70,16 +70,9 @@
 		    +                   "<div class='mt-2 btnDiv col-md-10' style='margin-bottom:10px;'>"
 		    +                       "<label for='address' class='form-label' style='font-size: 10px; width:50px'>수정일시</label>"
 			+                       "<input type='date' class='attDate value='" + att.attDate + "'>'"
-		    +                       "<input type='time' class='form-control' id='attTime' name='attTime' value='" + att.moAttModifyTime + "'/>"
+		    +                       "<input type='time' class='form-control' id='attTime' name='attTime' min='00:00:00' max='23:59:59' value='" + att.moAttModifyTime + "'/>"
 		    +                     "</div>"
-		    +                     "<div class='mt-2 btnDiv col-md-2' style='margin-bottom:10px;'>"
-							if(att.moReadFlag === "Y") {
-			value +=					"<button type='submit' class='btn btn-primary me-2' disabled>수정하기</button>"
-							} else{
-			value +=					"<button type='submit' class='btn btn-primary me-2'>수정하기</button>"
-							}
-		  //  +                       "<button type='button' class='btn btn-secondary me-2'>반려하기</button>"
-		    value +=              "</div>"
+
 		    +                   "</div>"
 		    +                   "<h5 class='card-header' style='margin-bottom : 15px; padding-top:0';><b>📋 수정의견</b></h5>"
 		    +                   "<textarea class='textarea' autofocus required name='moAttBack' style='background-color:#E7E7E7' id='moAttBack' readOnly>"+ att.moAttBack +"</textarea>"
@@ -123,7 +116,7 @@ function selectMoAttForm(){
 				  +						"</div>"
 				  +						"<div class='mb-3 col-md-4'>"
 				  +						"<label for='address' class='form-label' style='font-size: 10px; width:50px'>수정시</label>"
-				  +                       "<input type='time' class='form-control' id='moAttModifyTime' name='moAttModifyTime'>"
+				  +                       "<input type='time' class='form-control' min='00:00:00' max='23:59:59' id='moAttModifyTime' name='moAttModifyTime'>"
 				  +						"</div>"
 				  +						"<div class='mb-3 col-md-4'>"
 				  +						"<label for='organization' class='form-label'>수정요청선택</label>"
