@@ -57,6 +57,8 @@ public interface AttendanceService {
 	// 근태수정리스트 작성시 attNo 조회
 	int selectAttNo (ModifyAtt m);
 	
+	
+	
 	// 출근시간 수정
 	int AdminUpdateAttInStatus (Attendance a);
 	

@@ -46,6 +46,7 @@ public class Attendance {
 	private String perYear;
 	private String perMonth;
 	
+	private String moAttModifyTime;
 	
 	
 	

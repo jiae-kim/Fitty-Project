@@ -61,8 +61,10 @@ public class AttendanceServiceImpl implements AttendanceService{
 	
 	@Override
 	public ArrayList<Attendance> selectAllAttList(Employee e) {
+		//System.out.println(e);
 		ArrayList<Attendance> attList = aDao.selectAllAttList(sqlSession, e);
 		for(Attendance a : attList) {
+			//System.out.println(a);
 			switch(a.getAttStatus()) {
 			case "X" : a.setAttStatus("#E74C3C"); ; break; //결석
 			case "L" : a.setAttStatus("#F1C40F"); ; break; // 지각
@@ -74,7 +76,7 @@ public class AttendanceServiceImpl implements AttendanceService{
 			case "B" : a.setAttStatus("#FFFFFF"); ; break; // 베이직
 			case "O" : a.setAttStatus("#DCDADA"); ; break; // 정상출근
 			case "P" : a.setAttStatus("#686BFF"); ; break; // 정상출근
-			//default : a.setAttStatus("#FFFFFF"); break; #686BFF >> 연장
+			default : a.setAttStatus("#E74C3C"); break;  // 무단
 			}
 		}
 		return attList;
@@ -96,7 +98,7 @@ public class AttendanceServiceImpl implements AttendanceService{
 			case "B" : a.setAttStatus("#FFFFFF"); ; break; // 베이직
 			case "O" : a.setAttStatus("#DCDADA"); ; break; // 정상출근
 			case "P" : a.setAttStatus("#686BFF"); ; break; // 정상출근
-			//default : a.setAttStatus("#FFFFFF"); break; #686BFF >> 연장
+			default : a.setAttStatus("#E74C3C"); break;  // 무단
 			}
 		}
 		return attList;
@@ -143,16 +145,20 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 	@Override
 	public int selectAttNo(ModifyAtt m) {
+		System.out.println(m.getAttDate());
+		System.out.println(m.getEmpNo());
 		return aDao.selectAttNo(sqlSession, m);
 	}
 
 	@Override
 	public int AdminUpdateAttInStatus(Attendance a) {
+		System.out.println("인실행됨");
 		return aDao.AdminUpdateAttInStatus(sqlSession, a);
 	}
 
 	@Override
 	public int AdminUpdateAttOutStatus(Attendance a) {
+		System.out.println("아웃실행됨");
 		return aDao.AdminUpdateAttOutStatus(sqlSession, a);
 	}
 

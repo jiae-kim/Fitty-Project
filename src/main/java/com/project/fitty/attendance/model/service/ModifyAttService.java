@@ -22,4 +22,6 @@ public interface ModifyAttService {
 	int updateModifyAtt(ModifyAtt m);
 	
 	int cantUpdateModifyAtt(ModifyAtt m);
+	
+	int updateMoReadFlag(String moAttNo);
 }

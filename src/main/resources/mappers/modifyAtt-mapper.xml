@@ -88,6 +88,7 @@
 		     , mo_att_modify_d
 		     , mo_read_flag
 		     , mo_att_delete_flag
+		     , mo_att_modify_time
 		     )
 		values
 		    (
@@ -102,6 +103,7 @@
 		     , #{attDate}
 		     , 'N'
 		     , 'O'
+		     , #{moAttModifyTime}
 		    )
 	</insert>
 	
@@ -128,19 +130,23 @@
 	</select>
 	
 	<update id="updateModifyAtt">
-	update tb_mo_att
+	update tb_modify_att
 	   set mo_att_status = 'M'
 	     , mo_att_back = #{moAttBack}
-	     , mo_read_flag = 'N'
 	 where mo_att_no = #{moAttNo}
 	</update>
 	
 	<update id="cantUpdateModifyAtt">
-	update tb_mo_att
+	update tb_modify_att
 	   set mo_att_status = 'N'
 	     , mo_att_back = #{moAttBack}
-	     , mo_read_flag = 'N'
 	 where mo_att_no = #{moAttNo}
+	</update>
+	
+	<update id="updateMoReadFlag">
+	update tb_modify_att
+	  set mo_read_flag = 'Y'
+	where mo_att_no = #{moAttNo}
 	</update>
 </mapper>
 

@@ -48,4 +48,9 @@ public class ModifyAttServiceImpl implements ModifyAttService{
 	public int cantUpdateModifyAtt(ModifyAtt m) {
 		return mDao.cantUpdateModifyAtt(sqlSession, m);
 	}
+
+	@Override
+	public int updateMoReadFlag(String moAttNo) {
+		return mDao.updateMoReadFlag(sqlSession, moAttNo);
+	}
 }

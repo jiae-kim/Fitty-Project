@@ -34,4 +34,8 @@ public class ModifyAttDao {
 	public int cantUpdateModifyAtt(SqlSessionTemplate sqlSession, ModifyAtt m) {
 		return sqlSession.update("modifyAttMapper.cantUpdateModifyAtt", m);
 		}
+	
+	public int updateMoReadFlag(SqlSessionTemplate sqlSession,String moAttNo) {
+		return sqlSession.update("modifyAttMapper.updateMoReadFlag", moAttNo);
+		}
 }

@@ -224,7 +224,7 @@ public class AttendanceController {
 		
 		int listCount =  eService.selectEmpListCount();
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-		
+		//System.out.println(thisYear + "나나나" + thisMonth);
 		
 		ArrayList<Employee> empList =  eService.selectEmpList(pi);
 		

@@ -414,25 +414,28 @@ distinct emp_no
   	select att_no
   	  from tb_att
   	 where emp_no = #{empNo}
-  	   and att_date = #{attDate}
+  	   and att_date = to_char(to_date(#{attDate},'yyyy-mm-dd'), 'yyyy-mm-dd')
   </select>
   
   
   <update id="AdminUpdateAttInStatus">
-  update tb_att
-	set att_status = #{attStatus}
-	where att_no = #{attNo}
+ 
    <!--update tb_att
+	set att_status = #{attStatus}
+	where att_no = #{attNo}-->
+	update tb_att
 	set att_status = #{attStatus}
 	    , att_in = #{attIn} 
 	where emp_no = #{empNo}
-	and att_no = #{attNo}-->
+	and att_no = #{attNo}
   </update>
   
   <update id="AdminUpdateAttOutStatus">
   update tb_att
 	set att_status = #{attStatus}
-	where att_no = #{attNo}
+	    , att_out = #{attOut} 
+	where emp_no = #{empNo}
+	and att_no = #{attNo}
   </update>
    
   

@@ -20,7 +20,7 @@
       	<div class="profileHeader">
       		<img src="<c:out value='${v.empPhoto}' default='resources/profile_images/defaultProfile.png' />" alt="Avatar" class="rounded-circle" width="30px;" height="30px;"/>
             <h5 class="card-header" style="color:#697a8d;"><b>${ v.empName } 🏃‍♂️ ${ v.grName } 🏃‍♂️ 연차관리</b></h5>
-            <input type="hidden" value="TRN103" id="empNoInput">
+            <input type="hidden" value="${v.empNo}" id="empNoInput">
       	</div>
             <table id="todayWork" class="table" style="margin-bottom : 50px;">
               <thead>
