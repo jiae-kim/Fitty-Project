@@ -64,9 +64,6 @@ public class EmployeeController {
 		return eService.selectNextEmpNo();
 	}
 	
-	
-	
-	
 	@ResponseBody
 	@RequestMapping("uploadProfile.emp")
 	public Employee ajaxUploadProfile(MultipartFile uploadFile, Employee e, String originalFile, HttpSession session) {
@@ -90,37 +87,30 @@ public class EmployeeController {
 	
 	@ResponseBody
 	@RequestMapping("uploadProfile2.emp")
-	public void ajaxUploadProfile2(MultipartFile uploadFile, Employee e, 
-								  String originalFile, HttpSession session) {
-		
-		/*
-		System.out.println(uploadFile);
-		System.out.println(m.getUserId());
-		System.out.println(originalFile);
-		*/
-		
-		if(uploadFile != null) { // 넘어온 파일이 있을 경우
-			
+	public void ajaxUploadProfile2(MultipartFile uploadFile, Employee e, String originalFile, HttpSession session) {
+
+	
+
+		if (uploadFile != null) { // 넘어온 파일이 있을 경우
+
 			String saveFilePath = FileUpload.saveFile(uploadFile, session, "resources/profile_images/");
 			e.setEmpPhoto(saveFilePath);
-			
+
 			int result = eService.uploadProfileImg2(e);
-			
-			if(result > 0) { // db에 update 성공시
-				
+
+			if (result > 0) { // db에 update 성공시
+
 				session.setAttribute("loginUser", eService.loginEmployee(e));
-				
-				if(!originalFile.equals("")) {
-					new File( session.getServletContext().getRealPath(originalFile) ).delete();
+
+				if (!originalFile.equals("")) {
+					new File(session.getServletContext().getRealPath(originalFile)).delete();
 				}
-				
+
 			}
-			
-			
+
 		}
-		
+
 	}
-	
 	
 	@RequestMapping("insert.emp")
 	public String insertMember(Employee e, HttpSession session) {
