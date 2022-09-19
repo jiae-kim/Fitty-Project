@@ -425,7 +425,7 @@ distinct emp_no
 	where att_no = #{attNo}-->
 	update tb_att
 	set att_status = #{attStatus}
-	    , att_in = #{attIn} 
+	    , att_in = #{attIn} || ':00'
 	where emp_no = #{empNo}
 	and att_no = #{attNo}
   </update>
@@ -433,11 +433,23 @@ distinct emp_no
   <update id="AdminUpdateAttOutStatus">
   update tb_att
 	set att_status = #{attStatus}
-	    , att_out = #{attOut} 
+	    , att_out = #{attOut} || ':00'
 	where emp_no = #{empNo}
 	and att_no = #{attNo}
   </update>
   
+  <select id="selectMyMonthAttList" resultMap = "attendanceResult">
+      select nvl(att_in, '00:00:00') as "att_in"
+                ,  nvl(att_out, '00:00:00') as "att_out"
+                , att_date
+                , att_no
+                , emp_no
+                , att_status
+            from tb_att
+            where emp_no = #{empNo}
+            and att_date between to_date(to_char((select trunc((to_date('2022/01/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+  	   					 and to_date(to_char(sysdate,'YYYY-MM-DD'))
+  </select>
   
   
   

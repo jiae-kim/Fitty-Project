@@ -65,5 +65,7 @@ public interface AttendanceService {
 	//퇴근시간 수정
 	int AdminUpdateAttOutStatus (Attendance a);
 	
+	ArrayList<Attendance> selectMyMonthAttList(String empNo);
+	
 	
 }

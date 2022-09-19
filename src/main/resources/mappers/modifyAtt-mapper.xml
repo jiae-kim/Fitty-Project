@@ -136,17 +136,19 @@
 	 where mo_att_no = #{moAttNo}
 	</update>
 	
-	<update id="cantUpdateModifyAtt">
-	update tb_modify_att
-	   set mo_att_status = 'N'
-	     , mo_att_back = #{moAttBack}
-	 where mo_att_no = #{moAttNo}
-	</update>
+	
 	
 	<update id="updateMoReadFlag">
 	update tb_modify_att
 	  set mo_read_flag = 'Y'
 	where mo_att_no = #{moAttNo}
+	</update>
+	
+	<update id="cantUpdateModifyAtt">
+	update tb_modify_att
+	   set mo_att_status = 'N'
+	     , mo_att_back = #{moAttBack}
+	 where mo_att_no = #{moAttNo}
 	</update>
 </mapper>
 

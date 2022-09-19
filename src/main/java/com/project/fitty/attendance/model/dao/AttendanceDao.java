@@ -105,4 +105,8 @@ public class AttendanceDao {
 		return  result;
 	}
 	
+	public ArrayList<Attendance> selectmyMonthAttList(SqlSessionTemplate sqlSession, String empNo){
+		return (ArrayList) sqlSession.selectList("attendanceMapper.selectMyMonthAttList", empNo);
+	}
+	
 }

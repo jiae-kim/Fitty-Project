@@ -70,7 +70,7 @@
 		    +                   "<div class='mt-2 btnDiv col-md-10' style='margin-bottom:10px;'>"
 		    +                       "<label for='address' class='form-label' style='font-size: 10px; width:50px'>수정일시</label>"
 			+                       "<input type='date' class='attDate value='" + att.attDate + "'>'"
-		    +                       "<input type='time' class='form-control' id='attTime' name='attTime' value='" + att.moAttModifyTime + "'/>"
+		    +                       "<input type='time' class='form-control' id='attTime' name='attTime' min='00:00:00' max='23:59:59' value='" + att.moAttModifyTime + "'/>"
 		    +                     "</div>"
 
 		    +                   "</div>"
@@ -116,7 +116,7 @@ function selectMoAttForm(){
 				  +						"</div>"
 				  +						"<div class='mb-3 col-md-4'>"
 				  +						"<label for='address' class='form-label' style='font-size: 10px; width:50px'>수정시</label>"
-				  +                       "<input type='time' class='form-control' id='moAttModifyTime' name='moAttModifyTime'>"
+				  +                       "<input type='time' class='form-control' min='00:00:00' max='23:59:59' id='moAttModifyTime' name='moAttModifyTime'>"
 				  +						"</div>"
 				  +						"<div class='mb-3 col-md-4'>"
 				  +						"<label for='organization' class='form-label'>수정요청선택</label>"

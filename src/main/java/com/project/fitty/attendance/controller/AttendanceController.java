@@ -23,6 +23,7 @@ import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.common.template.Pagination;
 import com.project.fitty.employee.model.service.EmployeeService;
 import com.project.fitty.employee.model.vo.Employee;
+import com.project.fitty.schedule.model.vo.Booking;
 import com.project.fitty.vacation.model.service.VacationService;
 
 @Controller
@@ -377,6 +378,32 @@ public class AttendanceController {
 		return "attendance/employeeEnrollForm";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="myMonthAttlist.att", produces="application/json; charset=UTF-8")
+	public String selectMyMonthAttList(Employee e) {
+		String empNo = e.getEmpNo();
+		System.out.println(empNo);
+		ArrayList<Attendance> list = aService.selectMyMonthAttList(empNo);
+		
+		for(Attendance a : list) {
+			switch(a.getAttStatus()) {
+				case "X" : a.setAttStatus("결석"); ; break; //결석
+				case "L" : a.setAttStatus("지각"); ; break; // 지각
+				case "E" : a.setAttStatus("조퇴"); ; break; // 조퇴
+				case "Q" : a.setAttStatus("오전반차"); ; break; // 오전반차
+				case "Z" : a.setAttStatus("오후반차"); ; break; // 오후반차
+				case "V" : a.setAttStatus("휴가"); ; break; // 휴가
+				case "Y" : a.setAttStatus("연월차"); ; break; // 연월차
+				case "B" : a.setAttStatus("주말"); ; break; // 베이직
+				case "O" : a.setAttStatus("정상출근"); ; break; // 정상출근
+				case "P" : a.setAttStatus("연장근무"); ; break; // 정상출근
+				default : a.setAttStatus("기본"); break;  // 무단
+			}
+			//System.out.println(a);
+		}
+		
+		return new Gson().toJson(list); // "[{}, {}, {}, ...]"
+	}
 	
 	
 	

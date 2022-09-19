@@ -98,7 +98,7 @@
 				+					"</div>"
 				+                   "<div class='mt-2 btnDiv col-md-6' style='margin-bottom:10px;'>"
 				+						"<label for='address' class='form-label' style='font-size: 10px; width:50px'>수정시</label>"
-				+                       "<input type='time' class='form-control' id='moAttModifyTime' name='moAttModifyTime' value='" + att.moAttModifyTime + "'/>"
+				+                       "<input type='time'  min='00:00:00' max='23:59:59' class='form-control' id='moAttModifyTime' name='moAttModifyTime' value='" + att.moAttModifyTime + "'/>"
 				+					"</div>"
 				+                   "<div class='mt-2 btnDiv col-md-12' style='margin-bottom:10px;'>"
 				+						"<input class='form-check-input'  type='radio' name='attStatus' value='O'>&nbsp정상&nbsp&nbsp&nbsp&nbsp&nbsp"

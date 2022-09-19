@@ -162,6 +162,11 @@ public class AttendanceServiceImpl implements AttendanceService{
 		return aDao.AdminUpdateAttOutStatus(sqlSession, a);
 	}
 
+	@Override
+	public ArrayList<Attendance> selectMyMonthAttList(String empNo) {
+		return aDao.selectmyMonthAttList(sqlSession, empNo);
+	}
+
 
 	
 
