@@ -86,6 +86,7 @@
 		    +                 "<div class='mb-3 col-md-12 reason' style='height : 450px; padding-top: 7px;'>"
 			+                 	"<input type='hidden' value='" + att.moAttNo + "' name='moAttNo'>"
 			+                 	"<input type='hidden' value='" + att.empNo + "' name='empNo'>"
+		//	+                 	"<input type='hidden' value='" + att.attStatus + "' name='attStatus'>"
 		    +                   "<h5 class='card-header' style='padding : 10px; margin-top:15px;'><b>🧾 " + att.moAttType + "수정사유</b></h5>"
 			+                 	"<input type='hidden' value='" + att.moAttType + "' name='moAttType'>"
 		    +                   "<textarea class='textarea' style='height : 80px' autofocus>" + att.moAttReason + "</textarea>"

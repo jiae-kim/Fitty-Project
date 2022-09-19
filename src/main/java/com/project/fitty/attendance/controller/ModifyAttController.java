@@ -121,7 +121,7 @@ public class ModifyAttController {
 	
 	@RequestMapping("updateModifyMo.mo")
 	public String updatemodifyAtt(ModifyAtt m, HttpSession session) {
-		System.out.println("업데이트시 : " + m);
+		//System.out.println("업데이트시 : " + m);
 		//System.out.println(m.getMoAttBack());
 		//System.out.println(m.getMoAttNo());
 		int updateMo = mService.updateModifyAtt(m);
@@ -172,26 +172,17 @@ public class ModifyAttController {
 		int updateMo = mService.cantUpdateModifyAtt(m);
 		m.setAttNo(aService.selectAttNo(m));
 		if(updateMo > 0) {
+		//System.out.println(m);
+		//Attendance a = new Attendance();
+		//a.setAttNo(m.getAttNo());
+		//a.setAttDate(m.getMoAttModifyD());
+		//a.setEmpNo(m.getEmpNo());
+		//a.setAttStatus(m.getAttStatus());
 		
-		Attendance a = new Attendance();
-		a.setAttNo(m.getAttNo());
-		a.setAttDate(m.getMoAttModifyD());
-		a.setEmpNo(m.getEmpNo());
-		a.setAttStatus(m.getAttStatus());
+		//System.out.println(a);
+		int result = mService.cantUpdateModifyAtt(m);
 		
-		int updateAttIn = 0;
-		int updateAttOut = 0;
-		if(m.getMoAttType().equals("출근")) {
-			m.setMoAttType("I");
-			a.setAttIn(m.getMoAttModifyTime());
-			updateAttIn = aService.AdminUpdateAttInStatus(a);
-		} else {
-			m.setMoAttType("O");
-			a.setAttOut(m.getMoAttModifyTime());
-			updateAttOut = aService.AdminUpdateAttOutStatus(a);
-		}
-		
-		if(updateAttIn > 0 || updateAttOut > 0) {
+		if(result > 0) {
 			session.setAttribute("alertMsg","근태반려완료💘");
 		} else {
 			session.setAttribute("alertMsg","근태반려실패😅");

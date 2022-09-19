@@ -99,9 +99,9 @@ public class AttendanceDao {
 	}
 	
 	public int AdminUpdateAttOutStatus(SqlSessionTemplate sqlSession, Attendance a) {
-		System.out.println("다오실행됨");
+		//System.out.println("다오실행됨");
 		int result = sqlSession.update("attendanceMapper.AdminUpdateAttOutStatus", a);
-		System.out.println("다오 : " + result);
+		//System.out.println("다오 : " + result);
 		return  result;
 	}
 	
