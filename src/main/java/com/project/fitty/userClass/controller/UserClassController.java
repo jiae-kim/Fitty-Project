@@ -1,5 +1,7 @@
 package com.project.fitty.userClass.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -109,10 +111,10 @@ public class UserClassController {
 		
 		if(result > 0) {
 			session.setAttribute("alertMsg", "식단 등록에 성공했습니다.");
-			return "redirect:userDiDetail.cl";
+			return "redirect:userDiDetail.cl?classNo=" + di.getClassNo() + "&dietDate=" + di.getDietDate();
 		}else {
 			session.setAttribute("alertMsg", "식단 등록에 실패했습니다. 다시 시도해주세요.");
-			return "redirect:userDiDetail.cl";
+			return "redirect:userDiDetail.cl?classNo=" + di.getClassNo() + "&dietDate=" + di.getDietDate();
 		}
 		
 	}

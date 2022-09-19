@@ -10,6 +10,7 @@ import com.project.fitty.ptclass.model.dao.ClassDao;
 import com.project.fitty.ptclass.model.vo.PtClass;
 import com.project.fitty.ptclass.model.vo.Reply;
 import com.project.fitty.user.model.vo.User;
+import com.project.fitty.userClass.model.vo.Diet;
 
 @Service
 public class ClassServiceImpl implements ClassService{
@@ -43,6 +44,18 @@ public class ClassServiceImpl implements ClassService{
 	@Override
 	public ArrayList<User> selectUserList(String empNo) {
 		return cDao.selectUserList(sqlSession, empNo);
+	}
+	
+	//수업번호에 따른 회원 식단조회
+	@Override
+	public ArrayList<Diet> selectDiet(int classNo) {
+		return cDao.selectDiet(sqlSession, classNo);
+	}
+	
+	//식단 상세조회
+	@Override
+	public Diet selectDietDetail(Diet di) {
+		return cDao.selectDietDetail(sqlSession, di);
 	}
 	
 	//댓글 리스트 조회
