@@ -48,6 +48,6 @@ public class Employee {
 	
 	
 	//수업
-	private int classNo;
+	//private int classNo;
 
 }
