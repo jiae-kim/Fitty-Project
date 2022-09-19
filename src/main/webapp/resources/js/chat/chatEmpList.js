@@ -58,49 +58,23 @@
 							 value += "<li><img src='" + list.empPhoto + ">' alt='Avatar' class='rounded-circle' width='10px;' height='15px;'/><b>" + list.empName + "</b> 🧘‍♂️ " + list.grName + "</li>"
 						  }
 						}
-					value += "</ul>"
-			               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🧘‍♂️ 대표</li>
-			               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🧘‍♂️ 관리자</li>
-			             </ul>
-			           <li>트레이너</li>
-			             <ul>
-			               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🏃‍♂️ 트레이너</li>
-			               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🏃‍♂️ 트레이너</li>
-			               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🏃‍♂️ 트레이너</li>
-			               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🏃‍♂️ 트레이너</li>
-			               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🏃‍♂️ 트레이너</li>
-			             </ul>
+						value += "</ul>"
+							  + "<li>트레이너</li>"
+							  + "<ul>"
+					for(let i=0; i<list.length; i++){
+								if(list.empGrade === "T") {
+								   value += "<li><img src='" + list.empPhoto + ">' alt='Avatar' class='rounded-circle' width='10px;' height='15px;'/><b>" + list.empName + "</b> 🏃‍♂️ " + list.grName + "</li>"
+								}
+							  }
+						value += "</ul>"
+			             
 					}
 
 						
 					
-					if(pi.currentPage == 1){
-						// 현재페이지가 1페이지면 < 버튼 disabled
-						pageValue += "<li class='page-item prev'><button disabled class='page-link'><i class='tf-icon bx bx-chevron-left'></i></button></li>";
-							
-					} else {
-						// 현재 페이지가 1페이지가 아니면
-						pageValue += "<li class='page-item prev'><button class='page-link' onclick='selectAllAttList(" + (pi.currentPage - 1) + ")'><i class='tf-icon bx bx-chevron-left'></i></button></li>";
-					}
-					
-					for(let p=pi.startPage; p<=pi.endPage; p++) { 
-						if(p == pi.currentPage) { 
-								pageValue += "<li class='page-item'><button class='page-link' disabled>"  + p  + "</button></li>"
-						}else {
-								pageValue += "<li class='page-item'><button class='page-link' onclick='selectAllAttList(" + p +")'>" + p + "</button></li>"
-						} 
-					}     
-			
-					if(pi.currentPage == pi.maxPage) {
-						pageValue += "<li class='page-item prev'><button disabled class='page-link'><i class='tf-icon bx bx-chevron-right'></i></button></li>"
-					} else {
-						pageValue +=	"<li class='page-item next'><button class='page-link' onclick='selectAllAttList(" + (pi.currentPage + 1) + ")'><i class='tf-icon bx bx-chevron-right'></i></button></li>"
-						
-					}
 					
 					$("#memListTBody").html(value);
-					$(".pagination").html(pageValue);
-					$("#selectAll").attr("checked", true);
+
 			   
 			 }
 	   ,
