@@ -30,6 +30,88 @@
 		  join tb_grade using (emp_grade)
 		 order by gr_name, emp_name
 	</select>
+	
+	<insert id="insertApproval">
+		insert
+		  into tb_approval
+		  (
+		    appr_no
+		  , emp_no
+		  , appr_doc_type
+		  , appr_title
+		  , appr_enroll_date
+		  , appr_status
+		  , appr_mem_count
+		  )
+		  values
+		  (
+		    'fitty-2022-00' || seq_apno.nextval
+		  , #{empNo}
+		  , #{apprDocType}
+		  , #{apprTitle}
+		  , default
+		  , 1
+		  , #{apprMemCount}
+		  )
+	</insert>
+	
+	<insert id="insertApprMember">
+		insert
+		  into tb_appr_mem
+		  (
+		    appr_no
+		  , emp_no
+		  , appr_level
+		  )
+		  values
+		  (
+		    'fitty-2022-00' || seq_apno.currval
+		  , #{empNo}
+		  , #{apprLevel}
+		  )
+	</insert>
+	
+	<insert id="insertApprVct">
+		insert
+		  into tb_appr_vacation
+		  (
+		    appr_no
+		  , vct_status
+		  , vct_start_date
+		  , vct_end_date
+		  , vct_reason
+		  , vct_count
+		  )
+		  values
+		  (
+		    'fitty-2022-00' || seq_apno.currval
+		  , #{vctStatus}
+		  , #{vctStartDate}
+		  , #{vctEndDate}
+		  , #{vctReason}
+		  , #{vctCount}
+		  )
+	</insert>
+	
+	<insert id="insertApprOvt">
+		insert 
+		  into tb_appr_overtime
+		  (
+		    appr_no
+		  , ovt_date
+		  , ovt_start_time
+		  , ovt_end_time
+		  , ovt_reason
+		  )
+		  values
+		  (
+		    'fitty-2022-00' || seq_apno.currval
+		  , #{ovtDate}
+		  , #{ovtStartTime}
+		  , #{ovtEndTime}
+		  , #{ovtReason}
+		  )
+	</insert>
 
 	<select id="selectListCount" resultType="_int">
 		select

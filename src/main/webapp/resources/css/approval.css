@@ -1,0 +1,159 @@
+@charset "UTF-8";
+.sideMenu{
+  width:15%;
+  height:750px;
+  float:left;
+  background-color:white;
+  margin-top:30px;
+  border-radius:6px;
+  box-shadow: 0 0 0.375rem 0.25rem rgb(161 172 184 / 15%);
+}
+#s-btn1{
+  width:130px;
+  height:40px;
+  border:1px solid rgb(105, 108, 255);
+  color:rgb(105, 108, 255);
+  background-color: white;
+  border-radius: 5px;
+  margin-top:30px;
+  margin-left:20%;
+}
+.list{
+  margin-top:50px;
+  margin-left:20px;
+  color:rgb(51, 51, 51);
+}
+.list li{
+  list-style-type: none;
+  margin-top:5px;
+  font-size:14px;
+}
+.list a{color:rgb(51, 51, 51);}
+.selType{
+  border:1px solid lightgray;
+  border-radius: 5px;
+  padding:15px;
+  float:left;
+  font-size:13px;
+  color:rgb(50, 50, 50);
+  width:150px;
+}
+.selType>button{border:none; background-color:white;}
+.selthumbnail{
+  border:1px solid lightgray;
+  border-radius: 5px;
+  float:right;
+  color:rgb(50, 50, 50);
+  width:340px;
+  height:400px;
+  text-align:center;
+}
+.main{
+  width:83%;
+  height:750px;
+  float:left;
+  background-color:white;
+  margin-left:27px;
+  margin-top:30px;
+  border-radius:6px;
+  box-shadow: 0 0 0.375rem 0.25rem rgb(161 172 184 / 15%);
+  color:rgb(51, 51, 51);
+  padding:30px;
+}
+.f-btn{
+  border:0px;
+  background-color:white;
+  font-size:14px;
+}
+.app-form1{
+  border:1px solid black;
+  height:580px;
+  overflow-y:scroll;
+}
+.app-form1 table{
+  border:1px solid rgba(51, 51, 51, 0.5);
+  font-size:14px;
+  margin:3%;
+  text-align: center;
+}
+.app-form1 th, .app-form1 td{border:1px solid rgba(51, 51, 51, 0.5);}
+.app-form1 th{background-color: rgba(211, 211, 211, 0.5);}
+#tb1{width:300px; height:120px; float:left;}
+#tb2, #tb3{width:100px; height:120px; float:right;}
+#tb5{width:175px; height:120px; float:right;}
+#tb4, #tb7{width:94%;}
+#tb4 td{text-align:left;}
+.cmt1{
+  text-align:left; 
+  background-color:rgba(211, 211, 211, 0.5); 
+  padding:5px;
+  font-size:13px;
+}
+#sel1{
+  width:80px;
+  height:30px;
+  border-radius: 5px;
+  margin-left:5px;
+}
+.dt{height:30px; border:1px solid gray; border-radius: 5px; margin-left:5px;}
+.dnum{width:50px; height:30px; border:1px solid gray; border-radius: 5px; text-align: right;}
+.hsel{accent-color:rgb(105, 108, 255); margin-left:5px;}
+.rsn{
+  width:100%; 
+  height:115px; 
+  border:1px solid lightgray;
+  border-radius: 5px;
+  
+}
+.memlist{
+  border:1px solid lightgray;
+  border-radius:5px;
+  width:34%;
+  height:400px;
+  float:left;
+  font-size:small;
+  padding-top:5px;
+}
+.addlist{
+  border:1px solid lightgray;
+  border-radius:5px;
+  width:64%;
+  height:400px;
+  float:right;
+  font-size:small;
+}
+.memlist li{list-style-type: none; margin-top:5px;}
+#appr-mem1{border-left:1px solid gray; height:64px;}
+#appr-mem2{border-left:1px solid gray; height:37px;}
+.wd{border-bottom:1px solid gray; width:11px; height:10px; float:left;}
+.addlist th{border-bottom:1px solid lightgray;}
+.addlist td{border-bottom:1px solid lightgray; text-align: center;}
+.addlist button, #appr-mem1 button, #appr-mem2 button{border:none; background-color:white;}
+#mem{width:283px; height:80px; table-layout:fixed; border-bottom:1px solid lightgray;}
+#insert{height:75px; width:40px;}
+.cmt2{
+  text-align:left; 
+  padding:10px;
+  font-size:13px;
+}
+#sel2{
+  width:100px;
+  height:35px;
+  border-radius: 5px;
+}
+.dt2{height:35px; border:1px solid gray; border-radius: 5px;}
+.title, .wrt, .con{
+  width:100%; 
+  height:35px; 
+  border:1px solid lightgray;
+  border-radius: 5px;
+}
+.addfile{
+  border:2px dashed lightgray;
+  width:85%;
+  float:right;
+  margin-right:3%;
+  height:35px;
+  text-align: center;
+  padding:3px;
+}

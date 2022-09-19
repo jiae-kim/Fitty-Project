@@ -7,7 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.fitty.approval.model.dao.ApprovalDao;
+import com.project.fitty.approval.model.vo.ApprExpense;
+import com.project.fitty.approval.model.vo.ApprOvertime;
+import com.project.fitty.approval.model.vo.ApprVacation;
 import com.project.fitty.approval.model.vo.Approval;
+import com.project.fitty.approval.model.vo.ApprovalMember;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
 
@@ -23,6 +27,31 @@ public class ApprovalServiceImpl implements ApprovalService{
 	@Override
 	public ArrayList<Employee> selectEmpList() {
 		return aDao.selectEmpList(sqlSession);
+	}
+	
+	@Override
+	public int insertApproval(Approval ap) {
+		return aDao.insertApproval(sqlSession, ap);
+	}
+
+	@Override
+	public int insertApprMember(ArrayList<ApprovalMember> list) {
+		return aDao.insertApprMember(sqlSession, list);
+	}
+
+	@Override
+	public int insertApprVct(ApprVacation vct) {
+		return aDao.insertApprVct(sqlSession, vct);
+	}
+
+	@Override
+	public int insertApprOvt(ApprOvertime ovt) {
+		return aDao.insertApprOvt(sqlSession, ovt);
+	}
+
+	@Override
+	public int insertApprExp(ApprExpense exp) {
+		return 0;
 	}
 
 	@Override
@@ -74,6 +103,7 @@ public class ApprovalServiceImpl implements ApprovalService{
 	public ArrayList<Approval> ajaxSelectSignList(PageInfo pi, Approval ap) {
 		return aDao.ajaxSelectSignList(sqlSession, pi, ap);
 	}
+
 
 	
 

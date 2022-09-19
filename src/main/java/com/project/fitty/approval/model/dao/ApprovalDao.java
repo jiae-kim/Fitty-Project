@@ -6,7 +6,10 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.project.fitty.approval.model.vo.ApprOvertime;
+import com.project.fitty.approval.model.vo.ApprVacation;
 import com.project.fitty.approval.model.vo.Approval;
+import com.project.fitty.approval.model.vo.ApprovalMember;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
 
@@ -15,6 +18,26 @@ public class ApprovalDao {
 	
 	public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectEmpList");
+	}
+	
+	public int insertApproval(SqlSessionTemplate sqlSession, Approval ap) {
+		return sqlSession.insert("approvalMapper.insertApproval", ap);
+	}
+	
+	public int insertApprMember(SqlSessionTemplate sqlSession, ArrayList<ApprovalMember> list) {
+		int result = 0;
+		for(int i=0; i<list.size(); i++) {
+			result = sqlSession.insert("approvalMapper.insertApprMember", list.get(i));
+		}
+		return result;
+	}
+	
+	public int insertApprVct(SqlSessionTemplate sqlSession, ApprVacation vct) {
+		return sqlSession.insert("approvalMapper.insertApprVct", vct);
+	}
+	
+	public int insertApprOvt(SqlSessionTemplate sqlSession, ApprOvertime ovt) {
+		return sqlSession.insert("approvalMapper.insertApprOvt", ovt);
 	}
 	
 	public int selectListCount(SqlSessionTemplate sqlSession, String empNo) {

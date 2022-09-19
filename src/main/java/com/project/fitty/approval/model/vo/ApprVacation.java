@@ -14,10 +14,11 @@ import lombok.ToString;
 public class ApprVacation {
 	
 	private String apprNo;
-	private String vtcStatus;
+	private String vctStatus;
 	private String vctStartDate;
 	private String vctEndDate;
 	private String vctReason;
 	private String vctCount;
+	
 
 }

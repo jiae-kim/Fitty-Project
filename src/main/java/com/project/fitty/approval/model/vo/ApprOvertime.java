@@ -1,5 +1,7 @@
 package com.project.fitty.approval.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,5 +20,8 @@ public class ApprOvertime {
 	private String ovtStartTime;
 	private String ovtEndTime;
 	private String ovtReason;
+	
+	//
+	private ArrayList<ApprOvertime> olist;
 
 }

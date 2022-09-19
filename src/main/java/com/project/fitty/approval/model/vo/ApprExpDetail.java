@@ -1,5 +1,7 @@
 package com.project.fitty.approval.model.vo;
 
+import java.util.ArrayList;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -19,5 +21,8 @@ public class ApprExpDetail {
 	private int expAmount;
 	private String expHistory;
 	private String expNote;
+	
+	//
+	private ArrayList<ApprExpDetail> dlist;
 
 }

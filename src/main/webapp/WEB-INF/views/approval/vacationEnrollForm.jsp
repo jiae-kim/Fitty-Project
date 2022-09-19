@@ -6,91 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-	.main{
-	  width:83%;
-	  height:750px;
-	  float:left;
-	  background-color:white;
-	  margin-left:27px;
-	  margin-top:30px;
-	  border-radius:6px;
-	  box-shadow: 0 0 0.375rem 0.25rem rgb(161 172 184 / 15%);
-	  color:rgb(51, 51, 51);
-	  padding:30px;
-	}
-	.f-btn{
-	  border:0px;
-	  background-color:white;
-	  font-size:14px;
-	}
-	.app-form1{
-	  border:1px solid black;
-	  height:580px;
-	  overflow-y:scroll;
-	}
-	.app-form1 table{
-	  border:1px solid rgba(51, 51, 51, 0.5);
-	  font-size:14px;
-	  margin:3%;
-	  text-align: center;
-	}
-	.app-form1 th, .app-form1 td{border:1px solid rgba(51, 51, 51, 0.5);}
-	.app-form1 th{background-color: rgba(211, 211, 211, 0.5);}
-	#tb1{width:300px; height:120px; float:left;}
-	#tb2, #tb3{width:100px; height:120px; float:right;}
-	#tb5{width:175px; height:120px; float:right;}
-	#tb4{width:94%;}
-	#tb4 td{text-align:left;}
-	.cmt1{
-	  text-align:left; 
-	  background-color:rgba(211, 211, 211, 0.5); 
-	  padding:5px;
-	  font-size:13px;
-	}
-	#sel1{
-	  width:80px;
-	  height:30px;
-	  border-radius: 5px;
-	  margin-left:5px;
-	}
-	.dt{height:30px; border:1px solid gray; border-radius: 5px; margin-left:5px;}
-	.dnum{width:50px; height:30px; border:1px solid gray; border-radius: 5px; text-align: right;}
-	.hsel{accent-color:rgb(105, 108, 255); margin-left:5px;}
-	.rsn{
-	  width:100%; 
-	  height:115px; 
-	  border:1px solid lightgray;
-	  border-radius: 5px;
-	  
-	}
-	.memlist{
-	  border:1px solid lightgray;
-	  border-radius:5px;
-	  width:34%;
-	  height:400px;
-	  float:left;
-	  font-size:small;
-	  padding-top:5px;
-	}
-	.addlist{
-	  border:1px solid lightgray;
-	  border-radius:5px;
-	  width:64%;
-	  height:400px;
-	  float:right;
-	  font-size:small;
-	}
-	.memlist li{list-style-type: none; margin-top:5px;}
-	#appr-mem1{border-left:1px solid gray; height:64px;}
-	#appr-mem2{border-left:1px solid gray; height:37px;}
-	.wd{border-bottom:1px solid gray; width:11px; height:10px; float:left;}
-	.addlist th{border-bottom:1px solid lightgray;}
-	.addlist td{border-bottom:1px solid lightgray; text-align: center;}
-	.addlist button, #appr-mem1 button, #appr-mem2 button{border:none; background-color:white;}
-	#mem{width:283px; height:80px; table-layout:fixed; border-bottom:1px solid lightgray;}
-	#insert{height:75px; width:40px;}
-</style>
+<link type="text/css" rel="stylesheet" href="resources/css/approval.css" />
 </head>
 <body>
 
@@ -99,15 +15,15 @@
 	<div class="outer">
        <jsp:include page="sideMenu.jsp"/>
        <div class="main">
-         <form action="">
+         <form action="" name="vctForm">
            <h4 style="color:rgb(50, 50, 50);">휴가신청</h4><br>
 
-           <button class="f-btn">
+           <button class="f-btn" onclick="insertAppr();" type="button">
              <i class='bx bxs-edit'></i>
              결재요청
            </button>
            <button class="f-btn">
-             <i class='bx bx-download'></i>
+             <i class='bx bx-download' onclick="storageAppr();" type="button"></i>
              임시저장
            </button>
            <button class="f-btn" onclick="cancel();" type="button">
@@ -150,7 +66,7 @@
                        <div id="appr-mem1">
                        	 <c:forEach var="e" items="${ list }">
 	                       	 <c:if test="${ e.empGrade ne 'T' }">
-		                         <li><div class="wd"></div><i class='bx bxs-user'></i><button type="button" onclick="clickMem(this)" value="${e.grApprGrade }">${ e.empName }</button></li>
+		                         <li><div class="wd"></div><i class='bx bxs-user'></i><button type="button" onclick="clickMem(this)" value1="${e.grApprGrade }" value2="${ e.empNo }">${ e.empName }</button></li>
 	                         </c:if>
 	                       	 	
                          </c:forEach>
@@ -159,7 +75,7 @@
                              <div id="appr-mem2" style="display:none;">
                                <c:forEach var="e" items="${ list }">
                                 <c:if test="${ e.empGrade eq 'T' }">
-                               		<li><div class="wd"></div><i class='bx bxs-user'></i><button type="button" onclick="clickMem(this)" value="${e.grApprGrade }">${ e.empName }</button></li>
+                               		<li><div class="wd"></div><i class='bx bxs-user'></i><button type="button" onclick="clickMem(this)" value1="${e.grApprGrade }" value2="${ e.empNo }">${ e.empName }</button></li>
                                	</c:if>
                                </c:forEach>
                              </div>
@@ -237,9 +153,19 @@
                      $("#tb1").children().children().eq(1).children().eq(1).append(today);
                    })
                    
+                   function insertAppr(){
+                	   alertify.confirm('결재를 요청하시겠습니까?', function(){ $("form[name=vctForm]").attr("action","insertVct.ap"); $("form[name=vctForm]").submit();}
+                       ); 
+                   }
+                   
+                   function storageAppr(){
+                	   alertify.confirm('작성하던 내용을 저장하시겠습니까?', function(){ $("form[name=vctForm]").attr("action","insertVct.ap"); $("form[name=vctForm]").submit();}
+                       ); 
+                   }
+                   
                    function cancel(){
                 	   alertify.confirm('현재 작성 중인 내용을 저장하지 않고 나가시겠습니까?', function(){ location.replace("apprMain.ap"); }
-                       ).set('basic', true);
+                       );
                    }
                    
                    function none(){
@@ -248,33 +174,54 @@
                    
                    function clickMem(btn){
                 	  let val1 = $(btn).text();
-                	  let val2 = $(btn).val();
+                	  let val2 = $(btn).attr("value1");
+                	  let val3 = $(btn).attr("value2");
              		  $("#insert").attr("onclick", "insertMem(this)");
              		  $("#insert").attr("value1", val1);
              		  $("#insert").attr("value2", val2);
+             		  $("#insert").attr("value3", val3);
+             		  
                    }
                    
                    function insertMem(btn){
-                	   let name = $()
+                		   
                 	   
-                	   if($("#mem tr").length<2){	   
+                	   if($("#mem tr").length == 0){	   
 	                	   var value = "";
 	                	   
                 		   value += "<tr><td height='40' width='50'>결재</td>"
 	                 	     	   + "<td width='110'>" + $(btn).attr("value1")
 	                 	     	   + "</td><td width='100'>"+ $(btn).attr("value2") + "</td>"
 	                 	     	   + "<td width='30'>"
-	                 	     	   + "<button type='button' onclick='delete1st(this);'>"
+	                 	     	   + "<button type='button' onclick='delete1st(this);' value='" + $(btn).attr("value3") + "'>"
 	                 	     	   + "<i class='bx bxs-trash'></i>"
 	                 	     	   + "</button></td></tr>";
 	                 	     	   
                 		   $("#mem>table").append(value);
                 		   $("#insert").removeAttr("value");
-	                 	   $("#insert").removeAttr("onclick");
+	                 	   $("#insert").removeAttr("onclick");	
+	                   }else if($("#mem tr").length == 1){
 	                	   
+               	   			if($("#mem>table").children().eq(0).children().eq(3).children().val() != $(btn).attr("value3")){
+	               	   			value += "<tr><td height='40' width='50'>결재</td>"
+		                 	     	   + "<td width='110'>" + $(btn).attr("value1")
+		                 	     	   + "</td><td width='100'>"+ $(btn).attr("value2") + "</td>"
+		                 	     	   + "<td width='30'>"
+		                 	     	   + "<button type='button' onclick='delete1st(this);' value='" + $(btn).attr("value3") + "'>"
+		                 	     	   + "<i class='bx bxs-trash'></i>"
+		                 	     	   + "</button></td></tr>";
+		                 	     	   
+	             		   		$("#mem>table").append(value);
+	             		   		$("#insert").removeAttr("value");
+		                 	   	$("#insert").removeAttr("onclick");	
+             	   			}else{
+                        		alertify.alert("이미 선택되었습니다.");
+                        	}
                 	   }else{
                 		   alertify.alert("승인자는 2명까지만 선택 가능합니다.").setHeader('');
                 	   }
+                		   
+                	   
                    }
                    
                    function delete1st(btn){
@@ -299,16 +246,29 @@
            				$("#tb5").hide();
            				$("#tb2 td").empty();
 	           			$("#tb2").show();
+           				$("#tb2").children().children().eq(0).children().eq(0).empty();
+	           			$("#tb2").children().children().eq(0).children().eq(0).append("<input type='hidden' id='empNo1' name='mlist[0].empNo' value=''>");
 	           			
 	           			let value1 = $("#mem").children().children().children().eq(2).text();
 	           			$("#tb2").children().children().eq(0).children().eq(1).append(value1);
 	           			
 	           			let value2 = $("#mem").children().children().children().eq(1).text();
 	           			$("#tb2").children().children().eq(1).children().eq(0).append(value2);
-           			}else{
+	           			
+	           			let value3 = $("#mem").children().children().children().eq(3).children().val();
+	           			//$("#tb2").children().children().eq(0).children().eq(0).children().attr("value", value3);
+	           			$("#empNo1").attr("value", value3);
+	           			$("input[name=apprMemCount]").attr("value", "1");
+	           			
+	           			$("#tb5").children().children().eq(0).children().eq(0).empty();
+	           			
+           			}else if($("#mem tr").length == 2){
            				$("#tb2").hide();
            				$("#tb5 td").empty();
            				$("#tb5").show();
+           				$("#tb5").children().children().eq(0).children().eq(0).empty();
+           				$("#tb5").children().children().eq(0).children().eq(0).append("<input type='hidden' id='empNo1' name='mlist[0].empNo' value=''>");
+           				$("#tb5").children().children().eq(0).children().eq(0).append("<input type='hidden' id='empNo2' name='mlist[1].empNo' value=''>");
            				
            				let value1 = $("#mem").children().children().eq(0).children().eq(2).text();
 	           			$("#tb5").children().children().eq(0).children().eq(1).append(value1);
@@ -321,6 +281,19 @@
 	           			
 	           			let value4 = $("#mem").children().children().eq(1).children().eq(1).text();
 	           			$("#tb5").children().children().eq(1).children().eq(1).append(value4);
+	           			
+	           			let value5 = $("#mem").children().children().eq(0).children().eq(3).children().val();
+	           			//$("#tb5").children().children().eq(0).children().eq(0).children().eq(0).attr("value", value5);
+	           			$("#empNo1").attr("value", value5);
+	           			
+	           			let value6 = $("#mem").children().children().eq(1).children().eq(3).children().val();
+	           			//$("#tb5").children().children().eq(0).children().eq(0).children().eq(1).attr("value", value6);
+	           			$("#empNo2").attr("value", value6);
+	           			
+	           			$("#tb2").children().children().eq(0).children().eq(0).empty();
+	           			$("input[name=apprMemCount]").attr("value", "2");
+           			}else{
+           				$("#tb5").hide();
            			}
            		}
            </script>
@@ -329,6 +302,9 @@
              <br>
              <h5 align="center" style="color:rgb(50, 50, 50);"><b>연차 신청서</b></h5>
              <br><br>
+             <input type="hidden" name="apprMemCount" value="">
+             <input type="hidden" name="apprDocType" value="1">
+             <input type="hidden" name="apprTitle" value="휴가신청">
              <table id="tb1">
                <tr>
                  <th width="40%">기안자</th>
@@ -373,10 +349,22 @@
              <table id="tb3" style="display:none;">
                <tr>
                  <th rowspan="3" width="25%;">신청</th>
-                 <td height="24px">사원</td>
+                 <td height="24px">
+                 	<c:choose>
+                    	<c:when test="${ loginUser.empGrade eq 'C' }">
+                    		대표
+                    	</c:when>
+                    	<c:when test="${ loginUser.empGrade eq 'A' }">
+                    		팀장
+                    	</c:when>
+                    	<c:otherwise>
+                    		사원
+                    	</c:otherwise>
+                    </c:choose>
+                 </td>
                </tr>
                <tr>
-                 <td>${loginUser.empName }</td>
+                 <td>${loginUser.empName }<input type="hidden" name="empNo" value="${loginUser.empNo }"></td>
                </tr>
                <tr>
                  <td height="24px"></td>
@@ -387,37 +375,37 @@
                <tr>
                  <th width="20%" height="40px;">휴가 종류</th>
                  <td>
-                   <select name="" id="sel1">
-                     <option value="">연차</option>
-                     <option value="">휴가</option>
-                     <option value="">조퇴</option>
+                   <select name="vctStatus" id="sel1" onchange="selectType()">
+                     <option value="1" selected>연차</option>
+                     <option value="4">휴가</option>
+                     <option value="5">조퇴</option>
                    </select>
                  </td>
                </tr>
                <tr>
                  <th height="40px;">기간 및 일시</th>
                  <td>
-                   <input type="date" class="dt"> &nbsp;~ <input type="date" class="dt">&nbsp;&nbsp;&nbsp;
-                   선택일수 : <input type="text" class="dnum" value="1" readonly>
+                   <input type="date" name="vctStartDate" class="dt" onchange="countDate()"> &nbsp;~ <input type="date" name="vctEndDate" class="dt" onchange="countDate()">&nbsp;&nbsp;&nbsp;
+                   선택일수 : <input type="text" class="dnum" name="vctCount" value="" readonly>
                  </td>
                </tr>
                <tr>
                  <th height="40px;">반차 여부</th>
                  <td>
-                   <input type="radio" name="hour" class="hsel"> 오전&nbsp;&nbsp;&nbsp;
-                   <input type="radio" name="hour" class="hsel"> 오후
+                   <input type="radio" name="vctStatus" value="2" class="hsel"> 오전&nbsp;&nbsp;&nbsp;
+                   <input type="radio" name="vctStatus" value="3" class="hsel"> 오후
                  </td>
                </tr>
                <tr>
                  <th height="40px;">연차 일수</th>
                  <td style="padding-left:5px;">
                    잔여연차 : <input type="text" class="dnum" value="NaN" readonly>&nbsp;&nbsp;&nbsp;
-                   신청연차 : <input type="text" class="dnum" value="1" readonly>
+                   신청연차 : <input type="text" class="dnum" name="vacCount" value="" readonly>
                  </td>
                </tr>
                <tr>
                  <th height="120px;">휴가 사유</th>
-                 <td><input type="text" class="rsn"></td>
+                 <td><input type="text" class="rsn" name="vctReason"></td>
                </tr>
                <tr>
                  <td colspan="2" height="80px;" class="cmt1">
@@ -427,6 +415,34 @@
                </tr>
              </table>
            </div>
+           <script>
+           		function countDate(){
+	       			let date1 = $("input[name=vctStartDate]").val();
+	       			let date2 = $("input[name=vctEndDate]").val();
+	       			
+	       			let arr1 = date1.split("-");
+	       			let arr2 = date2.split("-");
+	       			
+	       			date1 = new Date(arr1[0], arr1[1], arr1[2]);
+	       			date2 = new Date(arr2[0], arr2[1], arr2[2]);
+	       			
+	       			let count = date2 - date1;
+	       			let dcount = Math.abs(count / (1000 * 60 * 60 * 24)) + 1;
+	       			
+	       			$("input[name=vctCount]").attr("value", dcount);
+	       			$("input[name=vacCount]").attr("value", dcount);
+	       			
+           		}
+           		
+           		function selectType(){
+           			if($("#sel1").val() == 1 && $("input[name=vctCount]").val() == 1){
+           				$(".hsel").attr("disabled", false);
+           			}else{
+           				$(".hsel").attr("disabled", true);
+           			}
+           		}
+           		
+           </script>
          </form>
        </div>
      </div>

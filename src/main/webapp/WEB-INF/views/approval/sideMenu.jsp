@@ -6,57 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-.sideMenu{
-    width:15%;
-    height:750px;
-    float:left;
-    background-color:white;
-    margin-top:30px;
-    border-radius:6px;
-    box-shadow: 0 0 0.375rem 0.25rem rgb(161 172 184 / 15%);
-  }
-  #s-btn1{
-    width:130px;
-    height:40px;
-    border:1px solid rgb(105, 108, 255);
-    color:rgb(105, 108, 255);
-    background-color: white;
-    border-radius: 5px;
-    margin-top:30px;
-    margin-left:20%;
-  }
-  .list{
-    margin-top:50px;
-    margin-left:20px;
-    color:rgb(51, 51, 51);
-  }
-  .list li{
-    list-style-type: none;
-    margin-top:5px;
-    font-size:14px;
-  }
-  .list a{color:rgb(51, 51, 51);}
-  .selType{
-    border:1px solid lightgray;
-    border-radius: 5px;
-    padding:15px;
-    float:left;
-    font-size:13px;
-    color:rgb(50, 50, 50);
-    width:150px;
-  }
-  .selType>button{border:none; background-color:white;}
-  .selthumbnail{
-    border:1px solid lightgray;
-    border-radius: 5px;
-    float:right;
-    color:rgb(50, 50, 50);
-    width:340px;
-    height:400px;
-    text-align:center;
-  }
-</style>
+<link type="text/css" rel="stylesheet" href="resources/css/approval.css" />
 </head>
 <body>
 	<div class="sideMenu">
