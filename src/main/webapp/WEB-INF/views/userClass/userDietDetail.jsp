@@ -83,6 +83,16 @@
   .reply-input button:hover{
   	background-color:lavender;
   }
+  
+  #upp{
+  	color:lightgrey; font-size:10px;
+  }
+  
+  #dee{
+  	color:lightgrey; font-size:10px;
+  }
+  
+  
 
 </style>
 </head>
@@ -102,7 +112,11 @@
         <a href="" style="color:#696CFF; font-size:20px">◀️</a> &nbsp;&nbsp;
         <label style="font-weight: 700; font-size:25px;"></label>  &nbsp;&nbsp;
         <a href="" style="color:#696CFF; font-size:20px">▶️</a>
-        </div>
+        </div><br>
+        
+        <button type="button" class="btn btn-sm rounded-pill btn-outline-primary" onclick="window.history.back();" style="float:right">
+	       	<span class="tf-icons bx bx-calendar-check"></span>&nbsp; 달력보기
+	    </button><br>
 
 		<script>
 			$(function(){
@@ -110,6 +124,9 @@
 				let date = "20" + dateArr[0] + "년 " + dateArr[1] + "월 " + dateArr[2] + "일";
 				
 				$(".di-date label").text(date);
+				
+				var today = new Date();
+				
 			})
 		</script>
 		
@@ -135,12 +152,11 @@
 			    	</div>
 			    	
 			    	<c:choose>
-			    	<c:when test="${d.dietEnroll eq 'N'}">
-				    	<form action="insertDi.cl" method="post" enctype="multipart/form-data">
+			    	<c:when test="${d.dietEnroll eq 'Y'}">
+			    		<form action="updateDi.cl" method="post" enctype="multipart/form-data">
 			    	</c:when>
 			    	<c:otherwise>
-			    		<form action="updateDi.cl" method="post" enctype="multipart/form-data">
-			    		<!-- update의 경우 -->
+				    	<form action="insertDi.cl" method="post" enctype="multipart/form-data">
 			    	</c:otherwise>
 			    	</c:choose>
 			    		<input type="hidden" name="time" value="bf">
@@ -152,11 +168,11 @@
 				        <div class="col mb-3">
 				        	<label for="formFile" class="form-label">오늘 식단 사진을 등록해보세요 !</label>
 				            <c:choose>
-				        	<c:when test="${d.dietEnroll eq 'N'}">
-					            <input class="form-control" type="file" id="formFile" name="upfile"><br>
+				        	<c:when test="${d.dietEnroll eq 'Y'}">
+				        		<input class="form-control" type="file" id="formFile" name="reupfile"><br>
 				        	</c:when>
 				        	<c:otherwise>
-				        		<input class="form-control" type="file" id="formFile" name="reupfile"><br>
+					            <input class="form-control" type="file" id="formFile" name="upfile"><br>
 				        	</c:otherwise>
 				        	</c:choose>
 				        	      
@@ -196,7 +212,7 @@
         <div class="card h-100">
         	
 		<c:choose>
-        	<c:when test="${d.lcImage eq null}"> <!-- 점심에는 아무글도 없음 -->
+        	<c:when test="${d.lcImage eq null}">
 				<button type="button" style="border:none; height:300px" 
 				class="modal-button" data-bs-toggle="modal" data-bs-target="#lc">
 			    	LUNCH
@@ -211,15 +227,14 @@
 			    	</div>
 			    	
 			    	<c:choose>
-			    	<c:when test="${d.dietEnroll eq 'N'}"> <!-- 아점저 아무것도 등록 안되어있음 => insert일 경우임 -->
-				    	<form action="insertDi.cl" method="post" enctype="multipart/form-data">
+			    	<c:when test="${d.dietEnroll eq 'Y'}">
+			    		<form action="updateDi.cl" method="post" enctype="multipart/form-data">
 			    	</c:when>
-			    	<c:otherwise> <!-- 무언가 등록되어 있음 => update해야함 -->
-			    		<form action="updateDi.cl" method="post" enctype="multipart/form-data"> <!-- update요청 -->
-			    		<!-- update의 경우 -->
+			    	<c:otherwise>
+				    	<form action="insertDi.cl" method="post" enctype="multipart/form-data">
 			    	</c:otherwise>
 			    	</c:choose>
-			    		<input type="hidden" name="time" value="lc"> <!-- insert요청하며 어떤 타임의 첨부파일인지를 같이 보냄 -->
+			    		<input type="hidden" name="time" value="lc">
 			    		<input type="hidden" name="classNo" value="${d.classNo }">
 			    		<input type="hidden" name="dietDate" value="${d.dietDate }">
 			    	
@@ -228,11 +243,11 @@
 				        <div class="col mb-3">
 				        	<label for="formFile" class="form-label">오늘 식단 사진을 등록해보세요 !</label>
 				        	<c:choose>
-				        	<c:when test="${d.dietEnroll eq 'N'}">
-					            <input class="form-control" type="file" id="formFile" name="upfile"><br>
+				        	<c:when test="${d.dietEnroll eq 'Y'}">
+				        		<input class="form-control" type="file" id="formFile" name="reupfile"><br>
 				        	</c:when>
 				        	<c:otherwise>
-				        		<input class="form-control" type="file" id="formFile" name="reupfile"><br>
+					            <input class="form-control" type="file" id="formFile" name="upfile"><br>
 				        	</c:otherwise>
 				        	</c:choose>
 				                  
@@ -288,11 +303,11 @@
 			    	</div>
 			    	
 			    	<c:choose>
-			    	<c:when test="${d.dietEnroll eq 'N'}">
-				    	<form action="insertDi.cl" method="post" enctype="multipart/form-data">
+			    	<c:when test="${d.dietEnroll eq 'Y'}">
+			    		<form action="updateDi.cl" method="post" enctype="multipart/form-data">
 			    	</c:when>
 			    	<c:otherwise>
-			    		<form action="updateDi.cl" method="post" enctype="multipart/form-data">
+				    	<form action="insertDi.cl" method="post" enctype="multipart/form-data">
 			    	</c:otherwise>
 			    	</c:choose>
 			    		<input type="hidden" name="time" value="dn">
@@ -304,11 +319,11 @@
 				        <div class="col mb-3">
 				        	<label for="formFile" class="form-label">오늘 식단 사진을 등록해보세요 !</label>
 				        	<c:choose>
-				        	<c:when test="${d.dietEnroll eq 'N'}">
-					            <input class="form-control" type="file" id="formFile" name="upfile"><br>
+				        	<c:when test="${d.dietEnroll eq 'Y'}">
+				        		<input class="form-control" type="file" id="formFile" name="reupfile"><br>
 				        	</c:when>
 				        	<c:otherwise>
-				        		<input class="form-control" type="file" id="formFile" name="reupfile"><br>
+					            <input class="form-control" type="file" id="formFile" name="upfile"><br>
 				        	</c:otherwise>
 				        	</c:choose>
 				                  
@@ -363,11 +378,11 @@
 			    	</div>
 			    	
 			    	<c:choose>
-			    	<c:when test="${d.dietEnroll eq 'N'}">
-				    	<form action="insertDi.cl" method="post" enctype="multipart/form-data">
+			    	<c:when test="${d.dietEnroll eq 'Y'}">
+			    		<form action="updateDi.cl" method="post" enctype="multipart/form-data">
 			    	</c:when>
 			    	<c:otherwise>
-			    		<form action="updateDi.cl" method="post" enctype="multipart/form-data">
+				    	<form action="insertDi.cl" method="post" enctype="multipart/form-data">
 			    	</c:otherwise>
 			    	</c:choose>
 			    		<input type="hidden" name="time" value="re">
@@ -379,11 +394,11 @@
 				        <div class="col mb-3">
 				        	<label for="formFile" class="form-label">오늘 식단 사진을 등록해보세요 !</label>
 				        	<c:choose>
-				        	<c:when test="${d.dietEnroll eq 'N'}">
-					            <input class="form-control" type="file" id="formFile" name="upfile"><br>
+				        	<c:when test="${d.dietEnroll eq 'Y'}">
+				        		<input class="form-control" type="file" id="formFile" name="reupfile"><br>
 				        	</c:when>
 				        	<c:otherwise>
-				        		<input class="form-control" type="file" id="formFile" name="reupfile"><br>
+					            <input class="form-control" type="file" id="formFile" name="upfile"><br>
 				        	</c:otherwise>
 				        	</c:choose>
 				                  
@@ -428,16 +443,7 @@
       <div class="reply-wrap" style="height: 30%;">
         <label>댓글 <span id="rcount"></span></label><br>
 
-
-		
 		<div class="r">
-	    <!--    <div class="reply">
-	          <div class="reply-content">
-	            <label id="writer">김연아 트레이너</label> &nbsp; <label id="date">2022.08.12</label><br>
-	            <label id="content">내ㅛ오오오오오오오</label>
-	          </div>
-	          	<div class="reply-like">🤍</div>
-	        </div>-->
         </div>
         
         
@@ -473,14 +479,24 @@
 					let value = "";
 					let type = "";
 					for(let i=0; i<list.length; i++){
-						value += "<div class='reply'><div class='reply-content'>"
-							   + "<label id='writer'>" + list[i].writerName + "&nbsp";
+						if(list[i].replyWriter == ${loginU.userNo}){
+							value += "<div class='reply' style='background:#c1b3ff12;'>";
+						}else{
+							value += "<div class='reply'>";
+						}
+							   
+						value += "<div class='reply-content'><label id='writer'>" + list[i].writerName + "&nbsp";
 							   
 						type = (list[i].writerType == "U") ? "회원" : "트레이너";
 								
 						value += type + "</label>&nbsp"
-							   + "<label id='date'>" + list[i].replyDate + "</label><br>"
-							   + "<label id='content'>" + list[i].replyContent + "</label></div>"
+							   + "<label id='date'>" + list[i].replyDate + "</label> &nbsp;&nbsp;";
+							   
+						if(list[i].replyWriter == '${loginU.userNo}'){
+							value += "<button id='upp'>수정</button>";
+							value += "<button id='dee'>삭제</button>";
+						}	   
+						value += "<br><label id='content'>" + list[i].replyContent + "</label></div>"
 							   + "<div class='reply-like'>" + "🤍" + "</div></div>";
 					}
 					
