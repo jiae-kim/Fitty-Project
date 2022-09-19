@@ -43,52 +43,33 @@
 			   searchText:$("#searchText").val()
 			 },
 			 type:"post",
-			 success:function(result){
+			 success:function(list){
+			  
 			    let value = "";
-		  	    let pageValue = "";
-		   
-				let aList = result.aList;
-				let pi = result.pi;
 				
-				
-				
-				if(aList.length == 0) {
-					value += "<tr>"
-						+ "<td colspan='12'> 직원이 없습니다. </td>"
-							+ "</tr>";
+				if(list.length == 0) {
+					value += "<li>직원이 없습니다</li>"
 				} else {
-					for(let i=0; i<aList.length; i++){
-						
-						value += "<tr>"
-							+    "<th><input type='checkbox'  class='no' id='empNoInput' name='empNoInput' value='" + aList[i].empNo + "'></th>"
-							+  	 "<td>" +  aList[i].empNo + "</td>"
-							+  	 "<td>" +  aList[i].empName + "</td>"
-							+  	 "<td>" +  aList[i].grName + "</td>"
-							+  	 "<td>" +  aList[i].empEnrollDate.substr(0, 11) + "</td>"
-							+  	 "<td>" +  aList[i].workYear + "</td>"
-							
-							if(aList[i].perYearMonthList[0].perYear === undefined) {
-								value +=	"<td colspan='2'>미정</td>"
-							} else {
-								value +=	"<td>" + aList[i].perYearMonthList[0].perYear + "%<input type='hidden' value='" + (i) + "'></td>"
-									  +     "<td>" + aList[i].perYearMonthList[0].perMonth + "%<input type='hidden' value='" + (i) + "'></td>"
-							}
-							
-							if(aList[i].empVacList[0].plusYearVac === undefined) {
-								value +=	"<td colspan='4'>미정</td>"
-							} else {
-								value +=	"<td>" + aList[i].empVacList[0].plusYearVac + "</td>"
-										+    "<td>" + aList[i].empVacList[0].minusYearVac + "</td>"
-										+    "<td>" + "잔여연월차" + "</td>"
-										+    "<td>" + aList[i].empVacList[0].plusVac + "</td>"
-										+    "<td>" + aList[i].empVacList[0].minusVac + "</td>"
-										+    "<td>" + "잔여휴가" + "</td>"
-										+    "<td>" + "<a class='btn btn-sm rounded-pill btn-outline-primary' href='detail.vac?no='" + aList[i].empNo + "'>조회</td>"
-							}
-								}
-								
-						value += "</tr>";
-						
+					
+					value += "<li>관리자</li>"
+								+ "<ul>"
+					for(let i=0; i<list.length; i++){
+			              if(list.empGrade === "C" || list.empGrade === "A") {
+							 value += "<li><img src='" + list.empPhoto + ">' alt='Avatar' class='rounded-circle' width='10px;' height='15px;'/><b>" + list.empName + "</b> 🧘‍♂️ " + list.grName + "</li>"
+						  }
+						}
+					value += "</ul>"
+			               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🧘‍♂️ 대표</li>
+			               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🧘‍♂️ 관리자</li>
+			             </ul>
+			           <li>트레이너</li>
+			             <ul>
+			               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🏃‍♂️ 트레이너</li>
+			               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🏃‍♂️ 트레이너</li>
+			               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🏃‍♂️ 트레이너</li>
+			               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🏃‍♂️ 트레이너</li>
+			               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🏃‍♂️ 트레이너</li>
+			             </ul>
 					}
 
 						

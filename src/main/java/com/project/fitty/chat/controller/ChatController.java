@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.project.fitty.chat.model.service.ChatService;
 import com.project.fitty.employee.model.service.EmployeeService;
 import com.project.fitty.employee.model.vo.Employee;
@@ -26,11 +27,9 @@ public class ChatController {
 	
 	@ResponseBody
 	@RequestMapping(value="chatEmp.c", produces="application/json; charset=utf-8")
-	public ArrayList<Employee> selectChatEmpList(){
-		
+	public String selectChatEmpList(){
 		ArrayList<Employee> list = cService.selectChatEmpList();
-		
-		return list;
+		return new Gson().toJson(list);
 		
 	}
 }

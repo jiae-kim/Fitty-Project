@@ -4,4 +4,18 @@
   <resultMap id="chatResult" type="Chat">
   	<result column="emp_no" property="empNo"/>
   </resultMap>
+  
+  <select id="selectChatEmpList" resultMap="chatResult">
+  	select emp_no
+	     , emp_name
+	     , nvl(e.emp_photo, 'resources/profile_images/defaultProfile.png') as "emp_photo"
+	     , g.gr_name
+	     , e.emp_grade
+	     , e.emp_status
+	  from tb_emp e
+	  join tb_grade g on (e.emp_grade = g.emp_grade)
+	 where emp_status =  'Y'
+  </select>
+  
 </mapper>
+
