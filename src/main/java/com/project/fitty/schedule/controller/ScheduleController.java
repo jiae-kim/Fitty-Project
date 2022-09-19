@@ -38,13 +38,18 @@ public class ScheduleController {
 	//private static final Logger log = (Logger) LoggerFactory.getLogger(ScheduleController.class);
 	
 	// [김지애] 1. 직원용 - 스케줄 전체조회 서비스
+	@RequestMapping("listSchedule.ca")
+	public String listFormCalendar() {
+		return "schedule/scheduleListView";
+	}
+	
 	@ResponseBody
 	@RequestMapping(value="list.ca", produces="application/json; charset=UTF-8")
 	public String selectList() {
 		ArrayList<Booking> list = bService.selectList();
-		//System.out.println(list);
 		return new Gson().toJson(list); // "[{}, {}, {}, ...]"
 	}
+	
 	/*
 	public List<Map<String, Object>> selectList() {
 		List<Booking> list = bService.selectList();

@@ -29,7 +29,7 @@
 <!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script> -->
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js'></script>
 
-<style>
+<style type="text/css">
 /* body 스타일 */
 html, body{
 	/* overflow: hidden; */
@@ -80,6 +80,9 @@ html, body{
 	max-width: 1200px;    
 	margin: 0 auto;  
 }
+.fc-day-number.fc-sat.fc-past { color:#0000FF; }     /* 토요일 */    
+.fc-day-number.fc-sun.fc-past { color:#FF0000; }    /* 일요일 */
+
 </style>
 
 </head>
@@ -93,6 +96,7 @@ html, body{
       		<div class="col-xl-12">
         		<div class="nav-align-top mb-4">
           			<div class="tab-content" style="height: 900px;">
+          			<!-- 직원 페이지 : 스케줄 조회 -->
             		<h5 class="text-muted">📅스케줄관리 - 스케줄 조회</h5>
 					<br><br>
 			
@@ -103,7 +107,74 @@ html, body{
 						</div> 
 					</div>
 					
-					<!--
+					<!-- 캘린더 DB와 연동해서 뿌려주는 코드 -->
+					<script>
+					$(function(){
+						$.ajax({
+							url: "list.ca",
+							success: function(list){
+								console.log(list);
+								
+								// 넘겨주고자 하는 값 리스트로 담아줌
+								let data = [];
+								for(let i=0; i<list.length; i++){
+									let obj = {
+									    id : list[i].bookNo,
+										title : list[i].empName,
+										start : list[i].bookDate, 
+										end : list[i].bookDate
+										//startTime : list[i].bookStime,
+										//endTime : list[i].bookEtime
+									};
+									data.push(obj);
+								}
+								// -------------------- 캘린더 렌더링 --------------------
+								   var initialLocaleCode = 'ko';
+								   var calendarEl = document.getElementById('calendar');
+								   var calendar = new FullCalendar.Calendar(calendarEl, {
+									  // calendar 높이 설정
+									  height: '750px',
+									  // 화면에 맞게 높이 재설정
+									  expandRows: true,
+									  // 초기 로드 될때 보이는 캘린더 화면 (기본설정 : 달)
+									  initialView : 'dayGridMonth',
+									  // 한국어 설정
+									  locale : 'ko', 
+									  // 시간 설정
+									  timeZone : 'UTC',
+									  // 헤더에 표시할 툴바
+									  headerToolbar: {
+										  left: 'prev,next today',
+										  center: 'title',
+										  right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+									  },
+									  // Day 캘린더에서 시작 시간
+									  slotMinTime: '09:00',
+									  // Day 캘린더에서 종료 시간
+									  slotMaxTime: '23:00',
+									  // 날짜를 선택하면 day 캘린더나 week캘린더로 링크
+									  navLinks: true,
+									  // 현재 시간 마크
+									  nowIndicator: true,
+									  // 이벤트가 오버되면 높이 제한 (+ 몇개 식으로 표현)
+								      dayMaxEvents: true,
+								      // DB 이벤트로 추가
+									  events : data,
+									  // 이벤트에 시간 표시
+									  displayEventTime: false
+								   });
+								   calendar.render();
+							   // ------------------------------------------------------------
+							},
+							error: function(){
+								alertify.alert("❌ 스케줄 조회에 실패했습니다 ❌\n다시 시도해주세요".set('basic', true));
+								console.log("ajax 통신 실패");
+							}
+						})
+					})
+					</script>
+					
+					<!-- 단순히 달력만 보여주는 구문
 					<script>
 						(function(){
 							$(function(){
@@ -175,108 +246,47 @@ html, body{
 						})();
 					</script>
 					-->
-
+					
 					<!--  
 					<script>
-					const calendarEl = document.getElementById("calendar"); //캘린더를 넣어줄 html div
-					
-					let calendar;
-					
-					calendar_rendering();
-					
-					function calendar_rendering() {
-						calendar = new FullCalendar.Calendar(calendarEl, {
-						initialView: "dayGridMonth",
-						});
-						calendar.render();
-					}
-					</script>
-					-->
-
-					<script>
-					$(function(){
-						selectList();
-					})
-					
-					function selectList() {
-
-						$.ajax({
-							url : "list.ca",
-							success : function(list) {
-								/*
-								console.log(list);
-								[{"bookNo":"1","bookDate":"2022-09-03","bookStime":"09:00","bookEtime":"10:00","empName":"김사장","userName":"차은우"}
-								,{"bookNo":"2","bookDate":"2022-09-10","bookStime":"11:00","bookEtime":"13:00","empName":"박관리","userName":"이지은"}
-								,{"bookNo":"3","bookDate":"2022-09-09","bookStime":"14:00","bookEtime":"15:00","empName":"박관리","userName":"정수정"}
-								,{"bookNo":"5","bookDate":"2022-09-17","bookStime":"15:00","bookEtime":"17:00","empName":"최헬트","userName":"쯔위"}
-								,{"bookNo":"4","bookDate":"2022-09-15","bookStime":"10:00","bookEtime":"11:00","empName":"박관리","userName":"쯔위"}
-								,{"bookNo":"6","bookDate":"2022-09-20","bookStime":"17:00","bookEtime":"18:00","empName":"최헬트","userName":"토마스"}
-								,{"bookNo":"7","bookDate":"2022-09-25","bookStime":"15:00","bookEtime":"17:00","empName":"윤단백","userName":"정재현"}
-								,{"bookNo":"8","bookDate":"2022-09-27","bookStime":"17:00","bookEtime":"19:00","empName":"윤단백","userName":"김현빈"}]
-								*/
-
-								// 내가 넘겨주고자 하는 값을 리스트로 다시 담아줌
-								let data = [];
-								for (let i=0; i < list.length; i++) {
-									let obj = {
-										title : list[i].bookNo,
-										start : list[i].bookDate,
-										end : list[i].bookDate,
-										textColor : list[i].textColor,
-										backgroundColor : list[i].backgroundColor
-									};
-									data.push(obj);
-								}
+					document.addEventListener('DOMContentLoaded', function(){
+						$(function (){
+							var request = $.ajax({
+								url : "list.ca",
+								method : "GET",
+								dataType : "json"
+							});
+							
+							request.done(function(data){
+								console.log(data);
 								
-								// calendar element 취득
-								//var calendarEl = $('#calendar')[0];
-								const calendarEl = document.getElementById("calendar");
-								// full-calendar 생성하기
+								var calendarEl = document.getElementById('calendar');
+								
 								var calendar = new FullCalendar.Calendar(calendarEl, {
-									// calendar 높이 설정
-									height: '750px',
-									// 화면에 맞게 높이 재설정
-									expandRows: true,
-									// Day 캘린더에서 시작 시간
-									slotMinTime: '09:00',
-									// Day 캘린더에서 종료 시간
-									slotMaxTime: '22:00',
-									// 헤더에 표시할 툴바
+									initialView : 'timeGridWeek',
 									headerToolbar: {
 										left: 'prev,next today',
 										center: 'title',
 										right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
 									},
-									// 초기 로드 될때 보이는 캘린더 화면 (기본설정 : 달)
-									initialView: 'dayGridMonth',
-									// 날짜를 선택하면 day 캘린더나 week캘린더로 링크
-									navLinks: true,
-									// 수정 가능
 									editable: true,
-									// 달력 일자 드래그 설정 가능
-									selectable: true,
-									// 현재 시간 마크
-									nowIndicator: true,
-									// 이벤트가 오버되면 높이 제한 (+ 몇개 식으로 표현)
-									dayMaxEvents: true,
-									// 한국어 설정
-									locale: 'ko',
-									// 드래그 가능
 									droppable: true,
-									events : data,
-									ventClick:function(arg) {
-										ModalOpen(arg);
-									}
+									drop: function(arg){
+										if(document.getElementById('drop-remove').checked){
+											arg.fraggedEl.parentNode.removeChild(arg.draggedEl);
+										}
+									},
+									events: data
 								});
 								calendar.render();
-							},
-							error : function() {
-								console.log("통신 실패");
-							}
-						})
-					}
+							});
+							request.fail(function(jqXHR, textStatus){
+								alert("Request failed: " + textStatus);
+							});
+						});
+					});
 					</script>
-
+					-->
 
           			</div>
         		</div>
