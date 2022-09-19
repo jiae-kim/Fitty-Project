@@ -58,31 +58,32 @@ public class EcoHandler extends TextWebSocketHandler {
 			String trainer = strs[2];
 			String ckNo = strs[3];
 			
+			//사번으로 이름 조회해오기
+			String adminName = aService.selectSenderName(admin);
+			
+			//다음 insert에 실행될 alNo를 조회해오기 
+			int nextNo = aService.selectNextAlNo();
+			
+			// 접속해있지 않으면 메세지가 보내지 않을거니까 그전에 insert해주기 
+			Alert a = new Alert();
+			a.setAlRecip(trainer);
+		    a.setAlMsg("<a href='ckList2.mc?alNo=" + nextNo + "&alRecip="+ a.getAlRecip() +"'><b>"+ adminName + "</b>님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
+			int result = aService.insertAlertM(a); 
+			
+			System.out.println(">>>>>>DB에 insert성공");
+			
+			
+			// 메세지 보내기
 			WebSocketSession trainerSession = userSessions.get(trainer); // 점검을 작성한 트레이너가 세션에 있는지 뽑는거 있으면 값이 담기고 없으면 null
 			
-			
-			
 			if(cmd.equals("machine") && trainerSession != null) {
-				
-				//사번으로 이름 조회해오기
-				String adminName = aService.selectSenderName(admin);
-				
-				//다음 insert에 실행될 alNo를 조회해오기 
-				int nextNo = aService.selectNextAlNo();
-				
-				
 				
 				TextMessage tmpMsg = new TextMessage("<a href='ckList2.mc?alNo=" + nextNo + "&alRecip="+ trainer +"'>"+ "<b>" + adminName + "</b>님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
 				trainerSession.sendMessage(tmpMsg);
 				
 				System.out.println(">>>>>>클라이언트로 메세지 보내기 성공 ");
 				
-				Alert a = new Alert();
-				a.setAlRecip(trainer);
-			    a.setAlMsg("<a href='ckList2.mc?alNo=" + nextNo + "&alRecip="+ a.getAlRecip() +"'><b>"+ adminName + "</b>님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
-				int result = aService.insertAlertM(a); 
-				
-				
+			
 			}
 			
 			// if (cmd.equals("")
