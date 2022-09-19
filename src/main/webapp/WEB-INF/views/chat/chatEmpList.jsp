@@ -21,16 +21,21 @@
      </div>
      <form class="chatMenuForm">
        <div class="profileHeader">
-      		<img src="<c:out value='${loginUser.empPhoto}' default='resources/profile_images/defaultProfile.png' />" alt="Avatar" class="rounded-circle" width="30px;" height="30px;"/>
-            <h5 class="card-header" style="color:#697a8d;"><b>${ loginUser.empName } 🏃‍♂️ ${ loginUser.grName }</b></h5>
+      		
+            <h5 class="card-header" style="color:#697a8d; padding-bottom:0px;">
+	            <img src="<c:out value='${loginUser.empPhoto}' default='resources/profile_images/defaultProfile.png' />" alt="Avatar" class="rounded-circle" width="30px;" height="30px;"/>
+	            <b>${ loginUser.empName } 🏃‍♂️ ${ loginUser.grName }</b>
+            </h5>
             <input type="hidden" value="${loginUser.empNo}" id="empNoInput">
       	</div>
 
        <!-- Search -->
-       <table class="navbar-nav align-items-center" style="margin-top: 20px;">
+       <table class="navbar-nav align-items-center" style="margin-top: 20px; margin-bottom:20px;">
          <tr>
-         	 <td><input type="text" class="form-control" placeholder="직원명 입력" name="searchText" id="searchText"  maxlength="30" style="height: 35px;"></td>
-             <td><button type="button" id="searchBtn" class="btn btn-primary" onclick="dd();"><i class='bx bx-search' style="color:white;"></i></button></td>
+         	 <!-- 검색값은 처음에 ㄱ한자 공백임!!! -->
+         	 <td><input type="text" class="form-control" placeholder="직원명 입력" name="searchText" id="searchText"  maxlength="30" style="height: 35px;" value="　"></td>
+             <td><button type="button" id="searchBtn" class="btn btn-sm rounded-pill btn-outline-primary" onclick="dd();">
+             <i class='bx bx-search' style="color:#696CFF;"></i></button></td>
          </tr>
        </table>
        <!-- /Search -->
@@ -39,15 +44,16 @@
          <ul class="empList">
            <li>관리자</li>
              <ul>
-               <li><b>최사장</b> 🧘‍♂️ 대기중</li>
-               <li><b>김부사장</b>  🏋️‍♂️ 수업중</li>
+               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🧘‍♂️ 대표</li>
+               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🧘‍♂️ 관리자</li>
              </ul>
            <li>트레이너</li>
              <ul>
-               <li><b>윤헬트</b>  🥗 휴식중</li>
-               <li><b>박진진</b>  🧘‍♂️ 대기중</li>
-               <li><b>이나나</b>  🧘‍♂️ 대기중</li>
-               <li><b>최파파</b>  🧘‍♂️ 대기중</li>
+               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🏃‍♂️ 트레이너</li>
+               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🏃‍♂️ 트레이너</li>
+               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🏃‍♂️ 트레이너</li>
+               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🏃‍♂️ 트레이너</li>
+               <li><img src="${loginUser.empPhoto}>" alt="Avatar" class="rounded-circle" width="15px;" height="15px;"/><b>최사장</b> 🏃‍♂️ 트레이너</li>
              </ul>
          </ul>
        </div>

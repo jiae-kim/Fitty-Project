@@ -8,6 +8,7 @@
 	
 	<!-- 유의사항 : 미리 등록 해 두려면 해당 클래스가 실제로 존재하고 있어야 함 -->
 	<typeAliases>
+		<typeAlias type="com.project.fitty.chat.model.vo.Chat" alias="Chat"/>
 		<typeAlias type="com.project.fitty.attendance.model.vo.Attendance" alias="Attendance"/>
 		<typeAlias type="com.project.fitty.attendance.model.vo.ModifyAtt" alias="ModifyAtt"/>
 		<typeAlias type="com.project.fitty.user.model.vo.User" alias="User"/>
@@ -38,6 +39,7 @@
 	 
 	 <!-- 유의사항 : 미리 등록해두려면 해당 mapper 파일이 진짜 존재해ㅑ 함! 뿐만 아니라 각각의 mapper 파일마다 namespace 도 지정해야함 -->
 	 <mappers>
+	 	<mapper resource="/mappers/chat-mapper.xml"/>
 	 	<mapper resource="/mappers/employee-mapper.xml"/>
 	 	<mapper resource="/mappers/user-mapper.xml"/>
 	 	<mapper resource="/mappers/product-mapper.xml"/>
