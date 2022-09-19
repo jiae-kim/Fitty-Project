@@ -16,27 +16,23 @@
  <div class="col-md-3">
    <div class="card mb-4 chatMenu" style="background-color: #E7E7FF;">
      <div class="btnFlex">
-       <button class="col-md-6" aria-selected="true">🙋‍♀️ MEMBER</button>
+       <button class="col-md-6" id="empListBtn" aria-selected="true">🙋‍♀️ MEMBER</button>
        <button class="col-md-6">💌 CHAT</button>
      </div>
      <form class="chatMenuForm">
-       <table>
-         <tr>
-           <th rowspan="2">&nbsp&nbsp&nbsp<img src="sneat-1.0.0/assets/img/avatars/1.png" alt class="w-px-50 h-auto rounded-circle"/></th>
-           <td>홍길동 트레이너</td>
-         </tr>
-         <tr>
-           <td>🧘‍♂️ 대기중</td>
-         </tr>
-       </table>
+       <div class="profileHeader">
+      		<img src="<c:out value='${loginUser.empPhoto}' default='resources/profile_images/defaultProfile.png' />" alt="Avatar" class="rounded-circle" width="30px;" height="30px;"/>
+            <h5 class="card-header" style="color:#697a8d;"><b>${ loginUser.empName } 🏃‍♂️ ${ loginUser.grName }</b></h5>
+            <input type="hidden" value="${loginUser.empNo}" id="empNoInput">
+      	</div>
 
        <!-- Search -->
-       <div class="navbar-nav align-items-center" style="margin-top: 20px;">
-         <div class="nav-item d-flex align-items-center">
-           <i class="bx bx-search fs-4 lh-0"></i>
-           <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search...">
-         </div>
-       </div>
+       <table class="navbar-nav align-items-center" style="margin-top: 20px;">
+         <tr>
+         	 <td><input type="text" class="form-control" placeholder="직원명 입력" name="searchText" id="searchText"  maxlength="30" style="height: 35px;"></td>
+             <td><button type="button" id="searchBtn" class="btn btn-primary" onclick="dd();"><i class='bx bx-search' style="color:white;"></i></button></td>
+         </tr>
+       </table>
        <!-- /Search -->
 
        <div>

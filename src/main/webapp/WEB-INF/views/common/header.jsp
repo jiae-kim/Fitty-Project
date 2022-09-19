@@ -637,6 +637,9 @@
                 </li>
                 <li class="nav-item lh-1 me-3">
                     <i class='bx bx-message-rounded-dots'></i>
+                    <button id="chatBtn" type="button" onClick="go('chat.ch');"
+                           style="position:absolute; top:0px;bottom:0px;right:0px;left:0px;
+                                  border:0;opacity:0;"></button>
                 </li>
                 <li class="nav-item lh-1 me-3">
                     <i class='bx bx-bell' id="alertIcon" style="position:relative;">
