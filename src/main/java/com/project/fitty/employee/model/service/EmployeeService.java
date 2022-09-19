@@ -34,6 +34,8 @@ public interface EmployeeService {
 	// 프로필 이미지 변경 서비스 (update)
 	int uploadProfileImg(Employee e);
 	
+	// 프로필 이미지 변경 서비스_마이페이지용 (update)
+	int uploadProfileImg2(Employee e);
 	
 	// 전체 회원수 알아오기
 	int selectEmpListCount();

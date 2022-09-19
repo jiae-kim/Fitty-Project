@@ -200,7 +200,13 @@
   </update>
   
   
-  	<update id="uploadProfileImg">
+  <update id="uploadProfileImg">
+  
+  </update>
+  
+  
+  <!-- 프로필 수정_ 마이페이지용 -->
+  	<update id="uploadProfileImg2">
 		update
 				tb_emp
 		   set	emp_photo = #{empPhoto}

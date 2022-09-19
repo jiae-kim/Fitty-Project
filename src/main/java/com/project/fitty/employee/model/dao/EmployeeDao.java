@@ -120,6 +120,11 @@ public class EmployeeDao {
 		return sqlSession.update("employeeMapper.uploadProfileImg", e);
 	}
 	
+	public int uploadProfileImg2(SqlSessionTemplate sqlSession, Employee e) {
+		return sqlSession.update("employeeMapper.uploadProfileImg2", e);
+	}
+	
+	
 	
 
 }
