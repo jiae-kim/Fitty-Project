@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import com.project.fitty.ptclass.model.vo.PtClass;
 import com.project.fitty.ptclass.model.vo.Reply;
 import com.project.fitty.user.model.vo.User;
+import com.project.fitty.userClass.model.vo.Diet;
 
 @Repository
 public class ClassDao {
@@ -27,6 +28,14 @@ public class ClassDao {
 
 	public ArrayList<User> selectUserList(SqlSessionTemplate sqlSession, String empNo){
 		return (ArrayList)sqlSession.selectList("classMapper.selectUserList", empNo);
+	}
+	
+	public ArrayList<Diet> selectDiet(SqlSessionTemplate sqlSession, int classNo) {
+		return (ArrayList)sqlSession.selectList("classMapper.selectDiet", classNo);
+	}
+	
+	public Diet selectDietDetail(SqlSessionTemplate sqlSession, Diet di) {
+		return sqlSession.selectOne("classMapper.selectDietDetail", di);
 	}
 	
 	public ArrayList<Reply> selectReplyList(SqlSessionTemplate sqlSession, int dietNo) {

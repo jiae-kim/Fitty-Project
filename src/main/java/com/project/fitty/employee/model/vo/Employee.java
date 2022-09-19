@@ -45,5 +45,9 @@ public class Employee {
 	
 	// 결재용
 	private String grApprGrade;
+	
+	
+	//수업
+	private int classNo;
 
 }

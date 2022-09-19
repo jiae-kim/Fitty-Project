@@ -31,6 +31,22 @@
 		<result column="cl_sdate" property="classStartDate" />
 		<result column="cl_count" property="classCount" />
 	</resultMap>
+	
+	
+	<resultMap type="Diet" id="dietResult">
+		<result column="di_no" property="dietNo" />
+		<result column="cl_no" property="classNo" />
+		<result column="di_date" property="dietDate" />
+		<result column="di_bf_content" property="bfContent" />
+		<result column="di_bf_img" property="bfImage" />
+		<result column="di_lc_content" property="lcContent" />
+		<result column="di_lc_img" property="lcImage" />
+		<result column="di_dn_content" property="dnContent" />
+		<result column="di_dn_img" property="dnImage" />
+		<result column="di_enroll" property="dietEnroll" />
+		<result column="di_re_content" property="reContent" />
+		<result column="di_re_img" property="reImage" />
+	</resultMap>
 
 
 
@@ -105,6 +121,44 @@
 	</select>
 	
 	
+	<select id="selectDiet" resultMap="dietResult">
+		select di_no
+		     , cl_no
+		     , di_date
+		     , di_bf_content
+		     , di_bf_img
+		     , di_lc_content
+		     , di_lc_img
+		     , di_dn_content
+		     , di_dn_img
+		     , di_enroll
+		     , di_re_content
+		     , di_re_img
+		  from tb_diet
+		 where cl_no = #{classNo}
+   </select>
+   
+   
+   
+   <select id="selectDietDetail" resultMap="dietResult">
+		select di_no
+		     , cl_no
+		     , di_date
+		     , di_bf_content
+		     , di_bf_img
+		     , di_lc_content
+		     , di_lc_img
+		     , di_dn_content
+		     , di_dn_img
+		     , di_enroll
+		     , di_re_content
+		     , di_re_img
+		  from tb_diet
+		 where di_date = #{dietDate}
+		   and cl_no = #{classNo}
+   </select>
+   
+	
 	
 	<insert id="insertReply">
 		insert
@@ -135,6 +189,7 @@
 	<select id="selectReplyList" resultMap="replyResult">
 		select 
 			   re_no
+			 , re_writer
 			 , writer_name
 			 , re_content
 			 , to_char(re_date, 'YYYY.MM.DD HH24:MI:SS') as "re_date"
