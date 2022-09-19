@@ -15,6 +15,21 @@ public class ScheduleDao {
 		return (ArrayList)sqlSession.selectList("scheduleMapper.selectList");
 	}
 
+	// [김지애] 2. 회원용 - 스케줄 전체조회 서비스
+	public String selectEmp(SqlSessionTemplate sqlSession, int userNo) {
+		return sqlSession.selectOne("scheduleMapper.selectEmp", userNo);
+	}
+	
+	public ArrayList<Booking> selectUlist(SqlSessionTemplate sqlSession, String empNo) {
+		return (ArrayList)sqlSession.selectList("scheduleMapper.selectUlist", empNo);
+	}
+
+	// [김지애] 4. 회원용 - 스케줄 등록 서비스
+	public int insertBooking(SqlSessionTemplate sqlSession, Booking b) {
+		return sqlSession.insert("scheduleMapper.insertBooking", b);
+	}
+
+
 	
 	
 

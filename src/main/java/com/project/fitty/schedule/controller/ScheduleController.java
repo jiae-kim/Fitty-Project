@@ -2,14 +2,9 @@ package com.project.fitty.schedule.controller;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.logging.Logger;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.slf4j.LoggerFactory;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -35,8 +30,6 @@ public class ScheduleController {
 	@DateTimeFormat(pattern= "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime endDate;
 	
-	//private static final Logger log = (Logger) LoggerFactory.getLogger(ScheduleController.class);
-	
 	// [김지애] 1. 직원용 - 스케줄 전체조회 서비스
 	@RequestMapping("listSchedule.ca")
 	public String listFormCalendar() {
@@ -50,59 +43,52 @@ public class ScheduleController {
 		return new Gson().toJson(list); // "[{}, {}, {}, ...]"
 	}
 	
-	/*
-	public List<Map<String, Object>> selectList() {
-		List<Booking> list = bService.selectList();
-		
-		JSONObject jsonObj = new JSONObject();
-		JSONArray jsonArr = new JSONArray();
-		
-		HashMap<String, Object> hash = new HashMap<>();
-		
-		for(int i=0; i < list.size(); i++) {
-			hash.put("title", list.get(i).getBookNo());
-			hash.put("start", list.get(i).getBookDate());
-			
-			jsonObj = new JSONObject(hash);
-			jsonArr.add(jsonObj);
-		}
-		log.info("jsonArrCheck: {}");
-		return jsonArr;
-	}
-	*/
-	
 	// [김지애] 2. 회원용 - 스케줄 전체조회 서비스
-	@RequestMapping("list.sc")
-	public String selectUlist() {
+	@RequestMapping("listSchedule.sc")
+	public String listFormSchedule() {
 		return "schedule/scheduleUlistView";
 	}
 	
+	@ResponseBody
+	@RequestMapping(value="list.sc", produces="application/json; charset=UTF-8")
+	public String selectUlist(int userNo) {
+		String empNo = bService.selectEmp(userNo);
+		ArrayList<Booking> list = bService.selectUlist(empNo);
+		return new Gson().toJson(list);
+	}
+	
 	// [김지애] 3. 회원용 - 스케줄 상세조회 서비스
-	@RequestMapping("detail.sc")
-	public String selectUdetailList() {
+	@RequestMapping("detailForm.sc")
+	public String selectFormSchedule() {
 		return "schedule/scheduleUdetailView";
 	}
-		
+	
+	@ResponseBody
+	@RequestMapping(value="detail.sc", produces="application/json; charset=UTF-8")
+	public String selectUdetailList() {
+		return new Gson().toJson(null);
+	}
+	
 	// [김지애] 4. 회원용 - 스케줄 등록 서비스
+	/*
 	@RequestMapping("enrollForm.sc")
 	public String enrollForm() {
 		return "schedule/scheduleEnrollForm";
 	}
-	
-	/*
+	*/
 	@RequestMapping("insert.sc")
 	public String insertSchedule(Booking b, HttpSession session) {
-		int result = bService.insertSchedule(b);
+		//System.out.println(b);
+		int result = bService.insertBooking(b);
 		
 		if(result > 0) {// 일정등록 성공
-			session.setAttribute("alertMsg", "✔ 성공적으로 일정 등록되었습니다 ✔");
-			return "redirect:list.ca";
+			session.setAttribute("alertMsg", "✔ 성공적으로 수업이 예약되었습니다 ✔");
+			return "redirect:listSchedule.sc";
 		}else {// 일정등록 실패
-			session.setAttribute("alertMsg", "❌ 일정 등록에 실패했습니다 ❌");
+			session.setAttribute("alertMsg", "❌ 수업 예약에 실패했습니다 ❌");
 			return "common/errorPage";
 		}
 	}
-	*/
 	
 	// [김지애] 5. 회원용 - 스케줄 수정 서비스
 	/*

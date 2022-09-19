@@ -14,7 +14,7 @@ import lombok.ToString;
 public class Booking {
 	
 	private String bookNo; 	//DB는 INT형임
-	private String clNo; 	//DB는 INT형임
+	private int clNo; 	//DB는 INT형임
 	private String userNo; 	//DB는 INT형임
 	private String empNo;
 	private String bookDate;
