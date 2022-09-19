@@ -141,18 +141,18 @@ public class ModifyAttController {
 			m.setMoAttType("I");
 			a.setAttIn(m.getMoAttModifyTime());
 			//System.out.println("1번 : " + m.getMoAttModifyTime());
-			System.out.println("1번m : " + m);
-			System.out.println("1번a : " + a);
+			//System.out.println("1번m : " + m);
+			//System.out.println("1번a : " + a);
 			updateAttIn = aService.AdminUpdateAttInStatus(a);
-			System.out.println("결과 : " + a);
+			//System.out.println("결과 : " + a);
 		} else {
 			m.setMoAttType("O");
 			a.setAttOut(m.getMoAttModifyTime());
-			System.out.println("2번m : " + m);
-			System.out.println("2번a : " + a);
+			//System.out.println("2번m : " + m);
+			//System.out.println("2번a : " + a);
 			updateAttOut = aService.AdminUpdateAttOutStatus(a);
-			System.out.println(updateAttOut);
-			System.out.println("결과 : " + a);
+			//System.out.println(updateAttOut);
+			//System.out.println("결과 : " + a);
 		}
 		
 		if(updateAttIn > 0 || updateAttOut > 0) {
@@ -170,9 +170,35 @@ public class ModifyAttController {
 	@RequestMapping("cantModifyAtt.mo")
 	public String cantUpdateModifyAtt (ModifyAtt m, HttpSession session) {
 		int updateMo = mService.cantUpdateModifyAtt(m);
+		m.setAttNo(aService.selectAttNo(m));
 		if(updateMo > 0) {
+		
+		Attendance a = new Attendance();
+		a.setAttNo(m.getAttNo());
+		a.setAttDate(m.getMoAttModifyD());
+		a.setEmpNo(m.getEmpNo());
+		a.setAttStatus(m.getAttStatus());
+		
+		int updateAttIn = 0;
+		int updateAttOut = 0;
+		if(m.getMoAttType().equals("출근")) {
+			m.setMoAttType("I");
+			a.setAttIn(m.getMoAttModifyTime());
+			updateAttIn = aService.AdminUpdateAttInStatus(a);
 		} else {
-			session.setAttribute("alertMsg","근태수정실패😅");
+			m.setMoAttType("O");
+			a.setAttOut(m.getMoAttModifyTime());
+			updateAttOut = aService.AdminUpdateAttOutStatus(a);
+		}
+		
+		if(updateAttIn > 0 || updateAttOut > 0) {
+			session.setAttribute("alertMsg","근태반려완료💘");
+		} else {
+			session.setAttribute("alertMsg","근태반려실패😅");
+		}
+		
+		} else {
+			session.setAttribute("alertMsg","근태반려실패😅");
 		}
 		return "redirect:centerAtt.att";
 	}

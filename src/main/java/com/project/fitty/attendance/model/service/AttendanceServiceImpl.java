@@ -152,13 +152,13 @@ public class AttendanceServiceImpl implements AttendanceService{
 
 	@Override
 	public int AdminUpdateAttInStatus(Attendance a) {
-		System.out.println("인실행됨");
+		//System.out.println("인실행됨");
 		return aDao.AdminUpdateAttInStatus(sqlSession, a);
 	}
 
 	@Override
 	public int AdminUpdateAttOutStatus(Attendance a) {
-		System.out.println("아웃실행됨");
+		//System.out.println("아웃실행됨");
 		return aDao.AdminUpdateAttOutStatus(sqlSession, a);
 	}
 
