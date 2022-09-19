@@ -4,33 +4,12 @@
  
  
  $(function(){
-	$("#nextBtn").attr("disabled", true);
-	$("#rightArrow").css("color", "#DCDADA");
-    selectAllAttList(1);
-
-    let month = Number($("#thisMonth").val());
-    let year = Number($("#thisYear").val());
-
-    $(document).ready(function(){
-    	$("#nextBtn").on("click",function() {
-    		
-    		if(month < 12) {
-    			month = month + 1;
-    			$("#thisMonth").val(month);	
-    		    nowCheck();
-    		} else {
-    			month = 1;
-    			year = year + 1;
-    			$("#thisMonth").val(month);
-    			$("#thisYear").val(year);
-    		    nowCheck();
-    		}
-    		})
-})
+	selectEmpList();
+	})
  
  
  
- function changeSelect(){
+ function selectEmpList(){
 	let orderByWorkTime = $("#orderByWorkTime").val();
 	let orderByAtt = $("#orderByAtt").val();
 	let memListTBody = $("#memListTBody");
@@ -73,7 +52,7 @@
 						
 					
 					
-					$("#memListTBody").html(value);
+					$("#vacDetailDiv").html(value);
 
 			   
 			 }
