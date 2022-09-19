@@ -34,6 +34,7 @@ justify-content: center;
                     <table class="table table-hover" id="userList">
                         <thead align="center">
 	                        <tr>
+	                        	<th width="10%">수업번호</th>
 	                        	<th width="10%">회원번호</th>
 	                        	<th width="10%">이름</th>
 	                        	<th width="10%">성별</th>
@@ -49,6 +50,7 @@ justify-content: center;
                         	<c:when test="${not empty list }">
 		                        <c:forEach var="c" items="${list}"> 
 									<tr>
+										<td class="cNo">${c.classNo }</td>
 										<td class="no"><span class="badge bg-label-primary me-1">${c.userNo }</span></td>
 										<td>${c.userName }</td>
 										<td>${c.userGender }</td>
@@ -75,7 +77,7 @@ justify-content: center;
             	<script>
             		$(function(){
             			$("#userList>tbody>tr").click(function(){
-            				location.href='okr.cl?userNo=' + $(this).children(".no").text();
+            				location.href='diet.cl?classNo=' + $(this).children(".cNo").text();
             			})
             		})
             	</script>

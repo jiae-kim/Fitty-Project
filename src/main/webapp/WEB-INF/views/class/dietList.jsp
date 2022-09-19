@@ -1,27 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+	 #helloMan, #about-time {
+	     color:rgb(50, 50, 50);
+	     font-size: 11px;
+	     margin : 5px;
+	 }
+	
+	 #navbar-collapse {
+	     margin : 0px;
+	 }
+	
+	 #init-btn, #out-btn {
+	     margin : 5px;
+	 }
+	
+	 .bx-envelope, .bx-message-rounded-dots, .bx-bell {
+	     font-size:25px;
+	     color: #696CFF;
+	     margin : 2px;
+	 }
+	
+	 .big-menu-label{
+	     color:rgb(50, 50, 50);
+	     font-size: 14px;
+	 }
+	
+	 .small-menu-label{
+	     font-size: 12px;
+	 }
+	
+	
+	 
+	 
   #calendar{
-    width: 100%; height:100%;
+	width: 100%; height:100%;
   }
 
   .div:hover{
     background-color:#696cff0c;
   }
 
-
   .mm{
     font-size: 20px; font-weight: bolder; text-align: center; margin-bottom:10px
   }
 
   table{
-    width: 90%; height:90%; margin:auto; margin-radius:5px;
+    width: 90%; height:100%; margin:auto; margin-radius:5px;
+  }
+
+  tr{
+  	height:15%
   }
 
   td{
@@ -39,39 +74,112 @@
 
   .day{
     height: 70%;
-    /* border: 1px solid red; */
     text-align: center;
     padding: 5px;
   }
   
- 
+  .calMove{
+  	height:5%
+  }
+  
+  .cal{
+  	height:90%
+  }
+	
 </style>
 </head>
 <body>
 
-<jsp:include page="userHeader.jsp" />
+<jsp:include page="../common/header.jsp" />
 
 
+<!-- 내용 감싸는 전체 wrap -->
+<div class="content-wrapper" style="margin-top: -20px;">
+<div class="container-xxl flex-grow-1 container-p-y">
 <div class="row">
-    <div class="col-md-12">
-    <div class="card mb-4">
-		<!-- <h5 class="card-header"></h5> -->
-		<div class="card-body row" style="height:790px">
+<div class="col-xl-12">
+<div class="nav-align-top mb-4"><br>
+	
+<div class="row">
+	
+	
+	<!-- 1. 회원카드 -->
+	<div class="col-md-2 col-12 mb-md-0 mb-4" style="height:700px">
+	<div class="card" align="center">
+		<div class="card-header">회원정보</div>
+        <div class="card-body">내용</div>
+	</div>
+	</div>
+	<!-- /회원카드 -->
+	
+	
+	
+	<!-- 2. 내용카드 -->
+	<div class="col-md-10">
+	<div class="nav-align-top mb-4">
+	
+		<!-- 내용위에 분류버튼 (* 수정해도 되는 부분) -->
+		<ul class="nav nav-pills mb-3 nav-fill" role="tablist">
+		<li class="nav-item">
+	    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-home" aria-controls="navs-pills-justified-home" aria-selected="false" style="text-weight:700" aria-selected="false">
+	      🔥 오늘의 운동
+	    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">3</span>
+	    </button>
+		</li>
 		
-			<div>
-	        	<div id="calendar"></div>
+	    <li class="nav-item">
+	    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-profile" aria-controls="navs-pills-justified-profile" aria-selected="true">
+	      🌮 식단관리
+	    </button>
+	    </li>
+	    
+	    <li class="nav-item">
+	    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-messages" aria-controls="navs-pills-justified-messages" aria-selected="false">
+	      ✏️ 출결확인
+	    </button>
+		</li>
+		</ul>
+		<!-- / 내용위에 분류버튼 -->
+
+
+
+
+	          
+        <!-- 내용 넣을 부분 (* 수정해도 되는 부분)-->
+		<div class="tab-content" style="height: 695px;">
+	
+	
+	
+	
+	        <!-- 오늘의 운동 -->
+	        <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
+	        </div>
+	        <!-- /오늘의 운동 -->
+		
+		
+		
+		
+	
+	
+	
+	
+	
+	
+	    	<!-- 오늘의식단 -->
+			<div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel" style="height:100%; width:100%">
+			
+		
+			<div style="margin:auto; width:100%; height:100%;">
+	        	<div id="calendar" style="height:100%"></div>
 			</div>
 		
 		
 		<script>
-		
-		var date = new Date();
-		var today = new Date();
-		
 		$(function(){
 			
-			
-		  calrendarMaker();
+			var date = new Date();
+			var today = new Date();
+			/* calrendarMaker(); */
 		
            $(document).on("click", ".pre", function() { // 이전달
                 today = new Date ( today.getFullYear(), today.getMonth()-1, today.getDate());
@@ -87,13 +195,11 @@
            		calrendarMaker();
             })
 		
-			
-		  })
-		  
-		  
-		  
-		  function calrendarMaker(){
+            
+			function calrendarMaker(){
 					
+            /* var date = new Date(); */
+            
             // 달력 연도
             var calendarYear = today.getFullYear();
             // 달력 월
@@ -106,23 +212,11 @@
             var calendarMonthLastDate = monthLastDate.getDate();
             
             // 달력 월의 시작 요일
-            var monthStartDay = new Date(calendarYear, today.getMonth(), 1);
+            var monthStartDay = new Date(calendarYear, date.getMonth(), 1);
             var calendarMonthStartDay = monthStartDay.getDay();
             
             // 주 카운트
             var calendarWeekCount = Math.ceil((calendarMonthStartDay + calendarMonthLastDate) / 7);
-            
-            
-            console.log(today);
-            console.log('해당 년월일 : ', calendarYear, calendarMonth, calendarToday); // 해당 년월일
-            console.log('해당 달의 마지막일 : ', calendarMonthLastDate);
-            console.log('해당 달의 시작요일 : ', calendarMonthStartDay);
-            console.log('주 카운트 : ', calendarWeekCount);
-            
-            
-            
-            
-            
             
             var html = "";
                 html += "<div align='center' class='calMove'>";
@@ -133,7 +227,7 @@
                 
                 html += "</div><br>";
                 
-                html += "<table class='calrendar'>";
+                html += "<div class='cal'><table class='calrendar'>";
                 html += "<thead>";
                 html += "<tr align='center'>";
                 html += "<th style='color:red'>SUN</th><th>MON</th><th>THU</th><th>WEN</th><th>THU</th><th>FRI</th><th>SAT</th>";
@@ -171,7 +265,7 @@
                   html += "</tr>";
                 }
                 html += "</tbody>";
-                html += "</table>";
+                html += "</table></div>";
                 
                 $("#calendar").html(html);
 
@@ -182,10 +276,9 @@
                     dd = "0" + dd;
                   }
 
-                  let month = $(".mm").text().replace("월", "");
-                  let mm = "";
-                  if(month>0 && month<10){
-                    mm = "0" + month;
+                  let mm = $(".mm").text().replace("월", "");
+                  if(mm>0 && mm<10){
+                    mm = "0" + mm;
                   }
 
                   let yy = calendarYear.toString();
@@ -193,32 +286,50 @@
 
                   let dietDate = yy + "/" + mm + "/" + dd;
                   
-                  
-                  let t = new Date(); // 오늘 날짜
-                  let clickDate = new Date(calendarYear, month-1, dd);
-                  
-                  if(clickDate < t){
-	                  location.href = 'userDiDetail.cl?dietDate=' + dietDate + '&classNo=${loginU.classNo}';                	  
-                  }else{
-                	  alert("선택 불가능한 날짜입니다.");
-                  }
-                  
+                  location.href = 'dietDetail.cl?dietDate=' + dietDate + '&classNo=${classNo}';
                 }) 
                 
-                
 			}
-		  
-		  
-		  
-		  
+           calrendarMaker();
+			
+		  })
           </script>
 		
           
-		</div>
-    </div>
-    </div>
-</div>
+				
+			</div>
+			<!-- /식단 -->
+	                
+	                
+	                
+	                
+	                
+	                
+	                
+	
+	        <!-- 출결 -->
+			<div class="tab-pane fade" id="navs-pills-justified-messages" role="tabpanel">
+			</div>
 
+
+	              
+		</div>
+		<!-- / 내용 넣을 부분 -->
+	
+    </div>
+    </div>
+
+	    
+</div>
+	
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- /내용 감싸는 전체 wrap -->
+
+	
 
 </body>
 </html>
