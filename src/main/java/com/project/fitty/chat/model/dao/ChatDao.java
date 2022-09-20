@@ -10,8 +10,8 @@ import com.project.fitty.employee.model.vo.Employee;
 @Repository
 public class ChatDao {
 	
-	public ArrayList<Employee> selectChatEmpList(SqlSessionTemplate sqlSession){
-		return (ArrayList) sqlSession.selectList("chatMapper.selectChatEmpList");
+	public ArrayList<Employee> selectChatEmpList(SqlSessionTemplate sqlSession, String searchText){
+		return (ArrayList) sqlSession.selectList("chatMapper.selectChatEmpList", searchText);
 	}
 
 }

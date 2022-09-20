@@ -6,6 +6,6 @@ import com.project.fitty.employee.model.vo.Employee;
 
 public interface ChatService {
 	
-	ArrayList<Employee> selectChatEmpList();
+	ArrayList<Employee> selectChatEmpList(String searchText);
 
 }

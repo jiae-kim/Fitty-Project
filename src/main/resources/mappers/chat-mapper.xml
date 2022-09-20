@@ -2,7 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="chatMapper">
   <resultMap id="chatResult" type="Chat">
+  	<result column="chat_room_no" property="chatRoomNo"/>
   	<result column="emp_no" property="empNo"/>
+  	<result column="chat_iorg" property="chatIorg"/>
+  	<result column="chat_create_date" property="chatCreateDate"/>
+  	<result column="chat_delete_date" property="chat_deleteDate"/>
+  	<result column="chat_status" property="chatStatus"/>
+  	<result column="inv_in_date" property="invInTime"/>
+  	<result column="inv_out_time" property="invOutTime"/>
+  	<result column="bbl_no" property="bblNo"/>
+  	<result column="bbl_content" property="bblContent"/>
+  	<result column="bblDate" property="bblDate"/>
+  	
+  	
+  	<result column="emp_name" property="empName"/>
+  	<result column="emp_photo" property="empPhoto"/>
+  	<result column="gr_name" property="grName"/>
+  	<result column="emp_grade" property="empGrade"/>
+  	<result column="emp_status" property="empStatus"/>
   </resultMap>
   
   <select id="selectChatEmpList" resultMap="chatResult">
@@ -15,6 +32,9 @@
 	  from tb_emp e
 	  join tb_grade g on (e.emp_grade = g.emp_grade)
 	 where emp_status =  'Y'
+	 <if test="searchText != ''">
+		   and emp_name like ('%' || #{searchText} || '%')
+	</if>
   </select>
   
 </mapper>

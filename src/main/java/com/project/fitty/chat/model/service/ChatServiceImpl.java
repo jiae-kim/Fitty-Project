@@ -19,7 +19,7 @@ public class ChatServiceImpl implements ChatService {
 	private ChatDao cDao;
 
 	@Override
-	public ArrayList<Employee> selectChatEmpList() {
-		return cDao.selectChatEmpList(sqlSession);
+	public ArrayList<Employee> selectChatEmpList(String searchText) {
+		return cDao.selectChatEmpList(sqlSession, searchText);
 	}
 }

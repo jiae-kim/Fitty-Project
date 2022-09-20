@@ -32,4 +32,14 @@ public class Chat {
 	private int bblNo;
 	private String bblContent;
 	private Date bblDate;
+	
+	
+	
+	// 필요에 의해 만들기
+	private String empName;
+	private String empPhoto;
+	private String grName;
+	private String empGrade;
+	private String empStatus;
+	private String searchText;
 }

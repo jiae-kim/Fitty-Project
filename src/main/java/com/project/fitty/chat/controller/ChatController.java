@@ -26,10 +26,14 @@ public class ChatController {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value="chatEmp.c", produces="application/json; charset=utf-8")
-	public String selectChatEmpList(){
-		ArrayList<Employee> list = cService.selectChatEmpList();
+	@RequestMapping(value="chatEmp.ch", produces="application/json; charset=utf-8" )
+	public String selectChatEmpList(String searchText){
+		ArrayList<Employee> list = cService.selectChatEmpList(searchText);
 		return new Gson().toJson(list);
-		//나나
+	}
+	
+	@RequestMapping("chatRoom.ch")
+	public String selectChatRoomOne(String empNo) {
+		return "";
 	}
 }

@@ -88,6 +88,6 @@
 </div>
 
 <script type="text/javascript" src="resources/js/chat.js"></script>
-<script type="text/javascript" src="resources/js/chat/chatEmpList.js"></script>
+<script type="text/javascript" src="resources/js/chat/chatRoomOne.js"></script>
 </body>
 </html>
