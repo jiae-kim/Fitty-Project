@@ -136,7 +136,7 @@
   padding:10px;
   font-size:13px;
 }
-#sel2{
+.sel2{
   width:100px;
   height:35px;
   border-radius: 5px;
@@ -153,7 +153,47 @@
   width:85%;
   float:right;
   margin-right:3%;
-  height:35px;
+  height:70px;
   text-align: center;
   padding:3px;
+  font-size:13px;
+  color:lightgray;
+  padding-top:20px;
+}
+.addfile label{
+	text-decoration:underline;
+	cursor:pointer;
+	
+}
+#dTable{
+  font-size:13px;
+  width:100%;
+  text-align:center;
+  accent-color:#696CFF;
+}
+#dTable tr{border-bottom:1px solid lightgray;}
+#sel3, #sel4{
+  width:80px; 
+  font-size:13px; 
+  height:30px;
+  border:1px solid lightgray;
+  border-radius:5px;
+}
+#search{
+  width:250px;
+  font-size:13px; 
+  height:30px;
+  border:1px solid lightgray;
+  border-top-left-radius:5px;
+  border-bottom-left-radius:5px;
+  border-right:0px;
+
+}
+#s-btn2{
+  width:35px;
+  height:30px;
+  border:1px solid lightgray;
+  border-top-right-radius:5px;
+  border-bottom-right-radius:5px;
+  border-left:0px;
 }

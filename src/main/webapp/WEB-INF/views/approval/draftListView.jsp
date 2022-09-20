@@ -184,7 +184,7 @@
 	                
 	                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 	                	<c:choose>
-	                		<c:when test="${ p eq currentPage }">
+	                		<c:when test="${ p eq pi.currentPage }">
 				                <li class="page-item active disabled">
 				                  <a class="page-link" href="draftList.ap?cpage=${ p }">${ p }</a>
 				                </li>
