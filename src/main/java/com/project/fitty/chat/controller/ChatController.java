@@ -36,4 +36,9 @@ public class ChatController {
 	public String selectChatRoomOne(String empNo) {
 		return "";
 	}
+	
+	@RequestMapping("testChat")
+	public String selectChatRoomOne() {
+		return "chat/test";
+	}
 }

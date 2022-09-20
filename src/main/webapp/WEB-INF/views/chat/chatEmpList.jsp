@@ -42,7 +42,6 @@
 
        <div>
          <ul class="empList">
-           
          </ul>
        </div>
        
@@ -54,6 +53,8 @@
  <!-- 채팅창 -->
  <div class="col-md-9 ">
    <div class="card mb-4 vacDetailDiv">
+  <a href="testChat">가라ㅜㅡ</a>
+   
    <!--
        <h5 class="card-header" style="margin-bottom : 20px"><b>📝 근태 수정요청서 작성</b></h5>
        <div class="card-body" style="width: 95%;">
