@@ -27,6 +27,7 @@ public class Chat {
 	// tb_invite
 	private Date invInDate;
 	private Date invOutDate;
+	private String invEmpNo;
 	
 	// tb_bubble
 	private int bblNo;

@@ -53,41 +53,106 @@
  <!-- 채팅창 -->
  <div class="col-md-9 ">
    <div class="card mb-4 vacDetailDiv">
-  <a href="testChat">가라ㅜㅡ</a>
-   
-   <!--
-       <h5 class="card-header" style="margin-bottom : 20px"><b>📝 근태 수정요청서 작성</b></h5>
-       <div class="card-body" style="width: 95%;">
-         <form id="formAccountSettings" method="POST" onsubmit="return false">
-           <div class="row">
-             <div class="mb-3 col-md-6">
-               <label for="firstName" class="form-label">수정요청일</label>
-               <input class="form-control" type="date" id="modifyDate" name="modifyDate" value="" autofocus required/>
-             </div>
-             <div class="mb-3 col-md-6">
-               <label for="organization" class="form-label">수정요청 상태</label>
-               <div style="height : 10px"></div>
-               <input class="form-check-input" type="radio" name="change" value="workIn">&nbsp출근수정&nbsp&nbsp&nbsp&nbsp&nbsp
-               <input class="form-check-input" type="radio" name="change" value="rest">&nbsp휴식수정&nbsp&nbsp&nbsp&nbsp&nbsp
-               <input class="form-check-input" type="radio" name="change" value="workOut">&nbsp퇴근수정&nbsp&nbsp&nbsp&nbsp&nbsp
-               <input class="form-check-input" type="radio" name="change" value="etc">&nbsp기타수정&nbsp&nbsp&nbsp&nbsp&nbsp
-             </div>
-             <div class="mb-3 col-md-12" style="margin-top: 20px;">
-                <label for="address" class="form-label" >수정 요청사유</label><br>
-                <textarea class="textarea" autofocus required></textarea>
-              </div>
-            </div>
-            <div class="mt-2 btnDiv">
-              <button type="submit" class="btn btn-primary me-2">직원등록</button>
-              <button type="button" class="btn btn-secondary me-2">목록으로</button>
-            </div>
-          </form>
-        </div>
-    </div>
-      -->
+  <!-- a href="testChat">가라ㅜㅡ</a>-->
+  	<!-- 
+    <h5 class="card-header" style="margin-bottom : 20px; margin-top:20px;">
+    <img src="${loginUser.empPhoto}" alt="Avatar" class="rounded-circle" width="30px;" height="30px;"/>
+    <b>상대방 트레이너님</b>
+    </h5>
+	<input type="hidden" id="id" value="상대방트레이너">
+	<div>
+		<div id="chatarea" class="card-header" style="width: 80%; height: 600px;">
+			
+			<div id="chatTextArea">
+				<table class="yourTable">
+					<tr>
+						<td rowspan="2"><img src="${loginUser.empPhoto}" alt="Avatar" class="rounded-circle col-md-1" width="30px;" height="30px;"/></td>
+						<td rowspan="2" class="textTd"><div class="noStyle" id="yourText"></div></td>
+						<td width="150px;">트레이너이름</td>
+					</tr>
+					<tr>
+						<td>2022-30-44</td>
+					</tr>
+				</table>
+				<table class="myTable">
+					<tr>
+						<td width="150px;">트레이너이름</td>
+						<td rowspan="2" class="textTd"><div class="noStyle" id="yourText"></div></td>
+						<td rowspan="2"><img src="${loginUser.empPhoto}" alt="Avatar" class="rounded-circle col-md-1" width="30px;" height="30px;"/></td>
+					</tr>
+					<tr>
+						<td>2022-30-44</td>
+					</tr>
+				</table>
+			</div>
+			<form>
+				<textarea id="message" /></textarea>
+				<input type="button" class="btn btn-primary" style="margin-top:-42px; height : 50px;" id="send" value="보내기" />
+			<!--  	<input type="button" id="exit" value="나가기" />-->
+		<!-- 	</form>
+		</div>
+	</div>
+     -->
   </div>
 </div>
 
+
+<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
+<script type="text/javascript">
+	// ##### 입장~~~!!
+	let websocket;
+	$(function(){
+		
+		
+	connect();
+	})
+	
+	function connect(){
+// 		websocket = new WebSocket("ws://본인 아이 피주소/www/chat-ws");
+		//websocket = new WebSocket("ws://172.30.1.52/www/chat-ws");
+		websocket = new SockJS("/fitty/chat-ws");
+			//웹 소켓에 이벤트가 발생했을 때 호출될 함수 등록
+			websocket.onopen = onOpen;
+			websocket.onmessage = onMessage;
+			//http://localhost:8765/fitty/chatEcho
+	}
+	
+	// ##### 연결 되었습니다!
+	function onOpen(){
+		id = document.getElementById("id").value;
+		websocket.send(id + "님과의 대화입니다.");
+	}
+	
+	// ##### 메세지 보내기 버튼 클릭!
+	document.getElementById("send").addEventListener("click", function() {
+		send();
+	});
+	
+	function send(){
+		id = document.getElementById("id").value;
+		msg = document.getElementById("message").value;
+		websocket.send(/*css 소스 + */id + ":"+ msg);
+		document.getElementById("message").value = "";
+	}
+	
+	function onMessage(evt){
+		data= evt.data;
+		chatarea = document.getElementById("chatTextArea");
+		chatTextArea.innerHTML = chatTextArea.innerHTML + "<br/>" + data
+	}
+	
+	// ##### 연결을 해제합니다!
+	document.getElementById("exit").addEventListener("click", function() {
+		disconnect();
+	});
+
+	function disconnect(){
+		id = document.getElementById("id").value;
+		websocket.send(id+"님이 퇴장하셨습니다");
+		websocket.close();
+	}
+	
+	</script>
 <script type="text/javascript" src="resources/js/chat.js"></script>
 <script type="text/javascript" src="resources/js/chat/chatEmpList.js"></script>
 </body>

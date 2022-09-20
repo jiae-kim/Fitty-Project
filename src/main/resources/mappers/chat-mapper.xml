@@ -10,6 +10,7 @@
   	<result column="chat_status" property="chatStatus"/>
   	<result column="inv_in_date" property="invInTime"/>
   	<result column="inv_out_time" property="invOutTime"/>
+  	<result column="inv_emp_no" property="invEmpNo"/>
   	<result column="bbl_no" property="bblNo"/>
   	<result column="bbl_content" property="bblContent"/>
   	<result column="bblDate" property="bblDate"/>
@@ -36,6 +37,72 @@
 		   and emp_name like ('%' || #{searchText} || '%')
 	</if>
   </select>
+  
+  <select id="countRoomFlag" resultType="_int">
+	select c.chat_room_no
+	     , c.emp_no as "emp_no"
+	     , i.emp_no as "inv_emp_No"
+	     , c.chat_iorg
+	     , c.chat_create_date
+	     , c.chat_status
+	  from tb_chat c
+	  join tb_invite i on (c.chat_room_no = i.chat_room_no)
+	 where c.emp_no = #{empNo}
+	   and i.emp_no = #{invEmpNo}
+  </select>
+  
+  <select id="selectBubbleList" resultMap="chatResult">
+  	select b.bbl_no
+     , b.chat_room_no
+     , b.emp_no
+     , e.emp_name
+     , nvl(e.emp_photo, 'resources/profile_images/defaultProfile.png') as "emp_photo"
+     , g.gr_name
+     , b.bbl_content
+     , b.bbl_date
+  from tb_bubble b
+  join tb_emp e on (e.emp_no = b.emp_no)
+  join tb_grade g on (e.emp_grade = g.emp_grade)
+	 where b.chat_room_no = #{chatRoomNo}
+  </select>
+  
+  <insert id="insertChatInviteFirst">
+	insert all
+	  into tb_chat
+	    (
+	       chat_room_no
+	     , emp_no
+	     , chat_iorg
+	     , chat_create_date
+	     , chat_delete_date
+	     , chat_status
+	    )
+	values
+	    (
+	      SEQ_CROOM_NO.nextval
+	    , #{empNo}
+	    , 'I'
+	    , sysdate
+	    , sysdate
+	    , 'Y'
+	    )
+	
+	  into tb_invite
+	    (
+	       chat_room_no
+	     , emp_no
+	     , inv_in_date
+	     , inv_out_date
+	    )
+	values
+	    (
+	      SEQ_CROOM_NO.CURRVAL
+	    , #{invEmpNo}
+	    , sysdate
+	    , sysdate
+	    )
+	select * from dual  
+  </insert>
   
 </mapper>
 

@@ -54,36 +54,7 @@
  <!-- 채팅창 -->
  <div class="col-md-9 ">
    <div class="card mb-4 vacDetailDiv">
-   <!--
-       <h5 class="card-header" style="margin-bottom : 20px"><b>📝 근태 수정요청서 작성</b></h5>
-       <div class="card-body" style="width: 95%;">
-         <form id="formAccountSettings" method="POST" onsubmit="return false">
-           <div class="row">
-             <div class="mb-3 col-md-6">
-               <label for="firstName" class="form-label">수정요청일</label>
-               <input class="form-control" type="date" id="modifyDate" name="modifyDate" value="" autofocus required/>
-             </div>
-             <div class="mb-3 col-md-6">
-               <label for="organization" class="form-label">수정요청 상태</label>
-               <div style="height : 10px"></div>
-               <input class="form-check-input" type="radio" name="change" value="workIn">&nbsp출근수정&nbsp&nbsp&nbsp&nbsp&nbsp
-               <input class="form-check-input" type="radio" name="change" value="rest">&nbsp휴식수정&nbsp&nbsp&nbsp&nbsp&nbsp
-               <input class="form-check-input" type="radio" name="change" value="workOut">&nbsp퇴근수정&nbsp&nbsp&nbsp&nbsp&nbsp
-               <input class="form-check-input" type="radio" name="change" value="etc">&nbsp기타수정&nbsp&nbsp&nbsp&nbsp&nbsp
-             </div>
-             <div class="mb-3 col-md-12" style="margin-top: 20px;">
-                <label for="address" class="form-label" >수정 요청사유</label><br>
-                <textarea class="textarea" autofocus required></textarea>
-              </div>
-            </div>
-            <div class="mt-2 btnDiv">
-              <button type="submit" class="btn btn-primary me-2">직원등록</button>
-              <button type="button" class="btn btn-secondary me-2">목록으로</button>
-            </div>
-          </form>
-        </div>
-    </div>
-      -->
+   
   </div>
 </div>
 
