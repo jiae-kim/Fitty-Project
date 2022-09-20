@@ -10,7 +10,7 @@
 <body>
 	<!-- 회원 페이지 : 예약 상세조회용 모달 (별도의 JSP임)/ 조회, 수정, 삭제 기능 -->
 	<!-- 예약 상세조회 Modal : 로그인한 회원의 정보 / 어떤 직원과 어떤 수업을 언제(날짜, 시간)-->
-          <form action="" method="post" id="t">
+          <form action="" method="post" id="suForm">
           <div class="modal-body" id="myModall">
           	<input type="hidden" name="bookNo" value="${b.bookNo}">
           	<!-- 담당 트레이너 -->

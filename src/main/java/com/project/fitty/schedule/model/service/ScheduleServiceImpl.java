@@ -35,8 +35,8 @@ public class ScheduleServiceImpl implements ScheduleService{
 	}
  
 	@Override // [김지애] 3. 회원용 - 스케줄 상세조회 서비스
-	public ArrayList<Booking> selectUdetailList() {
-		return null;
+	public Booking selectUdetailList(int bookNo) {
+		return bDao.selectUdetailList(sqlSession, bookNo);
 	}
 	
 	@Override // [김지애] 4. 회원용 - 스케줄 등록 서비스
@@ -46,12 +46,12 @@ public class ScheduleServiceImpl implements ScheduleService{
 
 	@Override // [김지애] 5. 회원용 - 스케줄 수정 서비스
 	public int updateBooking(Booking b) {
-		return 0;
+		return bDao.updateBooking(sqlSession, b);
 	}
 
 	@Override // [김지애] 6. 회원용 - 스케줄 삭제 서비스
 	public int deleteBooking(Booking b) {
-		return 0;
+		return bDao.deleteBooking(sqlSession, b);
 	}
 
 	
