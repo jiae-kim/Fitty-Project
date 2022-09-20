@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -43,7 +44,7 @@ public class ScheduleController {
 		return new Gson().toJson(list); // "[{}, {}, {}, ...]"
 	}
 	
-	// [김지애] 2. 회원용 - 스케줄 전체조회 서비스
+	// [김지애] 2. 회원용 - 스케줄 전체/상세조회 서비스
 	@RequestMapping("listSchedule.sc")
 	public String listFormSchedule() {
 		return "schedule/scheduleUlistView";
@@ -58,24 +59,14 @@ public class ScheduleController {
 	}
 	
 	// [김지애] 3. 회원용 - 스케줄 상세조회 서비스
-	@RequestMapping("detailForm.sc")
-	public String selectFormSchedule() {
-		return "schedule/scheduleUdetailView";
-	}
-	
 	@ResponseBody
 	@RequestMapping(value="detail.sc", produces="application/json; charset=UTF-8")
-	public String selectUdetailList() {
-		return new Gson().toJson(null);
+	public String selectUdetailList(int bookNo) {
+		Booking b = bService.selectUdetailList(bookNo);
+		return new Gson().toJson(b);
 	}
 	
 	// [김지애] 4. 회원용 - 스케줄 등록 서비스
-	/*
-	@RequestMapping("enrollForm.sc")
-	public String enrollForm() {
-		return "schedule/scheduleEnrollForm";
-	}
-	*/
 	@RequestMapping("insert.sc")
 	public String insertSchedule(Booking b, HttpSession session) {
 		//System.out.println(b);
@@ -91,12 +82,31 @@ public class ScheduleController {
 	}
 	
 	// [김지애] 5. 회원용 - 스케줄 수정 서비스
-	/*
 	@RequestMapping("update.sc")
-	public String updateBooking() {
-		
+	public String updateBooking(Booking b, HttpSession session) {
+		int result = bService.updateBooking(b);
+		System.out.println(b);
+		if(result > 0) {// 수정 성공
+			session.setAttribute("alertMsg", "✔ 성공적으로 예약 변경되었습니다 ✔");
+			return "redirect:listSchedule.sc";
+		}else {// 수정 실패
+			session.setAttribute("alertMsg", "❌ 예약변경에 실패했습니다 ❌");
+			return "common/errorPage";
+		}
 	}
-	*/
 	
+	// [김지애] 6. 회원용 - 스케줄 삭제 서비스
+	@RequestMapping("delete.sc")
+	public String deleteBooking(Booking b, HttpSession session) {
+		int result = bService.deleteBooking(b);
+		
+		if(result > 0) {// 삭제 성공
+			session.setAttribute("alertMsg", "✔ 성공적으로 예약이 취소되었습니다 ✔");
+			return "redirect:listSchedule.sc";
+		}else {// 삭제 실패
+			session.setAttribute("alertMsg", "❌ 예약취소에 실패했습니다 ❌");
+			return "common/errorPage";
+		}
+	}
 	
 }

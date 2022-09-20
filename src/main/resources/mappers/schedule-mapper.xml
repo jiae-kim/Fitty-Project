@@ -46,6 +46,7 @@
 		select
 	              b.book_no    
 	          ,   b.user_no
+	          ,	  u.user_name
 	          ,   e.emp_name
 	          ,   b.cl_no
 	          ,   b.book_date
@@ -60,7 +61,7 @@
 	</select>
 	
 	<!-- 3. 회원 예약 상세조회 -->
-	<!-- 
+	<select id="selectUdetailList" resultMap="bookingResult">
 	  select
 	            b.book_no    
 	        ,   e.emp_name
@@ -74,7 +75,7 @@
 	     and 	b.book_status = 'Y'
 	     and 	b.cl_status = 'Y'
 	     and 	b.book_no = #{bookNo}
-	 -->
+	</select>
 	 
 	 <!-- 4. 회원 수업 예약 -->
 	<insert id="insertBooking">
@@ -101,5 +102,21 @@
 	    	 )
 	</insert>
 	
+	<!-- 5. 회원 수업 예약 변경 -->
+	<update id="updateBooking">
+		update
+				tb_booking
+		   set	book_date = #{bookDate}
+		     ,	book_stime = #{bookStime}
+		     ,	book_etime = #{bookEtime}
+		 where	book_no = #{bookNo}
+	</update>
+	
+	<!-- 6. 회원 수업 예약 취소 -->
+	<update id="deleteBooking">
+		delete
+		  from	tb_booking
+		 where	book_no = #{bookNo}
+	</update>
 	
 </mapper>
