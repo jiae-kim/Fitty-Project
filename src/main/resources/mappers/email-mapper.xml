@@ -26,7 +26,7 @@
    </resultMap>
    
    <!-- 첨부파일 -->
-   <resultMap id="fileResult" type="File">
+   <resultMap id="fileResult" type="Efile">
       <result column="file_no" property="fileNo" />
       <result column="oringin_name" property="originName" />
       <result column="change_name" property="changeName" />
