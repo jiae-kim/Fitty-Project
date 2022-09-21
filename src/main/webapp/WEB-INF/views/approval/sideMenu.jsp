@@ -16,7 +16,7 @@
          <div class="list">
            <span><b>결재하기</b></span>
            <ul>
-             <li><a href="결재대기문서.html">결재 대기 문서</a></li>
+             <li><a type="button" onclick="postFormSubmit('waitingList.ap');">결재 대기 문서</a></li>
              <li><a type="button" onclick="postFormSubmit('duleList.ap');">결재 예정 문서</a></li>
            </ul>
            <span><b>개인 문서함</b></span>

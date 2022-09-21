@@ -1,4 +1,4 @@
-package com.project.fitty.approval.model.vo;
+package com.project.fitty.email.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,15 +11,17 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class ApprExpense {
+
+public class File {
 	
-	private String apprNo;
-	private String expMem;
-	private String expDate;
-	private int expTotalAmount;
-	private String expReason;
-	
+	private String fileNo;
 	private String originName;
-	private String changeName;
+	private String changName;
+	private String filePath;
+	private String fileSize;
+	private String fileReType;
+	private String fileReNo;
+	
+	
 
 }

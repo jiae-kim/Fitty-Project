@@ -633,13 +633,16 @@
                     <button type="button" class="btn btn-sm btn-info" onclick="logOut();">로그아웃</button>
                 </li>
                 <li class="nav-item lh-1 me-3">
-                    <a href="mail.re"><i class='bx bx-envelope'></i></a>
+                    <a href="received.em"><i class='bx bx-envelope'></i></a>
                 </li>
+                
                 <li class="nav-item lh-1 me-3">
-                    <i class='bx bx-message-rounded-dots'></i>
-                    <button id="chatBtn" type="button" onClick="go('chat.ch');"
+                	<a href="chat.ch">
+                    <i class='bx bx-message-rounded-dots'></i></a>
+                    <!-- 
+                    <button id="chatBtn" type="button" onclick="go('chat.ch');"
                            style="position:absolute; top:0px;bottom:0px;right:0px;left:0px;
-                                  border:0;opacity:0;"></button>
+                                  border:0;opacity:0;"></button> -->
                 </li>
                 <li class="nav-item lh-1 me-3">
                     <i class='bx bx-bell' id="alertIcon" style="position:relative;">
@@ -685,6 +688,7 @@
 					}
 				 
 				 function workIn(){
+					 console.log("출근함");
 					 $("#workInform").submit();
 					 
 				 }

@@ -3,6 +3,7 @@ package com.project.fitty.user.controller;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -80,19 +81,8 @@ public class UserController {
 		
 		return mv;
 	}
-
-	/*
-	// [김지애] 3. 회원 상세조회 서비스
-	@RequestMapping("uDetail.ur")
-	public ModelAndView uDetailPage(int userNo, ModelAndView mv) {
-		User u = uService.selectUser(userNo);
-		mv.addObject("u", u).setViewName("user/userDetailView");
-		
-		return mv;
-	}
-	*/
 	
-	// [김지애] 4. 회원수정 서비스
+	// [김지애] 3. 회원 상세조회 서비스
 	@RequestMapping("updateForm.ur")
 	public String updateForm(int no, Model model) {
 		// 수정할 회원 번호만 받아서 한행 조회 후 model에 담아 수정페이지 포워딩
@@ -170,14 +160,36 @@ public class UserController {
 		}
 	}
 	
-	// [김지애] 7. 회원등록 시 전화번호 중복체크
+	// [김지애] 7. 회원등록 시 전화번호 중복체크 - ajax
 	@ResponseBody
 	@RequestMapping("telCheck.ur")
 	public String ajaxTelCheck(String checkTel) {
 		// 사용자가 입력했던 전화번호값 == 중복확인해볼 전화번호
-		int result = uService.telCheck(checkTel);
+		int count = uService.telCheck(checkTel);
 		
-		return result>0 ? "fail" : "success";
+		return count > 0 ? "fail" : "success";
+	}
+	
+	// [김지애] 8. 회원 검색 (페이징)
+	@ResponseBody
+	@RequestMapping("search.ur")
+	public ModelAndView searchUser(ModelAndView mv, @RequestParam(value="cpage", defaultValue="1")int currentPage,
+								   String keyword, String condition) {
+		// 검색결과에 맞는 페이징처리
+		int listCount = uService.selectSearchCount(condition, keyword);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		// 검색 조회
+		ArrayList<User> list = uService.selectSearchList(condition, keyword, pi);
+		
+		// 검색 결과에 해당하는 객체들
+		mv.addObject("pi", pi)
+		  .addObject("list", list)
+		  .addObject("condition", condition)
+		  .addObject("keyword", keyword)
+		  .setViewName("user/userListView");
+		
+		return mv;
 	}
 	
 }

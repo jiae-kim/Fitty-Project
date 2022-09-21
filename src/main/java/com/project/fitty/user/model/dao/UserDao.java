@@ -1,6 +1,7 @@
 package com.project.fitty.user.model.dao;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -62,5 +63,28 @@ public class UserDao {
 		return sqlSession.selectOne("userMapper.telCheck", userPhone);
 	}
 
+	// [김지애] 8. 회원 검색
+	public int selectSearchCount (SqlSessionTemplate sqlSession, String condition, String keyword) {
+		HashMap<String,String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		
+		return sqlSession.selectOne("userMapper.selectSearchCount", map);
+	}
+
+	// [김지애] 8. 회원 검색 (페이징)
+	public ArrayList<User> selectSearchList(SqlSessionTemplate sqlSession, String condition, String keyword,
+			PageInfo pi) {
+		HashMap<String,String> map = new HashMap<>();
+		map.put("condition", condition);
+		map.put("keyword", keyword);
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		// selectList : 조회결과가 없을 경우 텅빈 리스트로 반환 (null로 반환 x)
+		return (ArrayList)sqlSession.selectList("userMapper.selectSearchList", map, rowBounds);
+	}
 
 }

@@ -13,22 +13,24 @@
           <div class="content-wrapper">
             <div class="container-xxl flex-grow-1 container-p-y" style="padding : 0px;">
               <div class="row">
+              
                   <!-- 메일 리스트 -->
                   <div class="col-md-2 ">
+                  <form>
                     <div class="card mb-4 vacDetailDiv">
                         <h2 class="card-header"><b>E-MAIL</b></h2>
                         <div class="card-body">
-						  <a href="mail.wr" type="button" class="btn btn-primary modifyBtn">메일 쓰기</a>
+						              <a href="insert.em" type="button" class="btn btn-primary modifyBtn">메일 쓰기</a>
                           <br><br><br>
                           
                           <div class="mailList">
                            <div class="mail-content" style="border: 0px;">
                             <br>
-                            <a href="mail.re" type="button" class="btn btn-outline-primary" style="border: 0px;">받은메일함</a>
-                            <a href="mail.se" type="button" class="btn btn-outline-primary" style="border: 0px;">보낸메일함</a>
-                            <a href="mail.stm" type="button" class="btn btn-outline-primary" style="border: 0px;">내게쓴메일함</a>
-                            <a href="mail.tem" type="button" class="btn btn-outline-primary" style="border: 0px;">임시보관함</a><br>
-                            <a href="mail.tr" type="button" class="btn btn-outline-primary" style="border: 0px;">휴지통</a>
+                            <a href="received.em" type="button" class="btn btn-outline-primary" style="border: 0px;">받은메일함</a>
+                            <a href="sent.em" type="button" class="btn btn-outline-primary" style="border: 0px;">보낸메일함</a>
+                            <a href="stm.em" type="button" class="btn btn-outline-primary" style="border: 0px;">내게쓴메일함</a>
+                            <a href="tem.em" type="button" class="btn btn-outline-primary" style="border: 0px;">임시보관함</a><br>
+                            <a href="trash.em" type="button" class="btn btn-outline-primary" style="border: 0px;">휴지통</a>
                             <br><br>
                            </div>
                           
@@ -40,6 +42,7 @@
                   </div>
                 
                   <!-- 메일쓰기 -->
+                  <form>
                   <div class="col-md-10 ">
                     <div class="card mb-4 vacDetailDiv">
                       <div class="demo-inline-spacing">
@@ -47,7 +50,6 @@
                         
                           &nbsp;&nbsp;&nbsp;
               
-                        
                         <button type="button" class="btn btn-sm btn-primary">보내기</button>
                         <button type="button" class="btn btn-sm btn-warning">임시저장</button>
                         <button type="button" class="btn btn-sm btn-danger">다시쓰기</button>
@@ -55,25 +57,25 @@
                       </div>
                       
                       <div class="card-body">
-                        <form>
+                       
                           <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-default-name">받는사람 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />&nbsp;&nbsp;나에게</label>
                             <div class="col-sm-9 input-group" style="width: 900px;">
-                                  <input
+                               <input
                                 type="text"
                                 class="form-control"
                                 placeholder="Recipient's username"
                                 aria-label="Recipient's username"
                                 aria-describedby="button-addon2"
                               />
+                              <button class="btn btn-outline-primary" type="button">+</button> 
                               <button class="btn btn-outline-primary" type="button" id="button-addon2"  data-bs-toggle="modal"
                               data-bs-target="#largeModal">주소록</button>
-                            
                             </div>
                           </div>
                           <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-default-company" style="float:left">숨은참조</label>
-                            <div class="col-sm-9 input-group" style="width: 900px;">
+                            <div class="col-sm- input-group" style="width: 900px;">
                               <input
                                 type="text"
                                 class="form-control"
@@ -81,6 +83,7 @@
                                 aria-label="Recipient's username"
                                 aria-describedby="button-addon2"
                               />
+                               <button class="btn btn-outline-primary" type="button" onclick="emailCheck();">+</button> 
                               <button class="btn btn-outline-primary" type="button" id="button-addon2"  data-bs-toggle="modal"
                               data-bs-target="#largeModal">주소록</button>
                             </div>
@@ -146,11 +149,6 @@
                           </div>
 
 
-
-
-
-
-
                           <div class="row mb-3">
                             <label class="col-sm-2 col-form-label" for="basic-default-email">제목 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input class="form-check-input" type="checkbox" value="" id="defaultCheck1" />&nbsp;&nbsp;중요❗</label>
                             <div class="col-sm-10">
@@ -180,19 +178,17 @@
                             <textarea class="form-control" id="exampleFormControlTextarea1" rows="17" style="resize: none;"></textarea>
                           </div>
                
-                        </form>
+                  </form>
                       </div>
-                      
-                   
+                     
                     </div>
-                  </div>
+                    </div>
 
 
           </div>
       </div>
       <!-- Overlay -->
       <div class="layout-overlay layout-menu-toggle"></div>
-    </div>
 
 </body>
 </html>

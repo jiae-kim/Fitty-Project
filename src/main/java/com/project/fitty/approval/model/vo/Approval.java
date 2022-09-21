@@ -23,10 +23,11 @@ public class Approval {
 	private String apprStatus;
 	private String apprStorage;
 	private String apprComment;
-	private int apprMemCount;
+	private String apprMemCount;
 	
 	// 추가 컬럼
 	private String apprDate;
 	private String empName;
+	private String apprLevel;
 
 }

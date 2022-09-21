@@ -11,6 +11,7 @@
 		<result column="appr_comment" property="apprComment"/>
 		<result column="appr_date" property="apprDate"/>
 		<result column="emp_name" property="empName"/>
+		<result column="appr_level" property="apprLevel"/>
 	</resultMap>
 	<resultMap id="empResult" type="Employee">
 		<result column="emp_name" property="empName"/>
@@ -114,6 +115,68 @@
 		  )
 	</insert>
 	
+	<insert id="insertApprExp">
+		insert
+		  into tb_appr_exp
+		  (
+		    appr_no
+		  , exp_mem
+		  , exp_date
+		  , exp_total_amount
+		  , exp_reason
+		  )
+		  values
+		  (
+		    'fitty-2022-00' || seq_apno.currval
+		  , #{expMem}
+		  , #{expDate}
+		  , #{expTotalAmount}
+		  , #{expReason}
+		  )
+	</insert>
+	
+	<insert id="insertApprExpDetail">
+		insert
+		  into tb_exp_detail
+		  (
+		    appr_no
+		  , exp_date
+		  , exp_status
+		  , exp_amount
+		  , exp_history
+		  , exp_note
+		  )
+		  values
+		  (
+		    'fitty-2022-00' || seq_apno.currval
+		  , #{expDate}
+		  , #{expStatus}
+		  , #{expAmount}
+		  , #{expHistory}
+		  , #{expNote}
+		  )
+	</insert>
+	
+	<insert id="insertApprFile">
+		insert
+		  into tb_file
+		  (
+		    file_no
+		  , origin_name
+		  , change_name
+		  , file_re_type
+		  , file_re_no
+		  )
+		  values
+		  (
+		    seq_file_no.nextval
+		  , #{originName}
+		  , #{changeName}
+		  , 'A'
+		  , 'fitty-2022-00' || seq_apno.currval
+		  )
+	</insert>
+	
 	<select id="selectScheduleListCount" resultType="_int">
 		select
 		   	   count (*)
@@ -127,7 +190,8 @@
 	</select>
 	
 	<select id="selectScheduleList" resultMap="approvalResult">
-		select appr_enroll_date, appr_title, appr_doc_type, emp_name
+		select 
+			   appr_enroll_date, appr_title, appr_doc_type, emp_name
 		  from tb_approval ap
 		  join tb_appr_mem am on(am.appr_no = ap.appr_no)
 		  join tb_emp e on (e.emp_no = ap.emp_no)
@@ -251,6 +315,66 @@
 		  join tb_appr_mem am on(am.appr_no = ap.appr_no)
 		 where am.emp_no = #{empNo}
 		   and ap.appr_status = #{apprStatus}
+	</select>
+	
+	<insert id="insertStorage">
+		insert
+		  into tb_approval
+		  (
+		    appr_no
+		  , emp_no
+		  , appr_doc_type
+		  , appr_title
+		  , appr_enroll_date
+		  , appr_storage
+		  , appr_mem_count
+		  )
+		  values
+		  (
+		    'fitty-2022-00' || seq_apno.nextval
+		  , #{empNo}
+		  , #{apprDocType}
+		  , #{apprTitle}
+		  , default
+		  , 'Y'
+		  , #{apprMemCount}
+		  )
+	</insert>
+	
+	<select id="selectWaitingListCount" resultType="_int">
+		select count(*)
+		  from (
+	            select a.appr_no, a.appr_enroll_date, a.appr_doc_type, a.appr_title, e.emp_name
+	                 , am.appr_level appr_level, 
+	                 (
+	                    select count(appr_date)
+	                      from tb_appr_mem
+	                     where appr_no = a.appr_no
+	                 ) complete_count
+	              from tb_approval a
+	              join tb_appr_mem am on (a.appr_no = am.appr_no)
+	              join tb_Emp e on (a.emp_no = e.emp_no)
+	             where am.emp_no = #{empNo}
+		        )
+		where complete_count + 1 = appr_level
+	</select>
+	
+	<select id="selectWaitingList" resultMap="approvalResult">
+		select *
+		  from (
+	            select a.appr_no, a.appr_enroll_date, a.appr_doc_type, a.appr_title, e.emp_name
+	                 , am.appr_level appr_level, 
+	                 (
+	                    select count(appr_date)
+	                      from tb_appr_mem
+	                     where appr_no = a.appr_no
+	                 ) complete_count
+	              from tb_approval a
+	              join tb_appr_mem am on (a.appr_no = am.appr_no)
+	              join tb_Emp e on (a.emp_no = e.emp_no)
+	             where am.emp_no = #{empNo}
+		        )
+		where complete_count + 1 = appr_level
 	</select>
 
 </mapper>

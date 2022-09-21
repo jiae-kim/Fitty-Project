@@ -105,7 +105,6 @@ public class EcoHandler extends TextWebSocketHandler {
 			return loginUser.getEmpNo();
 		}
 	}
-
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception{
 		

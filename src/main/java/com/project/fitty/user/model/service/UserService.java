@@ -33,6 +33,9 @@ public interface UserService {
 	// 문자열로 중복검사할 회원 전화번호만 전달받음
 	int telCheck(String userPhone);
 	
+	// [김지애] 8. 회원 검색 (페이징)
+	int selectSearchCount(String condition, String keyword);
+	ArrayList<User> selectSearchList(String condition, String keyword, PageInfo pi);
 	
 
 }

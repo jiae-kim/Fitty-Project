@@ -7,11 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.fitty.approval.model.dao.ApprovalDao;
+import com.project.fitty.approval.model.vo.ApprExpDetail;
 import com.project.fitty.approval.model.vo.ApprExpense;
 import com.project.fitty.approval.model.vo.ApprOvertime;
 import com.project.fitty.approval.model.vo.ApprVacation;
 import com.project.fitty.approval.model.vo.Approval;
 import com.project.fitty.approval.model.vo.ApprovalMember;
+import com.project.fitty.approval.model.vo.File;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
 
@@ -51,7 +53,17 @@ public class ApprovalServiceImpl implements ApprovalService{
 
 	@Override
 	public int insertApprExp(ApprExpense exp) {
-		return 0;
+		return aDao.insertApprExp(sqlSession, exp);
+	}
+
+	@Override
+	public int insertApprExpDetail(ArrayList<ApprExpDetail> dlist) {
+		return aDao.insertApprExpDetail(sqlSession, dlist);
+	}
+
+	@Override
+	public int insertApprFile(ArrayList<File> flist) {
+		return aDao.insertApprFile(sqlSession, flist);
 	}
 
 	@Override
@@ -112,6 +124,21 @@ public class ApprovalServiceImpl implements ApprovalService{
 	@Override
 	public ArrayList<Approval> ajaxSelectSignList(PageInfo pi, Approval ap) {
 		return aDao.ajaxSelectSignList(sqlSession, pi, ap);
+	}
+
+	@Override
+	public int insertStorage(Approval ap) {
+		return aDao.insertStorage(sqlSession, ap);
+	}
+
+	@Override
+	public int selectWaitingListCount(String empNo) {
+		return aDao.selectWaitingListCount(sqlSession, empNo);
+	}
+
+	@Override
+	public ArrayList<Approval> selectWaitingList(PageInfo pi, String empNo) {
+		return aDao.selectWaitingList(sqlSession, pi, empNo);
 	}
 
 

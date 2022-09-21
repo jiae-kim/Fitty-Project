@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="emailMapper">
+
+
+	<resultMap id="emailResult" type="Email">
+      <result column="em_no" property="emNo" />
+      <result column="em_title" property="emTitle" />
+      <result column="em_content" property="emContent" />
+      <result column="em_sdate" property="emSdate" />
+      <result column="em_status" property="emStatus" />
+      <result column="em_notice" property="emNotice" />
+      <result column="em_stm" property="emStm" />
+      <result column="em_sender" property="emSender" />
+      <result column="em_recipient" property="emRecipient" />
+      <result column="em_recipient_re" property="emRecipientRe" />
+      
+   </resultMap>
+
+   <resultMap id="emailStatusResult" type="EmailStatus">
+      <result column="em_no" property="emNo" />
+      <result column="em_recipient" property="emRecipient" />
+      <result column="em_read" property="emRead" />
+      <result column="em_status" property="emStatus" />
+      <result column="em_reference" property="emReference" />
+   </resultMap>
+   
+   <!-- 첨부파일 -->
+   <resultMap id="fileResult" type="Efile">
+      <result column="file_no" property="fileNo" />
+      <result column="oringin_name" property="originName" />
+      <result column="change_name" property="changeName" />
+      <result column="file_path" property="filePath" />
+      <result column="file_size" property="fileSize" />
+      <result column="file_re_type" property="fileReType" />
+      <result column="file_re_no" property="fileReNo" />
+   </resultMap>
+   
+
+   <!-- 받은메일함 리스트 조회 -->
+   <select id="selectReceivedEmailList" resultMap="emailResult">
+	  SELECT
+	        EM_NO
+	      , EM_TITLE
+	      , EM_CONTENT
+	      , EM_SDATE
+	      , EM_STATUS
+	      , EM_NOTICE
+	      , EM_STM
+	      , EM_SENDER
+	      , EM_RECIPIENT
+	 FROM TB_EMAIL
+	 WHERE EM_RECIPIENT = #{emRecipient}
+   </select>
+	
+	<!-- 받은메일함 개수 조회 -->		   	
+   <select id="receivedEmailListCount" resultType="_int">
+   		SELECT
+		      COUNT(*)
+		 FROM TB_EMAIL E, TB_EMAIL_ST ST
+		 WHERE E.EM_NO = ST.EM_NO
+		 AND E.EM_RECIPIENT = #{emRecipient}
+		 AND ST.EM_STATUS = 'Y'
+   </select>
+   
+   <!-- 보낸메일함 리스트 조회 -->
+      <select id="selectSentEmailList" resultMap="emailResult">
+	  SELECT
+	        EM_NO
+	      , EM_TITLE
+	      , EM_CONTENT
+	      , EM_SDATE
+	      , EM_STATUS
+	      , EM_NOTICE
+	      , EM_STM
+	      , EM_SENDER
+	      , EM_RECIPIENT
+	 FROM TB_EMAIL
+	 WHERE EM_SENDER = #{emSender}
+   </select>
+	
+   
+   <!-- 보낸메일함 개수 조회 -->
+      <select id="sentEmailListCount" resultType="_int">
+   		SELECT
+		      COUNT(*)
+		 FROM TB_EMAIL E, TB_EMAIL_ST ST
+		 WHERE E.EM_NO = ST.EM_NO
+		 AND E.EM_SENDER = #{emSender}
+		 AND ST.EM_STATUS = 'Y'
+   	  </select>
+   
+     <!-- 내게쓴메일함 리스트 조회 -->
+      <select id="selectStmEmailList" resultMap="emailResult">
+	  SELECT
+	        EM_NO
+	      , EM_TITLE
+	      , EM_CONTENT
+	      , EM_SDATE
+	      , EM_STATUS
+	      , EM_NOTICE
+	      , EM_STM
+	      , EM_SENDER
+	      , EM_RECIPIENT
+	 FROM TB_EMAIL
+	 WHERE EM_SENDER = #{emSender}
+	   AND EM_STM = 'Y'
+   </select>
+   
+      <!-- 내게쓴메일함 개수 조회 -->
+      <select id="stmEmailListCount" resultType="_int">
+   		SELECT
+		      COUNT(*)
+		 FROM TB_EMAIL E, TB_EMAIL_ST ST
+		 WHERE E.EM_NO = ST.EM_NO
+		 AND E.EM_SENDER = #{emSender}
+		 AND ST.EM_STATUS = 'Y'
+		 AND E.EM_STM = 'Y'
+   	  </select>
+   	  
+
+
+</mapper>

@@ -22,7 +22,7 @@
              <i class='bx bxs-edit'></i>
              결재요청
            </button>
-           <button class="f-btn">
+           <button class="f-btn" type="button" onclick="insertStorage();">
              <i class='bx bx-download' onclick="storageAppr();" type="button"></i>
              임시저장
            </button>
@@ -156,6 +156,12 @@
                    function insertAppr(){
                 	   alertify.confirm('결재를 요청하시겠습니까?', function(){ $("form[name=vctForm]").attr("action","insertVct.ap"); $("form[name=vctForm]").submit();}
                        ); 
+                   }
+                   
+                   function insertStorage(){
+                	   alertify.confirm("작성하던 내용을 저장하시겠습니까?", function(){
+                		   $("form[name=vctForm]").attr("action", "insertStorage.ap").submit();
+                	   })
                    }
                    
                    function storageAppr(){

@@ -143,6 +143,10 @@ ul li b{
 	height:100%
 }
 #yourText {
+	background-color : #E7E7FF;
+}
+
+#myText {
 	background-color : white;
 }
 

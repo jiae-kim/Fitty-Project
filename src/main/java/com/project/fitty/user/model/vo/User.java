@@ -13,6 +13,7 @@ import lombok.ToString;
 @ToString
 public class User {
 
+	// [김지애]
 	private int userNo; 
 	private String userName;
 	private String userPhone;
@@ -25,6 +26,10 @@ public class User {
 	private String userEdate;
 	private String userPt;
 	private String userStatus;
+	private String keyword;   // 검색기능
+	private String condition; // 검색기능 
+	private String type; 	  // 검색기능
+	private String name; 	  // 검색기능
 	
 	//[정다혜] 
 	private int classNo;

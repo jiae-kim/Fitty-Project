@@ -67,7 +67,14 @@ public class UserServiceImpl implements UserService{
 		return uDao.telCheck(sqlSession, userPhone);
 	}
 
+	@Override // [김지애] 8. 회원 검색
+	public int selectSearchCount(String condition, String keyword) {
+		return uDao.selectSearchCount(sqlSession, condition, keyword);
+	}
 
-	
+	@Override // [김지애] 8. 회원 검색 (페이징)
+	public ArrayList<User> selectSearchList(String condition, String keyword, PageInfo pi) {
+		return uDao.selectSearchList(sqlSession, condition, keyword, pi);
+	}
 	
 }

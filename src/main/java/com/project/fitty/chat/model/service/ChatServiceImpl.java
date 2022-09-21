@@ -27,10 +27,16 @@ public class ChatServiceImpl implements ChatService {
 
 	
 	@Override
-	public Chat countRoomFlag(HashMap map) {
-		return cDao.countRoomFlag(sqlSession, map);
+	public Chat countRoomFlag(Chat empC) {
+		return cDao.countRoomFlag(sqlSession, empC);
 	}
 	
+
+	@Override
+	public Chat selectInvEmp(String invEmpNo) {
+		return cDao.selectInvEmp(sqlSession, invEmpNo);
+	}
+
 	
 	@Override
 	public ArrayList<Chat> selectBubbleList(Chat c) {
@@ -46,6 +52,13 @@ public class ChatServiceImpl implements ChatService {
 	public ArrayList<Chat> selectRoomList(String empNo) {
 		return cDao.selectRoomList(sqlSession, empNo);
 	}
+
+
+	@Override
+	public int insertBubble(Chat c) {
+		return cDao.insertBubble(sqlSession, c);
+	}
+
 
 
 

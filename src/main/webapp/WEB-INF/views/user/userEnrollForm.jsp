@@ -24,6 +24,7 @@
                     <h5 class="text-muted" style="padding-down: 1%">🙍‍♀️회원관리 - 신규 회원 등록</h5>
 					<form action="insert.ur" method="post" id="enrollForm" enctype="multipart/form-data">
                     <!-- 회원번호 : 등록시 시퀀스 자동 생성 -->
+                    
                     <!-- 이름 -->
                     <div class="mb-3 row" style="padding-bottom: 10px;">
                       <label for="html5-text-input" class="col-md-2 col-form-label" id="font">이름</label>
@@ -36,14 +37,16 @@
                     <div class="mb-3 row" style="padding-bottom: 10px;">
                       <label for="html5-tel-input" class="col-md-2 col-form-label" id="font">전화번호</label>
                       <div class="col-md-3">
-                        <input class="form-control" type="tel" name="userPhone" placeholder="숫자 11자리를 입력하세요" id="html5-tel-input" required />
-                        <button type="button" onclick="telCheck();" class="btn btn-sm rounded-pill btn-success">중복확인</button>
+                        <input class="form-control" type="text" name="userPhone" placeholder="숫자 11자리를 입력하세요" id="userPhone" required />
+                        <!-- 전화번호 중복체크 -->
+                        <label id="checkResult" style="font-size:1em; display:none;"></label>
+                        <!-- <button type="button" onclick="telCheck();" class="btn btn-sm rounded-pill btn-success">중복확인</button> -->
                       </div>
                     </div>
 					
 					<!-- 전화번호 중복확인 -->
 					<script>
-						function telCheck() {
+						$(function(){
 							// 중복확인 버튼 클릭시 사용자가 입력한 전화번호 값을 넘겨 조회요청 (존재하는지 안하는지)
 							// => 응답데이터 (사용가능 여부) 돌려받기
 							// 1) 사용 불가능(fail)한 경우 : ALERT 메시지 출력, 다시 입력할 수 있도록 유도
@@ -51,26 +54,48 @@
 							
 							// 전화번호 입력하는 input 요소 객체
 							const $telInput = $("#enrollForm input[name=userPhone]");
-							
-							// $telInput.val() => 사용자가 입력한 전화번호 값
-							$.ajax({
-								url:"telCheck.ur",
-								data:{checkTel:$telInput.val()},
-								success:function(result){
-									if(result == 'fail') {
-										// 사용 불가능
-										alertify.alert("❌ 이미 존재하는 전화번호입니다 ❌").set('basic', true);
-										$telInput.focus();
-									}else {
-										// 사용 가능
-										alertify.alert("✔ 사용 가능한 전화번호입니다 ✔").set('basic', true);
-									}
-								},
-								error:function(){
-									console.log("전화번호 중복체크용 ajax 통신실패");
+
+							// 키업 이벤트
+							$telInput.keyup(function(){
+								// 이벤트 적용되었는지 콘솔창 출력 확인
+								console.log($telInput.val());
+								
+								// 키업 이벤트 발생할 때마다 글자수 비교
+								if($telInput.val().length == 11){// 4글자 이상일 경우 (010*)
+									$.ajax({
+										url:"telCheck.ur",
+										data:{checkTel:$telInput.val()},
+										success:function(result){
+											console.log(result);
+											
+											if(result == 'fail') {// 사용 불가능 => 빨간색 메시지 출력
+												$("#checkResult").show();
+												$("#checkResult").css("color", "red"). text("이미 등록된 전화번호 입니다. 다시 입력해주세요");
+												
+												// 버튼 비활성화
+												$("enrollForm:submit").attr("disabled", true);
+												
+											}else {// 사용 가능 => 초록색 메시지 출력
+												$("#checkResult").show();
+												$("#checkResult").css("color", "green"). text("회원가입 가능한 전화번호입니다");
+												
+												// 버튼 활성화
+												$("enrollForm:submit").removeAttribute("disabled");
+											}
+										},
+										error:function(){
+											console.log("전화번호 중복체크용 ajax 통신실패");
+										}
+									})
+								}else{// 4글자 미만일 경우 (010)
+									// 11글자 이상인 경우 => 빨간색 메시지 출력 
+									$("#checkResult").show();
+									$("#checkResult").css("color", "red"). text("전화번호 11자리를 초과하였습니다. 확인해주세요.");
+									// 회원 등록 버튼 비활성화
+									$("enrollForm:submit").attr("disabled", true);
 								}
-							});
-						}
+							})
+						})
 					</script>
 					
                     <!-- 생년월일 -->
@@ -149,6 +174,7 @@
                       <input class="form-control" type="file" name="upfile" id="formFile" />
                       </div>
                     </div><br>
+                    
                     <!-- 버튼 -->
                     <div class="mb-3" style="text-align: center;">
                       <button type="button" class="btn btn-primary" style="display: inline-block;" data-bs-toggle="modal" data-bs-target="#UserEnroll">회원등록</button>
