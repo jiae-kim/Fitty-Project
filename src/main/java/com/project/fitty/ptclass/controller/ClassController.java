@@ -7,12 +7,14 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
 import com.project.fitty.ptclass.model.service.ClassService;
+import com.project.fitty.ptclass.model.vo.Exercise;
 import com.project.fitty.ptclass.model.vo.PtClass;
 import com.project.fitty.ptclass.model.vo.Reply;
 import com.project.fitty.user.model.vo.User;
@@ -95,36 +97,106 @@ public class ClassController {
 	
 	
 	
+	//오늘의 운동으로 이동 (회원클릭시 제일 먼저 보여지는 페이지)
+	@RequestMapping("exercise.cl")
+	public String exerciseView(int classNo, HttpSession session) {
+		session.setAttribute("classNo", classNo);
+		return "class/exercise";
+	}
+	
+	
+	
+	//운동 등록 (오늘)
+	@ResponseBody
+	@RequestMapping("insertEx.cl")
+	public int ajaxInsertExercise(Exercise e) {
+		int result = cService.insertExercise(e);
+		return result;
+	}
+	
+	
+	//운동 리스트 조회
+	@ResponseBody
+	@RequestMapping(value="exList.cl", produces="application/json; charset=UTF-8")
+	public String ajaxSelectExerciseList(Exercise e){
+		ArrayList<Exercise> list = cService.selectExerciseList(e);
+		return new Gson().toJson(list);
+	}
+	
+	
+	//운동리스트 체크박스 상태 변경 (N -> Y)
+	@ResponseBody
+	@RequestMapping("checkEx.cl")
+	public int ajaxUpdateCheck(Exercise e) {
+		int result = cService.updateCheck(e);
+		return result;
+	}
+	
+	
+	//운동 삭제
+	@ResponseBody
+	@RequestMapping("deleteEx.cl")
+	public int ajaxDeleteExercise(Exercise e) {
+		int result = cService.deleteExercise(e);
+		return result;
+	}
+	
+	
+	//운동 수정
+	@ResponseBody
+	@RequestMapping("updateEx.cl")
+	public int ajaxUpdateExercise(Exercise e) {
+		System.out.println("넘어온 " + e);
+		int result = cService.updateExercise(e);
+		return result;
+	}
+	
+	
+	//운동 수정 전 insert되어있던 내용 조회
+	@ResponseBody
+	@RequestMapping(value="selectExercise.cl", produces="application/json; charset=UTF-8")
+	public String ajaxSelectExercise(Exercise e) {
+		Exercise ex = cService.selectExercise(e);
+		return new Gson().toJson(ex);
+	}
+	
 	
 	//식단 페이지(달력)로 이동
 	@RequestMapping("diet.cl")
-	public ModelAndView dietListView(int classNo, ModelAndView mv) {
+	public String dietListView(int classNo, HttpSession session) {
+		session.setAttribute("classNo", classNo);
+		return "class/dietList";
+	}
+	
+	
+	//식단 리스트 조회
+	@ResponseBody
+	@RequestMapping(value="selectDietList.cl", produces="application/json; charset=UTF-8")
+	public String ajaxSelectDietList(int classNo, ModelAndView mv, HttpSession session) {
 		
 		ArrayList<Diet> list = cService.selectDiet(classNo);
-		
-		if(!list.isEmpty()) {
-			mv.addObject("list", list).addObject("classNo", classNo).setViewName("class/dietList");
-		}else {
-			mv.addObject("alertMsg", "실패").setViewName("class/dietList");
-		}
-		
-		return mv;
+		return new Gson().toJson(list);
 	}
 	
 	
 	//식단 페이지 상세로 이동
 	@RequestMapping("dietDetail.cl")
-	public String selectDietDetail(Diet di, Model model) {
+	public String selectDietDetail(Diet di, Model model, HttpSession session) {
 		
 		Diet diet = cService.selectDietDetail(di);
 		
-		if(diet.getDietNo() != 0) { //등록된 글이 있는 경우 (글번호 존재)
+		System.out.println(diet);
+		
+		//선택한 날짜와 클래스 번호로 조회해온 글이 null인 경우
+		if(diet == null) {
+			//session.setAttribute("alertMsg", "식단이 등록되지 않은 날짜입니다! 다시 선택해주세요.");
+			model.addAttribute("d", di);
+			return "class/dietList";
+		}else {
 			model.addAttribute("d", diet);
 			return "class/dietDetailView";
-		}else {
-			model.addAttribute("d", di);
-			return "class/dietDetailView";
 		}
+		
 	}
 	
 	
@@ -146,6 +218,13 @@ public class ClassController {
 	}
 
 	
+	//댓글 수정 (직원 : update.re)
+	@ResponseBody
+	@RequestMapping("update.re")
+	public String ajaxUpdateReply(Reply r) {
+		int result = cService.updateReply(r);
+		return result>0 ? "success" : "fail";
+	}
 	
 	
 	

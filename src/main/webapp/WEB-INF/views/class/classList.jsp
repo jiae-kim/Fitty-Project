@@ -34,8 +34,8 @@ justify-content: center;
                     <table class="table table-hover" id="userList">
                         <thead align="center">
 	                        <tr>
-	                        	<th width="10%">수업번호</th>
-	                        	<th width="10%">회원번호</th>
+	                        	<th width="5%">수업번호</th>
+	                        	<th width="5%">회원번호</th>
 	                        	<th width="10%">이름</th>
 	                        	<th width="10%">성별</th>
 	                        	<th width="10%">나이</th>
@@ -77,7 +77,7 @@ justify-content: center;
             	<script>
             		$(function(){
             			$("#userList>tbody>tr").click(function(){
-            				location.href='diet.cl?classNo=' + $(this).children(".cNo").text();
+            				location.href='exercise.cl?classNo=' + $(this).children(".cNo").text();
             			})
             		})
             	</script>

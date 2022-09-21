@@ -2,6 +2,7 @@ package com.project.fitty.ptclass.model.service;
 
 import java.util.ArrayList;
 
+import com.project.fitty.ptclass.model.vo.Exercise;
 import com.project.fitty.ptclass.model.vo.PtClass;
 import com.project.fitty.ptclass.model.vo.Reply;
 import com.project.fitty.user.model.vo.User;
@@ -24,6 +25,30 @@ public interface ClassService {
 	ArrayList<User> selectUserList(String empNo);
 	
 	
+	//운동 등록
+	int insertExercise(Exercise e);
+	
+	
+	//운동 리스트 조회 (오늘 날짜)
+	ArrayList<Exercise> selectExerciseList(Exercise e);
+	
+	
+	//운동 완료상태 변경
+	int updateCheck(Exercise e);
+	
+	
+	//운동 삭제
+	int deleteExercise(Exercise e);
+	
+	
+	//운동 수정
+	int updateExercise(Exercise e);
+	
+	
+	//운동 수정전 조회
+	Exercise selectExercise(Exercise e);
+	
+	
 	//수업 번호에 따른 식단일기 조회
 	ArrayList<Diet> selectDiet(int classNo);
 	
@@ -36,8 +61,11 @@ public interface ClassService {
 	ArrayList<Reply> selectReplyList(int dietNo);
 	
 	
-	
 	//댓글 등록 서비스
 	int insertReply(Reply r);
+	
+	
+	//댓글 수정 서비스
+	int updateReply(Reply r);
 	
 }

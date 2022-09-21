@@ -49,6 +49,19 @@
 	</resultMap>
 
 
+	<resultMap type="Exercise" id="exerciseResult">
+		<result column="cl_no" property="classNo" />
+		<result column="ex_date" property="exDate" />
+		<result column="ex_writer" property="exWriter" />
+		<result column="ex_title" property="exTitle" />
+		<result column="ex_count" property="exCount" />
+		<result column="ex_set" property="exSet" />
+		<result column="ex_coment" property="exComent" />
+		<result column="ex_link" property="exLink" />
+		<result column="ex_status" property="exStatus" />
+		<result column="ex_no" property="exNo" />
+	</resultMap>
+
 
 	<select id="selectUser" resultMap="userResult">
 		select 
@@ -121,6 +134,104 @@
 	</select>
 	
 	
+	
+	<select id="selectExerciseList" resultMap="exerciseResult">
+		select
+			   cl_no
+			 , ex_date
+			 , ex_writer
+			 , ex_title
+			 , ex_count
+			 , ex_set
+			 , ex_coment
+			 , ex_link
+			 , ex_status
+			 , ex_no
+		  from tb_exercise
+		 where cl_no = #{classNo}
+		   and ex_date = #{exDate}
+		 order
+		    by ex_no
+	</select>
+	 
+	
+	 
+	<insert id="insertExercise">
+		insert
+		  into tb_exercise
+		  (
+		  	cl_no
+		  , ex_date
+		  , ex_writer
+		  , ex_title
+		  , ex_count
+		  , ex_set
+		  , ex_coment
+		  , ex_link
+		  , ex_status
+		  , ex_no
+		  )
+		  values
+		  (
+		  	#{classNo}
+		  , to_char(sysdate, 'YY/MM/DD')
+		  , #{exWriter}
+		  , #{exTitle}
+		  , #{exCount}
+		  , #{exSet}
+		  , #{exComent}
+		  , #{exLink}
+		  , 'N'
+		  , seq_exno.nextval
+		  )
+	</insert>
+	
+	
+	<update id="updateCheck">
+		update tb_exercise
+		   set ex_status = 'Y'
+		 where ex_no = #{exNo}
+	</update>
+	
+	
+	
+	<delete id="deleteExercise">
+		delete 
+		  from tb_exercise
+		 where ex_no = #{exNo}
+	</delete>
+	
+	
+	
+	<update id="updateExercise">
+		update tb_exercise
+		   set ex_title = #{exTitle}
+		     , ex_count = #{exCount}
+		     , ex_set = #{exSet}
+		     , ex_coment = #{exComent}
+		     , ex_status = 'N'
+		 where ex_no = #{exNo}
+	</update>
+	
+	
+	<select id="selectExercise" resultMap="exerciseResult">
+		select 
+			   cl_no
+			 , ex_date
+			 , ex_writer
+			 , ex_title
+			 , ex_count
+			 , ex_set
+			 , ex_coment
+			 , ex_link
+			 , ex_status
+			 , ex_no
+		  from tb_exercise
+		 where ex_no = #{exNo}
+	</select>
+	
+	
+	
 	<select id="selectDiet" resultMap="dietResult">
 		select di_no
 		     , cl_no
@@ -136,6 +247,8 @@
 		     , di_re_img
 		  from tb_diet
 		 where cl_no = #{classNo}
+		 order
+		    by di_date
    </select>
    
    
@@ -201,6 +314,14 @@
 		    by re_no
 	</select> 
 	
+	
+	
+	<update id="updateReply">
+		update tb_reply
+		   set re_content = #{replyContent}
+		   	 , re_date = sysdate
+		 where re_no = #{replyNo}
+	</update>	
 	
 	
 </mapper>

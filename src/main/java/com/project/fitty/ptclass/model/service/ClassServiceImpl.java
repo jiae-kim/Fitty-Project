@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.fitty.ptclass.model.dao.ClassDao;
+import com.project.fitty.ptclass.model.vo.Exercise;
 import com.project.fitty.ptclass.model.vo.PtClass;
 import com.project.fitty.ptclass.model.vo.Reply;
 import com.project.fitty.user.model.vo.User;
@@ -46,6 +47,42 @@ public class ClassServiceImpl implements ClassService{
 		return cDao.selectUserList(sqlSession, empNo);
 	}
 	
+	//운동 등록
+	@Override
+	public int insertExercise(Exercise e) {
+		return cDao.insertExercise(sqlSession, e);
+	}
+	
+	//운동 리스트 조회 (오늘날짜)
+	@Override
+	public ArrayList<Exercise> selectExerciseList(Exercise e) {
+		return cDao.selectExerciseList(sqlSession, e);
+	}
+	
+	//운동 완료 상태 변경
+	@Override
+	public int updateCheck(Exercise e) {
+		return cDao.updateCheck(sqlSession, e);
+	}
+	
+	//운동 삭제
+	@Override
+	public int deleteExercise(Exercise e) {
+		return cDao.deleteExercise(sqlSession, e);
+	}
+	
+	//운동 수정
+	@Override
+	public int updateExercise(Exercise e) {
+		return cDao.updateExercise(sqlSession, e);
+	}
+	
+	//운동 수정 전 조회
+	@Override
+	public Exercise selectExercise(Exercise e) {
+		return cDao.selectExercise(sqlSession, e);
+	}
+
 	//수업번호에 따른 회원 식단조회
 	@Override
 	public ArrayList<Diet> selectDiet(int classNo) {
@@ -69,6 +106,14 @@ public class ClassServiceImpl implements ClassService{
 	public int insertReply(Reply r) {
 		return cDao.insertReply(sqlSession, r);
 	}
+
+	//댓글 수정
+	@Override
+	public int updateReply(Reply r) {
+		return cDao.updateReply(sqlSession, r);
+	}
+
+	
 
 	
 }
