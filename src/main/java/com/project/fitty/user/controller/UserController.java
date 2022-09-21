@@ -80,19 +80,8 @@ public class UserController {
 		
 		return mv;
 	}
-
-	/*
-	// [김지애] 3. 회원 상세조회 서비스
-	@RequestMapping("uDetail.ur")
-	public ModelAndView uDetailPage(int userNo, ModelAndView mv) {
-		User u = uService.selectUser(userNo);
-		mv.addObject("u", u).setViewName("user/userDetailView");
-		
-		return mv;
-	}
-	*/
 	
-	// [김지애] 4. 회원수정 서비스
+	// [김지애] 3. 회원 상세조회 서비스
 	@RequestMapping("updateForm.ur")
 	public String updateForm(int no, Model model) {
 		// 수정할 회원 번호만 받아서 한행 조회 후 model에 담아 수정페이지 포워딩
@@ -170,14 +159,14 @@ public class UserController {
 		}
 	}
 	
-	// [김지애] 7. 회원등록 시 전화번호 중복체크
+	// [김지애] 7. 회원등록 시 전화번호 중복체크 - ajax
 	@ResponseBody
 	@RequestMapping("telCheck.ur")
 	public String ajaxTelCheck(String checkTel) {
 		// 사용자가 입력했던 전화번호값 == 중복확인해볼 전화번호
-		int result = uService.telCheck(checkTel);
+		int count = uService.telCheck(checkTel);
 		
-		return result>0 ? "fail" : "success";
+		return count > 0 ? "fail" : "success";
 	}
 	
 }
