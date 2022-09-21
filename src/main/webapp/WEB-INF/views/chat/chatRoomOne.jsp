@@ -27,8 +27,6 @@
 	            <b>${ loginUser.empName } 🏃‍♂️ ${ loginUser.grName }</b>
             </h5>
             <input type="hidden" value="${loginUser.empNo}" id="empNoInput">
-            <input type="hidden" value="${loginUser.empName}" id="empNameInput">
-            <input type="hidden" value="<c:out value='${loginUser.empPhoto}' default='resources/profile_images/defaultProfile.png' />" id="empPhotoInput">
       	</div>
 
        <!-- Search -->
@@ -44,6 +42,7 @@
 
        <div>
          <ul class="empList">
+           
          </ul>
        </div>
        
@@ -55,52 +54,11 @@
  <!-- 채팅창 -->
  <div class="col-md-9 ">
    <div class="card mb-4 vacDetailDiv">
-  <!-- a href="testChat">가라ㅜㅡ</a>-->
-  	<!-- 
-    <h5 class="card-header" style="margin-bottom : 20px; margin-top:20px;">
-    <img src="${loginUser.empPhoto}" alt="Avatar" class="rounded-circle" width="30px;" height="30px;"/>
-    <b>상대방 트레이너님</b>
-    </h5>
-	<input type="hidden" id="id" value="상대방트레이너">
-	<div>
-		<div id="chatarea" class="card-header" style="width: 80%; height: 600px;">
-			
-			<div id="chatTextArea">
-				<table class="yourTable">
-					<tr>
-						<td rowspan="2"><img src="${loginUser.empPhoto}" alt="Avatar" class="rounded-circle col-md-1" width="30px;" height="30px;"/></td>
-						<td rowspan="2" class="textTd"><div class="noStyle" id="yourText"></div></td>
-						<td width="150px;">트레이너이름</td>
-					</tr>
-					<tr>
-						<td>2022-30-44</td>
-					</tr>
-				</table>
-				<table class="myTable">
-					<tr>
-						<td width="150px;">트레이너이름</td>
-						<td rowspan="2" class="textTd"><div class="noStyle" id="yourText"></div></td>
-						<td rowspan="2"><img src="${loginUser.empPhoto}" alt="Avatar" class="rounded-circle col-md-1" width="30px;" height="30px;"/></td>
-					</tr>
-					<tr>
-						<td>2022-30-44</td>
-					</tr>
-				</table>
-			</div>
-			<form>
-				<textarea id="message" /></textarea>
-				<input type="button" class="btn btn-primary" style="margin-top:-42px; height : 50px;" id="send" value="보내기" />
-			<!--  	<input type="button" id="exit" value="나가기" />-->
-		<!-- 	</form>
-		</div>
-	</div>
-     -->
+   
   </div>
 </div>
 
-
-<script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
 <script type="text/javascript" src="resources/js/chat.js"></script>
-<script type="text/javascript" src="resources/js/chat/chatEmpList.js"></script>
+<script type="text/javascript" src="resources/js/chat/chatRoomOne.js"></script>
 </body>
 </html>

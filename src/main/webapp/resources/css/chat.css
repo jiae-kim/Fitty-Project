@@ -99,8 +99,55 @@ ul li b{
   color: #696CFF;
 }
 
+/*----------AJAX 채팅창*/
+#chatarea{
+	background-color : #f3f6f4;
+}
 
+#chatTextArea {
+	height :500px;
+}
 
+#message{
+  resize: none;
+  width: 80%;
+  height: 50px;
+  border: 0.5px solid #696CFF;
+  border-radius: 7px;
+  padding: 5px;
+}
 
+.yourTable{
+	background-color : #E7E7FF;
+	width: 80%;
+	border-radius: 7px;
+  	padding: 5px;
+  	float : left;
+  	margin-left : 20px;
+  	margin-bottom : 20px;
+}
+
+.myTable{
+	background-color : white;
+	width: 80%;
+	border-radius: 7px;
+  	padding: 5px;
+  	float : right;
+  	margin-right:20px;
+  	margin-bottom : 20px;
+}
+
+.noStyle{
+	border : none;
+	width : 100%;
+	height:100%
+}
+#yourText {
+	background-color : white;
+}
+
+.textTd {
+	width:300px;
+}
 
 /*chatEmpList*/

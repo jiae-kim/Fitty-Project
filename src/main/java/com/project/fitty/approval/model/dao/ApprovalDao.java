@@ -40,6 +40,18 @@ public class ApprovalDao {
 		return sqlSession.insert("approvalMapper.insertApprOvt", ovt);
 	}
 	
+	public int selectScheduleListCount(SqlSessionTemplate sqlSession, String empNo) {
+		return sqlSession.selectOne("approvalMapper.selectScheduleListCount", empNo);
+	}
+	
+	public ArrayList<Approval> selectScheduleList(SqlSessionTemplate sqlSession, PageInfo pi, String empNo){
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectScheduleList", empNo, rowBounds);
+	}
+	
 	public int selectListCount(SqlSessionTemplate sqlSession, String empNo) {
 		return sqlSession.selectOne("approvalMapper.selectListCount", empNo);
 	}

@@ -28,8 +28,8 @@
 html, body{font-size: 16px;}
 
 #calendar {    
-	max-width: 1300px;
-	max-hight: 900px;    
+	max-width: 1400px;
+	max-hight: 1000px;    
 	margin: 0 auto;  
 }
 
@@ -46,30 +46,29 @@ html, body{font-size: 16px;}
     	<div class="row">
       		<div class="col-xl-12">
         		<div class="nav-align-top mb-4">
-          			<div class="tab-content" style="height: 900px;">
+          			<div class="tab-content" style="height: 1000px;">
           			<!-- 회원 페이지 : 스케줄 조회 / 등록 -->
-            		<h5 class="text-muted" style="padding-bottom: 2px;">📅내 스케줄 관리</h5>
+            		<h5 class="text-muted">📅 ${loginU.userName}님의 스케줄입니다 🏋️담당 트레이너${loginU.empName}입니다</h5>
 					<!-- 예약 등록 버튼 -->
 					<div class="btn-group2" style="float: right; display: inline-block;">
 		            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scheduleEnroll">수업 예약</button>
 		            <!-- 예약 등록 Modal -->
 		            <div class="modal fade" id="scheduleEnroll" tabindex="-1" aria-hidden="true">
-		              <div class="modal-dialog modal-dialog-centered" role="document">
-		                <div class="modal-content">
-		                  <div class="modal-header">
-		                    <h5 class="modal-title" id="modalCenterTitle" style="padding-bottom : 5px;">📅내 스케줄 관리 - 수업 예약</h5>
+		            <div class="modal-dialog modal-dialog-centered" role="document">
+		            <div class="modal-content">
+		                <div class="modal-header">
+		                	<h5 class="modal-title" id="modalCenterTitle" style="padding-bottom : 5px;">📅내 스케줄 관리 - 수업 예약</h5>
 		                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		                  </div>
-		                  <form action="insert.sc" method="post" id="enrollForm">
-		                  <div class="modal-body">
-		                  	<!-- 예약 번호는 등록 시 자동 생성됨 -->
-		                    <!-- 수업번호, 회원번호, 담당트레이너번호 넣어줌 -->
+		                </div>
+		                <form action="insert.sc" method="post" id="enrollForm">
+		                <div class="modal-body">
+		                	<!-- 예약 번호는 등록 시 자동 생성됨 -->
+		                    <!-- 로그인한 회원의 수업번호, 회원번호, 담당트레이너번호 넣어줌 -->
 		                  	<input type="hidden" name="clNo" value="${loginU.classNo}">
-		                  	<label for="html5-date-input" class="col-md-5 col-form-label" id="font">${loginU.classNo}</label>
 		                  	<input type="hidden" name="userNo" value="${loginU.userNo}">
 		                    <input type="hidden" name="empNo" value="${loginU.empNo}">
 		                  	
-		                  	<!-- 수업일자 -->
+		                  	<!-- 수업 예약 일자 -->
 							<div class="mb-4 row">
 								<label for="html5-date-input" class="col-md-5 col-form-label" id="font">예약 날짜</label>
 								<div class="col-md-6">
@@ -83,20 +82,75 @@ html, body{font-size: 16px;}
 								<div class="col-md-6">
 								<select id="defaultSelect" name="bookStime" class="form-select" required>
 	                                <option disabled selected hidden>예약할 수업 시작 시간 선택</option>
-	                                <option value="9:00">9:00</option>
-	                                <option value="10:00">10:00</option>
-	                                <option value="11:00">11:00</option>
-	                                <option value="12:00">12:00</option>
-	                                <option value="13:00">13:00</option>
-	                                <option value="14:00">14:00</option>
-	                                <option value="15:00">15:00</option>
-	                                <option value="16:00">16:00</option>
-	                                <option value="17:00">17:00</option>
-	                                <option value="18:00">18:00</option>
-	                                <option value="19:00">19:00</option>
-	                                <option value="20:00">20:00</option>
-	                                <option value="21:00">21:00</option>
-	                                <option value="22:00">22:00</option>
+	                                <c:forEach var="i" begin="9" end="22">
+	                                	<option value="${i>9?i:'0'}${i>9?'':i}:00">${i>9?i:'0'}${i>9?'':i}:00</option>
+	                                </c:forEach>
+                              	</select>
+								</div>
+							</div>
+							
+							<!-- 수업 종료 시간 -->
+							<div class="mb-4 row">
+								<label for="html5-date-input" class="col-md-5 col-form-label" id="font">수업 종료 시간</label>
+								<div class="col-md-6">
+								<select id="defaultSelect" name="bookEtime" class="form-select" required>
+	                                <option disabled selected hidden>예약할 수업 종료 시간 선택</option>
+									<c:forEach var="i" begin="9" end="22">
+	                                	<option value="${i>9?i:'0'}${i>9?'':i}:00">${i>9?i:'0'}${i>9?'':i}:00</option>
+	                                </c:forEach>
+                              	</select>
+								</div>
+							</div>
+
+		                </div>
+		                <div class="modal-footer">
+		                	<button type="submit" class="btn btn-primary">확인</button>
+		                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
+		                </div>
+		                </form> 
+		            </div>
+		            </div>
+		            </div>
+					</div><br><br><br>	
+					
+					<!-- 예약 상세조회용 모달 (조회, 수정, 삭제 기능) -->
+					<!-- 로그인한 회원의 정보 / 어떤 직원과 어떤 수업을 언제(날짜, 시간)-->
+					<div class="modal fade" id="myModall" tabindex="-1" aria-hidden="true">
+				    <div class="modal-dialog modal-dialog-centered" role="document">
+					<div class="modal-content">
+					  	<div class="modal-header">
+							<h5 class="modal-title" id="modalCenterTitle" style="padding-bottom : 5px;">📅내 스케줄 관리 - 수업 예약</h5>
+							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				  	 	</div>
+				  	  	<form action="" method="post" id="suForm">
+			          	<div class="modal-body">
+							<!-- 조회, 수정, 삭제 시 예약 번호 필요함 -->
+			          		<input type="hidden" name="bookNo" value="${b.bookNo}">
+
+							<!-- 담당 트레이너 -->
+							<div class="mb-4 row">
+								<label for="html5-date-input" class="col-md-5 col-form-label" id="font">담당 트레이너</label>
+								<div class="col-md-6">
+									<input class="form-control" type="text" name="empName" value="${b.empName}" id="html5-date-input" readonly />
+								</div>
+							</div>
+			          	
+							<!-- 수업일자 (변경가능) -->
+							<div class="mb-4 row">
+								<label for="html5-date-input" class="col-md-5 col-form-label" id="font">예약 날짜</label>
+								<div class="col-md-6">
+									<input class="form-control" type="date" name="bookDate" value="${b.bookDate}" id="html5-date-input" />
+								</div>
+							</div>
+						
+							<!-- 수업 시작 시간 -->
+							<div class="mb-4 row">
+								<label for="html5-date-input" class="col-md-5 col-form-label" id="font">수업 시작 시간</label>
+								<div class="col-md-6">
+								<select id="bookStime" name="bookStime" class="form-select" required>
+	                                <c:forEach var="i" begin="9" end="22">
+	                                	<option value="${i>9?i:'0'}${i>9?'':i}:00">${i>9?i:'0'}${i>9?'':i}:00</option>
+	                                </c:forEach>
                               	</select>
 								</div>
 							</div>
@@ -105,66 +159,38 @@ html, body{font-size: 16px;}
 							<div class="mb-4 row">
 								<label for="html5-date-input" class="col-md-5 col-form-label" id="font">수업 종료 시간</label>
 								<div class="col-md-6">
-								<select id="defaultSelect" name="bookEtime" class="form-select" required>
-	                                <option disabled selected hidden>예약할 수업 종료 시간 선택</option>
-	                                <option value="9:00">9:00</option>
-	                                <option value="10:00">10:00</option>
-	                                <option value="11:00">11:00</option>
-	                                <option value="12:00">12:00</option>
-	                                <option value="13:00">13:00</option>
-	                                <option value="14:00">14:00</option>
-	                                <option value="15:00">15:00</option>
-	                                <option value="16:00">16:00</option>
-	                                <option value="17:00">17:00</option>
-	                                <option value="18:00">18:00</option>
-	                                <option value="19:00">19:00</option>
-	                                <option value="20:00">20:00</option>
-	                                <option value="21:00">21:00</option>
-	                                <option value="22:00">22:00</option>
+								<select id="bookEtime" name="bookEtime" class="form-select" required>
+	                                <c:forEach var="i" begin="9" end="22">
+	                                	<option value="${i>9?i:'0'}${i>9?'':i}:00">${i>9?i:'0'}${i>9?'':i}:00</option>
+	                                </c:forEach>
                               	</select>
 								</div>
 							</div>
-		                  </div>
-		                  <div class="modal-footer">
-		                    <button type="submit" class="btn btn-primary">확인</button>
-		                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
-		                  </div>
-		                  </form> 
-		                </div>
-		              </div>
-		            </div>
-					</div>
-					<br><br><br>	
-					
-					<!-- 외부 JSP모달 불러오기 : 예약상세조회(scheduleUdetailView) 페이지 -->
-					<!-- 예약 상세조회 모달 -->
-					<div class="modal fade insertModal" id="myModal1">
-					<div class="modal-dialog">
-					  <div class="modal-content">
-					  
-					  
-					  </div>
-					</div>
-					</div>	
-					
-					<script>
-					</script>
-						
-					<!-- 외부 JSP모달로 불러오기 : 예약정보 상세조회 -->
-					<!--  
-					<script>
-						// 예약 정보 상세조회
-						$(".modal-content").load("");
-						
-						function ModalOpen(arg) {
-							console.log(arg);
 							
-							// 해당 예약번호를 넘겨서 해당 예약정보 상세 조회하는 ajax
-							// ajax success function에서 조회된 정보를 #myModall인 모달 div안 input 요소에 value값으로 뿌림
-							
-						}
+			            </div>
+			            <div class="modal-footer" style="display: flex; justify-content: center;">
+			              <button type="button" class="btn btn-primary"  onclick="updateS();">예약변경</button>
+			              <button type="button" class="btn btn-warning"  onclick="deleteS();">예약취소</button>
+			              <a class="btn btn-secondary" href="listSchedule.sc" >뒤로가기</a>
+			            </div>
+			            </form> 
+				  	</div>
+					</div>
+					</div>
+					
+					<!-- 예약 수정 function -->
+					<script>
+					function updateS(){
+						$('#suForm').attr('action', "update.sc").submit();
+					}
 					</script>
-					-->
+					
+					<!-- 예약 삭제 function -->
+					<script>
+					function deleteS(){
+						$('#suForm').attr('action', "delete.sc").submit();
+					}
+					</script>
 					
 					<!-- 캘린더 태그 -->
 					<div id="wrap">
@@ -192,25 +218,26 @@ html, body{font-size: 16px;}
 									let obj = {};
 									
 									if(list[i].userNo == userNo){
+										// 내 스케줄 (내가 예약한 내용)
 										obj = {
-											    id : list[i].bookNo,
-												title : list[i].empName,
-												start : list[i].bookDate, 
-												end : list[i].bookDate,
-												textColor : "white,
-												backgroundColor : "purple"
+												id : list[i].bookNo,
+												title : list[i].userName + " " + list[i].bookStime + "~" + list[i].bookEtime,
+												start : list[i].bookDate + " " + list[i].bookStime, 
+												end : list[i].bookDate + " " + list[i].bookEtime,
+												textColor : "black",
+												backgroundColor : "#696cff"
 											}
 									}else{
+										// 내 담당트레이너의 스케줄(내 예약내용 아님)
 										obj = {
-										    id : list[i].bookNo,
-											title : list[i].empName,
-											start : list[i].bookDate, 
-											end : list[i].bookDate,
-											textColor : "white",
-											backgroundColor : "lightgray"
+											id : list[i].bookNo,
+											title : "예약마감 : " + list[i].bookStime + "~" + list[i].bookEtime,
+											start : list[i].bookDate + " " + list[i].bookStime, 
+											end : list[i].bookDate + " " + list[i].bookEtime,
+											textColor : "black",
+											color : "lightgray"
 										}
 									}
-									
 									data.push(obj);
 								}
 								// -------------------- 캘린더 렌더링 --------------------
@@ -218,7 +245,7 @@ html, body{font-size: 16px;}
 								   var calendarEl = document.getElementById('calendar');
 								   var calendar = new FullCalendar.Calendar(calendarEl, {
 									  // calendar 높이 설정
-									  height: '750px',
+									  height: '850px',
 									  // 화면에 맞게 높이 재설정
 									  expandRows: true,
 									  // 초기 로드 될때 보이는 캘린더 화면 (기본설정 : 달)
@@ -246,18 +273,59 @@ html, body{font-size: 16px;}
 								      // DB 이벤트로 추가
 									  events : data,
 									  // 이벤트에 시간 표시
-									  displayEventTime: false
+									  displayEventTime: false,
+									  // 달력에서 모달 오픈
+									  eventClick:function(arg){
+										  ModalOpen(arg);
+									  }
 								   });
 								   calendar.render();
 							   // ------------------------------------------------------------
 							},
 							error: function(){
-								console.log("ajax 통신 실패");
+								console.log("스케줄 전체조회 ajax 통신 실패");
 							}
 						})
 					})
-					</script>
 
+					// 예약 상세조회
+					function ModalOpen(arg){
+						console.log(arg);
+						console.log(arg.event._def.publicId);
+						
+						// 해당 예약번호를 넘겨서 수업예약 상세 정보 조회 ajax
+					    // ajax success function에서 조회한 정보를 #myModall의 value 값으로 뿌림
+					    $.ajax({
+					    	url:"detail.sc",
+					    	data:{bookNo: arg.event._def.publicId},
+					    	success:function(booking){
+					    		//console.log(booking);
+					    		// 예약 번호
+					    		$('input[name=bookNo]').attr('value', booking.bookNo);
+					    		// 담당 트레이너 이름
+					    		$('input[name=empName]').attr('value', booking.empName);
+					    		// 예약한 수업 일자
+					    		$('input[name=bookDate]').attr('value', booking.bookDate);
+					    		// 예약한 수업 시작 시간
+					    		$("#bookStime option").each(function(){
+					    			if($(this).val() == booking.bookStime){
+					    				$(this).attr('selected', true);
+					    			}
+					    		})
+					    		// 예약한 수업 종료 시간 
+					    		$("#bookEtime option").each(function(){
+					    			if($(this).val() == booking.bookEtime){
+					    				$(this).attr('selected', true);
+					    			}
+					    		})
+					    	},
+					    	error:function(){
+					    		console.log("스케줄 상세조회 ajax 통신 실패");	
+					    	}
+					    });
+						$('#myModall').modal('show');
+					}
+					</script>
 
           			</div>
         		</div>

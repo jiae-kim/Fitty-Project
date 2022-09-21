@@ -60,6 +60,16 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 
 	@Override
+	public int selectScheduleListCount(String empNo) {
+		return aDao.selectScheduleListCount(sqlSession, empNo);
+	}
+	
+	@Override
+	public ArrayList<Approval> selectScheduleList(PageInfo pi, String empNo) {
+		return aDao.selectScheduleList(sqlSession, pi, empNo);
+	}
+
+	@Override
 	public ArrayList<Approval> selectList(PageInfo pi, String empNo) {
 		return aDao.selectList(sqlSession, pi, empNo);
 	}

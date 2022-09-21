@@ -25,6 +25,10 @@ public interface ApprovalService {
 	// 지출결의서신청
 	int insertApprExp(ApprExpense exp);
 	
+	// 결재예정문서(페이징)
+	int selectScheduleListCount(String empNo);
+	ArrayList<Approval> selectScheduleList(PageInfo pi, String empNo);
+	
 	// 기안문서함(페이징)
 	int selectListCount(String empNo);
 	ArrayList<Approval> selectList(PageInfo pi, String empNo);

@@ -1,4 +1,4 @@
-package com.project.fitty.mail.model.vo;
+package com.project.fitty.email.model.vo;
 
 import java.sql.Date;
 
@@ -14,7 +14,7 @@ import lombok.ToString;
 @Getter
 @ToString
 
-public class Semail {
+public class Email {
 
 	private int emNo;
 	private String emTitle;

@@ -149,7 +149,7 @@ html, body{
 									  // Day 캘린더에서 시작 시간
 									  slotMinTime: '09:00',
 									  // Day 캘린더에서 종료 시간
-									  slotMaxTime: '23:00',
+									  slotMaxTime: '22:00',
 									  // 날짜를 선택하면 day 캘린더나 week캘린더로 링크
 									  navLinks: true,
 									  // 현재 시간 마크
