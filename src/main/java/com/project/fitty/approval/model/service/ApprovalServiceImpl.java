@@ -131,6 +131,16 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return aDao.insertStorage(sqlSession, ap);
 	}
 
+	@Override
+	public int selectWaitingListCount(String empNo) {
+		return aDao.selectWaitingListCount(sqlSession, empNo);
+	}
+
+	@Override
+	public ArrayList<Approval> selectWaitingList(PageInfo pi, String empNo) {
+		return aDao.selectWaitingList(sqlSession, pi, empNo);
+	}
+
 
 	
 

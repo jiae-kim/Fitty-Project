@@ -314,5 +314,18 @@ public class ApprovalController {
 		
 		return mv;
 	}
+	
+	@RequestMapping(value="waitingList.ap", produces="application/json; charset=utf-8")
+	public ModelAndView waitingList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String empNo, ModelAndView mv) {
+		int listCount = aService.selectWaitingListCount(empNo);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		ArrayList<Approval> list = aService.selectWaitingList(pi, empNo);
+		
+		mv.addObject("pi", pi).addObject("list", list).setViewName("approval/apprWaitingListView");
+		
+		return mv;
+		
+	}
 
 }

@@ -55,4 +55,8 @@ public interface ApprovalService {
 	// 결재문서함(ajax)
 	int ajaxSelectSignListCount(Approval ap);
 	ArrayList<Approval> ajaxSelectSignList(PageInfo pi, Approval ap);
+	
+	// 결재대기문서(페이징)
+	int selectWaitingListCount(String empNo);
+	ArrayList<Approval> selectWaitingList(PageInfo pi, String empNo);
 }

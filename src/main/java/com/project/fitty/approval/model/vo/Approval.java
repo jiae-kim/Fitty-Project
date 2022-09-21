@@ -28,5 +28,6 @@ public class Approval {
 	// 추가 컬럼
 	private String apprDate;
 	private String empName;
+	private String apprLevel;
 
 }

@@ -138,4 +138,16 @@ public class ApprovalDao {
 	public int insertStorage(SqlSessionTemplate sqlSession, Approval ap) {
 		return sqlSession.insert("approvalMapper.insertStorage", ap);
 	}
+	
+	public int selectWaitingListCount(SqlSessionTemplate sqlSession, String empNo) {
+		return sqlSession.selectOne("approvalMapper.selectWaitingListCount", empNo);
+	}
+	
+	public ArrayList<Approval> selectWaitingList(SqlSessionTemplate sqlSession, PageInfo pi, String empNo){
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectWaitingList", empNo, rowBounds);
+	}
 }

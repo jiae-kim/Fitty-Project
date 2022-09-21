@@ -221,3 +221,9 @@
 	padding:0;
 	float:right;
 }
+#all-app{
+  border:0px;
+  background-color:white;
+  font-size:14px;
+}
+#all-app>i{width:20px; height:20px;}
