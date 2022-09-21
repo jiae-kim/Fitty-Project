@@ -6,10 +6,13 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.project.fitty.approval.model.vo.ApprExpDetail;
+import com.project.fitty.approval.model.vo.ApprExpense;
 import com.project.fitty.approval.model.vo.ApprOvertime;
 import com.project.fitty.approval.model.vo.ApprVacation;
 import com.project.fitty.approval.model.vo.Approval;
 import com.project.fitty.approval.model.vo.ApprovalMember;
+import com.project.fitty.approval.model.vo.File;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
 
@@ -38,6 +41,26 @@ public class ApprovalDao {
 	
 	public int insertApprOvt(SqlSessionTemplate sqlSession, ApprOvertime ovt) {
 		return sqlSession.insert("approvalMapper.insertApprOvt", ovt);
+	}
+	
+	public int insertApprExp(SqlSessionTemplate sqlSession, ApprExpense exp) {
+		return sqlSession.insert("approvalMapper.insertApprExp", exp);
+	}
+	
+	public int insertApprExpDetail(SqlSessionTemplate sqlSession, ArrayList<ApprExpDetail> dlist) {
+		int result = 0;
+		for(int i=0; i<dlist.size(); i++) {
+			result = sqlSession.insert("approvalMapper.insertApprExpDetail", dlist.get(i));
+		}
+		return result;
+	}
+	
+	public int insertApprFile(SqlSessionTemplate sqlSession, ArrayList<File> flist) {
+		int result = 0;
+		for(int i=0; i<flist.size(); i++) {
+			result = sqlSession.insert("approvalMapper.insertApprFile", flist.get(i));
+		}
+		return result;
 	}
 	
 	public int selectScheduleListCount(SqlSessionTemplate sqlSession, String empNo) {
@@ -112,4 +135,7 @@ public class ApprovalDao {
 		return (ArrayList)sqlSession.selectList("approvalMapper.ajaxSelectSignList", ap, rowBounds);
 	}
 
+	public int insertStorage(SqlSessionTemplate sqlSession, Approval ap) {
+		return sqlSession.insert("approvalMapper.insertStorage", ap);
+	}
 }

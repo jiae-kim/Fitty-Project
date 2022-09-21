@@ -30,6 +30,7 @@
 		<typeAlias type="com.project.fitty.approval.model.vo.ApprOvertime" alias="ApprOvertime"/>
 		<typeAlias type="com.project.fitty.approval.model.vo.ApprExpense" alias="ApprExpense"/>
 		<typeAlias type="com.project.fitty.approval.model.vo.ApprExpDetail" alias="ApprExpDetail"/>
+		<typeAlias type="com.project.fitty.approval.model.vo.File" alias="File"/>
 		
 	</typeAliases>
 	
