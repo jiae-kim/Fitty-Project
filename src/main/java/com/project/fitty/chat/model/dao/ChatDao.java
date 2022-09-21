@@ -16,8 +16,14 @@ public class ChatDao {
 		return (ArrayList) sqlSession.selectList("chatMapper.selectChatEmpList", searchText);
 	}
 	
-	public Chat countRoomFlag(SqlSessionTemplate sqlSession, HashMap map) {
-		return sqlSession.selectOne("chatMapper.countRoomFlag", map);
+	public Chat countRoomFlag(SqlSessionTemplate sqlSession, Chat empC) {
+		//System.out.println("다오 : " + empC.getInvEmpNo());
+		//System.out.println("다오 : " + empC.getEmpNo());
+		return sqlSession.selectOne("chatMapper.countRoomFlag", empC);
+	}
+	
+	public Chat selectInvEmp(SqlSessionTemplate sqlSession, String invEmpNo) {
+		return sqlSession.selectOne("chatMapper.selectInvEmp", invEmpNo);
 	}
 	
 	public ArrayList<Chat> selectBubbleList(SqlSessionTemplate sqlSession, Chat c){

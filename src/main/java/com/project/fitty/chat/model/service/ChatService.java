@@ -10,9 +10,11 @@ public interface ChatService {
 	
 	ArrayList<Employee> selectChatEmpList(String searchText);
 	
-	Chat countRoomFlag(HashMap map);
+	Chat countRoomFlag(Chat empC);
 	
 	int insertChatInviteFirst(Chat c);
+	
+	Chat selectInvEmp (String invEmpNo);
 
 	ArrayList<Chat> selectBubbleList(Chat c);
 	

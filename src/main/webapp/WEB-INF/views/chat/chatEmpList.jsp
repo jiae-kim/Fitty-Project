@@ -27,6 +27,8 @@
 	            <b>${ loginUser.empName } 🏃‍♂️ ${ loginUser.grName }</b>
             </h5>
             <input type="hidden" value="${loginUser.empNo}" id="empNoInput">
+            <input type="hidden" value="${loginUser.empName}" id="empNameInput">
+            <input type="hidden" value="<c:out value='${loginUser.empPhoto}' default='resources/profile_images/defaultProfile.png' />" id="empPhotoInput">
       	</div>
 
        <!-- Search -->
@@ -98,61 +100,6 @@
 
 
 <script src="https://cdn.jsdelivr.net/sockjs/1/sockjs.min.js"></script>
-<script type="text/javascript">
-	// ##### 입장~~~!!
-	let websocket;
-	$(function(){
-		
-		
-	connect();
-	})
-	
-	function connect(){
-// 		websocket = new WebSocket("ws://본인 아이 피주소/www/chat-ws");
-		//websocket = new WebSocket("ws://172.30.1.52/www/chat-ws");
-		websocket = new SockJS("/fitty/chat-ws");
-			//웹 소켓에 이벤트가 발생했을 때 호출될 함수 등록
-			websocket.onopen = onOpen;
-			websocket.onmessage = onMessage;
-			//http://localhost:8765/fitty/chatEcho
-	}
-	
-	// ##### 연결 되었습니다!
-	function onOpen(){
-		id = document.getElementById("id").value;
-		websocket.send(id + "님과의 대화입니다.");
-	}
-	
-	// ##### 메세지 보내기 버튼 클릭!
-	document.getElementById("send").addEventListener("click", function() {
-		send();
-	});
-	
-	function send(){
-		id = document.getElementById("id").value;
-		msg = document.getElementById("message").value;
-		websocket.send(/*css 소스 + */id + ":"+ msg);
-		document.getElementById("message").value = "";
-	}
-	
-	function onMessage(evt){
-		data= evt.data;
-		chatarea = document.getElementById("chatTextArea");
-		chatTextArea.innerHTML = chatTextArea.innerHTML + "<br/>" + data
-	}
-	
-	// ##### 연결을 해제합니다!
-	document.getElementById("exit").addEventListener("click", function() {
-		disconnect();
-	});
-
-	function disconnect(){
-		id = document.getElementById("id").value;
-		websocket.send(id+"님이 퇴장하셨습니다");
-		websocket.close();
-	}
-	
-	</script>
 <script type="text/javascript" src="resources/js/chat.js"></script>
 <script type="text/javascript" src="resources/js/chat/chatEmpList.js"></script>
 </body>

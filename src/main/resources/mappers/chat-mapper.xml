@@ -38,7 +38,7 @@
 	</if>
   </select>
   
-  <select id="countRoomFlag" resultType="_int">
+  <select id="countRoomFlag" resultMap="chatResult">
 	select c.chat_room_no
 	     , c.emp_no as "emp_no"
 	     , i.emp_no as "inv_emp_No"
@@ -49,6 +49,16 @@
 	  join tb_invite i on (c.chat_room_no = i.chat_room_no)
 	 where c.emp_no = #{empNo}
 	   and i.emp_no = #{invEmpNo}
+  </select>
+  
+  <select id="selectInvEmp" resultMap="chatResult">
+  	select e.emp_no
+  		 , e.emp_name
+  		 , g.gr_name
+  		 , nvl(e.emp_photo, 'resources/profile_images/defaultProfile.png') as "emp_photo"
+  	  from tb_emp e
+  	  join tb_grade g on (e.emp_grade = g.emp_grade)
+  	 where emp_no = #{invEmpNo}
   </select>
   
   <select id="selectBubbleList" resultMap="chatResult">
