@@ -15,14 +15,14 @@
 		<jsp:include page="sideMenu.jsp"/>
 		
 		<div class="main">
-           <form action="">
+           <form action="" method="post" name="expForm" enctype="multipart/form-data">
              <h4 style="color:rgb(50, 50, 50);">지출결의서</h4><br>
 
-             <button class="f-btn">
-               <i class='bx bxs-edit' onclick="insertAppr();" type="button"></i>
+             <button class="f-btn" onclick="insertAppr();" type="button">
+               <i class='bx bxs-edit'></i>
                결재요청
              </button>
-             <button class="f-btn">
+             <button class="f-btn" type="button" onclick="insertStorage();">
                <i class='bx bx-download'></i>
                임시저장
              </button>
@@ -154,8 +154,14 @@
 	                   })
 	                   
 	                   function insertAppr(){
-	                	   alertify.confirm('결재를 요청하시겠습니까?', function(){ $("form[name=vctForm]").attr("action","insertExp.ap"); $("form[name=vctForm]").submit();}
+	                	   alertify.confirm('결재를 요청하시겠습니까?', function(){ $("form[name=expForm]").attr("action","insertExp.ap"); $("form[name=expForm]").submit();}
 	                       ); 
+	                   }
+	                   
+	                   function insertStorage(){
+	                	   alertify.confirm("작성하던 내용을 저장하시겠습니까?", function(){
+	                		   $("form[name=expForm]").attr("action", "insertStorage.ap").submit();
+	                	   })
 	                   }
 	                   
 	                   function cancel(){
@@ -241,6 +247,8 @@
 	           				$("#tb5").hide();
 	           				$("#tb2 td").empty();
 		           			$("#tb2").show();
+		           			$("#tb2").children().children().eq(0).children().eq(0).empty();
+		           			$("#tb2").children().children().eq(0).children().eq(0).append("<input type='hidden' id='empNo1' name='mlist[0].empNo' value=''>");
 		           			
 		           			let value1 = $("#mem").children().children().children().eq(2).text();
 		           			$("#tb2").children().children().eq(0).children().eq(1).append(value1);
@@ -249,12 +257,18 @@
 		           			$("#tb2").children().children().eq(1).children().eq(0).append(value2);
 		           			
 		           			let value3 = $("#mem").children().children().children().eq(3).children().val();
-		           			$("#tb2").children().children().eq(0).children().eq(0).children().attr("value", value3);
+		           			$("#empNo1").attr("value", value3);
+		           			$("input[name=apprMemCount]").attr("value", "1");
+		           			
+		           			$("#tb5").children().children().eq(0).children().eq(0).empty();
 		           			
 	           			}else if($("#mem tr").length == 2){
 	           				$("#tb2").hide();
 	           				$("#tb5 td").empty();
 	           				$("#tb5").show();
+	           				$("#tb5").children().children().eq(0).children().eq(0).empty();
+	           				$("#tb5").children().children().eq(0).children().eq(0).append("<input type='hidden' id='empNo1' name='mlist[0].empNo' value=''>");
+	           				$("#tb5").children().children().eq(0).children().eq(0).append("<input type='hidden' id='empNo2' name='mlist[1].empNo' value=''>");
 	           				
 	           				let value1 = $("#mem").children().children().eq(0).children().eq(2).text();
 		           			$("#tb5").children().children().eq(0).children().eq(1).append(value1);
@@ -269,10 +283,13 @@
 		           			$("#tb5").children().children().eq(1).children().eq(1).append(value4);
 		           			
 		           			let value5 = $("#mem").children().children().eq(0).children().eq(3).children().val();
-		           			$("#tb5").children().children().eq(0).children().eq(0).children().eq(0).attr("value", value5);
+		           			$("#empNo1").attr("value", value5);
 		           			
 		           			let value6 = $("#mem").children().children().eq(1).children().eq(3).children().val();
-		           			$("#tb5").children().children().eq(0).children().eq(0).children().eq(1).attr("value", value6);
+		           			$("#empNo2").attr("value", value6);
+		           			
+		           			$("#tb2").children().children().eq(0).children().eq(0).empty();
+		           			$("input[name=apprMemCount]").attr("value", "2");
 	           			}else{
 	           				$("#tb5").hide();
 	           			}
@@ -285,7 +302,6 @@
                <br><br>
                <input type="hidden" name="apprMemCount" value="">
                <input type="hidden" name="apprDocType" value="3">
-               <input type="hidden" name="apprTitle" value="지출결의서">
                <table id="tb1">
                  <tr>
                    <th width="40%">기안자</th>
@@ -302,13 +318,11 @@
                </table>
                 <table id="tb2" style="display:none;">
                <tr>
-                 <th rowspan="3" width="25%">
-                 	승인<input type="hidden" id="empNo1" name="empNo1" value="">
-                 </th>
-                 <td height="24px"><input type="hidden" name="apprLevel" value="1"></td>
+                 <th rowspan="3" width="25%">승인</th>
+                 <td height="24px"></td>
                </tr>
                <tr>
-                 <td><input type="hidden" name="apprMemCount" value="1"></td>
+                 <td></td>
                </tr>
                <tr>
                  <td height="24px"></td>
@@ -316,20 +330,16 @@
              </table>
              <table id="tb5" style="display:none;">
                <tr>
-                 <th rowspan="3" width="25px">
-                 	승인
-                 	<input type="hidden" id="empNo2" name="empNo1" value="">
-                 	<input type="hidden" id="empNo3" name="empNo1" value="">
-                 </th>
-                 <td height="24px" width="75px"><input type="hidden" name="apprLevel" value="1"></td>
-                 <td><input type="hidden" name="apprLevel" value="2"></td>
+                 <th rowspan="3" width="25px">승인</th>
+                 <td height="24px" width="75px"></td>
+                 <td></td>
                </tr>
                <tr>
                  <td></td>
                  <td></td>
                </tr>
                <tr>
-                 <td height="24px"><input type="hidden" name="apprMemCount" value="2"></td>
+                 <td height="24px"></td>
                  <td></td>
                </tr>
              </table>
@@ -339,13 +349,13 @@
                  <td height="24px">
                  	<c:choose>
                      	<c:when test="${ loginUser.empGrade eq 'C' }">
-                     		<td>대표</td>
+                     		대표
                      	</c:when>
                      	<c:when test="${ loginUser.empGrade eq 'A' }">
-                     		<td>팀장</td>
+                     		팀장
                      	</c:when>
                      	<c:otherwise>
-                     		<td>사원</td>
+                     		사원
                      	</c:otherwise>
                     </c:choose>
                  </td>
@@ -361,7 +371,7 @@
                <table id="tb4">
                  <tr>
                    <th width="20%" height="40px;">제목</th>
-                   <td colspan="3"><input type="text" class="title"></td>
+                   <td colspan="3"><input type="text" class="title" name="apprTitle"></td>
                  </tr>
                  <tr>
                    <th height="40px;">작성자</th>
@@ -373,32 +383,43 @@
                  </tr>
                  <tr>
                    <th height="120px;">지출 사유</th>
-                   <td colspan="3"><input type="text" class="rsn"></td>
+                   <td colspan="3"><input type="text" class="rsn" name="expReason"></td>
                  </tr>
                </table>
-               <div align="center">
-                 <button type="button" class="btn btn-sm btn-secondary" onclick="plus();">추가</button>
-                 <button type="button" class="btn btn-sm btn-secondary" onclick="del();">삭제</button>
-               </div>
                <script>
+               		var count = 0;
                		function plus(){
                			
+               			count++;
                			
                			var value = "";
                			
-               			value += "<tr>"
-               				   + "<td height='80'>연장</td>"
-               				   + "<td style='font-size:13px;'>" + $(".dt").val() + "<br> ("
-               				   + $("input[name=ovtStartTime]").val() + "~" + $("input[name=ovtEndTime]").val()
-               				   + ")</td><td style='font-size:13px;'>연장 : " + count + "h0m0s</td>"
-               				   + "<td colspan='2'>"+ $(".rsn").val() +"</td></tr>"
-               			$("#tb6").children().append(value);
+               			value += "<tr><td height='30' width='130'><input type='date' class='dt2' name='dlist["+ count +"].expDate'></td>"
+               			       + "<td width='110'><select name='dlist["+ count +"].expStatus' class='sel2'>"
+                               + "<option value='1'>기구구입비</option>"
+                               + "<option value='2'>비품구입비</option>"
+                               + "<option value='3'>회식비</option></select></td>"
+                               + "<td><input type='text' class='con' id='amount"+ count +"' name='dlist["+ count +"].expAmount' onchange='sum()'></td>"
+                               + "<td width='40%'><input type='text' class='con' name='dlist["+ count +"].expHistory'></td>"
+                               + "<td width='15%''><input type='text' class='con' name='dlist["+ count +"].expNote'></td></tr>";
+                               
+               			$("#tb7").children().children().filter(":last").before(value);
+               			sum();
                		}
                		function del(){
-               			$("#tb6").children().children().filter(":last").remove();
+               			if($("#tb7").children().children().length == 3){
+               				alertify.alert("한 행 이상 필수로 입력해야 합니다.");
+               			}else{
+               				$("#tb7").children().children().filter(":nth-last-child(2)").remove();
+               				count--;
+               			}
                		}
                </script>
-               <table id="tb7">
+               <div style="margin-right:3%;">
+                 <button type="button" class="pm" onclick="del();"><i class='bx bxs-minus-square' style="font-size:20px;"></i></button>
+                 <button type="button" class="pm" onclick="plus();"><i class='bx bxs-plus-square' style="font-size:20px;"></i></button>
+               </div>
+               <table id="tb7" style="padding-top:none;">
                  <tr>
                    <th height="30">일자</th>
                    <th>분류</th>
@@ -407,17 +428,17 @@
                    <th>비고</th>
                  </tr>
                  <tr>
-                   <td height="30" width="130"><input type="date" class="dt2" name="expDate"></td>
+                   <td height="30" width="130"><input type="date" class="dt2" name="dlist[0].expDate"></td>
                    <td width="110">
-                     <select name="expStatus" id="sel2">
+                     <select name="dlist[0].expStatus" class="sel2">
                        <option value="1">기구구입비</option>
                        <option value="2">비품구입비</option>
                        <option value="3">회식비</option>
                      </select>
                    </td>
-                   <td><input type="text" class="con" name="expAmount"></td>
-                   <td width="40%"><input type="text" class="con" name="expHistory"></td>
-                   <td width="15%"><input type="text" class="con" name="expNote"></td>
+                   <td><input type="text" class="con" id="amount0" name="dlist[0].expAmount" onchange="sum()"></td>
+                   <td width="40%"><input type="text" class="con" name="dlist[0].expHistory"></td>
+                   <td width="15%"><input type="text" class="con" name="dlist[0].expNote"></td>
                  </tr>
                  <tr>
                    <td colspan="5" height="30">합계 : </td>
@@ -426,37 +447,127 @@
                <span style="margin-left:30px;">* 영수증 별도 제출</span><br><br>
                <div>
                  <span style="margin-left:40px;">파일 첨부</span>
-                 <div class="addfile"><span style="color:gray; font-size:small;">파일선택</span></div>
+                 <div class="addfile">
+                 	<span>이 곳에 파일을 드래그하세요. 또는</span>
+                 	<span class="addfilebtn">
+	                 	<label for="upfile" style="color:gray;">파일선택</label>
+	                 	<input type="file" name="upfile" id="upfile" style="display:none;" onchange="selectFile()" multiple>
+                 	</span>
+                 	<br>
+                 	<ul class="fileList">
+                 		
+                 	</ul>
+                 </div>
                </div>
-               <br><br><br>
+               <br><br><br><br><br>
              </div>
              <script>
-           		function countDate(){
-	       			let date1 = $("input[name=vctStartDate]").val();
-	       			let date2 = $("input[name=vctEndDate]").val();
-	       			
-	       			let arr1 = date1.split("-");
-	       			let arr2 = date2.split("-");
-	       			
-	       			date1 = new Date(arr1[0], arr1[1], arr1[2]);
-	       			date2 = new Date(arr2[0], arr2[1], arr2[2]);
-	       			
-	       			let count = date2 - date1;
-	       			let dcount = Math.abs(count / (1000 * 60 * 60 * 24)) + 1;
-	       			
-	       			$("input[name=vctCount]").attr("value", dcount);
-	       			$("input[name=vacCount]").attr("value", dcount);
-	       			
-           		}
-           		
-           		function selectType(){
-           			if($("#sel1").val() == 1 && $("input[name=vctCount]").val() == 1){
-           				$(".hsel").attr("disabled", false);
-           			}else{
-           				$(".hsel").attr("disabled", true);
+              	// 파일 리스트 번호   
+        		var fileIndex = 0;
+	        
+	            $(function (){        
+	     	  		// 파일 드롭 다운      
+	     	     	fileDropDown();
+	        		
+	     	   	});
+           		function sum(){
+               		var amount = new Array();
+               		var sum = 0;   
+
+           			for(i=0; i<count+1; i++){
+           				amount.push(parseInt($("#amount" + i).val()));
+           				if(count+1 == $(".sel2").length){
+	           				sum = amount.reduce(function(accumulator, currentValue, i){
+           					return accumulator + currentValue;
+	           				});
+           				}
            			}
+               		
+               		
+               		$("#tb4").children().children().eq(2).children().eq(1).empty();
+               		$("input[name=expTotalAmount]").attr("value", sum);
+               		$("#tb4").children().children().eq(2).children().eq(1).append("&nbsp;" + sum);
+           		}	
+	        
+           		function delFile(btn){
+           			$(btn).parents("li").remove();
            		}
-           		
+           		     
+        	   // 파일 드롭 다운    
+        	   function fileDropDown(){       
+        		    var dropZone = $(".addfile");        
+        		   //Drag기능    
+        		   	dropZone.on('dragenter',function(e){            
+        			   e.stopPropagation();            
+        			   e.preventDefault();            
+        			   // 드롭다운 영역 css            
+        			   dropZone.css('background-color','#E3F2FC');        
+        			});        
+        			dropZone.on('dragleave',function(e){            
+       				    e.stopPropagation();            
+       				    e.preventDefault();            
+       				    // 드롭다운 영역 css            
+       					dropZone.css('background-color','#FFFFFF');        
+     				 });        
+        			dropZone.on('dragover',function(e){            
+    					e.stopPropagation();            
+    					e.preventDefault();            
+      					// 드롭다운 영역 css            
+     					dropZone.css('background-color','#E3F2FC');        
+      				});        
+        			dropZone.on('drop',function(e){            
+       					e.preventDefault();            
+       					// 드롭다운 영역 css           
+       					dropZone.css('background-color','#FFFFFF');                        
+       					var files = e.originalEvent.dataTransfer.files;            
+       					if(files != null){                
+    						if(files.length < 1){                    
+    							alert("폴더 업로드 불가");                    
+    							return;                
+    						}                
+     						selectFile(files)            
+     					}else{               
+    						alert("ERROR");            
+    					}        
+     				});    
+     			}     
+ 				// 파일 선택시    
+    			function selectFile(fileObject){        
+    				var files = null;         
+    				if(fileObject != null){           
+    					// 파일 Drag 이용하여 등록시            
+    					files = fileObject;        
+    				}else{            
+    					// 직접 파일 등록시           
+    					files = $('#upfile')[0].files;        
+    				}   
+ 					// 다중파일 등록     
+ 					if(files != null){        
+ 						for(var i = 0; i < files.length; i++){   
+	 						// 파일 이름    
+	 						var fileName = files[i].name;     
+	 						var fileNameArr = fileName.split("\.");   
+ 						    
+							// 업로드 파일 목록 생성    
+							uploadFile(fileIndex, fileName);  
+							// 파일 번호 증가        
+							fileIndex++;          
+						 
+						}        
+					}else{       
+					alert("ERROR");     
+					}
+							console.log($("#upfile")[0].files);
+				}
+     			
+     			function uploadFile(fileIndex, fileName){
+           			value="";
+           			
+           			value += "<li><span><button type='button' onclick='delFile(this)'; class='del'><i class='bx bx-x'></i></button></span>"
+           			       + "<span>" + fileName + "</span>"
+           			       + "</li>";
+           			$(".fileList").append(value);
+           		}
            </script>
            </form>
          </div>

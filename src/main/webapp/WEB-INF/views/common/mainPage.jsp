@@ -24,7 +24,7 @@
 							<div class="tab-content " style="width: 100%; height: 100%">
 								<div class="tab-pane fade show active"
 									id="navs-pills-justified-home" role="tabpanel">
-									<h5>헬스장 회원 수 추이 (2021.10 - 2022.8)</h5>
+									<h5>연간 헬스장 회원 수 추이</h5>
 									<canvas id="myChart3"></canvas>
 
 
@@ -133,7 +133,12 @@
 								backgroundColor:['rgb(105, 108, 255)',
 									'rgb(3, 195, 236)',
 									'rgb(32, 201, 151)',
-									'rgb(255, 171, 0)'
+									'rgb(113, 221, 55)',
+									'rgb(255, 171, 0)',
+									'rgb(253, 126, 20)',
+									'rgb(0, 123, 255)',
+									'rgb(102, 16, 242)'
+									
 								]
 							}]
 						}

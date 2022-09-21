@@ -22,7 +22,9 @@ import com.project.fitty.approval.model.vo.ApprOvertime;
 import com.project.fitty.approval.model.vo.ApprVacation;
 import com.project.fitty.approval.model.vo.Approval;
 import com.project.fitty.approval.model.vo.ApprovalMember;
+import com.project.fitty.approval.model.vo.File;
 import com.project.fitty.common.model.vo.PageInfo;
+import com.project.fitty.common.template.FileUpload;
 import com.project.fitty.common.template.Pagination;
 import com.project.fitty.employee.model.vo.Employee;
 
@@ -184,7 +186,6 @@ public class ApprovalController {
 		
 		for(int i=0; i<am.getMlist().size(); i++) {
 			list.get(i).setApprLevel(i+1);
-			System.out.println(list.get(i));
 		}
 		
 		int result1 = aService.insertApproval(ap);
@@ -201,28 +202,105 @@ public class ApprovalController {
 	}
 	
 	@RequestMapping("insertExp.ap")
-	public String insertApprExp(Approval ap, ApprovalMember am, ApprExpense exp, ApprExpDetail expd, MultipartFile upfile, HttpSession session, Model model) {
+	public String insertApprExp(Approval ap, ApprovalMember am, ApprExpense exp, ApprExpDetail expd, File f, MultipartFile[] upfile, HttpSession session, Model model) {
 		ArrayList<ApprovalMember> list = am.getMlist();
+		ArrayList<ApprExpDetail> dlist = expd.getDlist();
+		ArrayList<File> flist = new ArrayList<>();
 		
 		for(int i=0; i<am.getMlist().size(); i++) {
 			list.get(i).setApprLevel(i+1);
-			System.out.println(list.get(i));
 		}
 		
-		System.out.println(upfile);
+		if(upfile.length != 0) {
+			for(int i=0; i<upfile.length; i++) {
+				flist.add(f);
+				String saveFilePath = FileUpload.saveFile(upfile[i], session, "resources/approval_images/");
+				flist.get(i).setOriginName(upfile[i].getOriginalFilename());
+				flist.get(i).setChangeName(saveFilePath);
+				flist.get(i).setFileReNo(ap.getApprNo());
+			}
+			
+		}
+		int sum = 0;
+		for(int i=0; i<dlist.size(); i++) {
+			sum += dlist.get(i).getExpAmount();
+			exp.setExpTotalAmount(sum);
+		}
 		
-//		int result1 = aService.insertApproval(ap);
-//		int result2 = aService.insertApprMember(list);
-//		int result3 = aService.insertApprExp(exp);
-//		
-//		if(result1>0 && result2>0 && result3>0) {
-//			session.setAttribute("alertMsg", "결재가 요청되었습니다.");
-//			return "redirect:draftList.ap";
-//		}else {
-//			model.addAttribute("errorMsg", "결재 요청 실패");
-//			return "common/errorPage";
-//		}
-		return null;
+		int result1 = aService.insertApproval(ap);
+		int result2 = aService.insertApprMember(list);
+		int result3 = aService.insertApprExp(exp);
+		int result4 = aService.insertApprExpDetail(dlist);
+		int result5 = aService.insertApprFile(flist);
+		
+		if(result1>0 && result2>0 && result3>0 && result4>0 && result5>0) {
+			session.setAttribute("alertMsg", "결재가 요청되었습니다.");
+			return "redirect:draftList.ap";
+		}else {
+			model.addAttribute("errorMsg", "결재 요청 실패");
+			return "common/errorPage";
+		}
+	}
+	
+	@RequestMapping("insertStorage.ap")
+	public String insertStorage(Approval ap, ApprVacation vct, ApprOvertime ovt, ApprExpense exp, ApprExpDetail expd, File f, MultipartFile[] upfile, HttpSession session, Model model) {
+		ArrayList<ApprExpDetail> dlist = expd.getDlist();
+		ArrayList<File> flist = new ArrayList<>();
+		
+		
+		int result1 = aService.insertStorage(ap);
+		
+		if(ap.getApprDocType() == 1) {
+			int result2 = aService.insertApprVct(vct);
+			if(result1>0 && result2>0) {
+				session.setAttribute("alertMsg", "내용이 저장되었습니다.");
+				return "redirect:storageList.ap";
+			}else {
+				model.addAttribute("errorMsg", "임시저장 실패");
+				return "common/errorPage";
+			}
+			
+		}else if(ap.getApprDocType() == 2) {
+			int result3 = aService.insertApprOvt(ovt);
+			
+			if(result1>0 && result3>0) {
+				session.setAttribute("alertMsg", "내용이 저장되었습니다.");
+				return "redirect:storageList.ap";
+			}else {
+				model.addAttribute("errorMsg", "임시저장 실패");
+				return "common/errorPage";
+			}
+		}else {
+
+			if(upfile.length != 0) {
+				for(int i=0; i<upfile.length; i++) {
+					flist.add(f);
+					String saveFilePath = FileUpload.saveFile(upfile[i], session, "resources/approval_images/");
+					flist.get(i).setOriginName(upfile[i].getOriginalFilename());
+					flist.get(i).setChangeName(saveFilePath);
+					flist.get(i).setFileReNo(ap.getApprNo());
+				}
+				
+				int sum = 0;
+				for(int i=0; i<dlist.size(); i++) {
+					sum += dlist.get(i).getExpAmount();
+					exp.setExpTotalAmount(sum);
+				}
+			}
+			
+			int result4 = aService.insertApprExp(exp);
+			int result5 = aService.insertApprExpDetail(dlist);
+			int result6 = aService.insertApprFile(flist);
+			
+			if(result1>0 && result4>0 && result5>0 && result6>0) {
+				session.setAttribute("alertMsg", "내용이 저장되었습니다.");
+				return "redirect:storageList.ap";
+			}else {
+				model.addAttribute("errorMsg", "임시저장 실패");
+				return "common/errorPage";
+			}
+			
+		}
 	}
 	
 	@RequestMapping(value="duleList.ap", produces="application/json; charset=utf-8")

@@ -114,6 +114,68 @@
 		  )
 	</insert>
 	
+	<insert id="insertApprExp">
+		insert
+		  into tb_appr_exp
+		  (
+		    appr_no
+		  , exp_mem
+		  , exp_date
+		  , exp_total_amount
+		  , exp_reason
+		  )
+		  values
+		  (
+		    'fitty-2022-00' || seq_apno.currval
+		  , #{expMem}
+		  , #{expDate}
+		  , #{expTotalAmount}
+		  , #{expReason}
+		  )
+	</insert>
+	
+	<insert id="insertApprExpDetail">
+		insert
+		  into tb_exp_detail
+		  (
+		    appr_no
+		  , exp_date
+		  , exp_status
+		  , exp_amount
+		  , exp_history
+		  , exp_note
+		  )
+		  values
+		  (
+		    'fitty-2022-00' || seq_apno.currval
+		  , #{expDate}
+		  , #{expStatus}
+		  , #{expAmount}
+		  , #{expHistory}
+		  , #{expNote}
+		  )
+	</insert>
+	
+	<insert id="insertApprFile">
+		insert
+		  into tb_file
+		  (
+		    file_no
+		  , origin_name
+		  , change_name
+		  , file_re_type
+		  , file_re_no
+		  )
+		  values
+		  (
+		    seq_file_no.nextval
+		  , #{originName}
+		  , #{changeName}
+		  , 'A'
+		  , 'fitty-2022-00' || seq_apno.currval
+		  )
+	</insert>
+	
 	<select id="selectScheduleListCount" resultType="_int">
 		select
 		   	   count (*)
@@ -252,5 +314,29 @@
 		 where am.emp_no = #{empNo}
 		   and ap.appr_status = #{apprStatus}
 	</select>
+	
+	<insert id="insertStorage">
+		insert
+		  into tb_approval
+		  (
+		    appr_no
+		  , emp_no
+		  , appr_doc_type
+		  , appr_title
+		  , appr_enroll_date
+		  , appr_storage
+		  , appr_mem_count
+		  )
+		  values
+		  (
+		    'fitty-2022-00' || seq_apno.nextval
+		  , #{empNo}
+		  , #{apprDocType}
+		  , #{apprTitle}
+		  , default
+		  , 'Y'
+		  , #{apprMemCount}
+		  )
+	</insert>
 
 </mapper>

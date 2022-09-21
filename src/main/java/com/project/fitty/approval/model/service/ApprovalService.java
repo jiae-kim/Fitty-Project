@@ -2,11 +2,13 @@ package com.project.fitty.approval.model.service;
 
 import java.util.ArrayList;
 
+import com.project.fitty.approval.model.vo.ApprExpDetail;
 import com.project.fitty.approval.model.vo.ApprExpense;
 import com.project.fitty.approval.model.vo.ApprOvertime;
 import com.project.fitty.approval.model.vo.ApprVacation;
 import com.project.fitty.approval.model.vo.Approval;
 import com.project.fitty.approval.model.vo.ApprovalMember;
+import com.project.fitty.approval.model.vo.File;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
 
@@ -24,6 +26,11 @@ public interface ApprovalService {
 	
 	// 지출결의서신청
 	int insertApprExp(ApprExpense exp);
+	int insertApprExpDetail(ArrayList<ApprExpDetail> dlist);
+	int insertApprFile(ArrayList<File> flist);
+	
+	// 임시저장
+	int insertStorage(Approval ap);
 	
 	// 결재예정문서(페이징)
 	int selectScheduleListCount(String empNo);

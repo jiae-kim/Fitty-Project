@@ -62,7 +62,7 @@
 					<div class="nav-align-top mb-4">
 						<div class="tab-content" style="width:100%; height:100%">
 						<div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
-						<h5>헬스장 회원 수 추이 (2021.10 - 2022.8)</h5>
+						<h5>연간 헬스장 회원 수 추이</h5>
 							<canvas id="myChart3"></canvas>
 							
 		

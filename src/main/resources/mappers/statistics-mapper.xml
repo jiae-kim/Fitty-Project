@@ -31,12 +31,13 @@
 	<select id="selectUserCountForYear" resultMap="userResult">
 	  select
          	  count(*) as "user_count"
-            , TO_CHAR(TO_DATE(user_sdate, 'YYYY-MM-DD'), 'YY-MM') as "user_count_month"
+            , TO_CHAR(TO_DATE(user_sdate, 'YYYY-MM-DD'), 'YYYY.MM') as "user_count_month"
 	     from tb_user
+         where user_sdate between add_months(sysdate,-12) and sysdate
 	    group
-	       by TO_CHAR(TO_DATE(user_sdate, 'YYYY-MM-DD'), 'YY-MM') 
+	       by TO_CHAR(TO_DATE(user_sdate, 'YYYY-MM-DD'), 'YYYY.MM')
 	    order
-	       by TO_CHAR(TO_DATE(user_sdate, 'YYYY-MM-DD'), 'YY-MM')
+	       by TO_CHAR(TO_DATE(user_sdate, 'YYYY-MM-DD'), 'YYYY.MM')
 	</select>
 	
 	<select id="selectClassCountByEmp" resultMap="userClassResult">
