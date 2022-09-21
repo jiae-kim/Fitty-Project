@@ -125,5 +125,50 @@
 		 where	user_phone = #{userPhone}
 	</select>
 	
+	<!-- 8. 회원 검색 -->
+	<select id="selectSearchCount" resultType="_int">
+		select
+				count(*)
+		  from	tb_user
+		 where  user_status ='Y'
+		 <!-- 검색 조건이 이름인 경우 -->
+		 <if test="condition == 'name'">
+		  and	user_name
+		 </if>
+		 <!-- 검색 조건이 이용권인 경우 -->
+		 <if test="condition == 'type'">
+		  and	user_type
+		 </if>
+		 <!-- 사용자가 입력한 키워드 : HashMap 객체에서 뽑아옴 -->
+		 like	'%' || #{keyword} || '%'
+	</select>
+	
+	<!-- 9. 회원 검색 페이징 -->
+	<select id="selectSearchList" resultMap="userResult">
+		select
+	            user_name
+	        ,   user_no
+	        ,	user_phone
+	        ,   user_profile_url
+	        ,   user_gender
+	        ,   user_sdate
+	        ,   to_char(add_months(user_sdate, user_month), 'YYYY-MM-DD') AS "user_edate"
+	        ,   user_type
+	        ,   user_pt
+		 from   tb_user
+		where	user_status = 'Y'
+		<choose>
+			<when test="condition == 'name'">
+				and	user_name
+			</when>
+			<when test="condition == 'type'">
+				and	user_type
+			</when>
+		</choose>
+		like	'%' || #{keyword} || '%'
+	   order
+		  by 	user_no desc
+	</select>
+	
 	
 </mapper>

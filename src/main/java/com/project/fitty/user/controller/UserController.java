@@ -3,6 +3,7 @@ package com.project.fitty.user.controller;
 import java.io.File;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -167,6 +168,28 @@ public class UserController {
 		int count = uService.telCheck(checkTel);
 		
 		return count > 0 ? "fail" : "success";
+	}
+	
+	// [김지애] 8. 회원 검색 (페이징)
+	@ResponseBody
+	@RequestMapping("search.ur")
+	public ModelAndView searchUser(ModelAndView mv, @RequestParam(value="cpage", defaultValue="1")int currentPage,
+								   String keyword, String condition) {
+		// 검색결과에 맞는 페이징처리
+		int listCount = uService.selectSearchCount(condition, keyword);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		// 검색 조회
+		ArrayList<User> list = uService.selectSearchList(condition, keyword, pi);
+		
+		// 검색 결과에 해당하는 객체들
+		mv.addObject("pi", pi)
+		  .addObject("list", list)
+		  .addObject("condition", condition)
+		  .addObject("keyword", keyword)
+		  .setViewName("user/userListView");
+		
+		return mv;
 	}
 	
 }
