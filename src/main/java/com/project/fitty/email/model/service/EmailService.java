@@ -54,6 +54,18 @@ public interface EmailService {
 
 		// 휴지통 메일 리스트 조회
 		ArrayList<Email> selectTrashEmailList(Email em, PageInfo pi);
+		
+	
+	// 내게쓴메일함
+		
+		// 내게쓴메일함 메일 개수 조회
+		int stmEmailListCount(Email em);
+		
+		// 내게쓴메일함 메일 리스트 조회
+		ArrayList<Email> selectStmEmailList(Email em, PageInfo pi);
+		
+	
+		
 
 
 		

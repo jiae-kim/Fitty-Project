@@ -46,22 +46,22 @@ public class EmailServiceImpl implements EmailService{
 
 	@Override
 	public int sentEmailListCount(Email em) {
-		return 0;
+		return emDao.sentEmailListCount(sqlSession, em);
 	}
 
 	@Override
 	public ArrayList<Email> selectSentEmailList(Email em, PageInfo pi) {
-		return null;
+		return emDao.selectSentEmailList(sqlSession, pi, em);
 	}
 
 	@Override
 	public int receivedEmailListCount(Email em) {
-		return 0;
+		return emDao.receivedEmailListCount(sqlSession, em);
 	}
 
 	@Override
 	public ArrayList<Email> selectReceivedEmailList(Email em, PageInfo pi) {
-		return null;
+		return emDao.selectReceivedEmailList(sqlSession, pi, em);
 	}
 
 	@Override
@@ -72,6 +72,16 @@ public class EmailServiceImpl implements EmailService{
 	@Override
 	public ArrayList<Email> selectTrashEmailList(Email em, PageInfo pi) {
 		return null;
+	}
+
+	@Override
+	public int stmEmailListCount(Email em) {
+		return emDao.stmEmailListCount(sqlSession, em);
+	}
+
+	@Override
+	public ArrayList<Email> selectStmEmailList(Email em, PageInfo pi) {
+		return emDao.selectStmEmailList(sqlSession, pi, em);
 	}
 
 

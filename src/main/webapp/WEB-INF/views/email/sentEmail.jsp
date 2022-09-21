@@ -59,42 +59,18 @@
                         <table class="table card-table">
                        
                           <tbody class="table-border-bottom-0">
-                            <tr>
-                              <td><input class="form-check-input selectedCheck" type="checkbox" value="" id="defaultCheck1" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='bx bx-envelope-open'></i></td>
-                              <td>받는사람</td> <!--이 자리에 사원이름을 넣을건지 이메일을 넣을건지 고민-->
-                              <td>메일제목이 들어갈 자리 메일제목이 들어갈 자리 </td>
-                              <td>보낸날짜시간</td>
-                              
-                            </tr>
+                          
+                          <c:forEach var="m" items="${ mList }">
                             <tr>
                               <td><input class="form-check-input selectedCheck" type="checkbox" value="" id="defaultCheck1" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='bx bx-envelope'></i></td>
-                              <td>Barry Hunter</td>
+                              <td>${ m.emRecipient }</td>
                               <td>
-                                <span>메일제목이 들어갈 자리 메일제목이 들어갈 자리</span>
+                                <span>${ m.emTitle }</span>
                               </td>
-                              <td><span class="badge bg-label-primary me-1">20:18:17</span></td>
-                     
+                              <td><span class="badge bg-label-primary me-1">${ m.emSdate }</span></td>
                             </tr>
-                            <tr>
-                              <td><input class="form-check-input selectedCheck" type="checkbox" value="" id="defaultCheck1" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='bx bx-envelope-open'></i></td>
-                              <td>Trevor Baker</td>
-                              <td>
-                                <span>메일제목이 들어갈 자리 메일제목이 들어갈 자리</span>
-                              </td>
-                              <td><span class="badge bg-label-primary me-1">20:45:22</span></td>
-                    
-                            </tr>
-                            <tr>
-                              <td>
-                                <input class="form-check-input selectedCheck" type="checkbox" value="" id="defaultCheck1" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class='bx bx-envelope-open'></i></strong>
-                              </td>
-                              <td>Jerry Milton</td>
-                              <td>
-                                <span>메일제목이 들어갈 자리 메일제목이 들어갈 자리</span>
-                              </td>
-                              <td><span class="badge bg-label-primary me-1">22:59:10</span></td>
-                        
-                            </tr>
+                     		</c:forEach>
+                     		
                           </tbody>
                         </table>
                       </div>

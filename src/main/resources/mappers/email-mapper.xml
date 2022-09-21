@@ -3,7 +3,7 @@
 <mapper namespace="emailMapper">
 
 
-	<resultMap id="emailResult" type="email">
+	<resultMap id="emailResult" type="Email">
       <result column="em_no" property="emNo" />
       <result column="em_title" property="emTitle" />
       <result column="em_content" property="emContent" />
@@ -17,12 +17,12 @@
       
    </resultMap>
 
-   <resultMap id="emailStatusResult" type="emailStatus">
-      <result column="em_no" property="sendMail" />
-      <result column="em_recipient" property="receiveMail" />
-      <result column="em_read" property="mailFolder" />
-      <result column="em_status" property="mailRead" />
-      <result column="em_reference" property="mailDelete" />
+   <resultMap id="emailStatusResult" type="EmailStatus">
+      <result column="em_no" property="emNo" />
+      <result column="em_recipient" property="emRecipient" />
+      <result column="em_read" property="emRead" />
+      <result column="em_status" property="emStatus" />
+      <result column="em_reference" property="emReference" />
    </resultMap>
    
    <!-- 첨부파일 -->
@@ -36,10 +36,88 @@
       <result column="file_re_no" property="fileReNo" />
    </resultMap>
    
-   
 
-
+   <!-- 받은메일함 리스트 조회 -->
+   <select id="selectReceivedEmailList" resultMap="emailResult">
+	  SELECT
+	        EM_NO
+	      , EM_TITLE
+	      , EM_CONTENT
+	      , EM_SDATE
+	      , EM_STATUS
+	      , EM_NOTICE
+	      , EM_STM
+	      , EM_SENDER
+	      , EM_RECIPIENT
+	 FROM TB_EMAIL
+	 WHERE EM_RECIPIENT = #{emRecipient}
+   </select>
 	
- 
+	<!-- 받은메일함 개수 조회 -->		   	
+   <select id="receivedEmailListCount" resultType="_int">
+   		SELECT
+		      COUNT(*)
+		 FROM TB_EMAIL E, TB_EMAIL_ST ST
+		 WHERE E.EM_NO = ST.EM_NO
+		 AND E.EM_RECIPIENT = #{emRecipient}
+		 AND ST.EM_STATUS = 'Y'
+   </select>
+   
+   <!-- 보낸메일함 리스트 조회 -->
+      <select id="selectSentEmailList" resultMap="emailResult">
+	  SELECT
+	        EM_NO
+	      , EM_TITLE
+	      , EM_CONTENT
+	      , EM_SDATE
+	      , EM_STATUS
+	      , EM_NOTICE
+	      , EM_STM
+	      , EM_SENDER
+	      , EM_RECIPIENT
+	 FROM TB_EMAIL
+	 WHERE EM_SENDER = #{emSender}
+   </select>
+	
+   
+   <!-- 보낸메일함 개수 조회 -->
+      <select id="sentEmailListCount" resultType="_int">
+   		SELECT
+		      COUNT(*)
+		 FROM TB_EMAIL E, TB_EMAIL_ST ST
+		 WHERE E.EM_NO = ST.EM_NO
+		 AND E.EM_SENDER = #{emSender}
+		 AND ST.EM_STATUS = 'Y'
+   	  </select>
+   
+     <!-- 내게쓴메일함 리스트 조회 -->
+      <select id="selectStmEmailList" resultMap="emailResult">
+	  SELECT
+	        EM_NO
+	      , EM_TITLE
+	      , EM_CONTENT
+	      , EM_SDATE
+	      , EM_STATUS
+	      , EM_NOTICE
+	      , EM_STM
+	      , EM_SENDER
+	      , EM_RECIPIENT
+	 FROM TB_EMAIL
+	 WHERE EM_SENDER = #{emSender}
+	   AND EM_STM = 'Y'
+   </select>
+   
+      <!-- 내게쓴메일함 개수 조회 -->
+      <select id="stmEmailListCount" resultType="_int">
+   		SELECT
+		      COUNT(*)
+		 FROM TB_EMAIL E, TB_EMAIL_ST ST
+		 WHERE E.EM_NO = ST.EM_NO
+		 AND E.EM_SENDER = #{emSender}
+		 AND ST.EM_STATUS = 'Y'
+		 AND E.EM_STM = 'Y'
+   	  </select>
+   	  
+
 
 </mapper>
