@@ -70,7 +70,6 @@
 		
 		$(function(){
 			
-			
 		  calrendarMaker();
 		
            $(document).on("click", ".pre", function() { // 이전달
@@ -121,9 +120,6 @@
             
             
             
-            
-            
-            
             var html = "";
                 html += "<div align='center' class='calMove'>";
                 
@@ -171,7 +167,7 @@
                   html += "</tr>";
                 }
                 html += "</tbody>";
-                html += "</table>";
+                html += "</table></div>";
                 
                 $("#calendar").html(html);
 
@@ -204,13 +200,7 @@
                   }
                   
                 }) 
-                
-                
 			}
-		  
-		  
-		  
-		  
           </script>
 		
           

@@ -48,24 +48,20 @@
   }
 
   .reply-content{
-    width: 97%; float: left; vertical-align: middle; padding-left: 10px;
+    width: 100%; float: left; vertical-align: middle; padding-left: 10px;
   }
 
-  .reply-content>#writer{
-    font-size: 13px; font-weight: 700;
-  }
+  .r-main>#writer{
+	font-size: 13px; font-weight: 700;
+   }
 
-  .reply-content>#date{
-    color:lightgrey; font-size:11px; line-height: 20px; margin-left:10px
-  }
+  .r-main>#date{
+	color:lightgrey; font-size:11px
+   }
 
-  .reply-content>#content{
-    font-size: 14px;
-  }
-
-  .reply-like{
-    width: 3%; float: left;
-  }
+  .r-main>#content{
+	font-size: 14px;
+   }
 
 
   .reply-input{
@@ -84,12 +80,12 @@
   	background-color:lavender;
   }
   
-  #upp{
-  	color:lightgrey; font-size:10px;
+  .update{
+	 	width:94%; border:1px solid lightgrey; border-radius:5px; float:left; resize:none; margin-bottom:10px;
   }
   
-  #dee{
-  	color:lightgrey; font-size:10px;
+  #upBtn{
+  	width:5%; border-radius:5px; border:1px solid lightgrey; float:right; height:100%;
   }
   
   
@@ -431,7 +427,10 @@
 		</div>
 		</div>
 
-
+		<!-- 입력된 글이 하나도 없을 때 보여지는 문구 -->
+		<c:if test="${ d.bfImage eq null and d.lcImage eq null and d.dnImage eq null and d.reImage eq null}">
+			<div style='background:lavender; width:100%; padding:10px; font-weight:600'>아직 식단이 등록되지 않았네요! 오늘의 식단을 기록해보세요 😊😊</div>
+		</c:if>
 
         </div>
 
@@ -474,30 +473,50 @@
 				url:"rlist.di",
 				data:{no:"${d.dietNo}"},
 				success:function(list){
-					console.log(list);
 					
 					let value = "";
 					let type = "";
+					let replyNo = "";
 					for(let i=0; i<list.length; i++){
-						if(list[i].replyWriter == ${loginU.userNo}){
+						
+						replyNo = list[i].replyNo;
+						replyContent = list[i].replyContent;
+						writerName = list[i].writerName;
+						
+						console.log("${loginU.userNo}");
+						
+						if(list[i].replyWriter == '${loginU.userNo}'){
 							value += "<div class='reply' style='background:#c1b3ff12;'>";
 						}else{
 							value += "<div class='reply'>";
 						}
-							   
-						value += "<div class='reply-content'><label id='writer'>" + list[i].writerName + "&nbsp";
-							   
+						
 						type = (list[i].writerType == "U") ? "회원" : "트레이너";
-								
-						value += type + "</label>&nbsp"
-							   + "<label id='date'>" + list[i].replyDate + "</label> &nbsp;&nbsp;";
+						value += "<div class='reply-content'>"
+								   +"<div class='r-main'>"
+									   + "<label id='writer'>" + list[i].writerName + "&nbsp" + type + "</label> &nbsp"
+									   + "<label id='date'>" + list[i].replyDate + "</label> &nbsp;&nbsp;<br>"
+							  	  	   + "<div class='c" + replyNo + "'><label id='content'>" + list[i].replyContent + "</label></div>"
+							   	   + "</div>"
+							   + "</div>";
+						
 							   
 						if(list[i].replyWriter == '${loginU.userNo}'){
-							value += "<button id='upp'>수정</button>";
-							value += "<button id='dee'>삭제</button>";
-						}	   
-						value += "<br><label id='content'>" + list[i].replyContent + "</label></div>"
-							   + "<div class='reply-like'>" + "🤍" + "</div></div>";
+							value += "<div class='r-ect'>"
+									   + "<div class='replyNo' style='display:none;'>" + replyNo + "</div>" 
+									   + "<button type='button' class='dr btn btn-xs btn-primary btn-icon rounded-pill dropdown-toggle hide-arrow' data-bs-toggle='dropdown' aria-expanded='false'>"
+									   		+ "<i class='bx bx-dots-vertical-rounded'></i>"
+									   + "</button>"
+							           + "<ul class='dropdown-menu dropdown-menu-end' data-popper-placement='bottom-end'>"
+							           		+ "<li><a class='dropdown-item u'>수정</a></li>"
+							           		+ "<li><a class='dropdown-item d'>삭제</a></li>"
+							           + "</ul>" 
+								   + "</div>"
+								   
+								   + "</div>";
+						}else{
+							value += "</div>";
+						}
 					}
 					
 					$(".r").html(value);
@@ -534,6 +553,60 @@
 					}
 				})
 				
+			}else{
+				alertify.alert("댓글 내용을 입력해주세요.");
+			}
+		}
+		
+		
+		
+		//댓글 수정에 필요한 값 
+		$(document).on("click", ".u", function(){
+			let replyNo = $(this).parent().parent().parent().children().eq(0).text();
+			let replyContent = $(this).parent().parent().parent().prev().children().eq(3).children().text();
+			replyUpdateForm(replyNo, replyContent);
+		})
+		
+		
+		
+		//댓글 수정 폼
+		function replyUpdateForm(replyNo, content){
+			
+			$("button").remove(".dr"); //드롭다운 버튼 삭제
+			
+			let update = "";
+			update += "<div>"
+					+ "<textarea class='update'>" + content + "</textarea><button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close' onclick='selectReplyList();'></button> </div>"
+				    + "<div style='height:100%'><button id='upBtn' style='height:auto' onclick='updateReply(" + replyNo + ");'>" + "등록" + "</button>"
+					+ "</div>";
+			
+					
+			$(".c" + replyNo).html(update);
+			$(".c" + replyNo + ".update").focus();
+			
+		}
+		
+		
+		//댓글 수정
+		function updateReply(replyNo){
+			
+			if( $(".update").val().trim().length != 0 ){
+			
+				$.ajax({
+					url:"update.re",
+					data:{replyNo:replyNo, replyContent:$(".update").val()},
+					success:function(result){
+						
+						if(result == "success"){
+							alertify.alert("댓글이 수정되었습니다.");
+							selectReplyList();
+						}
+						
+					},
+					error:function(){
+						console.log("댓글 수정용 ajax통신 실패");
+					}
+				})
 			}else{
 				alertify.alert("댓글 내용을 입력해주세요.");
 			}
