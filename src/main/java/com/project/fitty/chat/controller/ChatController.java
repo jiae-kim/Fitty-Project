@@ -30,6 +30,5 @@ public class ChatController {
 	public String selectChatEmpList(){
 		ArrayList<Employee> list = cService.selectChatEmpList();
 		return new Gson().toJson(list);
-		//나나
 	}
 }
