@@ -1,4 +1,4 @@
-package com.project.fitty.mail.model.vo;
+package com.project.fitty.email.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +12,7 @@ import lombok.ToString;
 @Getter
 @ToString
 
-public class Remail {
+public class EmailStatus{
 	private int emNo;
 	private String emRecipient;
 	private String emRead;
