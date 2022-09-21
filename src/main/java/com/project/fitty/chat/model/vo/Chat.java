@@ -32,7 +32,7 @@ public class Chat {
 	// tb_bubble
 	private int bblNo;
 	private String bblContent;
-	private Date bblDate;
+	private String bblDate;
 	
 	
 	

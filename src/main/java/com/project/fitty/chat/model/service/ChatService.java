@@ -20,5 +20,6 @@ public interface ChatService {
 	
 	ArrayList<Chat> selectRoomList(String empNo);
 	
+	int insertBubble(Chat c);
 
 }

@@ -13,7 +13,7 @@
   	<result column="inv_emp_no" property="invEmpNo"/>
   	<result column="bbl_no" property="bblNo"/>
   	<result column="bbl_content" property="bblContent"/>
-  	<result column="bblDate" property="bblDate"/>
+  	<result column="bbl_date" property="bblDate"/>
   	
   	
   	<result column="emp_name" property="empName"/>
@@ -39,7 +39,7 @@
   </select>
   
   <select id="countRoomFlag" resultMap="chatResult">
-	select c.chat_room_no
+	select nvl(c.chat_room_no, 0) as chat_room_no
 	     , c.emp_no as "emp_no"
 	     , i.emp_no as "inv_emp_No"
 	     , c.chat_iorg
@@ -47,8 +47,8 @@
 	     , c.chat_status
 	  from tb_chat c
 	  join tb_invite i on (c.chat_room_no = i.chat_room_no)
-	 where c.emp_no = #{empNo}
-	   and i.emp_no = #{invEmpNo}
+	  where c.emp_no in( #{empNo} , #{invEmpNo})
+	   and i.emp_no in( #{empNo} , #{invEmpNo})
   </select>
   
   <select id="selectInvEmp" resultMap="chatResult">
@@ -69,11 +69,12 @@
      , nvl(e.emp_photo, 'resources/profile_images/defaultProfile.png') as "emp_photo"
      , g.gr_name
      , b.bbl_content
-     , b.bbl_date
+     , to_char(b.bbl_date, 'yyyy-mm-dd HH24:MI:SS') as "bbl_date"
   from tb_bubble b
   join tb_emp e on (e.emp_no = b.emp_no)
   join tb_grade g on (e.emp_grade = g.emp_grade)
 	 where b.chat_room_no = #{chatRoomNo}
+	 order by bbl_date asc
   </select>
   
   <insert id="insertChatInviteFirst">
@@ -112,6 +113,26 @@
 	    , sysdate
 	    )
 	select * from dual  
+  </insert>
+  
+  <insert id="insertBubble">
+  insert
+  into tb_bubble
+    (
+       bbl_no
+     , chat_room_no
+     , emp_no
+     , bbl_content
+     , bbl_date
+    )
+values
+    (
+        SEQ_BBL_NO.nextval
+       , #{chatRoomNo}
+       , #{empNo}
+       , #{bblContent}
+       , sysdate
+    )
   </insert>
   
 </mapper>

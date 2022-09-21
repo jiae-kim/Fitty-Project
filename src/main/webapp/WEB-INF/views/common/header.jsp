@@ -635,13 +635,15 @@
                 <li class="nav-item lh-1 me-3">
                     <a href="received.em"><i class='bx bx-envelope'></i></a>
                 </li>
-                <!-- 
+                
                 <li class="nav-item lh-1 me-3">
-                    <i class='bx bx-message-rounded-dots'></i>
-                    <button id="chatBtn" type="button" onClick="go('chat.ch');"
+                	<a href="chat.ch">
+                    <i class='bx bx-message-rounded-dots'></i></a>
+                    <!-- 
+                    <button id="chatBtn" type="button" onclick="go('chat.ch');"
                            style="position:absolute; top:0px;bottom:0px;right:0px;left:0px;
-                                  border:0;opacity:0;"></button>
-                </li> -->
+                                  border:0;opacity:0;"></button> -->
+                </li>
                 <li class="nav-item lh-1 me-3">
                     <i class='bx bx-bell' id="alertIcon" style="position:relative;">
                     <button id="alertListBtn" type="button" data-bs-toggle="modal" data-bs-target="#smallModal"
@@ -686,6 +688,7 @@
 					}
 				 
 				 function workIn(){
+					 console.log("출근함");
 					 $("#workInform").submit();
 					 
 				 }

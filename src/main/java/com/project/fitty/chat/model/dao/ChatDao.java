@@ -37,5 +37,9 @@ public class ChatDao {
 	public ArrayList<Chat> selectRoomList(SqlSessionTemplate sqlSession, String empNo){
 		return (ArrayList) sqlSession.selectList("chatMapper.selectRoomList", empNo);
 	}
+	
+	public int insertBubble(SqlSessionTemplate sqlSession, Chat c) {
+		return sqlSession.insert("chatMapper.insertBubble", c);
+	}
 
 }

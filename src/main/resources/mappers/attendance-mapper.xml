@@ -425,7 +425,7 @@ distinct emp_no
 	where att_no = #{attNo}-->
 	update tb_att
 	set att_status = #{attStatus}
-	    , att_in = #{attIn} || ':00'
+	    , att_in = #{attIn}
 	where emp_no = #{empNo}
 	and att_no = #{attNo}
   </update>
@@ -433,7 +433,7 @@ distinct emp_no
   <update id="AdminUpdateAttOutStatus">
   update tb_att
 	set att_status = #{attStatus}
-	    , att_out = #{attOut} || ':00'
+	    , att_out = #{attOut}
 	where emp_no = #{empNo}
 	and att_no = #{attNo}
   </update>

@@ -54,6 +54,12 @@ public class ChatServiceImpl implements ChatService {
 	}
 
 
+	@Override
+	public int insertBubble(Chat c) {
+		return cDao.insertBubble(sqlSession, c);
+	}
+
+
 
 
 }

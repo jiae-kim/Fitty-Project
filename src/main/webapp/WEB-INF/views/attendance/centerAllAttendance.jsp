@@ -241,6 +241,7 @@
                                 </ul>
                             </nav>
                             <!--/ Basic Pagination -->
+                            <button class="btn btn-danger">당일근태확인</button>
                         </div>
                     </div>
                 </div>

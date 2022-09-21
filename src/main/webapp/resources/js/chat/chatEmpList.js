@@ -100,69 +100,72 @@ function selectChatRoom(invEmpNo){
 			type:"post",
 			success:function(invMap){
 				//console.log("ddddd")
+				let c = invMap.c;
 				let invC = invMap.invC;
 				let bubbleList = invMap.bubbleList;
 			  // console.log(invMap);
 			   let value = ""
 
 			   // 해줘야 하는것 : 리스트말고 invEmpno, name, empPhoto, grname 객체 하나가 필요함, 즉 리턴할때 map으로 리턴해야함 ㅜㅜ
-			   
-			 
+			
+			console.log(bubbleList);
+			 console.log("bubbleList.length : " + bubbleList.length)
+
 			 value +=  "<h5 class='card-header' style='margin-bottom : 20px; margin-top:20px;'>"
 				   +   "<img src='"+ invC.empPhoto +"' alt='Avatar' class='rounded-circle' width='30px;' height='30px;'/>"
 				   +   "<b>" + invC.empName + " " + invC.grName + "</b></h5>"
+				   +   "<input type='hidden' id='chatRoomNo' value='" + c.chatRoomNo + "'>"
 				   +   "<input type='hidden' id='id' value='" + invC.empName + "'>"
 				   +   "<input type='hidden' id='photo' value='" + invC.empPhoto + "'>"
+				   +   "<input type='hidden' id='hiddenEmpNo' value='" + c.empNo + "'>"
+				   +   "<input type='hidden' id='hiddenInvEmpNo' value='" + invC.invEmpNo + "'>"
 			   
 			   if(bubbleList.length == 0) {
-				   value += "<div id='chatarea' class='card-header' style='width: 80%; height: 600px;'>"
+				   value += "<div id='chatarea' class='card-header' style='width: 80%; height: 600px; overflow: auto;'>"
 						 + 		   "<div id='chatTextArea' style='text-align:center'>" + invC.empName + "님과의 새로운 대화가 시작되었습니다.</div>"
 						 +		   "</div>"
-						 +	"</div>"
+						 + 	"</div>"
 						 
 			   } else {
 				   
-				   value +=  "<div>"
-				   		 +		   "<div id='chatarea' class='card-header' style='width: 80%; height: 600px;'>"
-						 +			   "<div id='chatTextArea'>"
+				   value +=  /*"<div>"*/ "<div id='chatarea' class='card-header' style='width: 80%; height: 600px; overflow: auto;'>"
+							 +			   "<div id='chatTextArea'>"
 						 for(let i=0; i<bubbleList.length; i++){
-							if(bubbleList[i].empNo === invC.empNo){
-								value +=  		   "<table class='yourTable'>"
+							if(bubbleList[i].empNo === c.empNo){
+								value +=  		  "<table class='myTable'>"
 								+					   "<tr>"
-								+						   "<td rowspan='2'><img src='" + bubbleList[i].empPhoto + "' alt='Avatar' class='rounded-circle col-md-1' width='30px;' height='30px;'/></td>"
-								+						   "<td rowspan='2' class='textTd'><div class='noStyle' id='yourText'>" + bubbleList[i].bblContent + "</div></td>"
+								+						   "<td width='150px;' style='text-align:left'>" + bubbleList[i].empName + "</td>"
+								+						   "<td rowspan='2' class='textTd'><div class='noStyle' id='myText'  style='text-align:right; color : grey'>" + bubbleList[i].bblContent + "</div></td>"
+								+						   "<td rowspan='2' style='margin-left:10px;'><img src='" + bubbleList[i].empPhoto + "' alt='Avatar' class='rounded-circle col-md-1' style='width:30px; height:30px;'/></td>"
+								+					   "</tr>"
+								+					   "<tr>"
+								+						   "<td style='font-size : 10px; text-align:left;'>" + bubbleList[i].bblDate  + "</td>"
+								+					   "</tr>"
+								+				   "</table>"	
+							} else {
+								value += 		   "<table class='yourTable'>"
+								+					   "<tr>"
+								+						   "<td rowspan='2' style='margin-right:10px;'><img src='" + bubbleList[i].empPhoto + "' alt='Avatar' class='rounded-circle col-md-1' style='width:30px; height:30px;'/></td>"
+								+						   "<td rowspan='2' class='textTd'><div class='noStyle' id='yourText' style='text-align:left; color : grey'>" + bubbleList[i].bblContent + "</div></td>"
 								+						   "<td width='150px;'>" + bubbleList[i].empName  + "</td>"
 								+					   "</tr>"
 								+					   "<tr>"
-								+						   "<td>" + bubbleList[i].bblDate  + "</td>"
+								+						   "<td style='font-size : 10px; text-align:right;'>" + bubbleList[i].bblDate  + "</td>"
 								+					   "</tr>"
-								+				   "</table>"
-							} else {
-								value += 		   "<table class='myTable'>"
-								+					   "<tr>"
-								+						   "<td width='150px;'>" + bubbleList[i].empName + "</td>"
-								+						   "<td rowspan='2' class='textTd'><div class='noStyle' id='yourText'>" + bubbleList[i].bblContent + "</div></td>"
-								+						   "<td rowspan='2'><img src='" + bubbleList[i].empPhoto + "' alt='Avatar' class='rounded-circle col-md-1' width='30px;' height='30px;'/></td>"
-								+					   "</tr>"
-								+					   "<tr>"
-								+						   "<td>" + bubbleList[i].bblDate  + "</td>"
-								+					   "</tr>"
-								+				   "</table>"
+								+				   "</table>" 
 							}
 						 }
-						
 
-					   
-						 
 						}
 
-						value +=  		"<form>"
+						value +=  	 "</div></div><form>"
 						+				   "<textarea id='message' style='width:740px; margin-left:107px;'></textarea>"
 						+				   "<input type='button' class='btn btn-primary' style='margin-top:-42px; height : 50px;' id='send' value='보내기' />"
 						+		   		"</form>"
 						+		   "</div>"
 						+	   "</div>"
-						console.log(value);
+						//console.log(value);
+						console.log("ffff : " + $(".vacDetailDiv").children().next().val());
 						$(".vacDetailDiv").html(value);
 			  
 			}
@@ -184,8 +187,8 @@ function selectChatRoom(invEmpNo){
 	})
 	
 	function connect(){
-// 		websocket = new WebSocket("ws://본인 아이 피주소/www/chat-ws");
-		//websocket = new WebSocket("ws://172.30.1.52/www/chat-ws");
+		//bubbleList.ch
+		//websocket = new SockJS("/fitty/chat-ws");
 		websocket = new SockJS("/fitty/chat-ws");
 			//웹 소켓에 이벤트가 발생했을 때 호출될 함수 등록
 			websocket.onopen = onOpen;
@@ -207,6 +210,9 @@ function selectChatRoom(invEmpNo){
 	});
 	*/
 	function send(){
+
+		
+
 		const date = new Date();
 
 		const year = date.getFullYear();
@@ -228,17 +234,86 @@ function selectChatRoom(invEmpNo){
 		websocket.send(
 										"<table class='myTable'>"
 								+ 					  "<tr>"
-								+						   "<td rowspan='2'><img src='" + photo + "' alt='Avatar' class='rounded-circle col-md-1' style='width:30px; height:30px;'/></td>"
-								+						   "<td rowspan='2' class='textTd'><div class='noStyle' id='yourText' style='text-align:left; color : grey'>" + msg + "</div></td>"
-								+						   "<td width='150px;' style='text-align:right;'>" + id  + "</td>"
+								+						   "<td width='150px;' style='text-align:left;'>" + id  + "</td>"
+								+						   "<td rowspan='2' class='textTd'><div class='noStyle' id='myText' style='text-align:right; color : grey'>" + msg + "</div></td>"
+								+						   "<td rowspan='2' style='margin-left:10px;'><img src='" + photo + "' alt='Avatar' class='rounded-circle col-md-1' style='width:30px; height:30px;'/></td>"
 								+					   "</tr>"
 								+					   "<tr>"
-								+						   "<td style='font-size : 10px; text-align:right;'>" + dateStr + " " + timeStr + "</td>"
+								+						   "<td style='font-size : 10px; text-align:left;'>" + dateStr + " " + timeStr + "</td>"
 								+					   "</tr>"
 								+ 			"</table>"
 
 		)
 		document.getElementById("message").value = "";
+		
+
+		$.ajax({
+			url:"insertBubble.ch",
+		   data:{
+			 empNo:$("#hiddenEmpNo").val(),
+			 bblContent:msg,
+			 chatRoomNo : $("#chatRoomNo").val()
+		   },
+		   type:"post",
+		   success:function(bubbleList){
+
+			let value = "";
+
+			if(bubbleList.length == 0) {
+				value += "<div id='chatTextArea' style='text-align:center; overflow: auto;'>" + invC.empName + "님과의 새로운 대화가 시작되었습니다.</div>"
+					  +		   "</div>"
+					  + 	"</div>"
+					  
+			} else {
+				
+				value += 		   "<div id='chatTextArea' style='overflow: auto;'>"
+					  for(let i=0; i<bubbleList.length; i++){
+						 if(bubbleList[i].empNo === empNo){
+							value += 		   "<table class='myTable'>"
+							+					   "<tr>"
+							+						   "<td width='150px;'  style='text-align:left'>" + bubbleList[i].empName + "</td>"
+							+						   "<td rowspan='2' class='textTd'><div class='noStyle' id='myText' style='text-align:right; color : grey'>" + bubbleList[i].bblContent + "</div></td>"
+							+						   "<td rowspan='2' style='margin-left:10px;'><img src='" + bubbleList[i].empPhoto + "' alt='Avatar' class='rounded-circle col-md-1' width='30px;' height='30px;'/></td>"
+							+					   "</tr>"
+							+					   "<tr>"
+							+						   "<td style='font-size : 10px; text-align:left;'>" + bubbleList[i].bblDate  + "</td>"
+							+					   "</tr>"
+							+				   "</table>"
+						 } else {
+							 value +=  		   "<table class='yourTable'>"
+							 +					   "<tr>"
+							 +						   "<td rowspan='2' style='margin-right:10px;'><img src='" + bubbleList[i].empPhoto + "' alt='Avatar' class='rounded-circle col-md-1' width='30px;' height='30px;'/></td>"
+							 +						   "<td rowspan='2' class='textTd'><div class='noStyle' id='yourText' style='text-align:left; color : grey'>" + bubbleList[i].bblContent + "</div></td>"
+							 +						   "<td width='150px;'>" + bubbleList[i].empName  + "</td>"
+							 +					   "</tr>"
+							 +					   "<tr>"
+							 +						   "<td style='font-size : 10px; text-align:right;'>" + bubbleList[i].bblDate  + "</td>"
+							 +					   "</tr>"
+							 +				   "</table>"
+						 }
+					  }
+
+					 }
+
+					 value +=  	 "</div></div><form>"
+					 +				   "<textarea id='message' style='width:740px; margin-left:107px;'></textarea>"
+					 +				   "<input type='button' class='btn btn-primary' style='margin-top:-42px; height : 50px;' id='send' value='보내기' />"
+					 +		   		"</form>"
+					 +		   "</div>"
+					 +	   "</div>"
+					 console.log(value);
+					 $(".chatarea").html(value);
+					
+			 
+		   }
+	 ,
+	 error:function(){
+	   console.log("채팅메시지 삽입 ajax 통신 실패");
+	 }
+	 
+  })
+
+
 	}
 	
 	function onMessage(evt){
@@ -251,12 +326,13 @@ function selectChatRoom(invEmpNo){
 		//chatTextArea.innerHTML =  evt.data;
 		$("#chatTextArea").html(  $("#chatTextArea").html() + "<div style='height:20px;'></div>" + evt.data);
 	}
-	/*
+	
 	// ##### 연결을 해제합니다!
+	/*
 	document.getElementById("exit").addEventListener("click", function() {
 		disconnect();
 	});
-
+	/*
 	function disconnect(){
 		id = document.getElementById("id").value;
 		websocket.send(id+"님이 퇴장하셨습니다");

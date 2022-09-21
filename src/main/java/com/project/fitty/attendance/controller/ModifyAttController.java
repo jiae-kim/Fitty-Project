@@ -140,6 +140,8 @@ public class ModifyAttController {
 			//int updateAttIn = 
 			m.setMoAttType("I");
 			a.setAttIn(m.getMoAttModifyTime());
+			System.out.println(m);
+			System.out.println(a);
 			//System.out.println("1번 : " + m.getMoAttModifyTime());
 			//System.out.println("1번m : " + m);
 			//System.out.println("1번a : " + a);
