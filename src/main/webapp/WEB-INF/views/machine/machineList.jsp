@@ -120,8 +120,26 @@ table thead, table tfoot {
 										</td>
 									</tr>
 								</table>
-
-								<br>
+								
+								<!-- 검색영역 -->
+								<%-- <div id="search-area" style="margin-left:12px">
+									<table>
+									<tr>
+										<td>
+											<select class="form-select form-select-sm" name="condition">
+											<option value="title">기구이름</option>
+											<option value="date">등록일</option>
+											</select>
+										</td>
+										<td>
+											<input type="text" class="form-control form-control-sm" name="keyword" value="${ keyword }">
+										</td>
+										<td>
+											<a type="button" class="btn btn-sm btn-primary" href="search.mc?cpage=1">검색</a>
+										</td>
+									</tr>
+									</table>
+								</div> --%>
 								
 								<div id="machine-area" style="width: 100%; height: 100%">
 

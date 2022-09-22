@@ -445,6 +445,7 @@
                             <div class="mb-3">
                               <label for="defaultSelect" class="form-label">회원 목록</label>
                               <select id="defaultSelect" class="form-select" name="strUserNo">
+                              	<option selected disabled>회원 이름</option>
                                 <c:forEach var="u" items="${ userList }">
                                 <option>${ u.userNo } . ${ u.userName }
                                 </option>

@@ -232,17 +232,23 @@ public class MachineController {
 
 		String[] arr = request.getParameterValues("ckMachine");
 		int result = 0;
+		
+		if(arr != null) {
+			for (int i = 0; i < arr.length; i++) {
+				result += mService.repairMachine(arr[i]);
+			}
 
-		for (int i = 0; i < arr.length; i++) {
-			result += mService.repairMachine(arr[i]);
+			if (result == arr.length) {
+				session.setAttribute("alertMsg", "선택 기구를 성공적으로 수리 완료 처리하였습니다.");
+				return "redirect:bkList.mc";
+			} else {
+				session.setAttribute("errorMsg", "수리 완료 실패");
+				return "common/errorPage";
+			}
+		}else {
+			session.setAttribute("alertMsg", "하나 이상의 기구를 선택하세요");
+			return "machine/machineBrokenList";
 		}
-
-		if (result == arr.length) {
-			session.setAttribute("alertMsg", "선택 기구를 성공적으로 수리 완료 처리하였습니다.");
-			return "redirect:bkList.mc";
-		} else {
-			session.setAttribute("errorMsg", "수리 완료 실패");
-			return "common/errorPage";
-		}
+		
 	}
 }
