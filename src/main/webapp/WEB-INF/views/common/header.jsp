@@ -526,7 +526,27 @@
                                 </div>
                             </div>
                             </a>
-                        
+                        	 </li>
+                        <li>
+                            <div class="dropdown-divider"></div>
+                        </li>
+                        <li>
+                            
+                        </li>
+                        <li>
+                            
+                        </li>
+                        <li>
+                            
+                        </li>
+                        <li>
+                            <div class="dropdown-divider"></div>
+                        </li>
+                        <li>
+                           
+                        </li>
+                        </ul>
+                    </li>
                   <!--/ User -->
                   <span id="helloMan"><b>${ loginUser.empName }</b>
                   	
