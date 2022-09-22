@@ -59,4 +59,11 @@ public interface ApprovalService {
 	// 결재대기문서(페이징)
 	int selectWaitingListCount(String empNo);
 	ArrayList<Approval> selectWaitingList(PageInfo pi, String empNo);
+	
+	// 상세페이지
+	ArrayList<ApprovalMember> selectMember(String apprNo);
+	ApprVacation selectVacation(String apprNo);
+	ApprOvertime selectOvertime(String apprNo);
+	ApprExpense selectExpense(String apprNo);
+	ArrayList<ApprExpDetail> selectExpDetail(String apprNo);
 }

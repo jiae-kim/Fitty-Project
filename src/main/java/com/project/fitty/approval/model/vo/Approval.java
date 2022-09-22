@@ -17,7 +17,7 @@ public class Approval {
 	
 	private String apprNo;
 	private String empNo;
-	private int apprDocType;
+	private String apprDocType;
 	private String apprTitle;
 	private Date apprEnrollDate;
 	private String apprStatus;

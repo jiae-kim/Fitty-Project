@@ -140,6 +140,31 @@ public class ApprovalServiceImpl implements ApprovalService{
 	public ArrayList<Approval> selectWaitingList(PageInfo pi, String empNo) {
 		return aDao.selectWaitingList(sqlSession, pi, empNo);
 	}
+	
+	@Override
+	public ArrayList<ApprovalMember> selectMember(String apprNo) {
+		return aDao.selectMember(sqlSession, apprNo);
+	}
+
+	@Override
+	public ApprVacation selectVacation(String apprNo) {
+		return aDao.selectVacation(sqlSession, apprNo);
+	}
+
+	@Override
+	public ApprOvertime selectOvertime(String apprNo) {
+		return aDao.selectOvertime(sqlSession, apprNo);
+	}
+
+	@Override
+	public ApprExpense selectExpense(String apprNo) {
+		return aDao.selectExpense(sqlSession, apprNo);
+	}
+
+	@Override
+	public ArrayList<ApprExpDetail> selectExpDetail(String apprNo) {
+		return aDao.selectExpDetail(sqlSession, apprNo);
+	}
 
 
 	

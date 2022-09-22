@@ -21,5 +21,12 @@ public class ApprExpense {
 	
 	private String originName;
 	private String changeName;
+	
+	//
+	private String empName;
+	private String empNo;
+	private String apprTitle;
+	private String apprEnrollDate;
+	private String grApprGrade;
 
 }

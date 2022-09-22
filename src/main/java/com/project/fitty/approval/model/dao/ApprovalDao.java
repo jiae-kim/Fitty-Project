@@ -150,4 +150,24 @@ public class ApprovalDao {
 		
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectWaitingList", empNo, rowBounds);
 	}
+	
+	public ArrayList<ApprovalMember> selectMember(SqlSessionTemplate sqlSession, String apprNo){
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectMember", apprNo);
+	}
+	
+	public ApprVacation selectVacation(SqlSessionTemplate sqlSession, String apprNo) {
+		return sqlSession.selectOne("approvalMapper.selectVacation", apprNo);
+	}
+	
+	public ApprOvertime selectOvertime(SqlSessionTemplate sqlSession, String apprNo) {
+		return sqlSession.selectOne("approvalMapper.selectOvertime", apprNo);
+	}
+
+	public ApprExpense selectExpense(SqlSessionTemplate sqlSession, String apprNo) {
+		return sqlSession.selectOne("approvalMapper.selectExpense", apprNo);
+	}
+	
+	public ArrayList<ApprExpDetail> selectExpDetail(SqlSessionTemplate sqlSession, String apprNo){
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectExpDetail", apprNo);
+	}
 }

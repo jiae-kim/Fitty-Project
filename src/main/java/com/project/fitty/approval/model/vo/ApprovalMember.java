@@ -27,4 +27,6 @@ public class ApprovalMember {
 	//
 	private ArrayList<ApprovalMember> mlist;
 	private int apprMemCount;
+	private String empName;
+	private String grApprGrade;
 }

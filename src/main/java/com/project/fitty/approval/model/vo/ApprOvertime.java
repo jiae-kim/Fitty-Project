@@ -19,4 +19,10 @@ public class ApprOvertime {
 	private String ovtEndTime;
 	private String ovtReason;
 	
+	//
+	private String empName;
+	private String empNo;
+	private String apprEnrollDate;
+	private String grApprGrade;
+	
 }

@@ -20,5 +20,9 @@ public class ApprVacation {
 	private String vctReason;
 	private String vctCount;
 	
-
+	//
+	private String empName;
+	private String empNo;
+	private String apprEnrollDate;
+	private String grApprGrade;
 }

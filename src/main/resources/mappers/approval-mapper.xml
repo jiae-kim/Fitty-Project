@@ -20,6 +20,54 @@
 		<result column="gr_grade" property="grGrade"/>
 		<result column="emp_grade" property="empGrade"/>
 	</resultMap>
+	<resultMap id="ApprovalMemberResult" type="ApprovalMember">
+		<result column="emp_name" property="empName"/>
+		<result column="emp_no" property="empNo"/>
+		<result column="gr_appr_grade" property="grApprGrade"/>
+		<result column="appr_mem_count" property="apprMemCount"/>
+		<result column="appr_level" property="apprLevel"/>
+	</resultMap>
+	<resultMap id="ApprVacationResult" type="ApprVacation">
+		<result column="emp_name" property="empName"/>
+		<result column="emp_no" property="empNo"/>
+		<result column="appr_no" property="apprNo"/>
+		<result column="appr_enroll_Date" property="apprEnrollDate"/>
+		<result column="gr_appr_grade" property="grApprGrade"/>
+		<result column="vct_status" property="vctStatus"/>
+		<result column="vct_start_date" property="vctStartDate"/>
+		<result column="vct_end_Date" property="vctEndDate"/>
+		<result column="vct_reason" property="vctReason"/>
+		<result column="vct_count" property="vctCount"/>
+	</resultMap>
+	<resultMap id="ApprOvertimeResult" type="ApprOvertime">
+		<result column="emp_name" property="empName"/>
+		<result column="emp_no" property="empNo"/>
+		<result column="appr_no" property="apprNo"/>
+		<result column="appr_enroll_Date" property="apprEnrollDate"/>
+		<result column="gr_appr_grade" property="grApprGrade"/>
+		<result column="ovt_date" property="ovtDate"/>
+		<result column="ovt_start_time" property="ovtStartTime"/>
+		<result column="ovt_end_time" property="ovtEndTime"/>
+		<result column="ovt_reason" property="ovtReason"/>
+	</resultMap>
+	<resultMap id="ApprExpenseResult" type="ApprExpense">
+		<result column="emp_name" property="empName"/>
+		<result column="emp_no" property="empNo"/>
+		<result column="appr_no" property="apprNo"/>
+		<result column="appr_enroll_Date" property="apprEnrollDate"/>
+		<result column="gr_appr_grade" property="grApprGrade"/>
+		<result column="appr_title" property="apprTitle"/>
+		<result column="exp_mem" property="expMem"/>
+		<result column="exp_total_amount" property="expTotalAmount"/>
+		<result column="exp_reason" property="expReason"/>
+	</resultMap>
+	<resultMap id="ApprExpDetailResult" type="ApprExpDetail">
+		<result column="exp_date" property="expDate"/>
+		<result column="exp_status" property="expStatus"/>
+		<result column="exp_amount" property="expAmount"/>
+		<result column="exp_history" property="expHistory"/>
+		<result column="exp_note" property="expNote"/>
+	</resultMap>
 	
 	<select id="selectEmpList" resultMap="empResult">
 		select 
@@ -375,6 +423,84 @@
 	             where am.emp_no = #{empNo}
 		        )
 		where complete_count + 1 = appr_level
+	</select>
+	
+	<select id="selectMember" resultMap="ApprovalMemberResult">
+		select am.emp_no
+		     , emp_name
+		     , gr_appr_grade
+		     , appr_mem_count
+		     , appr_level
+		  from tb_approval ap
+		  join tb_appr_mem am on (am.appr_no = ap.appr_no)
+		  join tb_emp e on (am.emp_no = e.emp_no)
+		  join tb_grade g on (e.emp_grade = g.emp_grade)
+		 where am.appr_no = #{appr_no}
+		 order
+		    by appr_level
+	</select>
+	
+	<select id="selectVacation" resultMap="ApprVacationResult">
+		select emp_no
+		     , emp_name
+		     , ap.appr_no
+		     , to_char(appr_enroll_date, 'YYYY-MM-DD') appr_enroll_date
+		     , gr_appr_grade
+		     , vct_status
+		     , vct_start_date
+		     , vct_end_date
+		     , vct_reason
+		     , vct_count
+		  from tb_approval ap
+		  join tb_emp using (emp_no)
+		  join tb_grade using (emp_grade)
+		  join tb_appr_vacation vct on (ap.appr_no = vct.appr_no)
+		 where vct.appr_no = #{appr_no}
+	</select>
+	
+	<select id="selectOvertime" resultMap="ApprOvertimeResult">
+		select emp_no
+		     , emp_name
+		     , ap.appr_no
+		     , to_char(appr_enroll_date, 'YYYY-MM-DD') appr_enroll_date
+		     , gr_appr_grade
+		     , ovt_date
+		     , ovt_start_time
+		     , ovt_end_time
+		     , ovt_reason
+		  from tb_approval ap
+		  join tb_emp using (emp_no)
+		  join tb_grade using (emp_grade)
+		  join tb_appr_overtime ovt on (ap.appr_no = ovt.appr_no)
+		 where ovt.appr_no = #{appr_no}
+	</select>
+	
+	<select id="selectExpense" resultMap="ApprExpenseResult">
+		select emp_no
+		     , emp_name
+		     , ap.appr_no
+		     , to_char(appr_enroll_date, 'YYYY-MM-DD') appr_enroll_date
+		     , gr_appr_grade
+		     , appr_title
+		     , exp_mem
+		     , exp_total_amount
+		     , exp_reason 
+		  from tb_approval ap
+		  join tb_emp using (emp_no)
+		  join tb_grade using (emp_grade)
+		  join tb_appr_exp exp on (ap.appr_no = exp.appr_no)
+		 where exp.appr_no = #{appr_no}
+	</select>
+	
+	<select id="selectExpDetail" resultMap="ApprExpDetailResult">
+		select exp_date
+		     , exp_status
+		     , exp_amount
+		     , exp_history
+		     , exp_note
+		  from tb_approval ap
+		  join tb_exp_detail ed on (ap.appr_no = ed.appr_no)
+		 where ed.appr_no = #{appr_no}
 	</select>
 
 </mapper>

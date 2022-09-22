@@ -250,7 +250,7 @@ public class ApprovalController {
 		
 		int result1 = aService.insertStorage(ap);
 		
-		if(ap.getApprDocType() == 1) {
+		if(ap.getApprDocType().equals("1")) {
 			int result2 = aService.insertApprVct(vct);
 			if(result1>0 && result2>0) {
 				session.setAttribute("alertMsg", "내용이 저장되었습니다.");
@@ -260,7 +260,7 @@ public class ApprovalController {
 				return "common/errorPage";
 			}
 			
-		}else if(ap.getApprDocType() == 2) {
+		}else if(ap.getApprDocType().equals("2")) {
 			int result3 = aService.insertApprOvt(ovt);
 			
 			if(result1>0 && result3>0) {
@@ -323,6 +323,28 @@ public class ApprovalController {
 		ArrayList<Approval> list = aService.selectWaitingList(pi, empNo);
 		
 		mv.addObject("pi", pi).addObject("list", list).setViewName("approval/apprWaitingListView");
+		
+		return mv;
+		
+	}
+	
+	@RequestMapping(value="apprDetail.ap", produces="application/json; charset=utf-8")
+	public ModelAndView selectDetail(String apprNo, String apprDocType, ModelAndView mv) {
+		
+		ArrayList<ApprovalMember> mlist = aService.selectMember(apprNo);
+		
+		if(apprDocType.equals("1")) {
+			ApprVacation vct = aService.selectVacation(apprNo);
+			mv.addObject("mlist", mlist).addObject("vct", vct).setViewName("approval/vacationDetailView");
+		}else if(apprDocType.equals("2")) {
+			ApprOvertime ovt = aService.selectOvertime(apprNo);
+			mv.addObject("mlist", mlist).addObject("ovt", ovt).setViewName("approval/overtimeDetailView");
+		}else {
+			ApprExpense exp = aService.selectExpense(apprNo);
+			ArrayList<ApprExpDetail> elist = aService.selectExpDetail(apprNo); 
+			mv.addObject("mlist", mlist).addObject("exp", exp).addObject("elist", elist).setViewName("approval/expenseDetailView");
+
+		}
 		
 		return mv;
 		
