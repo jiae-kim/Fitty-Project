@@ -63,6 +63,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int selectVacSearchListCount(HashMap <String, Object> sqlMap) {
 		return eDao.selectVacSearchListCount(sqlSession, sqlMap);
 	}
+	
+	@Override
+	public int selectTodaySearchListCount(HashMap<String, Object> sqlMap) {
+		return eDao.selectTodaySearchListCount(sqlSession, sqlMap);
+	}
 
 
 	@Override
@@ -116,4 +121,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int uploadProfileImg2(Employee e) {
 		return eDao.uploadProfileImg2(sqlSession, e);
 	}
+
+
 }

@@ -410,6 +410,61 @@ distinct emp_no
 		 ]]>
   </select>
   
+    <select id="selectTodaySearchList" resultMap="attendanceResult">
+	  		select
+			    distinct
+			       e.emp_no
+			     , e.emp_name
+			     , g.gr_name
+			     , nvl(a.att_in, '출근전') as "att_in"
+			     , nvl(a.att_out, '퇴근전') as "att_out"
+			     , a.att_date
+			     , a.att_status
+			     , a.att_plus_work
+			     , e.emp_grade
+			  from tb_emp e
+			  join tb_att a on (e.emp_no = a.emp_no)
+			  join tb_grade g on (e.emp_grade = g.emp_grade)
+			 where emp_status = 'Y'
+			 and a.att_date = #{thisYear} || '-' || #{thisMonth} || '-' || #{thisDay}
+			 <if test = 'addSqlGrade == "all"'>
+				
+			</if>
+			 <if test = 'addSqlGrade == "admin"'>
+				and e.emp_grade in ('C', 'A')
+			</if>
+			<if test = 'addSqlGrade == "trainer"'>
+				and e.emp_grade = 'T'
+			</if>
+			<if test = 'addSqlStatus == "selectAll"'>
+			
+			</if>
+			<if test = 'addSqlStatus == "O"'>
+				and a.att_status='O'
+			</if>
+			<if test = 'addSqlStatus == "YVQZ"'>
+				and a.att_status in ('Y', 'V', 'Q', 'Z' )
+			</if>
+			<if test = 'addSqlStatus == "P"'>
+				and a.att_status='P'
+			</if>
+			<if test = 'addSqlStatus == "LX"'>
+				and a.att_status in ('L','X' )
+			</if>
+			<if test = 'searchFlag  == "N"'>
+			
+			</if>
+			<if test = 'searchFlag  == "Y"'>
+				 and e.emp_name like '%' || #{sqlEmpName } || '%'
+			</if>
+			order by  case when e.emp_grade = 'C' then 1
+                    when e.emp_grade = 'A' then 2
+                    when e.emp_grade = 'T' then 3
+                    end
+	  </select>
+	  
+	  
+  
   <select id="selectAttNo" resultType="_int">
   	select att_no
   	  from tb_att

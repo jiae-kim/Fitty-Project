@@ -76,6 +76,11 @@ public class EmployeeDao {
 		return sqlSession.selectOne("employeeMapper.selectVacSearchListCount", sqlMap);
 	}
 	
+	// sql 문에 해당하는 직원카운트만 불러오기
+		public int selectTodaySearchListCount(SqlSessionTemplate sqlSession, HashMap <String, Object> sqlMap) {
+			return sqlSession.selectOne("employeeMapper.selectTodaySearchListCount", sqlMap);
+		}
+	
 	
 	// 주소록용 계층형 empList
 	public ArrayList<Employee> selectLevelEmployeeList(SqlSessionTemplate sqlSession){

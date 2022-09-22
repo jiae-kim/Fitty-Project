@@ -1,5 +1,7 @@
 $(function(){
 
+	selectTodayAttList(1);
+
 	$("#nextBtn").attr("disabled", true);
 	$("#rightArrow").css("color", "#DCDADA");
 	
@@ -93,6 +95,30 @@ $(function(){
 	    		
 	    		nowCheck();
     })
+
+	$(document).ready(function(){
+		$("#orderByGrade").on("change",function(){
+			nowCheck();
+		})
+	})
+	
+	$(document).ready(function(){
+		$("#orderByStatus").on("change",function(){
+			nowCheck();
+		})
+	})
+	
+	
+
+	$(document).ready(function(){
+		$("#searchBtn").on("click",function(){
+			//console.log("검색")
+			//console.log($('#searchText').val());
+			let searchText = $('#searchText').val()
+			nowSearch(1, searchText );	
+		})
+	})
+
 })
     
     
@@ -113,50 +139,200 @@ function nowCheck(){
 	
     if(year == nowYear && month == nowMonth && nowDate == day) {
     // 같은년월
-        //selectAllAttList(1);
         $("#nextBtn").attr("disabled", true);
         $("#rightArrow").css("color", "#DCDADA");
+        selectTodayAttList(1);
     } else {
     // 다른년월
     	$("#rightArrow").css("color", "#696CFF");
     	$("#nextBtn").attr("disabled", false);
-        //selectOtherAttList(1);
+        selectTodayAttList(1);
     }
     
    
     
 }
+
+function selectTodayAttList(page){
+
+   
+		
+		$.ajax({
+			url: "todayAttList.att",
+			data:{
+				addSqlGrade : $("#orderByGrade").val(),
+				addSqlStatus : $("#orderByStatus").val(),
+				sqlEmpName :$("#searchText").val(),
+				searchFlag : 'N',
+				thisYear : $("#thisYear").val(),
+				thisMonth : $("#thisMonth").val(),
+				thisDay : $("#thisDay").val(),
+				cpage:page
+			},
+			type:"post",
+			success:function(result){
+			
+				let value = "";
+				let pageValue = "";
+				
+				let aList = result.aList;
+				let pi = result.pi;
+			
+
+				if(pi.listCount === "0") {
+					value += "<tr>"
+						+ "<td colspan='7'> 직원이 없습니다. </td>"
+							+ "</tr>";
+				} else {
+					for(let i=0; i<aList.length; i++){
+						
+						value += "<tr>"
+								+  	 "<td>" +  aList[i].empNo + "</td>"
+								+  	 "<td>" +  aList[i].empName + "</td>"
+								+  	 "<td>" +  aList[i].grName + "</td>"
+								+  	 "<td>" +  aList[i].attDate + "</td>"
+								+  	 "<td>" +  aList[i].attIn + "</td>"
+								+  	 "<td>" +  aList[i].attOut + "</td>"
+								if(aList[i].attStatus === "정상출근") {
+						value += 			"<td><span class='badge rounded-pill bg-label-secondary'>" + aList[i].attStatus + "</td></span>"
+								} else if (aList[i].attStatus === "지각") {
+						value += 			"<td><span class='badge rounded-pill bg-label-warning'>　" + aList[i].attStatus + "　</td></span>"
+								} else if (aList[i].attStatus === "결근") {
+						value += 			"<td><span class='badge rounded-pill bg-label-danger'>　" + aList[i].attStatus + "　</td></span>"
+								} else if (aList[i].attStatus === "조퇴") {
+						value += 			"<td><span class='badge rounded-pill bg-label-warning'>　" + aList[i].attStatus + "　</td></span>"
+								} else if (aList[i].attStatus === "오전반차" || aList[i].attStatus === "오후반차") {
+						value += 			"<td><span class='badge rounded-pill bg-label-success'>" + aList[i].attStatus + "</td></span>"
+								} else if (aList[i].attStatus === "휴가") {
+						value += 			"<td><span class='badge rounded-pill bg-label-success'>　" + aList[i].attStatus + "　</td></span>"
+								} else if (aList[i].attStatus === "연월차") {
+						value += 			"<td><span class='badge rounded-pill bg-label-success'>" + aList[i].attStatus + "</td></span>"
+								} else {
+						value += 			"<td><span class='badge rounded-pill bg-label-primary'>　" + aList[i].attStatus + "　</td></span>"
+								}
+						value +=  	 "<td>" +  aList[i].attPlusWork + "</td>"
+								+ "</tr>";
+					}
+
+					
+					if(pi.currentPage == 1){
+						// 현재페이지가 1페이지면 < 버튼 disabled
+						pageValue += "<li class='page-item prev'><button disabled class='page-link'><i class='tf-icon bx bx-chevron-left'></i></button></li>";
+							
+					} else {
+						// 현재 페이지가 1페이지가 아니면
+						pageValue += "<li class='page-item prev'><button class='page-link' onclick='selectAllAttList(" + (pi.currentPage - 1) + ")'><i class='tf-icon bx bx-chevron-left'></i></button></li>";
+					}
+					
+					for(let p=pi.startPage; p<=pi.endPage; p++) { 
+						if(p == pi.currentPage) { 
+								pageValue += "<li class='page-item'><button class='page-link' disabled>"  + p  + "</button></li>"
+						}else {
+								pageValue += "<li class='page-item'><button class='page-link' onclick='selectAllAttList(" + p +")'>" + p + "</button></li>"
+						} 
+					}     
+			
+					if(pi.currentPage == pi.maxPage) {
+						pageValue += "<li class='page-item prev'><button disabled class='page-link'><i class='tf-icon bx bx-chevron-right'></i></button></li>"
+					} else {
+						pageValue +=	"<li class='page-item next'><button class='page-link' onclick='selectAllAttList(" + (pi.currentPage + 1) + ")'><i class='tf-icon bx bx-chevron-right'></i></button></li>"
+						
+					}
+					
+					$("#memListTBody").html(value);
+					$(".pagination").html(pageValue);
+					$("#selectAll").attr("checked", true);
+			}
+		}
+		,error:function(){
+				console.log("페이지 로딜 리스트 조회용 ajax통신 실패"); 
+		}
+	
+
+	})
+
+}
     		
 	
+function nowSearch(page, searchText){
+
+	$("#searchText").val("");	
+		$.ajax({
+			url: "todayAttList.att",
+			data:{
+				addSqlGrade : $("#orderByGrade").val(),
+				addSqlStatus : $('input:radio[name="orderByStatus"]').val(),
+				sqlEmpName :searchText,
+				searchFlag : 'Y',
+				thisYear : $("#thisYear").val(),
+				thisMonth : $("#thisMonth").val(),
+				thisDay : $("#thisDay").val(),
+				cpage:page
+			},
+			type:"post",
+			success:function(result){
+			
+			
+				let value = "";
+				let pageValue = "";
+				
+				let aList = result.aList;
+				let pi = result.pi;
+				
+				if(aList.length == 0) {
+					value += "<tr>"
+						+ "<td colspan='7'> 직원이 없습니다. </td>"
+							+ "</tr>";
+				} else {
+					for(let i=0; i<aList.length; i++){
+						
+						value += "<tr>"
+								+  	 "<td>" +  aList[i].empNo + "</td>"
+								+  	 "<td>" +  aList[i].empName + "</td>"
+								+  	 "<td>" +  aList[i].grName + "</td>"
+								+  	 "<td>" +  aList[i].attDate + "</td>"
+								+  	 "<td>" +  aList[i].attIn + "</td>"
+								+  	 "<td>" +  aList[i].attOut + "</td>"
+								+  	 "<td>" +  aList[i].attStatus + "</td>"
+								+  	 "<td>" +  aList[i].attPlusWork + "</td>"
+								+ "</tr>";
+					}
+
+					
+					if(pi.currentPage == 1){
+						// 현재페이지가 1페이지면 < 버튼 disabled
+						pageValue += "<li class='page-item prev'><button disabled class='page-link'><i class='tf-icon bx bx-chevron-left'></i></button></li>";
+							
+					} else {
+						// 현재 페이지가 1페이지가 아니면
+						pageValue += "<li class='page-item prev'><button class='page-link' onclick='selectAllAttList(" + (pi.currentPage - 1) + ")'><i class='tf-icon bx bx-chevron-left'></i></button></li>";
+					}
+					
+					for(let p=pi.startPage; p<=pi.endPage; p++) { 
+						if(p == pi.currentPage) { 
+								pageValue += "<li class='page-item'><button class='page-link' disabled>"  + p  + "</button></li>"
+						}else {
+								pageValue += "<li class='page-item'><button class='page-link' onclick='selectAllAttList(" + p +")'>" + p + "</button></li>"
+						} 
+					}     
+			
+					if(pi.currentPage == pi.maxPage) {
+						pageValue += "<li class='page-item prev'><button disabled class='page-link'><i class='tf-icon bx bx-chevron-right'></i></button></li>"
+					} else {
+						pageValue +=	"<li class='page-item next'><button class='page-link' onclick='selectAllAttList(" + (pi.currentPage + 1) + ")'><i class='tf-icon bx bx-chevron-right'></i></button></li>"
+						
+					}
+					
+					$("#memListTBody").html(value);
+					$(".pagination").html(pageValue);
+					$("#selectAll").attr("checked", true);
+			}
+		}
+		,error:function(){
+				console.log("페이지 로딜 리스트 조회용 ajax통신 실패"); 
+		}
 	
-	/*
-    selectAllAttList(1);
-	
-	$(document).ready(function(){
-		$("#orderByWorkTime").on("change",function(){
-			changeSelect();	
-		})
+
 	})
-	
-	$(document).ready(function(){
-		$("#searchBtn").on("click",function(){
-			changeSelect();	
-		})
-	})
-	
-	$(document).ready(function(){
-		$('input:radio[name=orderByPercent]').on("click",function(){
-			filterPercent();	
-		})
-	})
 
-	
-
-	
-})
-
-
-
-
-})
-*/
+}

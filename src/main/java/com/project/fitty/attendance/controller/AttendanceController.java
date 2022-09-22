@@ -49,10 +49,6 @@ public class AttendanceController {
 		ModelAndView mv = new ModelAndView();
 		ArrayList<Integer> yearList = new ArrayList<>();
 		ArrayList<Integer> monthList = new ArrayList<>();
-		ArrayList<Integer> dayList31 = new ArrayList<>();
-		ArrayList<Integer> dayList30 = new ArrayList<>();
-		ArrayList<Integer> dayList29 = new ArrayList<>();
-		ArrayList<Integer> dayList28 = new ArrayList<>();
 		int thisYear = Calendar.getInstance().get(Calendar.YEAR);
 		int thisMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
 		int thisDay = Calendar.getInstance().get(Calendar.DATE);
@@ -65,34 +61,78 @@ public class AttendanceController {
 			monthList.add(i);
 		}
 		
-		for(int i=1; i<=31 ;i++) {
-			dayList31.add(i);
-		}
-		
-		for(int i=1; i<=30 ;i++) {
-			dayList30.add(i);
-		}
-		
-		for(int i=1; i<=29 ;i++) {
-			dayList29.add(i);
-		}
-		
-		for(int i=1; i<=29 ;i++) {
-			dayList28.add(i);
-		}
-		
-		// 진짜 그냥 이동 + 년 월에 대한 리스트만 올려 시켜주고, 리스트는 ajax로 불러옴 > ajax 페이징처리
-		
 		mv.addObject("yearList", yearList).addObject("monthList", monthList).
 		   addObject("thisYear", thisYear).addObject("thisMonth", thisMonth).
 		   addObject("thisDay", thisDay);
-		   //addObject("dayList30", dayList30).
-		   //addObject("dayList29", dayList29).
-		   //addObject("dayList28", dayList28).
 		   
 		return mv;
 	}
 	
+	public ArrayList<Attendance> makeAttStatusKr(ArrayList<Attendance> list) {
+		for(Attendance a : list) {
+			switch(a.getAttStatus()) {
+				case "X" : a.setAttStatus("결근"); ; break; //결석
+				case "L" : a.setAttStatus("지각"); ; break; // 지각
+				case "E" : a.setAttStatus("조퇴"); ; break; // 조퇴
+				case "Q" : a.setAttStatus("오전반차"); ; break; // 오전반차
+				case "Z" : a.setAttStatus("오후반차"); ; break; // 오후반차
+				case "V" : a.setAttStatus("휴가"); ; break; // 휴가
+				case "Y" : a.setAttStatus("연월차"); ; break; // 연월차
+				case "B" : a.setAttStatus("주말"); ; break; // 베이직
+				case "O" : a.setAttStatus("정상출근"); ; break; // 정상출근
+				case "P" : a.setAttStatus("연장근무"); ; break; // 정상출근
+				default : a.setAttStatus("기본"); break;  // 무단
+			}
+			//System.out.println(a);
+		}
+		return list;
+	}
+	
+	public ArrayList<Attendance> makeAttPlusWorkKr(ArrayList<Attendance> list) {
+		for(Attendance a : list) {
+			switch(a.getAttPlusWork()) {
+				case "N" : a.setAttPlusWork("일반근무"); ; break; 
+				case "P" : a.setAttPlusWork("연장근무"); ; break; 
+				default : a.setAttPlusWork("일반근무"); break; 
+			}
+			//System.out.println(a);
+		}
+		return list;
+	}
+	
+	public String selectTodayAttList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session,
+			String addSqlGrade, String addSqlStatus, String sqlEmpName, String searchFlag,
+			String thisYear, String thisMonth, String thisDay) {
+		int listCount = 0;
+		//System.out.println(addSqlGrade + " | " + addSqlStatus + " | " + sqlEmpName + " | " + searchFlag + " | " + thisYear + " | " + thisMonth + " | " + thisDay);
+		
+		if(thisMonth.length() == 1) {
+			thisMonth = "0" + thisMonth;
+		}
+		HashMap <String, Object> sqlMap = new HashMap<String, Object>();
+		sqlMap.put("addSqlGrade", addSqlGrade);
+		sqlMap.put("addSqlStatus", addSqlStatus);
+		sqlMap.put("sqlEmpName", sqlEmpName);
+		sqlMap.put("searchFlag", searchFlag);
+		sqlMap.put("thisYear", thisYear);
+		sqlMap.put("thisMonth", thisMonth);
+		sqlMap.put("thisDay", thisDay);
+		
+		
+		listCount = eService.selectTodaySearchListCount(sqlMap);
+		//System.out.println(listCount);
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
+		
+		ArrayList<Attendance> aList = aService.selectTodaySearchList(pi, sqlMap);
+		aList = makeAttStatusKr(aList);
+		aList = makeAttPlusWorkKr(aList);
+		HashMap <String, Object> map = new HashMap<String, Object>();
+		map.put("pi", pi);
+		map.put("aList", aList);
+		return new Gson().toJson(map);
+		
+	}
 	
 	@RequestMapping("workIn.att")
 	public ModelAndView updateWorkIn(HttpSession session, Attendance a, ModelAndView mv) {
@@ -356,7 +396,6 @@ public class AttendanceController {
 			// 서치된 값으로 호출될때 searchFlag = Y
 			listCount = eService.selectVacSearchListCount(sqlMap);
 		}
-		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		
 		ArrayList<Attendance> aList = aService.selectVacList(pi, sqlMap);
@@ -403,6 +442,15 @@ public class AttendanceController {
 		
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value="todayAttList.att", produces="application/json; charset=utf-8")
+	public String realSelectTodayAttList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session,
+				String addSqlGrade, String addSqlStatus, String sqlEmpName, String searchFlag,
+				String thisYear, String thisMonth, String thisDay) {
+		String map = selectTodayAttList(currentPage, session, addSqlGrade, addSqlStatus, sqlEmpName, searchFlag, thisYear, thisMonth, thisDay);
+		return map;
+	}
 	/*
 	@RequestMapping("modifyAtt.att")
 	public String goModifyAtt() {
@@ -421,24 +469,7 @@ public class AttendanceController {
 		String empNo = e.getEmpNo();
 		System.out.println(empNo);
 		ArrayList<Attendance> list = aService.selectMyMonthAttList(empNo);
-		
-		for(Attendance a : list) {
-			switch(a.getAttStatus()) {
-				case "X" : a.setAttStatus("결석"); ; break; //결석
-				case "L" : a.setAttStatus("지각"); ; break; // 지각
-				case "E" : a.setAttStatus("조퇴"); ; break; // 조퇴
-				case "Q" : a.setAttStatus("오전반차"); ; break; // 오전반차
-				case "Z" : a.setAttStatus("오후반차"); ; break; // 오후반차
-				case "V" : a.setAttStatus("휴가"); ; break; // 휴가
-				case "Y" : a.setAttStatus("연월차"); ; break; // 연월차
-				case "B" : a.setAttStatus("주말"); ; break; // 베이직
-				case "O" : a.setAttStatus("정상출근"); ; break; // 정상출근
-				case "P" : a.setAttStatus("연장근무"); ; break; // 정상출근
-				default : a.setAttStatus("기본"); break;  // 무단
-			}
-			//System.out.println(a);
-		}
-		
+		list = makeAttStatusKr(list);
 		return new Gson().toJson(list); // "[{}, {}, {}, ...]"
 	}
 	

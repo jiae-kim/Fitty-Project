@@ -90,6 +90,13 @@ public class AttendanceDao {
 	}
 	
 	
+	public ArrayList<Attendance> selectTodaySearchList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, Object> sqlMap) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage()-1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		return (ArrayList) sqlSession.selectList("attendanceMapper.selectTodaySearchList", sqlMap, rowBounds);
+	}
+	
 	public int selectAttNo(SqlSessionTemplate sqlSession, ModifyAtt m) {
 		return sqlSession.selectOne("attendanceMapper.selectAttNo", m);
 	}

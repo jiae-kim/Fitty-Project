@@ -114,6 +114,11 @@ public class AttendanceServiceImpl implements AttendanceService{
 	public ArrayList<Attendance> selectOtherCountList(Employee e) {
 		return aDao.selectOtherCountList(sqlSession, e);
 	}
+	
+	@Override
+	public ArrayList<Attendance> selectTodaySearchList(PageInfo pi, HashMap<String, Object> sqlMap) {
+		return aDao.selectTodaySearchList(sqlSession, pi, sqlMap);
+	}
 
 	@Override
 	public int insertAttendance(String empNo, String thisYear) {
@@ -166,6 +171,7 @@ public class AttendanceServiceImpl implements AttendanceService{
 	public ArrayList<Attendance> selectMyMonthAttList(String empNo) {
 		return aDao.selectmyMonthAttList(sqlSession, empNo);
 	}
+
 
 
 	

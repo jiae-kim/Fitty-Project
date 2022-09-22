@@ -77,34 +77,27 @@
                   <div style="height : 20px"></div>
                   <table class="pull-right">
                     <tr>
-                      <td width="22px"></td>
-                      <td>
-                        <select class="form-control mr-sm-0" name="orderByWorkTime" id="orderByWorkTime" style="height: 35px;"> 
+                      <td width = "600px;"></td>
+                      <td width = "150px;">
+                        <select class="form-control mr-sm-0" name="orderByGrade" id="orderByGrade" style="height: 35px;"> 
                         		<option value="all" selected>전체선택</option>                                       
                                 <option value="admin">관리자</option>
                                 <option value="trainer">트레이너</option>
                         </select>
                       </td>
-                      <td width = "370px;">
-                      	<div class="btn-group" role="group" aria-label="Basic radio toggle button group" name="orderByPercent" id="orderByPercent" style="height: 35px;">
-			                <input type="radio" class="btn-check orderByPercent" name="orderByPercent" id="selectAll" value="selectAll" style="font-size: 10px;" checked autocomplete="off" />
-			                <label class="btn btn-outline-primary" for="selectAll" style="font-size: 12px;">전체선택</label>
-			                <input type="radio" class="btn-check orderByPercent" name="orderByPercent" id="over100" value="over100" autocomplete="off" />
-			                <label class="btn btn-outline-primary" for="over100" style="font-size: 12px;">정상출퇴근</label> 
-			                <input type="radio" class="btn-check orderByPercent" name="orderByPercent" id="over100" value="over100" autocomplete="off" />
-			                <label class="btn btn-outline-primary" for="over100" style="font-size: 12px;">연월차 / 휴가</label>
-			                			                <input type="radio" class="btn-check orderByPercent" name="orderByPercent" id="over100" value="over100" autocomplete="off" />
-			                <label class="btn btn-outline-primary" for="over100" style="font-size: 12px;">연장근무</label> 
-			                <input type="radio" class="btn-check orderByPercent" name="orderByPercent" id="over80" value="over80" autocomplete="off" />
-			                <label class="btn btn-outline-primary" for="over80" style="font-size: 12px;">지각 / 무단결근</label>
-			              </div>
-                        
+                      <td width = "150px;">
+                      	<select class="form-control mr-sm-0" name="orderByStatus" id="orderByStatus" style="height: 35px;"> 
+                        		<option value="selectAll" selected>전체선택</option>                                       
+                                <option value="O">정상출퇴근</option>
+                                <option value="YVQZ">연월차 / 휴가</option>
+                                <option value="P">연장근무</option>
+                                <option value="LX">지각 / 무단결근</option>
+                        </select>
                       </td>
-                      <td><input type="text" class="form-control" placeholder="직원명 입력" name="searchText" id="searchText"  maxlength="30" style="height: 35px;"></td>
-                      <td><button type="button" id="searchBtn" class="btn btn-primary" onclick="changeSelect();"><i class='bx bx-search' style="color:white;"></i></button></td>
-                      <td width="180px"></td>
-                      <input type="hidden" id="strInsertVacListEmpNo">
+                      <td width = "400px;"><input type="text" class="form-control" placeholder="직원명 입력" name="searchText" id="searchText"  maxlength="30" style="height: 35px;"></td>
+                      <td><button type="button" id="searchBtn" class="btn btn-primary"><i class='bx bx-search' style="color:white;"></i></button></td>
                     </tr>        
+                      <input type="hidden" id="strInsertVacListEmpNo">
                   </table>
                 </div>
               
@@ -121,10 +114,8 @@
                                 <th>근무일</th>
                                 <th>출근시간</th>
                                 <th>퇴근시간</th>
-                                <th>출근상태</th>
-                                <th>퇴근상태</th>
+                                <th>상태</th>
                                 <th>야근여부</th>
-                                <th>월 근태조회</th>
                               </tr>
                           </thead>
                           <tfoot>
@@ -135,10 +126,8 @@
                                 <th>근무일</th>
                                 <th>출근시간</th>
                                 <th>퇴근시간</th>
-                                <th>출근상태</th>
-                                <th>퇴근상태</th>
+                                <th>상태</th>
                                 <th>야근여부</th>
-                                <th>월 근태조회</th>
                               </tr>
                           </tfoot>
                           

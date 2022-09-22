@@ -48,6 +48,10 @@ public interface AttendanceService {
 	ArrayList<Attendance> selectOtherCountList(Employee e);
 	
 	
+	// 당일 출근시간표
+	ArrayList <Attendance> selectTodaySearchList(PageInfo pi, HashMap <String, Object> sqlMap);
+	
+	
 	//휴가 연차 관리 기본 aList 구하기
 	ArrayList<Attendance> selectVacList(PageInfo pi, HashMap <String, Object> sqlMap);
 	

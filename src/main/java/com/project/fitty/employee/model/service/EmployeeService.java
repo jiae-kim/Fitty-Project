@@ -43,6 +43,9 @@ public interface EmployeeService {
 	// sql에 해당하는 회원수 알아오기
 	int selectVacSearchListCount(HashMap <String, Object> sqlMap);
 	
+	// 오늘근태 sql에 해당하는 회원수 알아보기
+	int selectTodaySearchListCount(HashMap <String, Object> sqlMap);
+	
 	// 직원 전체조회 - 주소록용 레벨
 	ArrayList<Employee> selectLevelEmployeeList();
 	
