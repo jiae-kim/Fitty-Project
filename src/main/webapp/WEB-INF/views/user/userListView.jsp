@@ -182,8 +182,8 @@
 	                         		<c:when test="${empty condition}">
                                 		<li class="page-item"><a class="page-link" href="list.ur?cpage=${p}">${p}</a></li>
                                 	</c:when>
-                                	<!-- 검색하는 경우 페이징 -->
                                 	<c:otherwise>
+                                	<!-- 검색하는 경우 페이징 -->
                                 		<li class="page-item"><a class="page-link" href="search.ur?cpage=${p}&condition=${condition}&keyword=${keyword}">${p}</a></li>
                                 	</c:otherwise>
                                 </c:choose>
