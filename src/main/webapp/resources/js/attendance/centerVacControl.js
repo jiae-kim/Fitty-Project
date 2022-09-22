@@ -266,6 +266,9 @@ function filterPercent(){
 		 }
 		 
 	} else if(orderByPercent == "over100") {
+         $("#memListTBody tr th" ).css( 'background-color', 'white' );
+		$("#memListTBody tr th input" ).removeAttr( 'disabled' );
+	} else {
 		$("#memListTBody tr th" ).css( 'background-color', 'white' );
 		$("#memListTBody tr th input" ).removeAttr( 'disabled' );
 	
@@ -285,9 +288,6 @@ function filterPercent(){
 		  $("#memListTBody tr th" ).eq( disabledNo[i] ).css( 'background-color', '#f0f0f0' );
 		  $("#memListTBody tr th input" ).eq( disabledNo[i] ).attr( 'disabled', 'true' );
          }
-	} else {
-		$("#memListTBody tr th" ).css( 'background-color', 'white' );
-		$("#memListTBody tr th input" ).removeAttr( 'disabled' );
 	}
 
 	

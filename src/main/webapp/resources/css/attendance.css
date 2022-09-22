@@ -234,6 +234,37 @@ table thead, table tfoot{
 
 
 
+/*centerTodayAttendance*/
+
+.dateTable{
+	margin : auto;
+	align-items:center;
+	justify-content:center;
+	margin-top:20px;
+}
+
+
+.dateTable button {
+	border : none;
+	background-color : white;
+}
+
+ #dtNowYear, #dtNowMonth, #dtNowDay{
+	font-size:30px;
+}
+
+#dtNowYear *, #dtNowMonth *, #dtNowDay *{
+	border :none;
+	width:80px;
+	color: #696CFF;
+}
+
+
+
+
+/*centerTodayAttendance*/
+
+
 /*resetAttendanceList*/
 .resetHeader{
 	margin:0;

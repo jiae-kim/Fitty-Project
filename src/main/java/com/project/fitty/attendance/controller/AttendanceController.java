@@ -42,6 +42,58 @@ public class AttendanceController {
 		return "common/mainPage";
 	}
 	
+	
+	
+	public ModelAndView makeDate() {
+		
+		ModelAndView mv = new ModelAndView();
+		ArrayList<Integer> yearList = new ArrayList<>();
+		ArrayList<Integer> monthList = new ArrayList<>();
+		ArrayList<Integer> dayList31 = new ArrayList<>();
+		ArrayList<Integer> dayList30 = new ArrayList<>();
+		ArrayList<Integer> dayList29 = new ArrayList<>();
+		ArrayList<Integer> dayList28 = new ArrayList<>();
+		int thisYear = Calendar.getInstance().get(Calendar.YEAR);
+		int thisMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
+		int thisDay = Calendar.getInstance().get(Calendar.DATE);
+		
+		for(int i=(Calendar.getInstance().get(Calendar.YEAR) - 5); i<10; i++) {
+			yearList.add(i);
+		}
+		
+		for(int i=1; i<=12; i++) {
+			monthList.add(i);
+		}
+		
+		for(int i=1; i<=31 ;i++) {
+			dayList31.add(i);
+		}
+		
+		for(int i=1; i<=30 ;i++) {
+			dayList30.add(i);
+		}
+		
+		for(int i=1; i<=29 ;i++) {
+			dayList29.add(i);
+		}
+		
+		for(int i=1; i<=29 ;i++) {
+			dayList28.add(i);
+		}
+		
+		// 진짜 그냥 이동 + 년 월에 대한 리스트만 올려 시켜주고, 리스트는 ajax로 불러옴 > ajax 페이징처리
+		
+		mv.addObject("yearList", yearList).addObject("monthList", monthList).
+		   addObject("thisYear", thisYear).addObject("thisMonth", thisMonth).
+		   addObject("thisDay", thisDay);
+		   //addObject("dayList30", dayList30).
+		   //addObject("dayList29", dayList29).
+		   //addObject("dayList28", dayList28).
+		   
+		return mv;
+	}
+	
+	
 	@RequestMapping("workIn.att")
 	public ModelAndView updateWorkIn(HttpSession session, Attendance a, ModelAndView mv) {
 		int result = aService.updateWorkIn(a);
@@ -198,23 +250,8 @@ public class AttendanceController {
 	@RequestMapping(value="centerAtt.att", produces="application/json; charset=utf-8")
 	public ModelAndView goCenterAtt(ModelAndView mv) {
 		
-		ArrayList<Integer> yearList = new ArrayList<>();
-		ArrayList<Integer> monthList = new ArrayList<>();
-		int thisYear = Calendar.getInstance().get(Calendar.YEAR);
-		int thisMonth = Calendar.getInstance().get(Calendar.MONTH) + 1;
-		
-		for(int i=(Calendar.getInstance().get(Calendar.YEAR) - 5); i<10; i++) {
-			yearList.add(i);
-		}
-		
-		for(int i=1; i<=12; i++) {
-			monthList.add(i);
-		}
-		
-		// 진짜 그냥 이동 + 년 월에 대한 리스트만 올려 시켜주고, 리스트는 ajax로 불러옴 > ajax 페이징처리
-		
-		mv.addObject("yearList", yearList).addObject("monthList", monthList)
-		  .addObject("thisYear", thisYear).addObject("thisMonth", thisMonth).setViewName("attendance/centerAllAttendance");
+		mv = makeDate();
+		mv.setViewName("attendance/centerAllAttendance");
 		return mv;
 	}
 	
@@ -405,7 +442,15 @@ public class AttendanceController {
 		return new Gson().toJson(list); // "[{}, {}, {}, ...]"
 	}
 	
-	
+	@RequestMapping("today.att")
+	public ModelAndView goTodayAttendance(ModelAndView mv) {
+		// 달력 날자정보가 들어있는 mv
+		mv = makeDate();
+		mv.setViewName("attendance/centerTodayAttendance");
+		
+		
+		return mv;
+	}
 	
 
 }
