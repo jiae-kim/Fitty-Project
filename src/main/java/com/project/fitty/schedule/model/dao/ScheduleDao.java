@@ -44,35 +44,4 @@ public class ScheduleDao {
 		return sqlSession.delete("scheduleMapper.deleteBooking", b);
 	}
 
-
-
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	/*
-	public int insertSchedule(SqlSessionTemplate sqlSession, Booking b) {
-		return sqlSession.insert("scheduleMapper.insertSchedule", b);
-	}
-	*/
 }

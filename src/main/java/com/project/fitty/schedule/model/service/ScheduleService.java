@@ -17,7 +17,7 @@ public interface ScheduleService {
 	ArrayList<Booking> selectUlist(String empNo);
 	
 	// [김지애] 3. 회원용 - 스케줄 상세조회 서비스
-	// 로그인한 회원의 본인이 예약한 내용만 조회
+	// 로그인한 회원의 본인이 예약한 내용만 조회 : 회원번호, 예약번호
 	Booking selectUdetailList(int bookNo);
 	
 	// [김지애] 4. 회원용 - 스케줄 등록 서비스

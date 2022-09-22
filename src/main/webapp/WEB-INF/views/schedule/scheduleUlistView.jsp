@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,7 +52,7 @@ html, body{font-size: 16px;}
             		<h5 class="text-muted">📅 ${loginU.userName}님의 스케줄입니다 🏋️담당 트레이너${loginU.empName}입니다</h5>
 					<!-- 예약 등록 버튼 -->
 					<div class="btn-group2" style="float: right; display: inline-block;">
-		            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scheduleEnroll">수업 예약</button>
+		            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scheduleEnroll">수업 예약</button> -->
 		            <!-- 예약 등록 Modal -->
 		            <div class="modal fade" id="scheduleEnroll" tabindex="-1" aria-hidden="true">
 		            <div class="modal-dialog modal-dialog-centered" role="document">
@@ -124,14 +125,14 @@ html, body{font-size: 16px;}
 				  	 	</div>
 				  	  	<form action="" method="post" id="suForm">
 			          	<div class="modal-body">
-							<!-- 조회, 수정, 삭제 시 예약 번호 필요함 -->
-			          		<input type="hidden" name="bookNo" value="${b.bookNo}">
+							<!-- 조회, 수정, 삭제 시 예약번호, 회원번호 필요함 -->
+			          		<input type="hidden" name="bookNo" value="">
 
 							<!-- 담당 트레이너 -->
 							<div class="mb-4 row">
 								<label for="html5-date-input" class="col-md-5 col-form-label" id="font">담당 트레이너</label>
 								<div class="col-md-6">
-									<input class="form-control" type="text" name="empName" value="${b.empName}" id="html5-date-input" readonly />
+									<input class="form-control" type="text" name="empName" value="" id="html5-date-input" readonly />
 								</div>
 							</div>
 			          	
@@ -139,7 +140,7 @@ html, body{font-size: 16px;}
 							<div class="mb-4 row">
 								<label for="html5-date-input" class="col-md-5 col-form-label" id="font">예약 날짜</label>
 								<div class="col-md-6">
-									<input class="form-control" type="date" name="bookDate" value="${b.bookDate}" id="html5-date-input" />
+									<input class="form-control" type="date" name="bookDate" value="" id="html5-date-input" />
 								</div>
 							</div>
 						
@@ -169,8 +170,8 @@ html, body{font-size: 16px;}
 							
 			            </div>
 			            <div class="modal-footer" style="display: flex; justify-content: center;">
-			              <button type="button" class="btn btn-primary"  onclick="updateS();">예약변경</button>
-			              <button type="button" class="btn btn-warning"  onclick="deleteS();">예약취소</button>
+			              <button type="button" class="btn btn-primary"  onclick="updateS();" id="updateBtn">예약변경</button>
+			              <button type="button" class="btn btn-warning"  onclick="deleteS();" id="cancelBtn">예약취소</button>
 			              <a class="btn btn-secondary" href="listSchedule.sc" >뒤로가기</a>
 			            </div>
 			            </form> 
@@ -198,6 +199,9 @@ html, body{font-size: 16px;}
 						<div id='calendar'></div>
 					</div> 
 					</div>
+						
+					<c:set var="now" value="<%=new java.util.Date()%>" />
+					<fmt:formatDate var="sysdate" value="${now}" pattern="yyyy-MM-dd" />
 						
 					<!-- 캘린더 DB와 연동해서 뿌려주는(select기능) 코드 -->		
 					<script>
@@ -235,7 +239,7 @@ html, body{font-size: 16px;}
 											start : list[i].bookDate + " " + list[i].bookStime, 
 											end : list[i].bookDate + " " + list[i].bookEtime,
 											textColor : "black",
-											color : "lightgray"
+											backgroundColor : "lightgray"
 										}
 									}
 									data.push(obj);
@@ -277,6 +281,9 @@ html, body{font-size: 16px;}
 									  // 달력에서 모달 오픈
 									  eventClick:function(arg){
 										  ModalOpen(arg);
+									  },
+									  dateClick:function(arg){
+										  $("#scheduleEnroll").modal("show");
 									  }
 								   });
 								   calendar.render();
@@ -299,13 +306,13 @@ html, body{font-size: 16px;}
 					    	url:"detail.sc",
 					    	data:{bookNo: arg.event._def.publicId},
 					    	success:function(booking){
-					    		//console.log(booking);
+					    		console.log(booking);
 					    		// 예약 번호
-					    		$('input[name=bookNo]').attr('value', booking.bookNo);
+					    		$('#myModall input[name=bookNo]').attr('value', booking.bookNo);
 					    		// 담당 트레이너 이름
-					    		$('input[name=empName]').attr('value', booking.empName);
+					    		$('#myModall input[name=empName]').attr('value', booking.empName);
 					    		// 예약한 수업 일자
-					    		$('input[name=bookDate]').attr('value', booking.bookDate);
+					    		$('#myModall input[name=bookDate]').attr('value', booking.bookDate);
 					    		// 예약한 수업 시작 시간
 					    		$("#bookStime option").each(function(){
 					    			if($(this).val() == booking.bookStime){
@@ -318,6 +325,14 @@ html, body{font-size: 16px;}
 					    				$(this).attr('selected', true);
 					    			}
 					    		})
+					    		// 조회된학생번호와 로그인한학생번호가 일치하지 않을 경우 : 모달버튼 비활성화 attr("disabled", true);	
+					    		// 현재 선택한 일정의 날짜가 오늘 날짜 이후인 예약만 변경 가능함 
+					    		// console.log(${sysdate});
+
+					    		 if(${loginU.userNo} != booking.userNo || "${sysdate}" >= booking.bookDate) { 
+				    				$("#updateBtn").attr("disabled", true);
+				    				$("#cancelBtn").attr("disabled", true);
+					    		}
 					    	},
 					    	error:function(){
 					    		console.log("스케줄 상세조회 ajax 통신 실패");	

@@ -34,8 +34,9 @@
 	
 	<!-- 2. 회원 스케줄 전체조회 -->
 	<select id="selectEmp" resultType="string">
-		 select	  DISTINCT
+		 select	  distinct
 	              emp_no
+	           ,  user_no
 	       from   tb_booking
 	      where   user_no = #{userNo}
 	        and   book_status = 'Y'
@@ -65,6 +66,7 @@
 	  select
 	            b.book_no    
 	        ,   e.emp_name
+	        ,	b.user_no
 	        ,   b.cl_no
 	        ,   b.book_date
 	        ,   b.book_stime

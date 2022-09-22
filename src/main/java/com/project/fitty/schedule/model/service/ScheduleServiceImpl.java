@@ -54,10 +54,5 @@ public class ScheduleServiceImpl implements ScheduleService{
 		return bDao.deleteBooking(sqlSession, b);
 	}
 
-	
-
-
-
-
 
 }
