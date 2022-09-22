@@ -244,6 +244,7 @@ function filterPercent(){
 	
 	let orderByPercent = $('input:radio[name=orderByPercent]:checked').val();
 	
+	console.log(orderByPercent);
 	
 	
 	if(orderByPercent == "over80"){
@@ -265,9 +266,6 @@ function filterPercent(){
 		  $("#memListTBody tr th input" ).eq( disabledNo[i] ).attr( 'disabled', 'true' );
 		 }
 		 
-	} else if(orderByPercent == "over100") {
-         $("#memListTBody tr th" ).css( 'background-color', 'white' );
-		$("#memListTBody tr th input" ).removeAttr( 'disabled' );
 	} else {
 		$("#memListTBody tr th" ).css( 'background-color', 'white' );
 		$("#memListTBody tr th input" ).removeAttr( 'disabled' );
@@ -278,7 +276,7 @@ function filterPercent(){
 		 let value = "";
 		 
 		 for(let i=0; i<perMonthArr.length-1; i++){
-		 	if(Number(perMonthArr[i]) != 80) {
+		 	if(Number(perMonthArr[i]) < 100) {
 				value += i + "%";
 		 	}
 		 }
