@@ -144,13 +144,13 @@
 	    </button>
 	    </li>
 	    
-	    <li class="nav-item">
+	    <!-- <li class="nav-item">
 	    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-messages" 
 	    aria-controls="navs-pills-justified-messages" aria-selected="false">
 	      ✏️ 출결확인
 	    </button>
 		</li>
-		</ul>
+		</ul> -->
 		<!-- / 내용위에 분류버튼 -->
 		<!-- onclick="go('exercise.cl')" -->
 
@@ -189,13 +189,13 @@
 		
 		<script>
 			
-		var today = new Date();
+//		var today = new Date();
 		
-		var yy = "";
-		var mm = "";
-		var dd = "";
+//		var yy = "";
+//		var mm = "";
+//		var dd = "";
 		
-		$(function(){
+		/* $(function(){
 			
 			calrendarMaker();
 		
@@ -214,11 +214,11 @@
     			yy = today.getFullYear().toString().substring(2); //오늘에 해당하는 년
            		calrendarMaker();
             })
-            
+             */
             
             //var ttt = new Date(); //지정된 형식대로 만든 오늘날짜
             
-			dd = today.getDate(); //오늘의 일
+		/* 	dd = today.getDate(); //오늘의 일
 			mm = today.getMonth()+1;  //오늘에 해당하는 월
 			yy = today.getFullYear().toString().substring(2); //오늘에 해당하는 년
 
@@ -230,10 +230,10 @@
 			}
 			var ttt = yy + "/" + mm + "/" + dd;
             
-		})
+		}) */
             
 		
-		function calrendarMaker(){
+		/* function calrendarMaker(){
 			
 			
 			// 식단리스트를 조회하는 ajax
@@ -259,7 +259,9 @@
 		            
 		            // 주 카운트
 		            var calendarWeekCount = Math.ceil((calendarMonthStartDay + calendarMonthLastDate) / 7);
-		            
+		             */
+		             
+		            /*  
 		            var html = "";
 		                html += "<div align='center' class='calMove'>";
 		                
@@ -280,9 +282,9 @@
 		                // 위치
 		                var calendarPos = 0;
 		                // 날짜
-		                var calendarDay = 0;
+		                var calendarDay = 0; */
 		                
-		                for (var index1 = 0; index1 < calendarWeekCount; index1++) {
+		                /* for (var index1 = 0; index1 < calendarWeekCount; index1++) {
 		                  html += "<tr>";
 		                  for (var index2 = 0; index2 < 7; index2++) {
 		                    html += "<td>";
@@ -314,13 +316,13 @@
 			                      				html += "🍇";
 			                      			}
 			                      			/* html += "<div style='background:purple; border-radius:70%; width:15px; height:15px; margin:auto; float:left'></div>" */
-			                      		}
+			      /*                 		}
 			                      	}
 		                      	
 		                       	html += "</div>"
 		                              + "</div></div>";
 		                              
-		                    }
+		                    } 
 		                    
 		                    html += "</td>";
 		                    calendarPos++;
@@ -331,10 +333,10 @@
 		                html += "</table></div>";
 		                
 		                $("#calendar").html(html);
-		                
+		                 */
 			            	
 		                
-		                $(".div").click(function(){
+		     /*            $(".div").click(function(){
 			                  let dd = $(this).children().text();
 			                  if(dd>0 && dd<10){
 			                    dd = "0" + dd;
@@ -368,7 +370,7 @@
 				}
 			})
                 
-			}
+			} */
           </script>
           
 			</div>

@@ -29,8 +29,16 @@ public interface ClassService {
 	int insertExercise(Exercise e);
 	
 	
-	//운동 리스트 조회 (오늘 날짜)
+	//해당 회원의 모든 운동내역 조회 (달력에 뿌릴)
+	ArrayList<Exercise> selectExercise(int classNo);
+	
+	
+	//특정 회원의 운동내역 중 선택된 날짜의 운동만을 조회
 	ArrayList<Exercise> selectExerciseList(Exercise e);
+	
+	
+	//운동 수정을 위한 조회
+	Exercise selectEx(int exNo);
 	
 	
 	//운동 완료상태 변경
@@ -43,10 +51,6 @@ public interface ClassService {
 	
 	//운동 수정
 	int updateExercise(Exercise e);
-	
-	
-	//운동 수정전 조회
-	Exercise selectExercise(Exercise e);
 	
 	
 	//수업 번호에 따른 식단일기 조회

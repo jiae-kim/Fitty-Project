@@ -47,17 +47,34 @@ public class ClassServiceImpl implements ClassService{
 		return cDao.selectUserList(sqlSession, empNo);
 	}
 	
-	//운동 등록
+	
+	//운동 전체조회 (달력에 뿌릴)
 	@Override
-	public int insertExercise(Exercise e) {
-		return cDao.insertExercise(sqlSession, e);
+	public ArrayList<Exercise> selectExercise(int classNo) {
+		return cDao.selectExercise(sqlSession, classNo);
 	}
+
 	
 	//운동 리스트 조회 (오늘날짜)
 	@Override
 	public ArrayList<Exercise> selectExerciseList(Exercise e) {
 		return cDao.selectExerciseList(sqlSession, e);
 	}
+	
+	
+	//운동 수정 전 조회
+	@Override
+	public Exercise selectEx(int exNo) {
+		return cDao.selectEx(sqlSession, exNo);
+	}
+
+	
+	//운동 등록
+	@Override
+	public int insertExercise(Exercise e) {
+		return cDao.insertExercise(sqlSession, e);
+	}
+	
 	
 	//운동 완료 상태 변경
 	@Override
@@ -77,12 +94,6 @@ public class ClassServiceImpl implements ClassService{
 		return cDao.updateExercise(sqlSession, e);
 	}
 	
-	//운동 수정 전 조회
-	@Override
-	public Exercise selectExercise(Exercise e) {
-		return cDao.selectExercise(sqlSession, e);
-	}
-
 	//수업번호에 따른 회원 식단조회
 	@Override
 	public ArrayList<Diet> selectDiet(int classNo) {
@@ -112,8 +123,6 @@ public class ClassServiceImpl implements ClassService{
 	public int updateReply(Reply r) {
 		return cDao.updateReply(sqlSession, r);
 	}
-
-	
 
 	
 }

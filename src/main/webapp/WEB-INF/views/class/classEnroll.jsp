@@ -42,7 +42,7 @@
 
 			<div class="col-md-6">
             	<div class="nav-align-top mb-4">
-               		<div class="tab-content" style="height: 759px;">
+               		<div class="tab-content" style="height: 758px;">
 
 
 						<label style="font-weight:900; font-size: 20px;" align="center">🙍‍♀️ 회원 인적사항</label><br><br>

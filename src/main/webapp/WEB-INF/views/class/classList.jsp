@@ -18,12 +18,12 @@ justify-content: center;
 
 	<!-- 내용 감싸는 전체 wrap -->
 	<div class="content-wrapper">
-	  <div class="container-xxl flex-grow-1 container-p-y">
+	  <div class="container-xxl flex-grow-1 container-p-y" style="padding:0px;">
 	    <div class="row">
 	      <div class="col-xl-12">
 	
 	        <div class="nav-align-top mb-4">
-	          <div class="tab-content" style="height: 759px;" align="center">
+	          <div class="tab-content" style="height: 758px;" align="center">
 	
 	            <!-- 내용 넣을 부분 (* 수정해도 되는 부분)-->
 	            <label style="font-size:20px; font-weight:600;">내 회원 목록</label><br><br>
@@ -77,7 +77,7 @@ justify-content: center;
             	<script>
             		$(function(){
             			$("#userList>tbody>tr").click(function(){
-            				location.href='exercise.cl?classNo=' + $(this).children(".cNo").text();
+            				location.href='main.cl?classNo=' + $(this).children(".cNo").text();
             			})
             		})
             	</script>

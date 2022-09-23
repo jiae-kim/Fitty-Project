@@ -1,7 +1,5 @@
 package com.project.fitty.userClass.controller;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,7 +46,8 @@ public class UserClassController {
 	
 	//운동일지 페이지로 이동
 	@RequestMapping("userEx.cl")
-	public String userExercise() {
+	public String userExercise(int classNo, HttpSession session) {
+		session.setAttribute("classNo", classNo);
 		return "userClass/userExercise";
 	}
 	

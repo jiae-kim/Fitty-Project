@@ -290,7 +290,7 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="userEx.cl" class="menu-link">
+                  <a href="userEx.cl?classNo=${loginU.classNo }" class="menu-link">
                     <div data-i18n="Account" class="small-menu-label">#</div>
                   </a>
                 </li>

@@ -31,12 +31,25 @@ public class ClassDao {
 		return (ArrayList)sqlSession.selectList("classMapper.selectUserList", empNo);
 	}
 	
-	public int insertExercise(SqlSessionTemplate sqlSession, Exercise e) {
-		return sqlSession.insert("classMapper.insertExercise", e);
+	
+	//해당 회원의 운동 전체 조회(달력에 뿌릴내용)
+	public ArrayList<Exercise> selectExercise(SqlSessionTemplate sqlSession, int exNo){
+		return (ArrayList)sqlSession.selectList("classMapper.selectExercise", exNo);
 	}
 	
+	//해당 회원의 운동 리스트 중 특정 날짜의 운동만을 조회
 	public ArrayList<Exercise> selectExerciseList(SqlSessionTemplate sqlSession, Exercise e){
 		return (ArrayList)sqlSession.selectList("classMapper.selectExerciseList", e);
+	}
+	
+	//수정을 위해 특정 운동만을 조회
+	public Exercise selectEx(SqlSessionTemplate sqlSession, int exNo) {
+		return sqlSession.selectOne("classMapper.selectEx", exNo);
+	}
+	
+	
+	public int insertExercise(SqlSessionTemplate sqlSession, Exercise e) {
+		return sqlSession.insert("classMapper.insertExercise", e);
 	}
 	
 	public int updateCheck(SqlSessionTemplate sqlSession, Exercise e) {
@@ -51,9 +64,7 @@ public class ClassDao {
 		return sqlSession.update("classMapper.updateExercise", e);
 	}
 	
-	public Exercise selectExercise(SqlSessionTemplate sqlSession, Exercise e) {
-		return sqlSession.selectOne("classMapper.selectExercise", e);
-	}
+	
 	
 	public ArrayList<Diet> selectDiet(SqlSessionTemplate sqlSession, int classNo) {
 		return (ArrayList)sqlSession.selectList("classMapper.selectDiet", classNo);

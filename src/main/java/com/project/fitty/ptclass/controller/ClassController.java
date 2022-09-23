@@ -1,13 +1,14 @@
 package com.project.fitty.ptclass.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -55,6 +56,8 @@ public class ClassController {
 	}
 	
 	
+	
+	
 	//수업등록
 	/**Author : 정다혜
 	 * @param pt
@@ -97,12 +100,71 @@ public class ClassController {
 	
 	
 	
-	//오늘의 운동으로 이동 (회원클릭시 제일 먼저 보여지는 페이지)
-	@RequestMapping("exercise.cl")
-	public String exerciseView(int classNo, HttpSession session) {
+	//회원 클릭시 달력으로 이동
+	@RequestMapping("main.cl")
+	public String classMainView(int classNo, HttpSession session) {
 		session.setAttribute("classNo", classNo);
+		return "class/classMain";
+	}
+	
+	
+	
+	//달력에 식단, 운동 내역 출력
+	@ResponseBody
+	@RequestMapping(value="select.cl", produces="application/json; charset=UTF-8")
+	public String ajaxSelectClass(int classNo) {
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		ArrayList<Exercise> e = cService.selectExercise(classNo);
+		ArrayList<Diet> d = cService.selectDiet(classNo);
+		
+		map.put("e", e);
+		map.put("d", d);
+		
+		return new Gson().toJson(map);
+	}
+	
+	
+	
+	//오늘의 운동으로 이동
+	@RequestMapping("exercise.cl")
+	public String exerciseView(int classNo, String exDate, HttpSession session) {
+		session.setAttribute("classNo", classNo);
+		session.setAttribute("exDate", exDate);
 		return "class/exercise";
 	}
+	
+	
+	
+	
+	//선택 날짜 운동조회
+	/**
+	 * @param e : classNo, exDate
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="exList.cl", produces="application/json; charset=UTF-8")
+	public String ajaxSelectExerciseList(Exercise e){
+		
+		ArrayList<Exercise> list = cService.selectExerciseList(e);
+		
+		return new Gson().toJson(list);
+	}
+	
+	
+	
+
+	//글번호로 운동 조회 (수정폼에 뿌려줄 내용)
+	@ResponseBody
+	@RequestMapping(value="selectEx.cl", produces="application/json; charset=UTF-8")
+	public String ajaxSelectEx(int exNo) {
+		
+		Exercise ex = cService.selectEx(exNo);
+		
+		return new Gson().toJson(ex);
+	}
+	
 	
 	
 	
@@ -112,15 +174,6 @@ public class ClassController {
 	public int ajaxInsertExercise(Exercise e) {
 		int result = cService.insertExercise(e);
 		return result;
-	}
-	
-	
-	//운동 리스트 조회
-	@ResponseBody
-	@RequestMapping(value="exList.cl", produces="application/json; charset=UTF-8")
-	public String ajaxSelectExerciseList(Exercise e){
-		ArrayList<Exercise> list = cService.selectExerciseList(e);
-		return new Gson().toJson(list);
 	}
 	
 	
@@ -146,42 +199,34 @@ public class ClassController {
 	@ResponseBody
 	@RequestMapping("updateEx.cl")
 	public int ajaxUpdateExercise(Exercise e) {
-		System.out.println("넘어온 " + e);
 		int result = cService.updateExercise(e);
 		return result;
 	}
 	
-	
-	//운동 수정 전 insert되어있던 내용 조회
-	@ResponseBody
-	@RequestMapping(value="selectExercise.cl", produces="application/json; charset=UTF-8")
-	public String ajaxSelectExercise(Exercise e) {
-		Exercise ex = cService.selectExercise(e);
-		return new Gson().toJson(ex);
-	}
+
 	
 	
-	//식단 페이지(달력)로 이동
-	@RequestMapping("diet.cl")
-	public String dietListView(int classNo, HttpSession session) {
-		session.setAttribute("classNo", classNo);
-		return "class/dietList";
-	}
+	/*
+	 * //식단 페이지(달력)로 이동
+	 * 
+	 * @RequestMapping("diet.cl") public String dietListView(int classNo,
+	 * HttpSession session) { session.setAttribute("classNo", classNo); return
+	 * "class/dietList"; }
+	 */
 	
-	
-	//식단 리스트 조회
-	@ResponseBody
-	@RequestMapping(value="selectDietList.cl", produces="application/json; charset=UTF-8")
-	public String ajaxSelectDietList(int classNo, ModelAndView mv, HttpSession session) {
-		
-		ArrayList<Diet> list = cService.selectDiet(classNo);
-		return new Gson().toJson(list);
-	}
 	
 	
 	//식단 페이지 상세로 이동
+	/**
+	 * @param di : classNo, dietDate
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("dietDetail.cl")
 	public String selectDietDetail(Diet di, Model model, HttpSession session) {
+		
+		System.out.println("날짜와 클래ㅡㅅ번호" + di);
 		
 		Diet diet = cService.selectDietDetail(di);
 		
@@ -191,7 +236,7 @@ public class ClassController {
 		if(diet == null) {
 			//session.setAttribute("alertMsg", "식단이 등록되지 않은 날짜입니다! 다시 선택해주세요.");
 			model.addAttribute("d", di);
-			return "class/dietList";
+			return "class/dietDetailView";
 		}else {
 			model.addAttribute("d", diet);
 			return "class/dietDetailView";
