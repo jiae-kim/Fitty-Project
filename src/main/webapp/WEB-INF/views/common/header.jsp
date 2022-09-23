@@ -362,17 +362,10 @@
               </ul>
             </li>
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="listSchedule.ca" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-calendar'></i>
-                <div data-i18n="Authentications"  class="big-menu-label">스케줄관리</div>
+                <div data-i18n="Extended UI"  class="big-menu-label">스케줄 조회</div>
               </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="listSchedule.ca" class="menu-link">
-                    <div data-i18n="Basic" class="small-menu-label">스케줄 조회</div>
-                  </a>
-                </li>
-              </ul>
             </li>
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -447,30 +440,17 @@
               </ul>
             </li>
             <li class="menu-item">
-              <a href="javascript:void(0)" class="menu-link menu-toggle">
+              <a href="list.st" class="menu-link">
                 <i class='menu-icon tf-icons bx bx-bar-chart-alt'></i>
-                <div data-i18n="Extended UI"  class="big-menu-label">통계 - 프로젝트</div>
+                <div data-i18n="Extended UI"  class="big-menu-label">통계</div>
               </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="list.st" class="menu-link">
-                    <div data-i18n="Perfect Scrollbar" class="small-menu-label">통계</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="extended-ui-text-divider.html" class="menu-link">
-                    <div data-i18n="Text Divider" class="small-menu-label">프로젝트</div>
-                  </a>
-                </li>
-              </ul>
             </li>
-
             <li class="menu-item">
                 <a href="apprMain.ap" class="menu-link">
                     <i class='menu-icon tf-icons bx bx-paste'></i>
                   <div data-i18n="Extended UI"  class="big-menu-label">결재</div>
                 </a>
-              </li>
+            </li>
           </ul>
         </aside>
         <!-- / Menu -->
