@@ -104,8 +104,7 @@
 	        				
 	        				$checked.each(function(){
 	        					checkArr.push($(this).val());
-	        				});
-	        				// [1, 2]
+	        				}); // [1, 2]
 	        				
 	        				const ckPro = checkArr.toString(); // "1,2"
 	        				//console.log(ckPro);
@@ -183,7 +182,16 @@
 					                      <input type="text" name="pro" value="${p.pro}" class="form-control" readonly>
 					                      <br>
 			                              <label for="nameWithTitle" class="form-label">이용권 가격</label>
-			                              <input type="text" name="proPrice" value="${p.proPrice}" id="number" class="form-control" required>
+			                              <input type="text" name="proPrice" value='${ p.proPrice }' id="number2" class="form-control price" required>
+			                              	<!-- 금액 입력 시 자동으로 천단위 콤마 찍어줌 -->
+						                    <script>
+						                      $(".price").keyup(function(){
+						                    	  let value = $(this).val();
+						                    	  value = Number(value.replaceAll(',', ''));
+							                      const formatValue = value.toLocaleString('ko-KR');
+							                      $(this).val(formatValue);
+						                      })
+						                    </script>
 				                        </div>
 				                        <div class="modal-footer">
 				                          <button type="submit" class="btn btn-primary">확인</button>

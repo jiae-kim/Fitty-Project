@@ -22,7 +22,7 @@
 		select
 				pro_no
 			  ,	product
-		      , to_char(pro_price, '999,999,999') AS "pro_price"
+		      , to_char(pro_price, 'fm999,999,999') AS "pro_price"
 		   from	tb_product
 		  where	pro_status = 'Y'
 		  order
