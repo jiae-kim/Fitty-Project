@@ -27,12 +27,7 @@
                   <div class="row">
 	                <div class="d-flex align-items-start align-items-sm-center gap-4">
 		               <div class="beforeEmpList">
-							<div class="navbar-nav align-items-left">
-								<div class="nav-item d-flex align-items-center listNameSearch">
-									<input type="text" class="form-control border-0 shadow-none" placeholder="직원명 검색" aria-label="Search..." style="width:350px">
-									<i class="bx bx-search fs-4 lh-0"></i>
-								</div>
-							</div>
+							
 						    <table class="table table-hover empList " >
 						  		
 						    </table>
@@ -50,12 +45,7 @@
                   <div class="row">
 	                <div class="d-flex align-items-start align-items-sm-center gap-4">
 		               <div class="afterEmpList">
-							<div class="navbar-nav align-items-left">
-								<div class="nav-item d-flex align-items-center listNameSearch">
-									<input type="text" class="form-control border-0 shadow-none" placeholder="직원명 검색" aria-label="Search..." style="width:350px">
-									<i class="bx bx-search fs-4 lh-0"></i>
-								</div>
-							</div>
+							
 						    <table class="table table-hover printEmpList " >
 						  		
 						    </table>

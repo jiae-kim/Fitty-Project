@@ -54,6 +54,7 @@ function selectEmpList(){
     					value += "<thead>"
     						  +		"<tr>"
     						  +			"<th><input type='checkbox' name='choiceAll' id='choiceAll' onclick='checkAll();'></th>" 
+    						  +			"<th>프로필</th>"
     						  +			"<th>이름</th>"
     						  +			"<th>직급</th>"
     						  +			"<th>사번</th>"
@@ -63,6 +64,7 @@ function selectEmpList(){
 	    				for(let i=0; i<levelEmpList.length; i++){
 	    				  	value += "<tr> "
 	    				  		+ "<td><input type='checkbox' name='empNo' value='" +  levelEmpList[i].empNo + "'></td>"
+	    				  		+ "<td><img src=' " + levelEmpList[i].empPhoto + "' alt='Avatar' class='rounded-circle' width='30px;' height='30px;'/></td>" 
 	    				  		+ "<td><b>  " + levelEmpList[i].empName + "</b></td>" 
 	    				  		+ "<td>" + levelEmpList[i].empGrade + "</td>"
 	    				  		+ "<td>" + levelEmpList[i].empNo + "</td>"
