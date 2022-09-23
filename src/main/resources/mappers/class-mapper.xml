@@ -351,4 +351,12 @@
 	</update>	
 	
 	
+	
+	<delete id="deleteReply">
+		delete 
+		  from tb_reply
+		 where reply_no = #{replyNo}
+	</delete>
+	
+	
 </mapper>

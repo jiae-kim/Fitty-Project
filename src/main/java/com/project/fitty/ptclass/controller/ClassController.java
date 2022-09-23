@@ -272,7 +272,13 @@ public class ClassController {
 	}
 	
 	
-	
+	//댓글 삭제 (직원 : rdelete.di)
+	@ResponseBody
+	@RequestMapping("delete.di")
+	public int ajaxDeleteReply(int replyNo) {
+		int result  = cService.deleteReply(replyNo);
+		return result;
+	}
 	
 	
 	
