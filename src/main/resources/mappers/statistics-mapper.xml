@@ -55,6 +55,7 @@
 		        count(*) as "cou_count"
 		      , user_month
 		   from tb_user
+          where user_month is not null
 		  group by user_month
 		  order by user_month desc
 	</select>
