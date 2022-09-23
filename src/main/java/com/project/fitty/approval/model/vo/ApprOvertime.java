@@ -24,5 +24,6 @@ public class ApprOvertime {
 	private String empNo;
 	private String apprEnrollDate;
 	private String grApprGrade;
+	private String apprDocType;
 	
 }

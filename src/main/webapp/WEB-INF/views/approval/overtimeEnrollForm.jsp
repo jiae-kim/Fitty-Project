@@ -254,8 +254,8 @@
 	           				$("#tb5").hide();
 	           				$("#tb2 td").empty();
 		           			$("#tb2").show();
-		           			$("#tb2").children().children().eq(0).children().eq(0).empty();
-		           			$("#tb2").children().children().eq(0).children().eq(0).append("<input type='hidden' id='empNo1' name='mlist[0].empNo' value=''>");
+		           			$("#tb2").children().children().eq(0).children().eq(1).empty();
+		           			$("#tb2").children().children().eq(0).children().eq(1).append("<input type='hidden' id='empNo1' name='mlist[0].empNo' value=''>");
 		           			
 		           			let value1 = $("#mem").children().children().children().eq(2).text();
 		           			$("#tb2").children().children().eq(0).children().eq(1).append(value1);
@@ -267,15 +267,15 @@
 		           			$("#empNo1").attr("value", value3);
 		           			$("input[name=apprMemCount]").attr("value", "1");
 		           			
-		           			$("#tb5").children().children().eq(0).children().eq(0).empty();
+		           			$("#tb5").children().children().eq(0).children().eq(1).empty();
 		           			
 	           			}else if($("#mem tr").length == 2){
 	           				$("#tb2").hide();
 	           				$("#tb5 td").empty();
 	           				$("#tb5").show();
-	           				$("#tb5").children().children().eq(0).children().eq(0).empty();
-	           				$("#tb5").children().children().eq(0).children().eq(0).append("<input type='hidden' id='empNo1' name='mlist[0].empNo' value=''>");
-	           				$("#tb5").children().children().eq(0).children().eq(0).append("<input type='hidden' id='empNo2' name='mlist[1].empNo' value=''>");
+	           				$("#tb5").children().children().eq(0).children().eq(1).empty();
+	           				$("#tb5").children().children().eq(0).children().eq(1).append("<input type='hidden' id='empNo1' name='mlist[0].empNo' value=''>");
+	           				$("#tb5").children().children().eq(0).children().eq(1).append("<input type='hidden' id='empNo2' name='mlist[1].empNo' value=''>");
 	           				
 	           				let value1 = $("#mem").children().children().eq(0).children().eq(2).text();
 		           			$("#tb5").children().children().eq(0).children().eq(1).append(value1);
@@ -295,7 +295,7 @@
 		           			let value6 = $("#mem").children().children().eq(1).children().eq(3).children().val();
 		           			$("#empNo2").attr("value", value6);
 		           			
-		           			$("#tb2").children().children().eq(0).children().eq(0).empty();
+		           			$("#tb2").children().children().eq(0).children().eq(1).empty();
 		           			$("input[name=apprMemCount]").attr("value", "2");
 	           			}else{
 	           				$("#tb5").hide();

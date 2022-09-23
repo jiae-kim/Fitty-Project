@@ -28,5 +28,6 @@ public class ApprExpense {
 	private String apprTitle;
 	private String apprEnrollDate;
 	private String grApprGrade;
+	private String apprDocType;
 
 }

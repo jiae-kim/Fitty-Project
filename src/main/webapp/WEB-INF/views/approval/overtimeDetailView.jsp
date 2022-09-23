@@ -14,18 +14,18 @@
 		<jsp:include page="sideMenu.jsp"/>
 		
 		<div class="main">
-           <form action="">
+           <form action="" name="ovtForm">
              <h4 style="color:rgb(50, 50, 50);">연장근무신청</h4><br>
 
-             <button class="f-btn" data-bs-toggle="modal" data-bs-target="#addMem" type="button">
+             <button class="f-btn" type="button" onclick="approve();">
                <i class='bx bxs-edit'></i>
                결재
              </button>
-             <button class="f-btn">
+             <button class="f-btn" type="button" onclick="return();">
                <i class='bx bx-arrow-back'></i>
                반려
              </button>
-             <button class="f-btn">
+             <button class="f-btn" data-bs-toggle="modal" data-bs-target="#addMem" type="button">
                <i class='bx bx-error-circle'></i>
                결재정보
              </button>
@@ -108,9 +108,7 @@
 	                     	<table>
 	                     		<tr class="addmem">
 			                         <td height="80" width="40" style="background:rgba(211, 211, 211, 0.3);">
-				                         <button style="background:rgba(211, 211, 211, 0);" type="button" id="insert" onclick="none();">
 				                         	<i class='bx bx-chevrons-right'></i>
-				                         </button>
 				                     </td>
 				                     <td>승인</td>
 			                         <td>이름</td>
@@ -132,6 +130,11 @@
 	                       $('#appr-mem2').slideToggle(20);
 	                     } );
 	                     
+	                     
+	                   })
+                     	function approve(){
+	                	   alertify.confirm('승인하시겠습니까?', function(){ $("form[name=ovtForm]").attr("action","approve.ap"); $("form[name=ovtForm]").submit();}
+	                       ); 
 	                   }
 	                   
 	                 </script>
@@ -144,6 +147,10 @@
 	           </div>
 
              <div class="app-form1">
+	             <input type="hidden" name="empNo" value="${loginUser.empNo }">
+	             <input type="hidden" name="apprNo" value="${ ovt.apprNo }">
+	             <input type="hidden" name="ovtDate" value="${ ovt.ovtDate }">
+	         	<input type="hidden" name="apprDocType" value="${ ovt.apprDocType }">
                <br>
                <h5 align="center" style="color:rgb(50, 50, 50);"><b>연장근무신청서</b></h5>
                <br><br>
@@ -163,6 +170,8 @@
                 </table>
                 <c:choose>
                 	<c:when test="${ m.apprMemCount eq 1 }">
+                		<input type="hidden" name="apprMemCount" value="1">
+               			<input type="hidden" name="apprLevel" value="1">
                 		<table id="tb2">
 		                  <tr>
 		                    <th rowspan="3" width="25px;">승인</th>
@@ -177,12 +186,16 @@
 		                  </tr>
 		                  <tr>
 		                  	<c:forEach var="m" items="${ mlist }">
-		                    	<td></td>
+		                    	<td width="75px">${m.apprDate }</td>
 		                    </c:forEach>
 		                  </tr>
 		                </table>
                 	</c:when>
                 	<c:otherwise>
+                		<input type="hidden" name="apprMemCount" value="2">
+           				<c:if test="${ m.empNo eq loginUser.empNo }">
+           					<input type="hidden" name="apprLevel" value="2">
+           				</c:if>
                 		<table id="tb5">
 		                  <tr>
 		                    <th rowspan="3" width="25px;">승인</th>
@@ -192,17 +205,29 @@
 		                  </tr>
 		                  <tr>
 	                 		<c:forEach var="m" items="${ mlist }">
-	                 			<td>${ m.empName }</td>
+	                 			<td width="75px">${ m.empName }</td>
 			                </c:forEach>
 		                  </tr>
 		                  <tr>
 		                  	<c:forEach var="m" items="${ mlist }">
-		                   		 <td height="24px" style="font-size:small"></td>
+		                   		 <td height="24px" style="font-size:small">${m.apprDate }</td>
 		                    </c:forEach>
 		                  </tr>
 		                </table>
                 	</c:otherwise>
                 </c:choose>
+                 <script>
+                	$(function(){
+                		let value = $("#tb5").children().children().eq(2).children().eq(0).text();
+                		if(!value){
+                			$("#tb5").children().children().eq(2).children().eq(0).append("<input type='hidden' name='apprLevel' value='1'>");
+                		}else{
+                			$("#tb5").children().children().eq(2).children().eq(0).append("<input type='hidden' name='apprLevel' value='2'>");
+                			$("#tb5").children().children().eq(1).children().eq(0).prepend('<img src="resources/approval_images/stamp_approved.png" width="35" height="40"><br>');
+                		}
+                	})
+                </script>
+                
                 <table id="tb3">
 	               <tr>
 	                 <th rowspan="3" width="25%;">신청</th>
@@ -211,7 +236,7 @@
 	               <tr>
 	                 <td>
 	                 	<div><img src="resources/approval_images/stamp_approved.png" width="35" height="40"></div>
-	                 	${ ovt.empName }<input type="hidden" name="empNo" value="${loginUser.empNo }">
+	                 	${ ovt.empName }
 	                 </td>
 	               </tr>
 	               <tr>
