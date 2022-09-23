@@ -221,21 +221,21 @@ function selectTodayAttList(page){
 							
 					} else {
 						// 현재 페이지가 1페이지가 아니면
-						pageValue += "<li class='page-item prev'><button class='page-link' onclick='selectAllAttList(" + (pi.currentPage - 1) + ")'><i class='tf-icon bx bx-chevron-left'></i></button></li>";
+						pageValue += "<li class='page-item prev'><button class='page-link' onclick='selectTodayAttList(" + (pi.currentPage - 1) + ")'><i class='tf-icon bx bx-chevron-left'></i></button></li>";
 					}
 					
 					for(let p=pi.startPage; p<=pi.endPage; p++) { 
 						if(p == pi.currentPage) { 
 								pageValue += "<li class='page-item'><button class='page-link' disabled>"  + p  + "</button></li>"
 						}else {
-								pageValue += "<li class='page-item'><button class='page-link' onclick='selectAllAttList(" + p +")'>" + p + "</button></li>"
+								pageValue += "<li class='page-item'><button class='page-link' onclick='selectTodayAttList(" + p +")'>" + p + "</button></li>"
 						} 
 					}     
 			
 					if(pi.currentPage == pi.maxPage) {
 						pageValue += "<li class='page-item prev'><button disabled class='page-link'><i class='tf-icon bx bx-chevron-right'></i></button></li>"
 					} else {
-						pageValue +=	"<li class='page-item next'><button class='page-link' onclick='selectAllAttList(" + (pi.currentPage + 1) + ")'><i class='tf-icon bx bx-chevron-right'></i></button></li>"
+						pageValue +=	"<li class='page-item next'><button class='page-link' onclick='selectTodayAttList(" + (pi.currentPage + 1) + ")'><i class='tf-icon bx bx-chevron-right'></i></button></li>"
 						
 					}
 					

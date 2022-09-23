@@ -171,8 +171,18 @@ public class AttendanceServiceImpl implements AttendanceService{
 	public ArrayList<Attendance> selectMyMonthAttList(String empNo) {
 		return aDao.selectmyMonthAttList(sqlSession, empNo);
 	}
+/*
+	@Override
+	public int selectEmpListCount(HashMap<String, Object> sqlMap) {
+		return 0;
+	}
 
+	@Override
+	public ArrayList<Employee> selectEmpList(PageInfo pi, HashMap<String, Object> sqlMap) {
+		return null;
+	}
 
+*/
 
 	
 

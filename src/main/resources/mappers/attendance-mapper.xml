@@ -160,8 +160,14 @@ distinct emp_no
   	     , att_status
   	  from tb_att
   	 where emp_no = #{empNo}
-  	   and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '-' || #{thisMonth} || '-01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
-                        and to_date(to_char(sysdate,'YYYY-MM-DD'))
+  	 <if test = 'thisMonthFlag == "Y"'>
+		and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '-' || #{thisMonth} || '-01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+                        and to_date(to_char(sysdate,'YYYY-MM-DD'))		
+     </if>
+     <if test = 'thisMonthFlag == "N"'>
+		 and att_date between to_date(to_char((select trunc((to_date(#{thisYear} || '-' || #{thisMonth} || '-01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+                        and to_date(to_char((select last_day(#{thisYear} || '-' || #{thisMonth} || '-01')from dual),'YYYY-MM-DD'))		
+     </if>
 
   </select>
 
@@ -182,56 +188,98 @@ distinct emp_no
         select count(*) as "countO"
           from tb_att
          where emp_no = #{empNo}
-           and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+         <if test = 'thisMonthFlag == "Y"'>
+		 	and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
   	   					 and to_date(to_char(sysdate,'YYYY-MM-DD'))
+     	 </if>
+         <if test = 'thisMonthFlag == "N"'>
+		 	and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+  	   					and to_date(to_char((select last_day( #{thisYear} || '/' || #{thisMonth} || '/01') from dual),'YYYY-MM-DD'))
+     	 </if>
            and att_status = 'O'
     )as "countO"
      , (
         select count(*) as "countX"
           from tb_att
          where emp_no = #{empNo}
-           and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+          <if test = 'thisMonthFlag == "Y"'>
+		 	and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
   	   					 and to_date(to_char(sysdate,'YYYY-MM-DD'))
+     	 </if>
+         <if test = 'thisMonthFlag == "N"'>
+		 	and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+  	   					and to_date(to_char((select last_day( #{thisYear} || '/' || #{thisMonth} || '/01') from dual),'YYYY-MM-DD'))
+     	 </if>
            and att_status = 'X' 
     )as "countX"
      , (
        select count(*) as "countL"
           from tb_att
          where emp_no = #{empNo}
-          and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+         <if test = 'thisMonthFlag == "Y"'>
+		 	and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
   	   					 and to_date(to_char(sysdate,'YYYY-MM-DD'))
+     	 </if>
+         <if test = 'thisMonthFlag == "N"'>
+		 	and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+  	   					and to_date(to_char((select last_day( #{thisYear} || '/' || #{thisMonth} || '/01') from dual),'YYYY-MM-DD'))
+     	 </if>
            and att_status = 'L'   
     ) as "countL"
      , (
         select count(*) as "countE"
           from tb_att
          where emp_no = #{empNo}
-           and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+          <if test = 'thisMonthFlag == "Y"'>
+		 	and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
   	   					 and to_date(to_char(sysdate,'YYYY-MM-DD'))
+     	 </if>
+         <if test = 'thisMonthFlag == "N"'>
+		 	and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+  	   					and to_date(to_char((select last_day( #{thisYear} || '/' || #{thisMonth} || '/01') from dual),'YYYY-MM-DD'))
+     	 </if>
            and att_status = 'E'  
     ) as "countE"
      , (
         select count(*) as "countYH"
           from tb_att
          where emp_no = #{empNo}
-           and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+          <if test = 'thisMonthFlag == "Y"'>
+		 	and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
   	   					 and to_date(to_char(sysdate,'YYYY-MM-DD'))
+     	 </if>
+         <if test = 'thisMonthFlag == "N"'>
+		 	and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+  	   					and to_date(to_char((select last_day( #{thisYear} || '/' || #{thisMonth} || '/01') from dual),'YYYY-MM-DD'))
+     	 </if>
            and att_status in ('Y' , 'H')
     ) as "countYH"
      , (
           select count(*) as "countV"
           from tb_att
          where emp_no = #{empNo}
-           and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+          <if test = 'thisMonthFlag == "Y"'>
+		 	and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
   	   					 and to_date(to_char(sysdate,'YYYY-MM-DD'))
+     	 </if>
+         <if test = 'thisMonthFlag == "N"'>
+		 	and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+  	   					and to_date(to_char((select last_day( #{thisYear} || '/' || #{thisMonth} || '/01') from dual),'YYYY-MM-DD'))
+     	 </if>
            and att_status = 'V'
     ) as "countV"
      , (
         select sum(att_pwork_time)
           from tb_att
           where emp_no = #{empNo}
-           and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+          <if test = 'thisMonthFlag == "Y"'>
+		 	and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
   	   					 and to_date(to_char(sysdate,'YYYY-MM-DD'))
+     	 </if>
+         <if test = 'thisMonthFlag == "N"'>
+		 	and att_date between to_date(to_char((select trunc((to_date( #{thisYear} || '/' || #{thisMonth} || '/01','YYYY-MM-DD')), 'MM') from dual),'YYYY-MM-DD')) 
+  	   					and to_date(to_char((select last_day( #{thisYear} || '/' || #{thisMonth} || '/01') from dual),'YYYY-MM-DD'))
+     	 </if>
             and att_status = 'P'
     ) as "countPtime"
   from tb_att

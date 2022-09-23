@@ -76,13 +76,14 @@
                         <tr>
                             <td width="22px"></td>
                             <td>
-                                <select class="form-control mr-sm-0" name="searchType" id="searchType" style="height: 35px;">                                        
-                                    <option value="T">트레이너</option>
-                                    <option value="A">관리자</option>
+                                <select class="form-control mr-sm-0" name="orderByGrade" id="orderByGrade" style="height: 35px;">                                        
+                                    <option value="all" selected>전체선택</option>
+                                    <option value="admin">관리자</option>
+                                    <option value="trainer">트레이너</option>
                                 </select>
                             </td>
                             <td><input type="text" class="form-control" placeholder="검색어 입력" name="searchText" id="searchText"  maxlength="30" style="height: 35px;"></td>
-                            <td><button type="button" id="searchBtn" class="btn btn-primary" onclick="changeSelect();">검색</button></td>
+                            <td><button type="button" id="searchBtn" class="btn btn-primary">검색</button></td>
                             <td width="555px"></td>
                             <td><button class="btn btn-primary" onclick="go('enrollForm.emp')">신규직원등록</button></td>
                             <td><button class="btn btn-secondary" onclick="deleteEmp();">직원퇴사</button></td>

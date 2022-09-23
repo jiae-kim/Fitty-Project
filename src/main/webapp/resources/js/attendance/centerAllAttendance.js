@@ -1,7 +1,9 @@
 $(function(){
+ let searchText = "0"
 	$("#nextBtn").attr("disabled", true);
 	$("#rightArrow").css("color", "#DCDADA");
-    selectAllAttList(1);
+    
+    selectAllAttList(1, searchText);
 
     let month = Number($("#thisMonth").val());
     let year = Number($("#thisYear").val());
@@ -21,11 +23,11 @@ $(function(){
     		    nowCheck();
     		}
     		})
-})
+	})
 
 
     
-$(document).ready(function(){
+	$(document).ready(function(){
     	$("#backBtn").on("click",function() {
     		
     		if(month > 1) {
@@ -42,6 +44,20 @@ $(document).ready(function(){
     		})
     })
     
+    $(document).ready(function(){
+		$("#orderByGrade").on("change",function(){
+			nowCheck();
+		})
+	})
+    
+    
+    
+	$(document).ready(function(){
+		$("#searchBtn").on("click",function(){
+			let searchText = $('#searchText').val()
+			selectAllAttList(1, searchText );	
+		})
+	})
     
 })
 
@@ -87,7 +103,7 @@ function deleteEmp(){
 
 
 function nowCheck(){
-
+	 let searchText = "0"
 	let month = Number($("#thisMonth").val());
     let year = Number($("#thisYear").val());
     let today = new Date();
@@ -97,31 +113,32 @@ function nowCheck(){
 	
     if(year == nowYear && month == nowMonth) {
     // 같은년월
-        selectAllAttList(1);
+        selectAllAttList(1, searchText);
         $("#nextBtn").attr("disabled", true);
         $("#rightArrow").css("color", "#DCDADA");
+        $("#searchText").val("");
     } else {
     // 다른년월
     	$("#rightArrow").css("color", "#696CFF");
     	$("#nextBtn").attr("disabled", false);
-        selectOtherAttList(1);
+        selectAllAttList(1, searchText);
+        $("#searchText").val("");
     }
     
    
     
 }
 
-function selectAllAttList(page){
+function selectAllAttList(page, searchText){
 
     $.ajax({
         url: "attList.att",
 		data:{
-		    // searchType:$("#searchType").val(),
-		    // searchText:$("#searchText").val(),
+		    orderByGrade:$("#orderByGrade").val(),
+		    searchText:searchText,
 		    cpage:page,
 		    thisMonth : $("#thisMonth").val(),
 		    thisYear : $("#thisYear").val()
-		  	
 		},
         type:"post",
         success:function(result){
@@ -215,17 +232,16 @@ function selectAllAttList(page){
 
 }
 
-
+/*
 function selectOtherAttList(page){
     $.ajax({
         url: "otherAttList.att",
 		data:{
-		    // searchType:$("#searchType").val(),
-		    // searchText:$("#searchText").val(),
+		    orderByGrade:$("#orderByGrade").val(),
+		    searchText:searchText,
 		    cpage:page,
 		    thisMonth : $("#thisMonth").val(),
 		    thisYear : $("#thisYear").val()
-		  	
 		},
         type:"post",
         success:function(result){
@@ -321,3 +337,4 @@ function selectOtherAttList(page){
     })
 
 }
+*/

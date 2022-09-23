@@ -30,21 +30,21 @@
   	select (select nvl(sum(vac_oper), 0)
             from tb_vacation
             where emp_no =#{empNo}
-            and att_status in ('Y', 'H')
+            and att_status in ('Y','Q', 'Z', 'H')
             and vac_status = 'P') as "PLUS_YEAR_VAC"
      , (select nvl(sum(vac_oper), 0)
             from tb_vacation
             where emp_no =#{empNo}
-            and att_status in ('Y', 'H')
+            and att_status in ('Y','Q', 'Z', 'H')
             and vac_status = 'M') as "MINUS_YEAR_VAC"
      , ((select nvl(sum(vac_oper), 0)
             from tb_vacation
             where emp_no =#{empNo}
-            and att_status in ('Y', 'H')
+            and att_status in ('Y','Q', 'Z', 'H')
             and vac_status = 'P') - (select nvl(sum(vac_oper), 0)
             from tb_vacation
             where emp_no =#{empNo}
-            and att_status in ('Y', 'H')
+            and att_status in ('Y','Q', 'Z', 'H')
             and vac_status = 'M')) as "GAP_YEAR_VAC"
      , (select nvl(sum(vac_oper), 0)
             from tb_vacation

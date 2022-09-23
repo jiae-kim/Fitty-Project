@@ -43,7 +43,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int insertEmployee(Employee e) {
 		return eDao.insertEmployee(e, sqlSession);
 	}
-	
+	/*
 	@Override
 	public ArrayList<Employee> selectEmpList(PageInfo pi) {
 		return eDao.selectEmpList(sqlSession, pi);
@@ -52,11 +52,11 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public ArrayList<Employee> selectEmpList() {
 		return eDao.selectEmpList(sqlSession);
-	}
+	}*/	
 	
 	@Override
-	public int selectEmpListCount() {
-		return eDao.selectEmpListCount(sqlSession);
+	public int selectVacEmpListCount() {
+		return eDao.selectVacEmpListCount(sqlSession);
 	}
 	
 	@Override
@@ -121,6 +121,31 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public int uploadProfileImg2(Employee e) {
 		return eDao.uploadProfileImg2(sqlSession, e);
 	}
+
+
+	@Override
+	public int selectEmpListCount(HashMap<String, Object> sqlMap) {
+		return eDao.selectEmpListCount(sqlSession, sqlMap);
+	}
+
+
+	@Override
+	public ArrayList<Employee> selectEmpList(PageInfo pi, HashMap<String, Object> sqlMap) {
+		return eDao.selectEmpList(sqlSession, pi, sqlMap);
+	}
+
+/*
+	@Override
+	public ArrayList<Employee> selectEmpList(PageInfo pi) {
+		return null;
+	}
+
+	@Override
+	public ArrayList<Employee> selectEmpList() {
+		return  eDao.selectEmpList(sqlSession);
+	}*/
+
+
 
 
 }

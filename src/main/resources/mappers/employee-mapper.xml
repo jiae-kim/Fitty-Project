@@ -82,6 +82,14 @@
 		     )
 	</insert>
 	
+	  <select id="selectVacEmpListCount" resultType="_int">
+	  	select count(*)
+	  	  from tb_emp
+	  	 where emp_status = 'Y'
+	  </select>
+	 
+	
+	<!--  
 	<select id="selectEmpList" resultMap="employeeResult">
 		select emp_no
 			 , emp_name
@@ -89,14 +97,51 @@
 		  from tb_emp
 		where emp_status = 'Y'
 	</select>
-	
+	-->
 	  <select id="selectEmpListCount" resultType="_int">
 	  	select count(*)
 	  	  from tb_emp
 	  	 where emp_status = 'Y'
+	  	 <if test = 'orderByGrade == "all"'>
+				
+		  </if>
+		  <if test = 'orderByGrade == "admin"'>
+				and emp_grade in ('C' , 'A')
+		  </if>
+		  <if test = 'orderByGrade == "trainer"'>
+				and emp_grade = 'T'
+		  </if>
+		   <if test = 'searchText == "0"'>
+				
+		  </if>
+		  <if test='searchText  != "0"'>
+		   		and emp_name like '%' || #{searchText} || '%'
+		  </if>
 	  </select>
 	  
 	  
+	   <select id="selectEmpList" resultMap="employeeResult">
+	  	select emp_no
+			 , emp_name
+			 , emp_grade
+		  from tb_emp
+		where emp_status = 'Y'
+	  	  <if test = 'orderByGrade == "all"'>
+				
+		  </if>
+		  <if test = 'orderByGrade == "admin"'>
+				and emp_grade in ('C' , 'A')
+		  </if>
+		  <if test = 'orderByGrade == "trainer"'>
+				and emp_grade = 'T'
+		  </if>
+		   <if test = 'searchText == "0"'>
+				
+		  </if>
+		  <if test='searchText  != "0"'>
+		   		and emp_name like '%' || #{searchText} || '%'
+		  </if>
+	  </select>
 	  
 	  
 	  <select id="selectVacSearchListCount" resultType="_int">

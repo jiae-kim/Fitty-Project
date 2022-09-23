@@ -51,8 +51,7 @@ public class EmployeeDao {
 		return sqlSession.insert("employeeMapper.insertEmployee", e);
 	}
 	
-	
-	// 페이지네이션 하는 empList
+/*	
 	public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession, PageInfo pi){
 		int limit = pi.getBoardLimit();
 		int offset = (pi.getCurrentPage() - 1) * limit;
@@ -61,15 +60,16 @@ public class EmployeeDao {
 	}
 	
 	
-	// 페이지네이션 없는 empList
 	public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession){
 		return  (ArrayList)sqlSession.selectList("employeeMapper.selectEmpList");
 	}
+	*/
 	
 	// 전체 직원리스트 empList
-	public int selectEmpListCount(SqlSessionTemplate sqlSession) {
-		return sqlSession.selectOne("employeeMapper.selectEmpListCount");
-	}
+		public int selectVacEmpListCount(SqlSessionTemplate sqlSession) {
+			return sqlSession.selectOne("employeeMapper.selectVacEmpListCount");
+		}
+	
 	
 	// sql 문에 해당하는 직원카운트만 불러오기
 	public int selectVacSearchListCount(SqlSessionTemplate sqlSession, HashMap <String, Object> sqlMap) {
@@ -128,8 +128,19 @@ public class EmployeeDao {
 	public int uploadProfileImg2(SqlSessionTemplate sqlSession, Employee e) {
 		return sqlSession.update("employeeMapper.uploadProfileImg2", e);
 	}
-	
-	
+	// 전체 직원리스트 empList
+		public int selectEmpListCount(SqlSessionTemplate sqlSession, HashMap<String, Object> sqlMap) {
+			return sqlSession.selectOne("employeeMapper.selectEmpListCount", sqlMap);
+		}
+		
+	// 페이지네이션 하는 empList
+		public ArrayList<Employee> selectEmpList(SqlSessionTemplate sqlSession, PageInfo pi, HashMap<String, Object> sqlMap){
+			int limit = pi.getBoardLimit();
+			int offset = (pi.getCurrentPage() - 1) * limit;
+			RowBounds rowBounds = new RowBounds(offset, limit);
+			return  (ArrayList)sqlSession.selectList("employeeMapper.selectEmpList", sqlMap, rowBounds);
+		}
+		
 	
 
 }

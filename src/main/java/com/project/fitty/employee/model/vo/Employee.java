@@ -43,6 +43,8 @@ public class Employee {
 	private String attFlag;
 	private String nowTime;
 	
+	private String thisMonthFlag;
+	
 	// 결재용
 	private String grApprGrade;
 

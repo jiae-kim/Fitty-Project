@@ -71,5 +71,4 @@ public interface AttendanceService {
 	
 	ArrayList<Attendance> selectMyMonthAttList(String empNo);
 	
-	
 }

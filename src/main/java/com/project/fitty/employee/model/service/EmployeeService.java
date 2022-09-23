@@ -20,10 +20,10 @@ public interface EmployeeService {
 	String selectNextEmpNo();
 	
 	// 직원 전체조회 - 페이지네이션용
-	ArrayList<Employee> selectEmpList(PageInfo pi);
+	// ArrayList<Employee> selectEmpList(PageInfo pi);
 	
 	// 직원 전체조회 - 일반용
-	ArrayList<Employee> selectEmpList();
+	//ArrayList<Employee> selectEmpList();
 	
 	// 신규직원 가입 서비스 (insert)
 	int insertEmployee(Employee e);
@@ -38,7 +38,7 @@ public interface EmployeeService {
 	int uploadProfileImg2(Employee e);
 	
 	// 전체 회원수 알아오기
-	int selectEmpListCount();
+	int selectVacEmpListCount();
 	
 	// sql에 해당하는 회원수 알아오기
 	int selectVacSearchListCount(HashMap <String, Object> sqlMap);
@@ -64,4 +64,8 @@ public interface EmployeeService {
 	
 	// 근무시간 수정용 empNo 조회
 	Employee selectByEmpNo(String empNo);
+
+	int selectEmpListCount(HashMap<String, Object> sqlMap);
+
+	ArrayList<Employee> selectEmpList(PageInfo pi, HashMap<String, Object> sqlMap);
 }

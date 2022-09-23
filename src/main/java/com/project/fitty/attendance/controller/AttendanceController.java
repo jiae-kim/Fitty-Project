@@ -18,12 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 import com.google.gson.Gson;
 import com.project.fitty.attendance.model.service.AttendanceService;
 import com.project.fitty.attendance.model.vo.Attendance;
-import com.project.fitty.attendance.model.vo.ModifyAtt;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.common.template.Pagination;
 import com.project.fitty.employee.model.service.EmployeeService;
 import com.project.fitty.employee.model.vo.Employee;
-import com.project.fitty.schedule.model.vo.Booking;
 import com.project.fitty.vacation.model.service.VacationService;
 
 @Controller
@@ -132,6 +130,30 @@ public class AttendanceController {
 		map.put("aList", aList);
 		return new Gson().toJson(map);
 		
+	}
+	
+	public String[] getDate() {
+		Calendar calendar = Calendar.getInstance();
+		int tYear = Calendar.getInstance().get(Calendar.YEAR);
+		int bYear = Calendar.getInstance().get(Calendar.YEAR)-1;
+		int bMonth = Calendar.getInstance().get(Calendar.MONTH);
+		calendar.set(bYear, bMonth, 1);
+		int lDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
+		String thisYear = Integer.toString(tYear);
+		String beforeYear = Integer.toString(bYear);
+		String thisMonth = Integer.toString(bMonth+1);
+		String beforeMonth = Integer.toString(bMonth);
+		String lastDay = Integer.toString(lDay);
+		
+		String[] dateStr = new String[5];
+		dateStr[0] = thisYear;
+		dateStr[1] = beforeYear;
+		dateStr[2] = thisMonth;
+		dateStr[3] = beforeMonth;
+		dateStr[4] = lastDay;
+		
+		return dateStr;
 	}
 	
 	@RequestMapping("workIn.att")
@@ -297,21 +319,47 @@ public class AttendanceController {
 	
 	@ResponseBody
 	@RequestMapping(value="attList.att", produces="application/json; charset=utf-8")
-	public String selectAllAttList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, String thisMonth, String thisYear) {
+	public String selectAllAttList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, 
+				String orderByGrade, String searchText, String thisMonth, String thisYear) {
 		
+		//System.out.println("orderByGrade : " + orderByGrade + " searchText : " + searchText + " thisMonth : " + thisMonth + " thisYear : " + thisYear);
+		HashMap <String, Object> sqlMap = new HashMap<String, Object>();
 		
-		int listCount =  eService.selectEmpListCount();
+		sqlMap.put("orderByGrade",orderByGrade);
+		sqlMap.put("searchText",searchText);
+		
+		int listCount =  eService.selectEmpListCount(sqlMap);
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
-		//System.out.println(thisYear + "나나나" + thisMonth);
+		//System.out.println(pi);
 		
-		ArrayList<Employee> empList =  eService.selectEmpList(pi);
+		ArrayList<Employee> empList =  eService.selectEmpList(pi, sqlMap);
 		
+
+		String[] dateStr = getDate();
+		String thisMonthFlag = "";
+		//System.out.println(thisYear.equals(dateStr[0]));
+		//System.out.println(thisMonth.equals(dateStr[2]));
+
 		if(!empList.isEmpty()) {
-			for(Employee e : empList) {
-				e.setThisYear(thisYear);
-				e.setThisMonth(thisMonth);
-				e.setAttList(aService.selectAllAttList(e));
-				e.setCountList(aService.selectCountList(e));
+			if(thisYear.equals(dateStr[0]) && thisMonth.equals(dateStr[2])) {
+				thisMonthFlag = "Y";
+				for(Employee e : empList) {
+					e.setThisMonthFlag(thisMonthFlag);
+					e.setThisYear(thisYear);
+					e.setThisMonth(thisMonth);
+					e.setAttList(aService.selectAllAttList(e));
+					e.setCountList(aService.selectCountList(e));
+				}
+			} else {
+				thisMonthFlag = "N";
+				sqlMap.put("thisMonthFlag",thisMonthFlag);
+				for(Employee e : empList) {
+					e.setThisMonthFlag(thisMonthFlag);
+					e.setThisYear(thisYear);
+					e.setThisMonth(thisMonth);
+					e.setAttList(aService.selectAllAttList(e));
+					e.setCountList(aService.selectCountList(e));
+				}
 			}
 		}
 		
@@ -323,7 +371,7 @@ public class AttendanceController {
 		return new Gson().toJson(map);
 	}
 	
-	
+	/*
 	@ResponseBody
 	@RequestMapping(value="otherAttList.att", produces="application/json; charset=utf-8")
 	public String selectOtherAttList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, String thisMonth, String thisYear) {
@@ -350,7 +398,7 @@ public class AttendanceController {
 		return new Gson().toJson(map);
 	}
 	
-	
+	*/
 	
 	@RequestMapping("resetAtt.att")
 	public String resetAttendanceUpdate(String afterEmpNoList, HttpSession session) {
@@ -391,7 +439,7 @@ public class AttendanceController {
 		
 		if(searchFlag.equals("N")) {
 			// 맨 처음 호출될때
-			listCount = eService.selectEmpListCount();
+			listCount = eService.selectVacEmpListCount();
 		} else {
 			// 서치된 값으로 호출될때 searchFlag = Y
 			listCount = eService.selectVacSearchListCount(sqlMap);
@@ -399,28 +447,17 @@ public class AttendanceController {
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
 		ArrayList<Attendance> aList = aService.selectVacList(pi, sqlMap);
-		
-		Calendar calendar = Calendar.getInstance();
-		int tYear = Calendar.getInstance().get(Calendar.YEAR);
-		int bYear = Calendar.getInstance().get(Calendar.YEAR)-1;
-		int bMonth = Calendar.getInstance().get(Calendar.MONTH);
-		calendar.set(bYear, bMonth, 1);
-		int lDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
-		
-		String thisYear = Integer.toString(tYear);
-		String beforeYear = Integer.toString(bYear);
-		String beforeMonth = Integer.toString(bMonth);
-		String lastDay = Integer.toString(lDay);
-		
+
+		String[] dateStr = getDate();
 		if(aList.isEmpty()) {
 			
 		} else {
 			for(Attendance a: aList) {
 				// 한 회원번호당 1년-한달 근태퍼센트, 남은 휴가등 구하기
-			a.setThisYear(thisYear);
-			a.setBeforeYear(beforeYear);
-			a.setBeforeMonth(beforeMonth);
-			a.setLastDay(lastDay);
+			a.setThisYear(dateStr[0]);
+			a.setBeforeYear(dateStr[1]);
+			a.setBeforeMonth(dateStr[3]);
+			a.setLastDay(dateStr[4]);
 			// null이던 null이 아니던 일단 담고.. 자스에서 undefined 검사..?
 			a.setPerYearMonthList(aService.selectPerYearMonthList(a));
 			a.setEmpVacList(vService.selectEmpVacList(a));
@@ -451,12 +488,7 @@ public class AttendanceController {
 		String map = selectTodayAttList(currentPage, session, addSqlGrade, addSqlStatus, sqlEmpName, searchFlag, thisYear, thisMonth, thisDay);
 		return map;
 	}
-	/*
-	@RequestMapping("modifyAtt.att")
-	public String goModifyAtt() {
-		return "attendance/modifyAttendance";
-	}
-*/
+
 	
 	@RequestMapping("enrollForm.emp")
 	public String goEnrollForm() {
@@ -467,7 +499,7 @@ public class AttendanceController {
 	@RequestMapping(value="myMonthAttlist.att", produces="application/json; charset=UTF-8")
 	public String selectMyMonthAttList(Employee e) {
 		String empNo = e.getEmpNo();
-		System.out.println(empNo);
+		//System.out.println(empNo);
 		ArrayList<Attendance> list = aService.selectMyMonthAttList(empNo);
 		list = makeAttStatusKr(list);
 		return new Gson().toJson(list); // "[{}, {}, {}, ...]"
