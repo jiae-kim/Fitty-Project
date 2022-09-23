@@ -8,7 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 public class LoginInterceptor implements HandlerInterceptor {
 
-	/* 맨 마지막에 활성화시키기!
+	/*
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
 		

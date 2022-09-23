@@ -77,9 +77,11 @@ public class EmployeeController {
 			} 
 			// 넘어온 파일이 있을 경우
 			String saveFilePath = FileUpload.saveFile(uploadFile, session, "resources/profile_images/");
+			e.setEmpPhoto(saveFilePath);
 			//System.out.println(saveFilePath);
 			// session 에 profileImg 가 업데이트된 새 로그인객체 담기!
 			session.setAttribute("e", e);
+			//System.out.println(e);
 			}
 		return e;
 				

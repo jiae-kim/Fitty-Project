@@ -50,7 +50,7 @@ public class ModifyAttController {
 	@ResponseBody
 	@RequestMapping(value="modifyDetail.mo", produces="application/json; charset=utf-8")
 	public String selectModifyDetail (String moAttNo) {
-		System.out.println("moAttNo : " + moAttNo);
+		//	System.out.println("moAttNo : " + moAttNo);
 		ModifyAtt m = mService.selectModifyDetail(moAttNo);
 		if(m.getMoAttType().equals("I")) {
 			m.setMoAttType("출근");
@@ -136,6 +136,9 @@ public class ModifyAttController {
 		
 		int updateAttIn = 0;
 		int updateAttOut = 0;
+		
+		m.setMoAttModifyTime(m.getMoAttModifyTime() + ":00");
+		System.out.println(m.getMoAttModifyTime());
 		if(m.getMoAttType().equals("출근")) {
 			//int updateAttIn = 
 			m.setMoAttType("I");

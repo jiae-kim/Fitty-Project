@@ -196,7 +196,7 @@
 	  
 	  
 	  <select id="selectLevelEmployeeList" resultMap="employeeResult">
-		select 
+		select distinct
 		       LPAD('　　　', 2*(LEVEL-1)) || emp_name emp_name
 		     , g.gr_name emp_grade
 		     , emp_no
@@ -205,7 +205,8 @@
 		 where e.emp_status = 'Y'
 		 start with gr_pr_grade is null
 	   connect
-	   		by nocycle prior g.emp_grade = gr_pr_grade 
+	   		by nocycle prior g.emp_grade = gr_pr_grade
+        order by emp_grade, emp_no asc
 	  </select>
 	  
 	  

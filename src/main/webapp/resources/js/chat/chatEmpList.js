@@ -28,8 +28,8 @@
  
  
  function selectEmpList(){
-	
-	
+	const empNo = $("#empNoInput").val();
+	console.log(empNo);
  	//$("input:radio[name='orderByPercent']:radio[value='selectAll']").prop('checked', true); invEmpNo
 	
 	 $.ajax({
@@ -50,7 +50,7 @@
 					value += "<li>관리자</li>"
 								+ "<ul>"
 					for(let i=0; i<list.length; i++){
-			              if(list[i].empGrade === "C" || list[i].empGrade === "A") {
+			              if((list[i].empGrade === "C" || list[i].empGrade === "A") && (list[i].empNo != empNo)) {
 							 value += "<li class='dataLi'><button type='button' style='border : none; background-color : white;'><img src='" + list[i].empPhoto + "' alt='Avatar' class='rounded-circle' width='15px;' height='15px;'/>"
 							+ "<input type='hidden' value='" + list[i].empNo + "' id='invEmpNo' name='invEmpNo'><b>" + list[i].empName + "</b> 🧘‍♂️ " + list[i].grName + "</button></li>"
 						  }
@@ -59,7 +59,7 @@
 							  + "<li>트레이너</li>"
 							  + "<ul>"
 					for(let i=0; i<list.length; i++){
-								if(list[i].empGrade === "T") {
+								if((list[i].empGrade === "T") && (list[i].empNo != empNo) ) {
 									value += "<li class='dataLi'><button type='button' style='border : none; background-color : white;'><img src='" + list[i].empPhoto + "' alt='Avatar' class='rounded-circle' width='15px;' height='15px;'/>"
 									+ "<input type='hidden' value='" + list[i].empNo + "' id='invEmpNo' name='invEmpNo'><b>" + list[i].empName + "</b> 🏃‍♂️ " + list[i].grName + "</button></li>"
 								}

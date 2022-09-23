@@ -65,20 +65,21 @@ function deleteEmp(){
    strDeleteListEmpNo = strDeleteListEmpNo.substring(0, strDeleteListEmpNo.lastIndexOf(","));
    $("#strDeleteListEmpNo").val(strDeleteListEmpNo);
    
-   const ask = confirm($("#strDeleteListEmpNo").val() + " 님의 퇴사는 되돌릴 수 없습니다. 정말 퇴사시키시겠습니까?");
+   
+   const ask = alertify.confirm($("#strDeleteListEmpNo").val() + " 님의 퇴사는 되돌릴 수 없습니다. 정말 퇴사시키시겠습니까?").setHeader('');
 	
-   const askAgain = confirm("퇴사를 진행합니다.");
+   const askAgain = alertify.confirm("퇴사를 진행합니다.").setHeader('');
 	
 	if(ask == true) {
             if(askAgain) {
             	$("#memListTBody :checkbox").prop("checked", false);
             	$("#deleteEmpForm").submit();
             } else {
-             alert("초기화 취소, 다시 직원명단을 만들어주세요");
+             alertify.alert("초기화 취소, 다시 직원명단을 만들어주세요").setHeader('');
               $("#memListTBody :checkbox").prop("checked", false);
             }
         } else {
-             alert("초기화 취소, 다시 직원명단을 만들어주세요");
+             alertify.alert("초기화 취소, 다시 직원명단을 만들어주세요").setHeader('');
               $("#memListTBody :checkbox").prop("checked", false);
         }
    
