@@ -16,6 +16,7 @@ import com.project.fitty.approval.model.vo.ApprovalMember;
 import com.project.fitty.approval.model.vo.File;
 import com.project.fitty.common.model.vo.PageInfo;
 import com.project.fitty.employee.model.vo.Employee;
+import com.project.fitty.vacation.model.vo.Vacation;
 
 @Service
 public class ApprovalServiceImpl implements ApprovalService{
@@ -164,6 +165,31 @@ public class ApprovalServiceImpl implements ApprovalService{
 	@Override
 	public ArrayList<ApprExpDetail> selectExpDetail(String apprNo) {
 		return aDao.selectExpDetail(sqlSession, apprNo);
+	}
+
+	@Override
+	public int updateApproval(ApprovalMember am) {
+		return aDao.updateApproval(sqlSession, am);
+	}
+
+	@Override
+	public int updateApprovalMem(ApprovalMember am) {
+		return aDao.updateApprovalMem(sqlSession, am);
+	}
+
+	@Override
+	public int updateAtt1(ApprVacation vct) {
+		return aDao.updateAtt1(sqlSession, vct);
+	}
+	
+	@Override
+	public int updateAtt2(ApprVacation vct) {
+		return aDao.updateAtt2(sqlSession, vct);
+	}
+
+	@Override
+	public int insertVacation(ApprVacation vct) {
+		return aDao.insertVacation(sqlSession, vct);
 	}
 
 

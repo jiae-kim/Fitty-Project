@@ -26,6 +26,7 @@
 		<result column="gr_appr_grade" property="grApprGrade"/>
 		<result column="appr_mem_count" property="apprMemCount"/>
 		<result column="appr_level" property="apprLevel"/>
+		<result column="appr_date" property="apprDate"/>
 	</resultMap>
 	<resultMap id="ApprVacationResult" type="ApprVacation">
 		<result column="emp_name" property="empName"/>
@@ -38,6 +39,7 @@
 		<result column="vct_end_Date" property="vctEndDate"/>
 		<result column="vct_reason" property="vctReason"/>
 		<result column="vct_count" property="vctCount"/>
+		<result column="appr_doc_type" property="apprDocType"/>
 	</resultMap>
 	<resultMap id="ApprOvertimeResult" type="ApprOvertime">
 		<result column="emp_name" property="empName"/>
@@ -49,6 +51,7 @@
 		<result column="ovt_start_time" property="ovtStartTime"/>
 		<result column="ovt_end_time" property="ovtEndTime"/>
 		<result column="ovt_reason" property="ovtReason"/>
+		<result column="appr_doc_type" property="apprDocType"/>
 	</resultMap>
 	<resultMap id="ApprExpenseResult" type="ApprExpense">
 		<result column="emp_name" property="empName"/>
@@ -60,6 +63,7 @@
 		<result column="exp_mem" property="expMem"/>
 		<result column="exp_total_amount" property="expTotalAmount"/>
 		<result column="exp_reason" property="expReason"/>
+		<result column="appr_doc_type" property="apprDocType"/>
 	</resultMap>
 	<resultMap id="ApprExpDetailResult" type="ApprExpDetail">
 		<result column="exp_date" property="expDate"/>
@@ -239,7 +243,11 @@
 	
 	<select id="selectScheduleList" resultMap="approvalResult">
 		select 
-			   appr_enroll_date, appr_title, appr_doc_type, emp_name
+			   appr_enroll_date
+			 , appr_title
+			 , appr_doc_type
+			 , emp_name
+			 , ap.appr_no
 		  from tb_approval ap
 		  join tb_appr_mem am on(am.appr_no = ap.appr_no)
 		  join tb_emp e on (e.emp_no = ap.emp_no)
@@ -324,6 +332,8 @@
 		  join tb_appr_mem am on(am.appr_no = ap.appr_no)
 		 where am.emp_no = #{empNo}
 		   and ap.appr_status in (3,4)
+		 order
+		    by appr_enroll_date desc
 	</select>
 	
 	<select id="selectSignList" resultMap="approvalResult">
@@ -339,6 +349,8 @@
 		  join tb_appr_mem am on(am.appr_no = ap.appr_no)
 		 where am.emp_no = #{empNo}
 		   and ap.appr_status in (3,4)
+		 order
+		    by appr_enroll_date desc
 	</select>
 	
 	<select id="ajaxSelectSignListCount" resultType="_int">
@@ -431,6 +443,7 @@
 		     , gr_appr_grade
 		     , appr_mem_count
 		     , appr_level
+		     , appr_date
 		  from tb_approval ap
 		  join tb_appr_mem am on (am.appr_no = ap.appr_no)
 		  join tb_emp e on (am.emp_no = e.emp_no)
@@ -451,6 +464,7 @@
 		     , vct_end_date
 		     , vct_reason
 		     , vct_count
+		     , appr_doc_type
 		  from tb_approval ap
 		  join tb_emp using (emp_no)
 		  join tb_grade using (emp_grade)
@@ -468,6 +482,7 @@
 		     , ovt_start_time
 		     , ovt_end_time
 		     , ovt_reason
+		     , appr_doc_type
 		  from tb_approval ap
 		  join tb_emp using (emp_no)
 		  join tb_grade using (emp_grade)
@@ -485,6 +500,7 @@
 		     , exp_mem
 		     , exp_total_amount
 		     , exp_reason 
+		     , appr_doc_type
 		  from tb_approval ap
 		  join tb_emp using (emp_no)
 		  join tb_grade using (emp_grade)
@@ -502,5 +518,64 @@
 		  join tb_exp_detail ed on (ap.appr_no = ed.appr_no)
 		 where ed.appr_no = #{appr_no}
 	</select>
+	
+	<update id="updateApproval">
+		update tb_approval
+		   set appr_status = #{apprStatus}
+		 where appr_no = #{apprNo}
+	</update>
+	
+	<update id="updateApprovalMem">
+		update tb_appr_mem
+		   set appr_date = to_char(sysdate, 'YYYY-MM-DD')
+		     , appr_status = 'Y'
+		 where appr_no = #{apprNo}
+		   and emp_no = #{empNo}
+	</update>
+	
+	<update id="updateAtt1">
+		update tb_att
+		   set att_status = #{vctStatus}
+		 where emp_no = #{empNo}
+		   and att_date between #{vctStartDate} and #{vctEndDate}
+	</update>
+	
+	<update id="updateAtt2">
+		update tb_att
+		   set att_status = 'P'
+		     , att_plus_work = 'P'
+		 where empNo = #{empNo}
+		   and att_date = #{ovtDate}
+	</update>
+	
+	<insert id="insertVacation">
+		insert
+		  into tb_vacation
+		  (
+		    vac_no
+		  , emp_no
+		  , vac_oper
+		  , vac_status
+		  , vac_normal
+		  , vac_start
+		  , vac_end
+		  , vac_reason
+		  , vac_create_date
+		  , att_status
+		  )
+		  values
+		  (
+		    seq_vac_no.nextval
+		  , #{empNo}
+		  , #{vctCount}
+		  , 'M'
+		  , 'N'
+		  , #{vctStartDate}
+		  , #{vctEndDate}
+		  , #{vctReason}
+		  , default
+		  , 'N'
+		  )
+	</insert>
 
 </mapper>

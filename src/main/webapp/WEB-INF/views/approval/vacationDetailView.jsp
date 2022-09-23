@@ -15,14 +15,14 @@
 		<jsp:include page="sideMenu.jsp"/>
 		
 		<div class="main">
-            <form action="">
+            <form action="" name="vctForm">
               <h4 style="color:rgb(50, 50, 50);">휴가신청</h4><br>
 
-              <button class="f-btn">
+              <button class="f-btn" type="button" onclick="approve();">
                 <i class='bx bxs-edit'></i>
                 결재
               </button>
-              <button class="f-btn">
+              <button class="f-btn" type="button" onclick="return();">
                 <i class='bx bx-arrow-back'></i>
                 반려
               </button>
@@ -133,6 +133,9 @@
 	                     
 	                   })
 	                   
+	                   function approve(){
+	                	   alertify.confirm('승인하시겠습니까?', function(){ $("form[name=vctForm]").attr("action","approve.ap"); $("form[name=vctForm]").submit();}
+	                       ); 
 	                   }
 	                   
 	                 </script>
@@ -145,6 +148,27 @@
 	           </div>
 
               <div class="app-form1">
+	              <input type="hidden" name="empNo" value="${loginUser.empNo }">
+	              <input type="hidden" name="apprNo" value="${ vct.apprNo }">
+              <c:choose>
+              	<c:when test="${ vct.vctStatus eq 1 }">
+              		<input type="hidden" name="vctStatus" value="Y">
+              	</c:when>
+              	<c:when test="${ vct.vctStatus eq 4 }">
+              		<input type="hidden" name="vctStatus" value="V">
+              	</c:when>
+              	<c:when test="${ vct.vctStatus eq 2 }">
+              		<input type="hidden" name="vctStatus" value="Q">
+              	</c:when>
+              	<c:otherwise>
+              		<input type="hidden" name="vctStatus" value="Z">
+              	</c:otherwise>
+              </c:choose>
+              <input type="hidden" name="apprDocType" value="${ vct.apprDocType }">
+              <input type="hidden" name="vctCount" value="${vct.vctCount }">
+              <input type="hidden" name="vctStartDate" value="${vct.vctStartDate }">
+              <input type="hidden" name="vctEndDate" value="${vct.vctEndDate }">
+              <input type="hidden" name="vctReason" value="${vct.vctReason }">
                 <br>
                 <h5 align="center" style="color:rgb(50, 50, 50);"><b>연차 신청서</b></h5>
                 <br><br>
@@ -164,6 +188,8 @@
                 </table>
                 <c:choose>
                 	<c:when test="${ m.apprMemCount eq 1 }">
+                		<input type="hidden" name="apprMemCount" value="1">
+               			<input type="hidden" name="apprLevel" value="1">
                 		<table id="tb2">
 		                  <tr>
 		                    <th rowspan="3" width="25px;">승인</th>
@@ -178,32 +204,47 @@
 		                  </tr>
 		                  <tr>
 		                  	<c:forEach var="m" items="${ mlist }">
-		                    	<td></td>
+		                    	<td>${ m.apprDate }</td>
 		                    </c:forEach>
 		                  </tr>
 		                </table>
                 	</c:when>
                 	<c:otherwise>
+                		<input type="hidden" name="apprMemCount" value="2">
+           				<c:if test="${ m.empNo eq loginUser.empNo }">
+           					<input type="hidden" name="apprLevel" value="2">
+           				</c:if>
                 		<table id="tb5">
 		                  <tr>
 		                    <th rowspan="3" width="25px;">승인</th>
-		                 		<c:forEach var="m" items="${ mlist }">
-	                 				<td height="24px">${ m.grApprGrade }</td>
-			                	</c:forEach>
+	                 		<c:forEach var="m" items="${ mlist }">
+                 				<td height="24px">${ m.grApprGrade }</td>
+		                	</c:forEach>
 		                  </tr>
 		                  <tr>
 	                 		<c:forEach var="m" items="${ mlist }">
-	                 			<td>${ m.empName }</td>
+	                 			<td width="75px">${ m.empName }</td>
 			                </c:forEach>
 		                  </tr>
 		                  <tr>
 		                  	<c:forEach var="m" items="${ mlist }">
-		                   		 <td height="24px" style="font-size:small"></td>
+		                   		 <td height="24px" style="font-size:small">${m.apprDate }</td>
 		                    </c:forEach>
 		                  </tr>
 		                </table>
                 	</c:otherwise>
                 </c:choose>
+                <script>
+                	$(function(){
+                		let value = $("#tb5").children().children().eq(2).children().eq(0).text();
+                		if(!value){
+                			$("#tb5").children().children().eq(2).children().eq(0).append("<input type='hidden' name='apprLevel' value='1'>");
+                		}else{
+                			$("#tb5").children().children().eq(2).children().eq(0).append("<input type='hidden' name='apprLevel' value='2'>");
+                			$("#tb5").children().children().eq(1).children().eq(0).prepend('<img src="resources/approval_images/stamp_approved.png" width="35" height="40"><br>');
+                		}
+                	})
+                </script>
                 
                 <table id="tb3">
 	               <tr>
@@ -213,7 +254,7 @@
 	               <tr>
 	                 <td>
 	                 	<div><img src="resources/approval_images/stamp_approved.png" width="35" height="40"></div>
-	                 	${ vct.empName }<input type="hidden" name="empNo" value="${loginUser.empNo }">
+	                 	${ vct.empName }
 	                 </td>
 	               </tr>
 	               <tr>
@@ -253,16 +294,16 @@
                     <td>
                       <c:choose>
                       	<c:when test="${ vct.vctStatus eq 2 }">
-                      	  <input type="radio" name="vctStatus" value="2" class="hsel" disabled checked> 오전&nbsp;&nbsp;&nbsp;
-	                   	  <input type="radio" name="vctStatus" value="3" class="hsel" disabled> 오후
+                      	  <input type="radio" class="hsel" disabled checked> 오전&nbsp;&nbsp;&nbsp;
+	                   	  <input type="radio" class="hsel" disabled> 오후
                       	</c:when>
                       	<c:when test="${ vct.vctStatus eq 3 }">
-                      	  <input type="radio" name="vctStatus" value="2" class="hsel" disabled> 오전&nbsp;&nbsp;&nbsp;
-	                   	  <input type="radio" name="vctStatus" value="3" class="hsel" disabled checked> 오후
+                      	  <input type="radio"  class="hsel" disabled> 오전&nbsp;&nbsp;&nbsp;
+	                   	  <input type="radio"  class="hsel" disabled checked> 오후
                       	</c:when>
                       	<c:otherwise>
-	                      <input type="radio" name="vctStatus" value="2" class="hsel" disabled> 오전&nbsp;&nbsp;&nbsp;
-	                   	  <input type="radio" name="vctStatus" value="3" class="hsel" disabled> 오후
+	                      <input type="radio"  class="hsel" disabled> 오전&nbsp;&nbsp;&nbsp;
+	                   	  <input type="radio"  class="hsel" disabled> 오후
                       	</c:otherwise>
                       </c:choose>
                     </td>

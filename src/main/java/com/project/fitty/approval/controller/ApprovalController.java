@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -61,7 +62,7 @@ public class ApprovalController {
 		return mv;
 	}
 	
-	
+	// 기안문서함
 	@RequestMapping(value="draftList.ap", produces="application/json; charset=utf-8")
 	public ModelAndView selectList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String empNo, ModelAndView mv) {
 		int listCount = aService.selectListCount(empNo);
@@ -74,6 +75,7 @@ public class ApprovalController {
 		return mv;
 	}
 	
+	// 기안문서함 ajax
 	@ResponseBody
 	@RequestMapping(value="changeDraft.ap", produces="application/json; charset=utf-8")
 	public String ajaxChangeDraft(@RequestParam(value="cpage", defaultValue="1") int currentPage, String empNo, String apprStatus) {
@@ -105,6 +107,7 @@ public class ApprovalController {
 		
 	}
 	
+	// 임시저장함
 	@RequestMapping(value="storageList.ap", produces="application/json; charset=utf-8")
 	public ModelAndView selectstorageList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String empNo, ModelAndView mv) {
 		int listCount = aService.selectStorageListCount(empNo);
@@ -117,6 +120,7 @@ public class ApprovalController {
 		return mv;
 	}
 	
+	// 결재문서함
 	@RequestMapping(value="signList.ap", produces="application/json; charset=utf-8")
 	public ModelAndView selectSignList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String empNo, ModelAndView mv) {
 		int listCount = aService.selectSignListCount(empNo);
@@ -129,6 +133,7 @@ public class ApprovalController {
 		return mv;
 	}
 	
+	// 결재문서함 ajax
 	@ResponseBody
 	@RequestMapping(value="changeSign.ap", produces="application/json; charset=utf-8")
 	public String ChangeSign(@RequestParam(value="cpage", defaultValue="1") int currentPage, String empNo, String apprStatus) {
@@ -158,13 +163,13 @@ public class ApprovalController {
 		}
 	}
 	
+	// 휴가신청서 기안
 	@RequestMapping("insertVct.ap")
 	public String insertApprVct(Approval ap, ApprovalMember am, ApprVacation vct, HttpSession session, Model model) {
 		ArrayList<ApprovalMember> list = am.getMlist();
 		
 		for(int i=0; i<am.getMlist().size(); i++) {
 			list.get(i).setApprLevel(i+1);
-			System.out.println(list.get(i));
 		}
 		
 		int result1 = aService.insertApproval(ap);
@@ -180,6 +185,7 @@ public class ApprovalController {
 		}
 	}
 	
+	// 연장근무신청서 기안
 	@RequestMapping("insertOvt.ap")
 	public String insertApprOvt(Approval ap, ApprovalMember am, ApprOvertime ovt, HttpSession session, Model model) {
 		ArrayList<ApprovalMember> list = am.getMlist();
@@ -201,6 +207,7 @@ public class ApprovalController {
 		}
 	}
 	
+	// 지출결의서 기안
 	@RequestMapping("insertExp.ap")
 	public String insertApprExp(Approval ap, ApprovalMember am, ApprExpense exp, ApprExpDetail expd, File f, MultipartFile[] upfile, HttpSession session, Model model) {
 		ArrayList<ApprovalMember> list = am.getMlist();
@@ -242,6 +249,7 @@ public class ApprovalController {
 		}
 	}
 	
+	// 임시저장
 	@RequestMapping("insertStorage.ap")
 	public String insertStorage(Approval ap, ApprVacation vct, ApprOvertime ovt, ApprExpense exp, ApprExpDetail expd, File f, MultipartFile[] upfile, HttpSession session, Model model) {
 		ArrayList<ApprExpDetail> dlist = expd.getDlist();
@@ -303,6 +311,7 @@ public class ApprovalController {
 		}
 	}
 	
+	// 결재예정문서
 	@RequestMapping(value="duleList.ap", produces="application/json; charset=utf-8")
 	public ModelAndView scheduleList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String empNo, ModelAndView mv) {
 		int listCount = aService.selectListCount(empNo);
@@ -315,6 +324,7 @@ public class ApprovalController {
 		return mv;
 	}
 	
+	// 결재대기문서
 	@RequestMapping(value="waitingList.ap", produces="application/json; charset=utf-8")
 	public ModelAndView waitingList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String empNo, ModelAndView mv) {
 		int listCount = aService.selectWaitingListCount(empNo);
@@ -328,6 +338,7 @@ public class ApprovalController {
 		
 	}
 	
+	// 결재대기문서상세
 	@RequestMapping(value="apprDetail.ap", produces="application/json; charset=utf-8")
 	public ModelAndView selectDetail(String apprNo, String apprDocType, ModelAndView mv) {
 		
@@ -348,6 +359,63 @@ public class ApprovalController {
 		
 		return mv;
 		
+	}
+	
+	// 결재승인
+	@RequestMapping("approve.ap")
+	public String updateStatus(ApprovalMember am, ApprVacation vct, String apprDocType, int apprMemCount, HttpSession session, Model model) {
+		if(am.getApprLevel() == am.getApprMemCount()) {
+			// 최종승인
+			am.setApprStatus("3");
+			int result1 = aService.updateApproval(am);
+			int result2 = aService.updateApprovalMem(am);
+			
+			if(apprDocType.equals("1")) {
+				int result3 = aService.updateAtt1(vct);
+				int result4 = aService.insertVacation(vct);
+				if(result1>0 && result2>0 && result3>0 && result4>0) {
+					session.setAttribute("alertMsg", "결재가 승인되었습니다.");
+					return "redirect:signList.ap";
+				}else {
+					model.addAttribute("errorMsg", "결재실패");
+					return "common/errorPage";
+				}
+			}else if(apprDocType.equals("2")){
+				int result3 = aService.updateAtt2(vct);
+				
+				if(result1>0 && result2>0&&result3>0) {
+					session.setAttribute("alertMsg", "결재가 승인되었습니다.");
+					return "redirect:signList.ap";
+				}else {
+					model.addAttribute("errorMsg", "결재실패");
+					return "common/errorPage";
+				}
+			}else {
+				if(result1>0 && result2>0) {
+					session.setAttribute("alertMsg", "결재가 승인되었습니다.");
+					return "redirect:signList.ap";
+				}else {
+					model.addAttribute("errorMsg", "결재실패");
+					return "common/errorPage";
+				}
+			}
+			
+			
+			
+			
+		}else {
+			// 일반승인
+			am.setApprStatus("2");
+			int result1 = aService.updateApproval(am);
+			int result2 = aService.updateApprovalMem(am);
+			if(result1>0 && result2>0) {
+				session.setAttribute("alertMsg", "결재가 승인되었습니다.");
+				return "redirect:signList.ap";
+			}else {
+				model.addAttribute("errorMsg", "결재실패");
+				return "common/errorPage";
+			}
+		}
 	}
 
 }

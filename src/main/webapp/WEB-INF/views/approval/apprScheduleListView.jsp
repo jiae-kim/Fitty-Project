@@ -28,7 +28,7 @@
              	<c:when test="${ not empty list }">
              		<c:forEach var="a" items="${list }">
 	             		<tr>
-	             			<td height="30">${ a.apprEnrollDate }</td>
+	             			<td height="30">${ a.apprEnrollDate }<input type="hidden" name="apprDocType" class="apprDocType" value="${ a.apprDocType }"></td>
 	             			<c:choose>
 				              	<c:when test="${ a.apprDocType eq 1 }">
 				              		<td>휴가신청</td>
@@ -40,7 +40,7 @@
 			              			<td>지출결의서</td>
 			              		</c:otherwise>
 			              	</c:choose>
-	             			<td>${ a.apprTitle }</td>
+	             			<td>${ a.apprTitle }<input type="hidden" name="apprNo" class="apprNo" value="${ a.apprNo }"></td>
 	             			<td></td>
 	             			<td>${ a.empName }</td>
 	             		</tr>
@@ -54,6 +54,14 @@
              </c:choose>
            </table>
            <br><br>
+           <script>
+            	$(function(){
+            		$("#dTable>tbody>tr").click(function(){
+            			location.href = 'apprDetail.ap?apprNo=' + $(this).children().children(".apprNo").val() 
+            						  + '&apprDocType=' + $(this).children().children(".apprDocType").val();
+            		})
+            	})
+            </script>
 			
 			<div class="paging-area">
 				<nav aria-label="Page navigation">

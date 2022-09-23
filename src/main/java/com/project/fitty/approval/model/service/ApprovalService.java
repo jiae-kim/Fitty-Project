@@ -66,4 +66,13 @@ public interface ApprovalService {
 	ApprOvertime selectOvertime(String apprNo);
 	ApprExpense selectExpense(String apprNo);
 	ArrayList<ApprExpDetail> selectExpDetail(String apprNo);
+	
+	// 결재승인
+	int updateApproval(ApprovalMember am);
+	int updateApprovalMem(ApprovalMember am);
+	
+	// 최종승인
+	int updateAtt1(ApprVacation vct);
+	int updateAtt2(ApprVacation vct);
+	int insertVacation(ApprVacation vct);
 }
