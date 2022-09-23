@@ -124,5 +124,11 @@ public class ClassServiceImpl implements ClassService{
 		return cDao.updateReply(sqlSession, r);
 	}
 
+	//댓글 삭제
+	@Override
+	public int deleteReply(int replyNo) {
+		return cDao.deleteReply(sqlSession, replyNo);
+	}
+
 	
 }

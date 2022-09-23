@@ -72,4 +72,8 @@ public interface ClassService {
 	//댓글 수정 서비스
 	int updateReply(Reply r);
 	
+	
+	//댓글 삭제 서비스
+	int deleteReply(int replyNo);
+	
 }

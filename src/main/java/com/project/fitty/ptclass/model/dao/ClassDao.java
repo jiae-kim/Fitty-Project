@@ -85,4 +85,8 @@ public class ClassDao {
 	public int updateReply(SqlSessionTemplate sqlSession, Reply r) {
 		return sqlSession.update("classMapper.updateReply", r);
 	}
+	
+	public int deleteReply(SqlSessionTemplate sqlSession, int replyNo) {
+		return sqlSession.delete("classMapper.deleteReply", replyNo);
+	}
 }

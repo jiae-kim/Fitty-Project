@@ -538,12 +538,13 @@
 						  dietNo:${d.dietNo},
 						  replyWriter:${loginU.userNo},
 						  writerName:'${loginU.userName}',
-						  writerType:'U' //직접적으로 문자열을 전달해도 되나염?
+						  writerType:'U'
 						 },
 					success:function(result){
-						//컨트롤러에서 반환값은 int로 지정해도 괜찮은건가요?
+						
 						console.log(result);
 						if(result > 0){ 
+							
     						$(".content").val("");
     						selectReplyList();
     					}
@@ -570,13 +571,13 @@
 		
 		
 		//댓글 수정 폼
-		function replyUpdateForm(replyNo, content){
+		function replyUpdateForm(replyNo, replyContent){
 			
 			$("button").remove(".dr"); //드롭다운 버튼 삭제
 			
 			let update = "";
 			update += "<div>"
-					+ "<textarea class='update'>" + content + "</textarea><button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close' onclick='selectReplyList();'></button> </div>"
+					+ "<textarea class='update'>" + replyContent + "</textarea><button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close' onclick='selectReplyList();'></button> </div>"
 				    + "<div style='height:100%'><button id='upBtn' style='height:auto' onclick='updateReply(" + replyNo + ");'>" + "등록" + "</button>"
 					+ "</div>";
 			
@@ -610,6 +611,27 @@
 			}else{
 				alertify.alert("댓글 내용을 입력해주세요.");
 			}
+		}
+		
+		
+		
+		//댓글 삭제
+		$(document).on("click", ".d", function(){
+			
+			$.ajax({
+				url:"rdelete.di";
+				data:{replyNo:$(".replyNo").text()},
+				success:function(result){
+					
+					console.lig(result);
+					
+					alertify.alert("댓글이 삭제되었습니댜.");
+					
+				},
+				error:function(){
+					console.log("댓글 삭제용 ajax 통신 실패");
+				}
+			})
 		}
 	</script>
 		
