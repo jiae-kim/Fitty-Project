@@ -178,7 +178,7 @@ public class ApprovalController {
 		
 		if(result1>0 && result2>0 && result3>0) {
 			session.setAttribute("alertMsg", "결재가 요청되었습니다.");
-			return "redirect:draftList.ap";
+			return "redirect:draftList.ap?empNo=" + ap.getEmpNo();
 		}else {
 			model.addAttribute("errorMsg", "결재 요청 실패");
 			return "common/errorPage";
@@ -200,7 +200,7 @@ public class ApprovalController {
 		
 		if(result1>0 && result2>0 && result3>0) {
 			session.setAttribute("alertMsg", "결재가 요청되었습니다.");
-			return "redirect:draftList.ap";
+			return "redirect:draftList.ap?empNo=" + ap.getEmpNo();
 		}else {
 			model.addAttribute("errorMsg", "결재 요청 실패");
 			return "common/errorPage";
@@ -209,7 +209,7 @@ public class ApprovalController {
 	
 	// 지출결의서 기안
 	@RequestMapping("insertExp.ap")
-	public String insertApprExp(Approval ap, ApprovalMember am, ApprExpense exp, ApprExpDetail expd, File f, MultipartFile[] upfile, HttpSession session, Model model) {
+	public String insertApprExp(Approval ap, ApprovalMember am, ApprExpense exp, ApprExpDetail expd, MultipartFile[] upfile, HttpSession session, Model model) {
 		ArrayList<ApprovalMember> list = am.getMlist();
 		ArrayList<ApprExpDetail> dlist = expd.getDlist();
 		ArrayList<File> flist = new ArrayList<>();
@@ -220,11 +220,15 @@ public class ApprovalController {
 		
 		if(upfile.length != 0) {
 			for(int i=0; i<upfile.length; i++) {
-				flist.add(f);
+				
 				String saveFilePath = FileUpload.saveFile(upfile[i], session, "resources/approval_images/");
-				flist.get(i).setOriginName(upfile[i].getOriginalFilename());
-				flist.get(i).setChangeName(saveFilePath);
-				flist.get(i).setFileReNo(ap.getApprNo());
+				
+				File f = new File();
+				f.setOriginName(upfile[i].getOriginalFilename());
+				f.setChangeName(saveFilePath);
+				f.setFileReNo(ap.getApprNo());
+				
+				flist.add(f);
 			}
 			
 		}
@@ -242,7 +246,7 @@ public class ApprovalController {
 		
 		if(result1>0 && result2>0 && result3>0 && result4>0 && result5>0) {
 			session.setAttribute("alertMsg", "결재가 요청되었습니다.");
-			return "redirect:draftList.ap";
+			return "redirect:draftList.ap?empNo=" + ap.getEmpNo();
 		}else {
 			model.addAttribute("errorMsg", "결재 요청 실패");
 			return "common/errorPage";
@@ -262,7 +266,7 @@ public class ApprovalController {
 			int result2 = aService.insertApprVct(vct);
 			if(result1>0 && result2>0) {
 				session.setAttribute("alertMsg", "내용이 저장되었습니다.");
-				return "redirect:storageList.ap";
+				return "redirect:storageList.ap?empNo=" + vct.getEmpNo();
 			}else {
 				model.addAttribute("errorMsg", "임시저장 실패");
 				return "common/errorPage";
@@ -273,7 +277,7 @@ public class ApprovalController {
 			
 			if(result1>0 && result3>0) {
 				session.setAttribute("alertMsg", "내용이 저장되었습니다.");
-				return "redirect:storageList.ap";
+				return "redirect:storageList.ap?empNo=" + ovt.getEmpNo();
 			}else {
 				model.addAttribute("errorMsg", "임시저장 실패");
 				return "common/errorPage";
@@ -302,7 +306,7 @@ public class ApprovalController {
 			
 			if(result1>0 && result4>0 && result5>0 && result6>0) {
 				session.setAttribute("alertMsg", "내용이 저장되었습니다.");
-				return "redirect:storageList.ap";
+				return "redirect:storageList.ap?empNo=" + exp.getEmpNo();
 			}else {
 				model.addAttribute("errorMsg", "임시저장 실패");
 				return "common/errorPage";
@@ -363,19 +367,20 @@ public class ApprovalController {
 	
 	// 결재승인
 	@RequestMapping("approve.ap")
-	public String updateStatus(ApprovalMember am, ApprVacation vct, String apprDocType, int apprMemCount, HttpSession session, Model model) {
+	public String updateStatus(ApprovalMember am, ApprVacation vct, String apprDocType, int apprMemCount, HttpSession session, Model model, String insertEmpNo) {
 		if(am.getApprLevel() == am.getApprMemCount()) {
 			// 최종승인
 			am.setApprStatus("3");
 			int result1 = aService.updateApproval(am);
 			int result2 = aService.updateApprovalMem(am);
+			vct.setEmpNo(insertEmpNo);
 			
 			if(apprDocType.equals("1")) {
 				int result3 = aService.updateAtt1(vct);
 				int result4 = aService.insertVacation(vct);
 				if(result1>0 && result2>0 && result3>0 && result4>0) {
 					session.setAttribute("alertMsg", "결재가 승인되었습니다.");
-					return "redirect:signList.ap";
+					return "redirect:signList.ap?empNo=" + am.getEmpNo();
 				}else {
 					model.addAttribute("errorMsg", "결재실패");
 					return "common/errorPage";
@@ -385,7 +390,7 @@ public class ApprovalController {
 				
 				if(result1>0 && result2>0&&result3>0) {
 					session.setAttribute("alertMsg", "결재가 승인되었습니다.");
-					return "redirect:signList.ap";
+					return "redirect:signList.ap?empNo=" + am.getEmpNo();
 				}else {
 					model.addAttribute("errorMsg", "결재실패");
 					return "common/errorPage";
@@ -393,7 +398,7 @@ public class ApprovalController {
 			}else {
 				if(result1>0 && result2>0) {
 					session.setAttribute("alertMsg", "결재가 승인되었습니다.");
-					return "redirect:signList.ap";
+					return "redirect:signList.ap?empNo=" + am.getEmpNo();
 				}else {
 					model.addAttribute("errorMsg", "결재실패");
 					return "common/errorPage";
@@ -410,12 +415,12 @@ public class ApprovalController {
 			int result2 = aService.updateApprovalMem(am);
 			if(result1>0 && result2>0) {
 				session.setAttribute("alertMsg", "결재가 승인되었습니다.");
-				return "redirect:signList.ap";
+				return "redirect:signList.ap?empNo=" + am.getEmpNo();
 			}else {
 				model.addAttribute("errorMsg", "결재실패");
 				return "common/errorPage";
 			}
 		}
 	}
-
+	
 }

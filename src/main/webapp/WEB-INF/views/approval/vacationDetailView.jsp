@@ -164,6 +164,7 @@
               		<input type="hidden" name="vctStatus" value="Z">
               	</c:otherwise>
               </c:choose>
+              <input type="hidden" name="insertEmpNo" value="${vct.empNo }">
               <input type="hidden" name="apprDocType" value="${ vct.apprDocType }">
               <input type="hidden" name="vctCount" value="${vct.vctCount }">
               <input type="hidden" name="vctStartDate" value="${vct.vctStartDate }">
