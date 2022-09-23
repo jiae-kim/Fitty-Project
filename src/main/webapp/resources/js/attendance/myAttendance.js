@@ -77,7 +77,7 @@
 						start : list[i].attDate, 
 						end : list[i].attDate
 					}
-				} else if(attStatus.title == "결석"){
+				} else if(attStatus.title == "결근"){
 					attStatus = {
 						color : "#E74C3C",
 						textColor : "white",
@@ -86,7 +86,17 @@
 						title : list[i].attStatus,
 						start : list[i].attDate, 
 						end : list[i].attDate
-				}
+					}
+				} else if(attStatus.title == "지각"){
+					attStatus = {
+						color : "#F1C40F",
+						textColor : "white",
+						id : list[i].attStatus,
+						fontSize : 12,
+						title : list[i].attStatus,
+						start : list[i].attDate, 
+						end : list[i].attDate
+					}
 				} else if(attStatus.title === "조퇴"){
 					attStatus = {
 						color : "#BF5BC7",

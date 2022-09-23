@@ -68,7 +68,7 @@ function selectAllAttList(page){
 						value += "<tr>"
 							+    "<th><input type='checkbox' class='no' id='empNoInput' name='empNoInput' value='" + aList[i].empNo + "'></th>"
 							+  	 "<td>" +  aList[i].empNo + "</td>"
-							+  	 "<td>" +  aList[i].empName + "</td>"
+							+  	 "<td style='color:#696CFF;' ><b>" +  aList[i].empName + "</b></td>"
 							+  	 "<td>" +  aList[i].grName + "</td>"
 							+  	 "<td>" +  aList[i].empEnrollDate.substr(0, 9) + "</td>"
 							+  	 "<td>" +  aList[i].workYear + "</td>"
@@ -85,10 +85,10 @@ function selectAllAttList(page){
 							} else {
 								value +=	"<td>" + aList[i].empVacList[0].plusYearVac + "</td>"
 										+    "<td>" + aList[i].empVacList[0].minusYearVac + "</td>"
-										+    "<td>" +  aList[i].empVacList[0].gapYearVac  + "</td>"
+										+	 "<td><span class='badge badge-center bg-primary'>" +  aList[i].empVacList[0].gapYearVac  + "</span></td>"
 										+    "<td>" + aList[i].empVacList[0].plusVac + "</td>"
 										+    "<td>" + aList[i].empVacList[0].minusVac + "</td>"
-										+    "<td>" +  aList[i].empVacList[0].gapVac  + "</td>"
+										+	 "<td><span class='badge badge-center bg-primary'>" +  aList[i].empVacList[0].gapVac  + "</span></td>"
 										+    "<td>" + "<a class='btn btn-sm rounded-pill btn-outline-primary' href='detail.vac?no=" + aList[i].empNo + "'>조회</td>"
 							}
 								}

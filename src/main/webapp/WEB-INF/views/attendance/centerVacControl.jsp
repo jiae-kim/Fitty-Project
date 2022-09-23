@@ -60,7 +60,6 @@
                     
                     <div class="tab-content">
                 <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
-                  <div style="height : 20px"></div>
                   <table class="pull-right">
                     <tr>
                       <td width="22px"></td>
@@ -95,7 +94,7 @@
               
         
                 <div style="height : 5px"></div>
-                    <div class="card-body">
+                    <div class="card-body" style="padding-top : 0px">
                       <div class="table-responsive">
                         <table class="table memberListTable table-hover" id="dataTable" width="100%" cellspacing="0">
                           <thead>
@@ -143,7 +142,6 @@
                           <input type="hidden" id="invalidNoYear">
                           <input type="hidden" id="invalidNoMon">
                         </table>
-                        <div style="height : 20px"></div>
                             <!-- Basic Pagination -->
                             <nav aria-label="Page navigation pageNav">
                                 <ul class="pagination">

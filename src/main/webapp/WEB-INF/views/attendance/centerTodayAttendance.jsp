@@ -60,7 +60,7 @@
                     
               <div class="tab-content">
                 <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
-                	<form class="dateForm">
+                	<form class="dateForm" style="margin-top:-20px;">
                    		<table class="dateTable">
                    			<tr>
                    				<td rowspan="2"><button type="button" id="backBtn"><i class='bx bxs-left-arrow arrow'></i></button></td>
@@ -74,10 +74,12 @@
                    			</tr>
                    		</table>
                     </form>
-                  <div style="height : 20px"></div>
+                    <div style="height : 5px"></div>
                   <table class="pull-right">
                     <tr>
-                      <td width = "600px;"></td>
+                      <td width = "50px;"></td>
+                      <td width = "100px;"> <button class="btn btn-primary" onclick="go('centerAtt.att')">전체목록</button></td>
+                      <td width = "400px;"></td>
                       <td width = "150px;">
                         <select class="form-control mr-sm-0" name="orderByGrade" id="orderByGrade" style="height: 35px;"> 
                         		<option value="all" selected>전체선택</option>                                       
@@ -103,7 +105,7 @@
               
         
                 <div style="height : 5px"></div>
-                    <div class="card-body">
+                    <div class="card-body" style="padding-top:0;">
                       <div class="table-responsive">
                         <table class="table memberListTable table-hover" id="dataTable" width="100%" cellspacing="0">
                           <thead>
@@ -147,7 +149,6 @@
                             </nav>
                             <!--/ Basic Pagination -->
 
-					        <button class="btn btn-primary" onclick="go('centerAtt.att')">전체목록으로</button>
                         </div>
                     </div>
                 </div>

@@ -301,7 +301,7 @@ public class AttendanceController {
 		
 		
 		int listCount =  eService.selectEmpListCount();
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		//System.out.println(thisYear + "나나나" + thisMonth);
 		
 		ArrayList<Employee> empList =  eService.selectEmpList(pi);
@@ -329,7 +329,7 @@ public class AttendanceController {
 	public String selectOtherAttList(@RequestParam(value="cpage", defaultValue="1")int currentPage, HttpSession session, String thisMonth, String thisYear) {
 		
 		int listCount =  eService.selectEmpListCount();
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
 		ArrayList<Employee> empList =  eService.selectEmpList(pi);
 		
@@ -396,7 +396,7 @@ public class AttendanceController {
 			// 서치된 값으로 호출될때 searchFlag = Y
 			listCount = eService.selectVacSearchListCount(sqlMap);
 		}
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 10);
 		
 		ArrayList<Attendance> aList = aService.selectVacList(pi, sqlMap);
 		

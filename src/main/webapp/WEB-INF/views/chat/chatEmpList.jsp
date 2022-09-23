@@ -19,7 +19,7 @@
        <button class="col-md-6" id="empListBtn" aria-selected="true">🙋‍♀️ MEMBER</button>
        <button class="col-md-6">💌 CHAT</button>
      </div>
-     <form class="chatMenuForm">
+     <form class="chatMenuForm" style="overflow:auto;">
        <div class="profileHeader">
       		
             <h5 class="card-header" style="color:#697a8d; padding-bottom:0px;">
@@ -42,7 +42,7 @@
        </table>
        <!-- /Search -->
 
-       <div>
+       <div >
          <ul class="empList">
          </ul>
        </div>

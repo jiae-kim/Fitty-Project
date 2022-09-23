@@ -336,11 +336,11 @@ distinct emp_no
 	     , e.emp_name
 	     , g.emp_grade
 	     , g.gr_name
-	     , e.emp_enroll_date
-	     , (round(((trunc(months_between(sysdate,to_date(emp_enroll_date,'yy/mm/dd')) /12) *365)
+	     , to_char(to_date(e.emp_enroll_date, 'yy-mm-dd'), 'yy/mm/dd') as emp_enroll_date
+	     , (select to_char((round(((trunc(months_between(sysdate,to_date(emp_enroll_date,'yy/mm/dd')) /12) *365)
 	             + (trunc(mod(months_between(sysdate,to_date(emp_enroll_date,'yy/mm/dd')) /12,1) *12)*12)
 	             + (trunc(mod(mod(months_between(sysdate,to_date(emp_enroll_date,'yy/mm/dd')) /12,1) *12,1) *(365/12))*1)) / 365, 1 )
-	        ) as "work_year"
+	        ), 'FM990.99')from dual) as "work_year"
 	  from tb_emp e
 	  join tb_att a on (e.emp_no = a.emp_no)
 	  join tb_grade g on (e.emp_grade = g.emp_grade)
@@ -449,7 +449,7 @@ distinct emp_no
 				and a.att_status='P'
 			</if>
 			<if test = 'addSqlStatus == "LX"'>
-				and a.att_status in ('L','X' )
+				and e.emp_status in ('L','X' )
 			</if>
 			<if test = 'searchFlag  == "N"'>
 			
