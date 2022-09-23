@@ -305,7 +305,7 @@ function openVacationModal(){
 	   console.log($("#strInsertVacListEmpNo").val());
 	   
 	   if(	$("#strInsertVacListEmpNo").val() === '' ) {
-	   		alert("직원을 먼저 선택해주세요");
+	   		alertify.alert("직원을 먼저 선택해주세요").setHeader('');
 	   		
 	   } else {  
 		$.ajax({
@@ -349,7 +349,7 @@ function getVacOper(event){
 	console.log($("#vacEnd").val())
 	
 	if($("#vacStart").val() === "") {
-		alertyfy.alert("시작일을 먼저 선택해주세요.");
+		alertyfy.alert("시작일을 먼저 선택해주세요.").setHeader('');;
 	} else {
 	
 	let gap = $("#vacEnd").val().getTime() - $("#vacStart").val().getTime() ;

@@ -53,7 +53,7 @@
               </tr>
             </table>
             <a class="btn btn-primary modifyBtn myAttBtn" style="margin-top : 20px;" href="modifyList.mo?empNo=${loginUser.empNo }">근태수정요청</a>
-            <a class="btn btn-info modifyBtn myAttBtn" onclick="go('attModifyForm.att')">연장근무하기</a>
+            <a class="btn btn-info modifyBtn myAttBtn" onclick="go('select.emp')" style="color:white;">내 정보 수정</a>
             <a class="btn btn-secondary modifyBtn myAttBtn" style="margin-bottom:20px;">엑셀다운로드</a>
 
             <div class="vacation">
