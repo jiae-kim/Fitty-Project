@@ -25,6 +25,8 @@ public class Diet {
 	private String dietEnroll;
 	private String reContent;
 	private String reImage;
+	
+	private int userNo;
 
 	
 }

@@ -122,36 +122,32 @@
 		<!-- 내용위에 분류버튼 (* 수정해도 되는 부분) -->
 		<ul class="nav nav-pills mb-3 nav-fill" role="tablist">
 		<li class="nav-item">
-	    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-home" aria-controls="navs-pills-justified-home" aria-selected="false" style="text-weight:700">
+	    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-home" 
+	    aria-controls="navs-pills-justified-home" aria-selected="false"
+	    onclick="location.href='exercise.cl?classNo=${classNo}&exDate=${exDate}';"
+	    >
 	      🔥 오늘의 운동
 	    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">3</span>
 	    </button>
 		</li>
 		
 	    <li class="nav-item">
-	    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-profile" aria-controls="navs-pills-justified-profile" aria-selected="true">
+	    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-profile" aria-controls="navs-pills-justified-profile" aria-selected="true" style="text-weight:700">
 	      🌮 식단관리
 	    </button>
 	    </li>
-	    
-	    <li class="nav-item">
-	    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-messages" aria-controls="navs-pills-justified-messages" aria-selected="false">
-	      ✏️ 출결확인
-	    </button>
-		</li>
 		</ul>
 		<!-- / 내용위에 분류버튼 -->
 	
 	
 	          
         <!-- 내용 넣을 부분 (* 수정해도 되는 부분)-->
-		<div class="tab-content">
-		<!--  style="height: 695px;" -->
+		<div class="tab-content" style="min-height: 695px;">
 	
 	
 	
 	        <!-- 오늘의 운동 -->
-	        <div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel">
+	        <div class="tab-pane fade" id="navs-pills-justified-home" role="tabpanel">
 	        </div>
 	        <!-- /오늘의 운동 -->
 		
@@ -165,7 +161,7 @@
 	
 	
 	    	<!-- 오늘의식단 -->
-			<div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel">
+			<div class="tab-pane fade show active" id="navs-pills-justified-profile" role="tabpanel">
 				<div class="di-date" align="center">
 		
 		<!-- 여기에 사진 -->
@@ -184,7 +180,7 @@
 
 		<script>
 			$(function(){
-				let dateArr = "${d.dietDate}".split("/");
+				let dateArr = "${exDate}".split("/");
 				let date = "20" + dateArr[0] + "년 " + dateArr[1] + "월 " + dateArr[2] + "일";
 				
 				$(".di-date label").text(date);
@@ -368,7 +364,7 @@
 												   + "<label id='date'>" + list[i].replyDate + "</label> &nbsp;&nbsp;<br>"
 										  	  	   + "<div class='c" + replyNo + "'><label id='content'>" + list[i].replyContent + "</label></div>"
 										   	   + "</div>"
-										   + "</div>";
+										    + "</div>";
 									
 										   
 									if(list[i].replyWriter == '${loginUser.empNo}'){
@@ -404,7 +400,7 @@
 					//댓글 수정에 필요한 값 
 					$(document).on("click", ".u", function(){
 						let replyNo = $(this).parent().parent().parent().children().eq(0).text();
-						let replyContent = $(this).parent().parent().parent().prev().children().eq(3).children().text();
+						let replyContent = $(this).parent().parent().parent().prev().children().children().eq(3).children().text();
 						replyUpdateForm(replyNo, replyContent);
 					})
 					
@@ -412,13 +408,16 @@
 					
 					
 					//댓글 수정 폼
-					function replyUpdateForm(replyNo, content){
+					function replyUpdateForm(replyNo, replyContent){
+						
+						console.log(replyNo);
+						console.log(replyContent);
 						
 						$("button").remove(".dr"); //드롭다운 버튼 삭제
 						
 						let update = "";
 						update += "<div>"
-								+ "<textarea class='update'>" + content + "</textarea><button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close' onclick='selectReplyList();'></button> </div>"
+								+ "<textarea class='update'>" + replyContent + "</textarea><button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close' onclick='selectReplyList();'></button> </div>"
 							    + "<div style='height:100%'><button id='upBtn' style='height:auto' onclick='updateReply(" + replyNo + ");'>" + "등록" + "</button>"
 								+ "</div>";
 						
@@ -463,6 +462,7 @@
 					
 					//댓글 등록
 					function addReply(){
+						
 						if( $(".content").val().trim().length != 0 ){
 							
 							$.ajax({
@@ -478,7 +478,15 @@
 									console.log(result);
 									if(result > 0){ 
 			    						$(".content").val("");
+			    						
 			    						selectReplyList();
+			    						
+			    						//웹소켓 알람 (구분하기 위한 문자열 / 보내는 사람 아이디 / 받는 사람 아이디 )
+			    						let socketMsg = "diet," + "${loginUser.empNo}" + "," + "${d.userNo}" + "," + "${d.dietNo}";
+			    						//헤더에 담아둔 웹소켓의 클라이언트 메세지 보내기
+			    						socket.send(socketMsg);
+			    						
+			    						
 			    					}
 								},
 								error:function(){
@@ -489,7 +497,27 @@
 						}else{
 							alertify.alert("댓글 내용을 입력해주세요.");
 						}
+						
 					}
+					
+					
+					
+					/* //댓글 삭제
+					$(document).on("click", ".d", function(){
+						
+						$.ajax({
+							url:"";
+							data:{},
+							success:function(){
+								
+							},
+							error:function(){
+								
+							}
+						})
+					} */
+					
+					
 				</script>
 			</div>
 			<!-- /식단 -->

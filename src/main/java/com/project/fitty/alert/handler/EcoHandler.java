@@ -14,6 +14,8 @@ import org.springframework.web.socket.handler.TextWebSocketHandler;
 import com.project.fitty.alert.model.service.AlertService;
 import com.project.fitty.alert.model.vo.Alert;
 import com.project.fitty.employee.model.vo.Employee;
+import com.project.fitty.user.model.vo.User;
+import com.project.fitty.userClass.model.vo.UserClass;
 
 public class EcoHandler extends TextWebSocketHandler {
 	
@@ -54,37 +56,71 @@ public class EcoHandler extends TextWebSocketHandler {
 		
 		if(strs != null && strs.length == 4) {
 			String cmd = strs[0];
-			String admin = strs[1];
-			String trainer = strs[2];
+			String sender = strs[1];
+			String recip = strs[2];
 			String ckNo = strs[3];
 			
-			//사번으로 이름 조회해오기
-			String adminName = aService.selectSenderName(admin);
+			System.out.println("cmd" + cmd);
 			
-			//다음 insert에 실행될 alNo를 조회해오기 
-			int nextNo = aService.selectNextAlNo();
-			
-			// 접속해있지 않으면 메세지가 보내지 않을거니까 그전에 insert해주기 
-			Alert a = new Alert();
-			a.setAlRecip(trainer);
-		    a.setAlMsg("<a href='ckList2.mc?alNo=" + nextNo + "&alRecip="+ a.getAlRecip() +"'><b>"+ adminName + "</b>님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
-			int result = aService.insertAlertM(a); 
-			
-			System.out.println(">>>>>>DB에 insert성공");
-			
-			
-			// 메세지 보내기
-			WebSocketSession trainerSession = userSessions.get(trainer); // 점검을 작성한 트레이너가 세션에 있는지 뽑는거 있으면 값이 담기고 없으면 null
-			
-			if(cmd.equals("machine") && trainerSession != null) {
+			if(cmd.equals("machine")) {
 				
-				TextMessage tmpMsg = new TextMessage("<a href='ckList2.mc?alNo=" + nextNo + "&alRecip="+ trainer +"'>"+ "<b>" + adminName + "</b>님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
-				trainerSession.sendMessage(tmpMsg);
+				//사번으로 이름 조회해오기
+				String adminName = aService.selectSenderName(sender);
 				
-				System.out.println(">>>>>>클라이언트로 메세지 보내기 성공 ");
+				//다음 insert에 실행될 alNo를 조회해오기 
+				int nextNo = aService.selectNextAlNo();
 				
+				// 접속해있지 않으면 메세지가 보내지 않을거니까 그전에 insert해주기 
+				Alert a = new Alert();
+				a.setAlRecip(recip);
+			    a.setAlMsg("<a href='ckList2.mc?alNo=" + nextNo + "&alRecip="+ a.getAlRecip() +"'><b>"+ adminName + "</b>님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
+				int result = aService.insertAlertM(a); 
+				
+				System.out.println(">>>>>>DB에 insert성공");
+				
+				
+				// 메세지 보내기
+				WebSocketSession trainerSession = userSessions.get(recip); // 점검을 작성한 트레이너가 세션에 있는지 뽑는거 있으면 값이 담기고 없으면 null
+				
+				if(trainerSession != null) {
+					
+					TextMessage tmpMsg = new TextMessage("<a href='ckList2.mc?alNo=" + nextNo + "&alRecip="+ recip +"'>"+ "<b>" + adminName + "</b>님이 " + ckNo + "번 기구점검을 처리완료 하였습니다.</a>");
+					trainerSession.sendMessage(tmpMsg);
+					
+					System.out.println(">>>>>>클라이언트로 메세지 보내기 성공 ");
+					
+				
+				}
+			}	
 			
-			}
+			
+			 //트레이너 -> 회원 댓글 달았을 때 
+			if(cmd.equals("diet")) { 
+				
+				System.out.println(userSessions);
+				System.out.println(recip);
+				
+				WebSocketSession userSession = userSessions.get(recip);
+			
+			 
+				 if(userSession != null) {
+				 
+					 TextMessage tmpMsg = new TextMessage("<a href='#'>"+ "<b>" + sender + "</b>님이 " + recip + "님의 식단에 댓글을 달았습니다.</a>");
+					 userSession.sendMessage(tmpMsg);
+					 
+					 System.out.println(">>>>>>클라이언트로 메세지 보내기 성공 "); 
+					 
+				 } 
+			 }
+			 
+			
+			
+			
+			
+			
+			
+			
+			
 			
 			// if (cmd.equals("")
 			
@@ -98,9 +134,12 @@ public class EcoHandler extends TextWebSocketHandler {
 		
 		Map<String, Object> httpSession = session.getAttributes(); // 웹소켓 session에 있던것들을 Map 객체 httpSession에 담음
 		Employee loginUser = (Employee)httpSession.get("loginUser");
+		UserClass loginU = (UserClass)httpSession.get("loginU");
 		
-		if(loginUser == null) {
+		if(loginUser == null && loginU == null) {
 			return session.getId();
+		}else if(loginUser == null) {
+			return String.valueOf(loginU.getUserNo());
 		}else {
 			return loginUser.getEmpNo();
 		}

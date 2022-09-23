@@ -46,6 +46,7 @@
 		<result column="di_enroll" property="dietEnroll" />
 		<result column="di_re_content" property="reContent" />
 		<result column="di_re_img" property="reImage" />
+		<result column="user_no" property="userNo" />
 	</resultMap>
 
 
@@ -135,6 +136,27 @@
 	
 	
 	
+	<!-- 해당 회원의 모든 운동내역 조회 (달력에 뿌릴)-->
+	<select id="selectExercise" resultMap="exerciseResult">
+		select cl_no
+			 , ex_date
+			 , ex_writer
+			 , ex_title
+			 , ex_count
+			 , ex_set
+			 , ex_coment
+			 , ex_link
+			 , ex_status
+			 , ex_no
+		  from tb_exercise
+		 where cl_no = #{classNo}
+		 order
+		    by ex_no
+	</select>
+	
+	
+	
+	<!-- 해당 회원의 특정 날짜에 대한 운동내역 조회 -->
 	<select id="selectExerciseList" resultMap="exerciseResult">
 		select
 			   cl_no
@@ -154,7 +176,25 @@
 		    by ex_no
 	</select>
 	 
+	 
+	<!-- 수정을 위해 특정 운동만을 조회 -->
+	<select id="selectEx" resultMap="exerciseResult">
+		select cl_no
+			 , ex_date
+			 , ex_writer
+			 , ex_title
+			 , ex_count
+			 , ex_set
+			 , ex_coment
+			 , ex_link
+			 , ex_status
+			 , ex_no
+		  from tb_exercise
+		 where ex_no = #{exNo}
+	</select>
 	
+	 
+	 
 	 
 	<insert id="insertExercise">
 		insert
@@ -214,24 +254,9 @@
 	</update>
 	
 	
-	<select id="selectExercise" resultMap="exerciseResult">
-		select 
-			   cl_no
-			 , ex_date
-			 , ex_writer
-			 , ex_title
-			 , ex_count
-			 , ex_set
-			 , ex_coment
-			 , ex_link
-			 , ex_status
-			 , ex_no
-		  from tb_exercise
-		 where ex_no = #{exNo}
-	</select>
 	
 	
-	
+	<!-- 해당 회원의 모든 식단내역 조회 -->
 	<select id="selectDiet" resultMap="dietResult">
 		select di_no
 		     , cl_no
@@ -266,7 +291,9 @@
 		     , di_enroll
 		     , di_re_content
 		     , di_re_img
+		     , user_no
 		  from tb_diet
+		  join tb_class using (cl_no)
 		 where di_date = #{dietDate}
 		   and cl_no = #{classNo}
    </select>
