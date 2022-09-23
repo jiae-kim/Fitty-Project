@@ -49,7 +49,7 @@ html, body{font-size: 16px;}
         		<div class="nav-align-top mb-4">
           			<div class="tab-content" style="height: 1000px;">
           			<!-- 회원 페이지 : 스케줄 조회 / 등록 -->
-            		<h5 class="text-muted">📅 ${loginU.userName}님의 스케줄입니다 🏋️담당 트레이너${loginU.empName}입니다</h5>
+            		<h5 class="text-muted">📅 ${loginU.userName}님의 스케줄입니다 🏋️담당 트레이너 ${loginU.empName}입니다</h5>
 					<!-- 예약 등록 버튼 -->
 					<div class="btn-group2" style="float: right; display: inline-block;">
 		            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scheduleEnroll">수업 예약</button> -->
@@ -102,8 +102,8 @@ html, body{font-size: 16px;}
                               	</select>
 								</div>
 							</div>
-
 		                </div>
+		                
 		                <div class="modal-footer">
 		                	<button type="submit" class="btn btn-primary">확인</button>
 		                    <button type="reset" class="btn btn-outline-secondary" data-bs-dismiss="modal">취소</button>
@@ -213,7 +213,7 @@ html, body{font-size: 16px;}
 							// 로그인한 회원 번호 뽑아서 data로 보내줌
 							data:{userNo:${loginU.userNo}},
 							success: function(list){
-								console.log(list);
+								//console.log(list);
 								
 								// 넘겨주고자 하는 값 리스트로 담아줌
 								let userNo = ${loginU.userNo};
@@ -229,7 +229,8 @@ html, body{font-size: 16px;}
 												start : list[i].bookDate + " " + list[i].bookStime, 
 												end : list[i].bookDate + " " + list[i].bookEtime,
 												textColor : "black",
-												backgroundColor : "#696cff"
+												backgroundColor : "#696cff",
+												fontSize : 14
 											}
 									}else{
 										// 내 담당트레이너의 스케줄(내 예약내용 아님)
@@ -239,7 +240,8 @@ html, body{font-size: 16px;}
 											start : list[i].bookDate + " " + list[i].bookStime, 
 											end : list[i].bookDate + " " + list[i].bookEtime,
 											textColor : "black",
-											backgroundColor : "lightgray"
+											backgroundColor : "lightgrey",
+											fontSize : 12
 										}
 									}
 									data.push(obj);
@@ -254,6 +256,8 @@ html, body{font-size: 16px;}
 									  expandRows: true,
 									  // 초기 로드 될때 보이는 캘린더 화면 (기본설정 : 달)
 									  initialView : 'dayGridMonth',
+									  // 한주를 월요일부터 시작
+									  firstDay : 1,
 									  // 한국어 설정
 									  locale : 'ko', 
 									  // 시간 설정
@@ -267,7 +271,7 @@ html, body{font-size: 16px;}
 									  // Day 캘린더에서 시작 시간
 									  slotMinTime: '09:00',
 									  // Day 캘린더에서 종료 시간
-									  slotMaxTime: '23:00',
+									  slotMaxTime: '22:00',
 									  // 날짜를 선택하면 day 캘린더나 week캘린더로 링크
 									  navLinks: true,
 									  // 현재 시간 마크
