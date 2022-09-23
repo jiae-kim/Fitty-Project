@@ -87,6 +87,9 @@ public class ProductController {
 	
 	@RequestMapping("update.pr")
 	public String updateProduct(Product p, HttpSession session) {
+		// 이용권 금액 등록시 ,제거 후 숫자만 insert되도록
+		p.setProPrice(p.getProPrice().replace(",", ""));
+				
 		int result = pService.updateProduct(p);
 		
 		if(result > 0) {// 수정 성공

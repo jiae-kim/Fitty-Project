@@ -21,6 +21,7 @@
 		select
 			    b.book_no <!-- pk조회 -->
 			,   e.emp_name
+			,	b.emp_no
 			,   u.user_name
 			,   b.book_date
 			,   b.book_stime

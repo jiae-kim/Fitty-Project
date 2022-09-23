@@ -18,6 +18,7 @@
 		<result column="cl_count" property="classCount" />
 		<result column="cl_goal" property="classGoal" />
 		<result column="cl_result" property="classResult" />
+		<result column="emp_name" property="empName" />
 	</resultMap> 
 	
 	
@@ -54,9 +55,12 @@
 		 	 , c.cl_count
 		 	 , c.cl_goal
 		 	 , c.cl_result
+		 	 , e.emp_name
 		  from tb_user u 
 		  join tb_class c
 		    on (u.user_no = c.user_no)
+		  join tb_emp e
+            on (c.emp_no = e.emp_no)  
 		 where u.user_type = 'P'
 		   and u.user_status = 'Y'
 		   and u.user_phone = #{userPhone}
