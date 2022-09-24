@@ -75,4 +75,8 @@ public interface ApprovalService {
 	int updateAtt1(ApprVacation vct);
 	int updateAtt2(ApprVacation vct);
 	int insertVacation(ApprVacation vct);
+	
+	// 반려
+	int updateReturnAppr(ApprovalMember am);
+	int updateReturnApprMem(ApprovalMember am);
 }

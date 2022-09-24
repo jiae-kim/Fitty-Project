@@ -190,4 +190,12 @@ public class ApprovalDao {
 	public int insertVacation(SqlSessionTemplate sqlSession, ApprVacation vct) {
 		return sqlSession.insert("approvalMapper.insertVacation", vct);
 	}
+	
+	public int updateReturnAppr(SqlSessionTemplate sqlSession, ApprovalMember am) {
+		return sqlSession.update("approvalMapper.updateReturnAppr", am);
+	}
+	
+	public int updateReturnApprMem(SqlSessionTemplate sqlSession, ApprovalMember am) {
+		return sqlSession.update("approvalMapper.updateReturnApprMem", am);
+	}
 }

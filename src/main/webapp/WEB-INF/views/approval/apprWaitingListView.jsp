@@ -56,6 +56,9 @@
               		</c:forEach>
               	</c:when>
               	<c:otherwise>
+              		<tr>
+		               <td colspan="6" height="30">문서가 없습니다.</td>
+		             </tr>
               	</c:otherwise>
               </c:choose>
             </table>
@@ -83,7 +86,7 @@
 	              		</c:when>
 	              		<c:otherwise>
 	              			<li class="page-item prev">
-			                  <a class="page-link" href="waitingList.ap?cpage=${ pi.currentPage-1 }"
+			                  <a class="page-link" href="waitingList.ap?empNo=${loginUser.empNo }&cpage=${ pi.currentPage-1 }"
 			                    ><i class="tf-icon bx bx-chevron-left"></i
 			                  ></a>
 			                </li>
@@ -94,12 +97,12 @@
 	                	<c:choose>
 	                		<c:when test="${ p eq pi.currentPage }">
 				                <li class="page-item active disabled">
-				                  <a class="page-link" href="waitingList.ap?cpage=${ p }">${ p }</a>
+				                  <a class="page-link" href="waitingList.ap?empNo=${loginUser.empNo }&cpage=${ p }">${ p }</a>
 				                </li>
 				            </c:when>
 				            <c:otherwise>
 				            	<li class="page-item">
-				                  <a class="page-link" href="waitingList.ap?cpage=${ p }">${ p }</a>
+				                  <a class="page-link" href="waitingList.ap?empNo=${loginUser.empNo }&cpage=${ p }">${ p }</a>
 				                </li>
 				            </c:otherwise>
 		                </c:choose>
@@ -115,7 +118,7 @@
 	              		</c:when>
 	              		<c:otherwise>
 	              			<li class="page-item next">
-			                  <a class="page-link" href="waitingList.ap?cpage=${ pi.currentPage+1 }"
+			                  <a class="page-link" href="waitingList.ap?empNo=${loginUser.empNo }&cpage=${ pi.currentPage+1 }"
 			                    ><i class="tf-icon bx bx-chevron-right"></i
 			                  ></a>
 			                </li>

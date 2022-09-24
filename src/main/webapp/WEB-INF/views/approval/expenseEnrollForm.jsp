@@ -50,7 +50,7 @@
 	             <div class="modal-dialog modal-dialog-scrollable">
 	               <div class="modal-content">
 	                 <div class="modal-header">
-	                   <h5 class="modal-title" id="modalToggleLabel" style="color:rgb(51, 51, 51);">결재양식 선택</h5>
+	                   <h5 class="modal-title" id="modalToggleLabel" style="color:rgb(51, 51, 51);">결재선 선택</h5>
 	                   <button
 	                     type="button"
 	                     class="btn-close"

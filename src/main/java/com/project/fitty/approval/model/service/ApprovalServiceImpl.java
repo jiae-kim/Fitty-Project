@@ -192,6 +192,16 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return aDao.insertVacation(sqlSession, vct);
 	}
 
+	@Override
+	public int updateReturnAppr(ApprovalMember am) {
+		return aDao.updateReturnAppr(sqlSession, am);
+	}
+
+	@Override
+	public int updateReturnApprMem(ApprovalMember am) {
+		return aDao.updateReturnApprMem(sqlSession, am);
+	}
+
 
 	
 

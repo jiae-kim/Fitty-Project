@@ -254,6 +254,8 @@
 		 where appr_level = 2
 		   and ap.appr_status = 1
 		   and am.emp_no = #{empNo}
+		 order
+		    by appr_enroll_date desc
 	</select>
 
 	<select id="selectListCount" resultType="_int">
@@ -375,6 +377,8 @@
 		  join tb_appr_mem am on(am.appr_no = ap.appr_no)
 		 where am.emp_no = #{empNo}
 		   and ap.appr_status = #{apprStatus}
+		 order
+		    by appr_enroll_date desc
 	</select>
 	
 	<insert id="insertStorage">
@@ -435,6 +439,8 @@
 	             where am.emp_no = #{empNo}
 		        )
 		where complete_count + 1 = appr_level
+		order
+		    by appr_enroll_date desc
 	</select>
 	
 	<select id="selectMember" resultMap="ApprovalMemberResult">
@@ -577,5 +583,21 @@
 		  , 'N'
 		  )
 	</insert>
+	
+	<update id="updateReturnAppr">
+		update tb_approval
+		   set appr_status = 4
+		     , appr_comment = #{apprComment}
+		 where appr_no = #{apprNo}
+	</update>
+	
+	<update id="updateReturnApprMem">
+		update tb_appr_mem
+		   set appr_status = 'N'
+		     , appr_comment = #{apprComment}
+		 where appr_no = #{apprNo}
+		   and emp_no = #{empNo}
+	</update>
+	
 
 </mapper>

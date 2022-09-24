@@ -115,6 +115,19 @@
   font-size:small;
   padding-top:5px;
 }
+.reModal-body{
+	height:260px;
+	padding-left:50px;
+}
+.reModal{
+  border:1px solid lightgray;
+  border-radius:5px;
+  width:72%;
+  height:150px;
+  float:right;
+  padding-top:5px;
+  margin-right:50px;
+}
 .addlist{
   border:1px solid lightgray;
   border-radius:5px;

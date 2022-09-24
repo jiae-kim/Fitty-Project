@@ -423,4 +423,20 @@ public class ApprovalController {
 		}
 	}
 	
+	// 반려
+	@RequestMapping("return.ap")
+	public String updateReturnAppr(ApprovalMember am, String insertEmpNo, HttpSession session, Model model) {
+		am.setEmpNo(insertEmpNo);
+		int result1 = aService.updateReturnAppr(am);
+		int result2 = aService.updateReturnApprMem(am);
+		
+		if(result1>0 && result2>0) {
+			session.setAttribute("alertMsg", "문서를 반려하였습니다.");
+			return "redirect:signList.ap?empNo=" + am.getEmpNo();
+		}else {
+			model.addAttribute("errorMsg", "반려실패");
+			return "common/errorPage";
+		}
+	}
+	
 }
