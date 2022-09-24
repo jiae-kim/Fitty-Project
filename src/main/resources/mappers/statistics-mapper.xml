@@ -56,8 +56,9 @@
 		      , user_month
 		   from tb_user
           where user_month is not null
+            and user_month > 0
 		  group by user_month
-		  order by user_month desc
+          order by to_number(user_month)
 	</select>
 
 </mapper>
