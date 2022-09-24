@@ -144,7 +144,7 @@
 
 /*centerAllAttendance*/
 #memListTBody *{
-		font-size:4px;
+		font-size:8px;
 }
 
 .monthTable{
@@ -203,13 +203,13 @@ table thead, table tfoot{
 
 #attTable td, #attTable th{
   padding:0px;
-  font-size: 4px;
+  font-size: 8px;
   height: 23px;
 }
 
 #countList td, #countList th{
   padding:0px;
-  font-size: 4px;
+  font-size: 8px;
   height: 23px;
 }
 

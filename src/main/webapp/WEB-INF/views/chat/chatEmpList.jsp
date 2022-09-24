@@ -16,8 +16,7 @@
  <div class="col-md-3">
    <div class="card mb-4 chatMenu" style="background-color: #E7E7FF;">
      <div class="btnFlex">
-       <button class="col-md-6" id="empListBtn" aria-selected="true">🙋‍♀️ MEMBER</button>
-       <button class="col-md-6">💌 CHAT</button>
+       <button class="col-md-12" id="empListBtn" style="background-color: #E7E7FF; width:100%; margin:0;">🙋‍♀️ MEMBER LIST 🙋‍♀️</button>
      </div>
      <form class="chatMenuForm" style="overflow:auto;">
        <div class="profileHeader">

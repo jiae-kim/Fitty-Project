@@ -188,10 +188,10 @@ function changeSelect(){
 							} else {
 								value +=	"<td>" + aList[i].empVacList[0].plusYearVac + "</td>"
 										+    "<td>" + aList[i].empVacList[0].minusYearVac + "</td>"
-										+    "<td>" + "잔여연월차" + "</td>"
+										+	 "<td><span class='badge badge-center bg-primary'>" +  aList[i].empVacList[0].gapYearVac  + "</span></td>"
 										+    "<td>" + aList[i].empVacList[0].plusVac + "</td>"
 										+    "<td>" + aList[i].empVacList[0].minusVac + "</td>"
-										+    "<td>" + "잔여휴가" + "</td>"
+										+	 "<td><span class='badge badge-center bg-primary'>" +  aList[i].empVacList[0].gapVac  + "</span></td>"
 										+    "<td>" + "<a class='btn btn-sm rounded-pill btn-outline-primary' href='detail.vac?no='" + aList[i].empNo + "'>조회</td>"
 							}
 								}

@@ -112,8 +112,8 @@ function selectChatRoom(invEmpNo){
 			 console.log("bubbleList.length : " + bubbleList.length)
 
 			 value +=  "<h5 class='card-header' style='margin-bottom : 20px; margin-top:20px;'>"
-				   +   "<img src='"+ invC.empPhoto +"' alt='Avatar' class='rounded-circle' width='30px;' height='30px;'/>"
-				   +   "<b>" + invC.empName + " " + invC.grName + "</b></h5>"
+				   +   "<img src='"+ invC.empPhoto +"' alt='Avatar' class='rounded-circle' width='40px;' height='40px;'/>"
+				   +   "<b font-size:20px;>🎉" + invC.empName + " " + invC.grName + "🎉</b></h5>"
 				   +   "<input type='hidden' id='chatRoomNo' value='" + c.chatRoomNo + "'>"
 				   +   "<input type='hidden' id='id' value='" + invC.empName + "'>"
 				   +   "<input type='hidden' id='photo' value='" + invC.empPhoto + "'>"
@@ -134,25 +134,25 @@ function selectChatRoom(invEmpNo){
 							if(bubbleList[i].empNo === c.empNo){
 								value +=  		  "<table class='myTable'>"
 								+					   "<tr>"
-								+						   "<td width='150px;' style='text-align:left'>" + bubbleList[i].empName + "</td>"
-								+						   "<td rowspan='2' class='textTd'><div class='noStyle' id='myText'  style='text-align:right; color : grey'>" + bubbleList[i].bblContent + "</div></td>"
-								+						   "<td rowspan='2' style='margin-left:10px;'><img src='" + bubbleList[i].empPhoto + "' alt='Avatar' class='rounded-circle col-md-1' style='width:30px; height:30px;'/></td>"
+								+						   "<td rowspan='2' width='50px; style='margin-left:10px;'><img src='" + bubbleList[i].empPhoto + "' alt='Avatar' align='left' class='rounded-circle col-md-1' style='width:50px; height:50px;'/></td>"
+								+						   "<td width='90px;' width='90px;'  style='text-align:left'>" + bubbleList[i].empName + "</td>"
+								+						   "<td rowspan='2' class='textTd'><div class='noStyle' id='myText' style='text-align:right; color : grey'>" + bubbleList[i].bblContent + "</div></td>"
 								+					   "</tr>"
 								+					   "<tr>"
 								+						   "<td style='font-size : 10px; text-align:left;'>" + bubbleList[i].bblDate  + "</td>"
 								+					   "</tr>"
-								+				   "</table>"	
+								+				   "</table>"
 							} else {
 								value += 		   "<table class='yourTable'>"
 								+					   "<tr>"
-								+						   "<td rowspan='2' style='margin-right:10px;'><img src='" + bubbleList[i].empPhoto + "' alt='Avatar' class='rounded-circle col-md-1' style='width:30px; height:30px;'/></td>"
-								+						   "<td rowspan='2' class='textTd'><div class='noStyle' id='yourText' style='text-align:left; color : grey'>" + bubbleList[i].bblContent + "</div></td>"
-								+						   "<td width='150px;'>" + bubbleList[i].empName  + "</td>"
+								+						   "<td rowspan='2'width='50px; style='margin-right:10px;'><img src='" + bubbleList[i].empPhoto + "' alt='Avatar'  align='left' class='rounded-circle col-md-1' style='width:50px; height:50px;'/></td>"
+								+						   "<td width='90px;'  style='text-align:left'>" + bubbleList[i].empName  + "</td>"
+								+						   "<td rowspan='2' width='90px;' class='textTd'><div class='noStyle' id='yourText' style='text-align:left; color : grey'>" + bubbleList[i].bblContent + "</div></td>"
 								+					   "</tr>"
 								+					   "<tr>"
 								+						   "<td style='font-size : 10px; text-align:right;'>" + bubbleList[i].bblDate  + "</td>"
 								+					   "</tr>"
-								+				   "</table>" 
+								+				   "</table>"
 							}
 						 }
 
@@ -234,15 +234,15 @@ function selectChatRoom(invEmpNo){
 		websocket.send(
 										"<table class='myTable'>"
 								+ 					  "<tr>"
-								+						   "<td width='150px;' style='text-align:left;'>" + id  + "</td>"
+								+						   "<td rowspan='2' width='50px; style='margin-left:10px;'><img src='" + photo + "' alt='Avatar' align='left' class='rounded-circle col-md-1' style='width:50px; height:50px;'/></td>"
+								+						   "<td width='90px;' style='text-align:left;'>" + id  + "</td>"
 								+						   "<td rowspan='2' class='textTd'><div class='noStyle' id='myText' style='text-align:right; color : grey'>" + msg + "</div></td>"
-								+						   "<td rowspan='2' style='margin-left:10px;'><img src='" + photo + "' alt='Avatar' class='rounded-circle col-md-1' style='width:30px; height:30px;'/></td>"
 								+					   "</tr>"
 								+					   "<tr>"
 								+						   "<td style='font-size : 10px; text-align:left;'>" + dateStr + " " + timeStr + "</td>"
 								+					   "</tr>"
 								+ 			"</table>"
-
+								
 		)
 		document.getElementById("message").value = "";
 		
@@ -271,9 +271,9 @@ function selectChatRoom(invEmpNo){
 						 if(bubbleList[i].empNo === empNo){
 							value += 		   "<table class='myTable'>"
 							+					   "<tr>"
-							+						   "<td width='150px;'  style='text-align:left'>" + bubbleList[i].empName + "</td>"
+							+						   "<td rowspan='2' width='50px; style='margin-left:10px;'><img src='" + bubbleList[i].empPhoto + "' alt='Avatar' align='left' class='rounded-circle col-md-1' style='width:50px; height:50px;'/></td>"
+							+						   "<td width='90px;'  style='text-align:left'>" + bubbleList[i].empName + "</td>"
 							+						   "<td rowspan='2' class='textTd'><div class='noStyle' id='myText' style='text-align:right; color : grey'>" + bubbleList[i].bblContent + "</div></td>"
-							+						   "<td rowspan='2' style='margin-left:10px;'><img src='" + bubbleList[i].empPhoto + "' alt='Avatar' class='rounded-circle col-md-1' width='30px;' height='30px;'/></td>"
 							+					   "</tr>"
 							+					   "<tr>"
 							+						   "<td style='font-size : 10px; text-align:left;'>" + bubbleList[i].bblDate  + "</td>"
@@ -282,9 +282,9 @@ function selectChatRoom(invEmpNo){
 						 } else {
 							 value +=  		   "<table class='yourTable'>"
 							 +					   "<tr>"
-							 +						   "<td rowspan='2' style='margin-right:10px;'><img src='" + bubbleList[i].empPhoto + "' alt='Avatar' class='rounded-circle col-md-1' width='30px;' height='30px;'/></td>"
+							 +						   "<td rowspan='2' width='50px; style='margin-left:10px;'><img src='" + bubbleList[i].empPhoto + "' alt='Avatar' align='left' class='rounded-circle col-md-1' style='width:50px; height:50px;'/></td>"
+							 +						   "<td width='90px;'  style='text-align:left'>" + bubbleList[i].empName  + "</td>"
 							 +						   "<td rowspan='2' class='textTd'><div class='noStyle' id='yourText' style='text-align:left; color : grey'>" + bubbleList[i].bblContent + "</div></td>"
-							 +						   "<td width='150px;'>" + bubbleList[i].empName  + "</td>"
 							 +					   "</tr>"
 							 +					   "<tr>"
 							 +						   "<td style='font-size : 10px; text-align:right;'>" + bubbleList[i].bblDate  + "</td>"
