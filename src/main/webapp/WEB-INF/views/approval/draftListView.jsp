@@ -118,7 +118,7 @@
 				        <c:when test="${ not empty list }">
 				          <c:forEach var="a" items="${ list }">
 					          <tr>
-					            <td>${ a.apprEnrollDate }</td>
+					            <td>${ a.apprEnrollDate }<input type="hidden" name="apprDocType" class="apprDocType" value="${ a.apprDocType }"></td>
 					            <c:choose>
 					            	<c:when test="${ a.apprDocType eq 1 }">
 					            		<td>휴가신청</td>
@@ -133,7 +133,8 @@
 					            <td>${ a.apprTitle }</td>
 					            <td>${ a.apprComment }</td>
 					            <td></td>
-					            <td>${ a.apprNo }</td>
+					            <td>${ a.apprNo }<input type="hidden" name="apprNo" class="apprNo" value="${ a.apprNo }"></td>
+					            
 					            <c:choose>
 					            	<c:when test="${ a.apprStatus eq 1 }">
 							            <td height="30" align="center"><div id="sta1">대기</div></td>
@@ -218,6 +219,15 @@
 	            </nav>
             </div>
             <br>
+            
+           <script>
+            	$(function(){
+            		$("#dTable>tbody>tr").click(function(){
+            			location.href = 'draftDetail.ap?apprNo=' + $(this).children().children(".apprNo").val() 
+            						  + '&apprDocType=' + $(this).children().children(".apprDocType").val();
+            		})
+            	})
+            </script>
 			
 	        <div align="center">
 	          <select name="" id="sel1">

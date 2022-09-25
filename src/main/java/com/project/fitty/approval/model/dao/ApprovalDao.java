@@ -198,4 +198,24 @@ public class ApprovalDao {
 	public int updateReturnApprMem(SqlSessionTemplate sqlSession, ApprovalMember am) {
 		return sqlSession.update("approvalMapper.updateReturnApprMem", am);
 	}
+	
+	public int deleteApproval(SqlSessionTemplate sqlSession, String apprNo) {
+		return sqlSession.delete("approvalMapper.deleteApproval", apprNo);
+	}
+	
+	public int deleteVacation(SqlSessionTemplate sqlSession, String apprNo) {
+		return sqlSession.delete("approvalMapper.deleteVacation", apprNo);
+	}
+	
+	public int deleteOvertime(SqlSessionTemplate sqlSession, String apprNo) {
+		return sqlSession.delete("approvalMapper.deleteOvertime", apprNo);
+	}
+	
+	public int deleteExpense(SqlSessionTemplate sqlSession, String apprNo) {
+		return sqlSession.delete("approvalMapper.deleteExpense", apprNo);
+	}
+	
+	public int deleteExpDetail(SqlSessionTemplate sqlSession, String apprNo) {
+		return sqlSession.delete("approvalMapper.deleteExpDetail", apprNo);
+	}
 }

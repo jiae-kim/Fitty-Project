@@ -599,5 +599,34 @@
 		   and emp_no = #{empNo}
 	</update>
 	
+	<delete id="deleteApproval">
+		delete
+		  from tb_approval
+		 where appr_no = #{apprNo}
+	</delete>
+	
+	<delete id="deleteVacation">
+		delete
+		  from tb_appr_vacation
+		 where appr_no = #{apprNo}
+	</delete>
+	
+	<delete id="deleteOvertime">
+		delete
+		  from tb_appr_overtime
+		 where appr_no = #{apprNo}
+	</delete>
+	
+	<delete id="deleteExpense">
+		delete
+		  from tb_appr_exp
+		 where appr_no = #{apprNo}
+	</delete>
+	
+	<delete id="deleteExpDetail">
+		delete
+		  from tb_exp_detail
+		 where appr_no = #{apprNo}
+	</delete>
 
 </mapper>

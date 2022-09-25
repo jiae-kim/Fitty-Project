@@ -439,4 +439,89 @@ public class ApprovalController {
 		}
 	}
 	
+	// 기안문서함상세
+	@RequestMapping(value="draftDetail.ap", produces="application/json; charset=utf-8" )
+	public ModelAndView selectDraftDetail(String apprNo, String apprDocType, ModelAndView mv) {
+		
+		ArrayList<ApprovalMember> mlist = aService.selectMember(apprNo);
+		
+		if(apprDocType.equals("1")) {
+			ApprVacation vct = aService.selectVacation(apprNo);
+			mv.addObject("mlist", mlist).addObject("vct", vct).setViewName("approval/draftVctDetailView");
+		}else if(apprDocType.equals("2")) {
+			ApprOvertime ovt = aService.selectOvertime(apprNo);
+			mv.addObject("mlist", mlist).addObject("ovt", ovt).setViewName("approval/draftOvtDetailView");
+		}else {
+			ApprExpense exp = aService.selectExpense(apprNo);
+			ArrayList<ApprExpDetail> elist = aService.selectExpDetail(apprNo); 
+			mv.addObject("mlist", mlist).addObject("exp", exp).addObject("elist", elist).setViewName("approval/draftExpDetailView");
+
+		}
+		
+		return mv;
+		
+	}
+	
+	// 임시저장상세
+	@RequestMapping(value="storageDetail.ap", produces="application/json; charset=utf-8")
+	public ModelAndView selectStorageDetail(String apprNo, String apprDocType, ModelAndView mv) {
+		ArrayList<ApprovalMember> mlist = aService.selectMember(apprNo);
+		
+		if(apprDocType.equals("1")) {
+			ApprVacation vct = aService.selectVacation(apprNo);
+			mv.addObject("mlist", mlist).addObject("vct", vct).setViewName("approval/vacationStorageForm");
+		}else if(apprDocType.equals("2")) {
+			ApprOvertime ovt = aService.selectOvertime(apprNo);
+			mv.addObject("mlist", mlist).addObject("ovt", ovt).setViewName("approval/overtimeStorageForm");
+		}else {
+			ApprExpense exp = aService.selectExpense(apprNo);
+			ArrayList<ApprExpDetail> elist = aService.selectExpDetail(apprNo); 
+			mv.addObject("mlist", mlist).addObject("exp", exp).addObject("elist", elist).setViewName("approval/expenseStorageForm");
+
+		}
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="deleteAppr.ap")
+	public String deleteApproval(String apprNo,String empNo, String apprDocType, HttpSession session, Model model) {
+		
+		if(apprDocType.equals("1")) {
+			int result2 = aService.deleteVacation(apprNo);
+			int result1 = aService.deleteApproval(apprNo);
+			
+			if(result1>0 && result2>0) {
+				session.setAttribute("alertMsg","문서를 성공적으로 삭제했습니다.");
+				return "redirect:storageList.ap?empNo=" + empNo;
+			}else {
+				model.addAttribute("errorMsg", "문서 삭제 실패");
+				return "common/errorPage";
+			}
+		}else if(apprDocType.equals("2")) {
+			int result2 = aService.deleteOvertime(apprNo);
+			int result1 = aService.deleteApproval(apprNo);
+			
+			if(result1>0 && result2>0) {
+				session.setAttribute("alertMsg","문서를 성공적으로 삭제했습니다.");
+				return "redirect:storageList.ap?empNo=" + empNo;
+			}else {
+				model.addAttribute("errorMsg", "문서 삭제 실패");
+				return "common/errorPage";
+			}
+		}else {
+			int result3 = aService.deleteExpDetail(apprNo);
+			int result2 = aService.deleteExpense(apprNo);
+			int result1 = aService.deleteApproval(apprNo);
+			
+			if(result1>0 && result2>0 && result3>0) {
+				session.setAttribute("alertMsg","문서를 성공적으로 삭제했습니다.");
+				return "redirect:storageList.ap?empNo=" + empNo;
+			}else {
+				model.addAttribute("errorMsg", "문서 삭제 실패");
+				return "common/errorPage";
+			}
+
+		}
+	}
+	
 }

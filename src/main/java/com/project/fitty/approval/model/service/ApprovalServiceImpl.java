@@ -202,6 +202,31 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return aDao.updateReturnApprMem(sqlSession, am);
 	}
 
+	@Override
+	public int deleteApproval(String apprNo) {
+		return aDao.deleteApproval(sqlSession, apprNo);
+	}
+
+	@Override
+	public int deleteVacation(String apprNo) {
+		return aDao.deleteVacation(sqlSession, apprNo);
+	}
+
+	@Override
+	public int deleteOvertime(String apprNo) {
+		return aDao.deleteOvertime(sqlSession, apprNo);
+	}
+
+	@Override
+	public int deleteExpense(String apprNo) {
+		return aDao.deleteExpense(sqlSession, apprNo);
+	}
+
+	@Override
+	public int deleteExpDetail(String apprNo) {
+		return aDao.deleteExpDetail(sqlSession, apprNo);
+	}
+
 
 	
 

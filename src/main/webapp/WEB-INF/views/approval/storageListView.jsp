@@ -105,7 +105,7 @@
 		            	<c:forEach var="s" items="${ list }">		            	
 				            <tr>
 				              <td><input type="checkbox" class="check"></td>
-				              <td>${ s.apprEnrollDate }</td>
+				              <td>${ s.apprEnrollDate }<input type="hidden" name="apprDocType" class="apprDocType" value="${ s.apprDocType }"></td>
 				              <c:choose>
 					              <c:when test="${ s.apprDocType eq 1 }">
 					              	<td>휴가신청</td>
@@ -119,7 +119,7 @@
 				              </c:choose>
 				              <td>${ s.apprTitle }</td>
 				              <td></td>
-				              <td>${ s.apprNo }</td>
+				              <td>${ s.apprNo }<input type="hidden" name="apprNo" class="apprNo" value="${ s.apprNo }"></td>
 				              <td height="30" align="center"><div id="sta4">임시저장</div></td>
 				            </tr>
 		            	</c:forEach>
@@ -132,6 +132,14 @@
 	            </c:choose>
 	          </table>
 	          <br><br>
+	          <script>
+            	$(function(){
+            		$("#dTable>tbody>tr").click(function(){
+            			location.href = 'storageDetail.ap?apprNo=' + $(this).children().children(".apprNo").val() 
+            						  + '&apprDocType=' + $(this).children().children(".apprDocType").val();
+            		})
+            	})
+              </script>
 			
 				<div class="paging-area">
 					<nav aria-label="Page navigation">

@@ -14,8 +14,8 @@
 		<jsp:include page="sideMenu.jsp"/>
 		
 		<div class="main">
-           <form action="" name="ovtForm">
-             <h4 style="color:rgb(50, 50, 50);">연장근무신청</h4><br>
+           <form action="" name="expForm">
+             <h4 style="color:rgb(50, 50, 50);">지출결의서</h4><br>
 
              <button class="f-btn" type="button" onclick="approve();">
                <i class='bx bxs-edit'></i>
@@ -29,7 +29,7 @@
                <i class='bx bx-error-circle'></i>
                결재정보
              </button>
-             <button class="f-btn" style="float:right;" type="button" onclick="location.href='waitingList.ap'">
+             <button class="f-btn" style="float:right;">
                <i class='bx bx-menu'></i>
                목록
              </button>
@@ -108,7 +108,9 @@
 	                     	<table>
 	                     		<tr class="addmem">
 			                         <td height="80" width="40" style="background:rgba(211, 211, 211, 0.3);">
+				                         <button style="background:rgba(211, 211, 211, 0);" type="button" id="insert" onclick="none();">
 				                         	<i class='bx bx-chevrons-right'></i>
+				                         </button>
 				                     </td>
 				                     <td>승인</td>
 			                         <td>이름</td>
@@ -130,18 +132,6 @@
 	                       $('#appr-mem2').slideToggle(20);
 	                     } );
 	                     
-	                     
-	                   })
-                     	function approve(){
-	                	   alertify.confirm('승인하시겠습니까?', function(){ $("form[name=ovtForm]").attr("action","approve.ap"); $("form[name=ovtForm]").submit();}
-	                       ); 
-	                   }
-	                   
-	                   function returnAppr(){
-	                	   alertify.confirm('반려하시겠습니까?', function(){ $("form[name=ovtForm]").attr("action","return.ap"); $("form[name=ovtForm]").submit();}
-	                       );
-	                   }
-	                   
 	                 </script>
 	                 <div class="modal-footer">
 	                   <button class="btn btn-primary" type="button" data-bs-dismiss="modal" id="aa" onclick="insertApprLine();">확인</button>
@@ -150,79 +140,25 @@
 	               </div>
 	             </div>
 	           </div>
-	           
-	         <div
-	             class="modal fade"
-	             id="apprReason"
-	             aria-labelledby="modalToggleLabel"
-	             tabindex="-1"
-	             style="display: none"
-	             aria-hidden="true"
-	           >
-	             <div class="modal-dialog modal-dialog-scrollable">
-	               <div class="modal-content">
-	                 <div class="modal-header">
-	                   <h5 class="modal-title" id="modalToggleLabel" style="color:rgb(51, 51, 51); margin-left:25px;">반려하기</h5>
-	                   <button
-	                     type="button"
-	                     class="btn-close"
-	                     data-bs-dismiss="modal"
-	                     aria-label="Close"
-	                   ></button>
-	                 </div>
-	                 <div class="reModal-body">
-		                 <br>
-		                 <form action="" name="reason">
-		                     <span style="margin-top:20px;">결재문서명</span>&nbsp;&nbsp;&nbsp;&nbsp;
-		                     <span style="margin-left:10px;">
-		                     	<c:choose>
-		                     		<c:when test="${ ovt.apprDocType eq 1 }">
-		                     			휴가신청
-		                     		</c:when>
-		                     		<c:when test="${ ovt.apprDocType eq 2 }">
-		                     			연장근무신청
-		                     		</c:when>
-		                     		<c:otherwise>
-		                     			지출결의서
-		                     		</c:otherwise>
-		                     	</c:choose>
-		                     </span>
-		                     <br><br>
-		                     <span>반려의견</span>
-			                 <input type="text" class="reModal" name="apprComment">
-			                 <input type="hidden" name="insertEmpNo" value="${loginUser.empNo }">
-	             			 <input type="hidden" name="apprNo" value="${ ovt.apprNo }">		
-		                  </form>
-		                 </div>
-	                 <div class="modal-footer">
-	                   <button class="btn btn-primary" type="button" data-bs-dismiss="modal" id="aa" onclick="returnAppr();">반려</button>
-	                   <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">취소</button>
-	                 </div>
-	               </div>
-	             </div>
-	           </div>
 
              <div class="app-form1">
-	             <input type="hidden" name="empNo" value="${loginUser.empNo }">
-	             <input type="hidden" name="insertEmpNo" value="${ovt.empNo }">
-	             <input type="hidden" name="apprNo" value="${ ovt.apprNo }">
-	             <input type="hidden" name="ovtDate" value="${ ovt.ovtDate }">
-	         	<input type="hidden" name="apprDocType" value="${ ovt.apprDocType }">
+              	<input type="hidden" name="empNo" value="${loginUser.empNo }">
+	         	<input type="hidden" name="apprNo" value="${ exp.apprNo }">
                <br>
-               <h5 align="center" style="color:rgb(50, 50, 50);"><b>연장근무신청서</b></h5>
+               <h5 align="center" style="color:rgb(50, 50, 50);"><b>지출결의서</b></h5>
                <br><br>
-                <table id="tb1">
+               <table id="tb1">
                   <tr>
                     <th width="40%">기안자</th>
-                    <td>${ ovt.empName }</td>
+                    <td>${ exp.empName }</td>
                   </tr>
                   <tr>
                     <th>기안일</th>
-                    <td>${ ovt.apprEnrollDate }</td>
+                    <td>${ exp.apprEnrollDate }</td>
                   </tr>
                   <tr>
                     <th>문서번호</th>
-                    <td>${ ovt.apprNo }</td>
+                    <td>${ exp.apprNo }</td>
                   </tr>
                 </table>
                 <c:choose>
@@ -243,7 +179,7 @@
 		                  </tr>
 		                  <tr>
 		                  	<c:forEach var="m" items="${ mlist }">
-		                    	<td width="75px">${m.apprDate }</td>
+		                    	<td></td>
 		                    </c:forEach>
 		                  </tr>
 		                </table>
@@ -262,12 +198,12 @@
 		                  </tr>
 		                  <tr>
 	                 		<c:forEach var="m" items="${ mlist }">
-	                 			<td width="75px">${ m.empName }</td>
+	                 			<td>${ m.empName }</td>
 			                </c:forEach>
 		                  </tr>
 		                  <tr>
 		                  	<c:forEach var="m" items="${ mlist }">
-		                   		 <td height="24px" style="font-size:small">${m.apprDate }</td>
+		                   		 <td height="24px" style="font-size:small"></td>
 		                    </c:forEach>
 		                  </tr>
 		                </table>
@@ -288,45 +224,79 @@
                 <table id="tb3">
 	               <tr>
 	                 <th rowspan="3" width="25%;">신청</th>
-	                 <td height="24px">${ ovt.grApprGrade }</td>
+	                 <td height="24px">${ exp.grApprGrade }</td>
 	               </tr>
 	               <tr>
 	                 <td>
 	                 	<div><img src="resources/approval_images/stamp_approved.png" width="35" height="40"></div>
-	                 	${ ovt.empName }
+	                 	${ exp.empName }<input type="hidden" name="empNo" value="${loginUser.empNo }">
 	                 </td>
 	               </tr>
 	               <tr>
-	                 <td height="24px" style="font-size:small;">${ ovt.apprEnrollDate }</td>
+	                 <td height="24px" style="font-size:small;">${ exp.apprEnrollDate }</td>
 	               </tr>
 	             </table>
                
                <table id="tb4">
                  <tr>
-                   <th width="20%" height="40px;">근무 일시</th>
-                   <td>&nbsp;${ ovt.ovtDate }&nbsp;&nbsp;&nbsp; ${ ovt.ovtStartTime } ~ ${ ovt.ovtEndTime }
-                   </td>
+                   <th width="20%" height="40px;">제목</th>
+                   <td colspan="3">&nbsp;${ exp.apprTitle }</td>
                  </tr>
                  <tr>
-                   <th height="40px;">근무 시간</th>
-                   <td>&nbsp;</td>
+                   <th height="40px;">작성자</th>
+                   <td width="80%">&nbsp;${ exp.expMem }</td>
                  </tr>
                  <tr>
-                   <td colspan="2" height="80px;" class="cmt2">
-                     * 주간 근무시간 - 근무일이 포함된 한 주<br>
-                      정상근무시간 + 연장근무 승인 요청에 대한 결재가 완료된 총 시간입니다. <br>
-                     근태관리에서 시간 수정이 가능하므로 주간 근무시간은 상이해질 수 있습니다.
-                   </td>
+                   <th height="40px;">금액</th>
+                   <td colspan="3">${ exp.expTotalAmount }</td>
                  </tr>
                  <tr>
-                   <th height="120px;">신청 사유</th>
-                   <td>${ ovt.ovtReason }</td>
+                   <th height="120px;">지출 사유</th>
+                   <td colspan="3">&nbsp;${ exp.expReason }</td>
                  </tr>
                </table>
+               <table id="tb7">
+                 <tr>
+                   <th height="30">일자</th>
+                   <th>분류</th>
+                   <th>금액</th>
+                   <th>사용내역</th>
+                   <th>비고</th>
+                 </tr>
+                 <c:forEach var="e" items="${ elist }">
+	                 <tr>
+	                   <td height="30" width="130">${e.expDate }</td>
+	                   <td width="110">
+	                   		<c:choose>
+	                   			<c:when test="${ e.expStatus eq 1 }">
+	                   				기구구입비
+	                   			</c:when>
+	                   			<c:when test="${ e.expStatus eq 2 }">
+	                   				비품구입비
+	                   			</c:when>
+	                   			<c:otherwise>
+	                   				회식비
+	                   			</c:otherwise>
+	                   		</c:choose>
+	                   </td>
+	                   <td>&nbsp;${e.expAmount }</td>
+	                   <td width="40%">${e.expHistory }</td>
+	                   <td width="15%">${e.expNote }</td>
+	                 </tr>
+                 </c:forEach>
+                 <tr>
+                   <td colspan="5" height="30">합계 : ${ exp.expTotalAmount }</td>
+                 </tr>
+               </table>
+               <span style="margin-left:30px;">* 영수증 별도 제출</span><br><br>
+               <div>
+                 <span style="margin-left:40px;">파일 첨부</span>
+                 <div class="addfile"><span style="color:gray; font-size:small;">파일선택</span></div>
+               </div>
+               <br><br><br>
              </div>
            </form>
-        </div>
+         </div>
 	</div>
-
 </body>
 </html>

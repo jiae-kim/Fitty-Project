@@ -79,4 +79,11 @@ public interface ApprovalService {
 	// 반려
 	int updateReturnAppr(ApprovalMember am);
 	int updateReturnApprMem(ApprovalMember am);
+	
+	// 임시저장삭제
+	int deleteApproval(String apprNo);
+	int deleteVacation(String apprNo);
+	int deleteOvertime(String apprNo);
+	int deleteExpense(String apprNo);
+	int deleteExpDetail(String apprNo);
 }

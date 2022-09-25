@@ -17,14 +17,6 @@
            <form action="" name="ovtForm">
              <h4 style="color:rgb(50, 50, 50);">연장근무신청</h4><br>
 
-             <button class="f-btn" type="button" onclick="approve();">
-               <i class='bx bxs-edit'></i>
-               결재
-             </button>
-             <button class="f-btn" type="button" data-bs-toggle="modal" data-bs-target="#apprReason">
-               <i class='bx bx-arrow-back'></i>
-               반려
-             </button>
              <button class="f-btn" data-bs-toggle="modal" data-bs-target="#addMem" type="button">
                <i class='bx bx-error-circle'></i>
                결재정보
@@ -130,18 +122,6 @@
 	                       $('#appr-mem2').slideToggle(20);
 	                     } );
 	                     
-	                     
-	                   })
-                     	function approve(){
-	                	   alertify.confirm('승인하시겠습니까?', function(){ $("form[name=ovtForm]").attr("action","approve.ap"); $("form[name=ovtForm]").submit();}
-	                       ); 
-	                   }
-	                   
-	                   function returnAppr(){
-	                	   alertify.confirm('반려하시겠습니까?', function(){ $("form[name=ovtForm]").attr("action","return.ap"); $("form[name=ovtForm]").submit();}
-	                       );
-	                   }
-	                   
 	                 </script>
 	                 <div class="modal-footer">
 	                   <button class="btn btn-primary" type="button" data-bs-dismiss="modal" id="aa" onclick="insertApprLine();">확인</button>
@@ -151,56 +131,6 @@
 	             </div>
 	           </div>
 	           
-	         <div
-	             class="modal fade"
-	             id="apprReason"
-	             aria-labelledby="modalToggleLabel"
-	             tabindex="-1"
-	             style="display: none"
-	             aria-hidden="true"
-	           >
-	             <div class="modal-dialog modal-dialog-scrollable">
-	               <div class="modal-content">
-	                 <div class="modal-header">
-	                   <h5 class="modal-title" id="modalToggleLabel" style="color:rgb(51, 51, 51); margin-left:25px;">반려하기</h5>
-	                   <button
-	                     type="button"
-	                     class="btn-close"
-	                     data-bs-dismiss="modal"
-	                     aria-label="Close"
-	                   ></button>
-	                 </div>
-	                 <div class="reModal-body">
-		                 <br>
-		                 <form action="" name="reason">
-		                     <span style="margin-top:20px;">결재문서명</span>&nbsp;&nbsp;&nbsp;&nbsp;
-		                     <span style="margin-left:10px;">
-		                     	<c:choose>
-		                     		<c:when test="${ ovt.apprDocType eq 1 }">
-		                     			휴가신청
-		                     		</c:when>
-		                     		<c:when test="${ ovt.apprDocType eq 2 }">
-		                     			연장근무신청
-		                     		</c:when>
-		                     		<c:otherwise>
-		                     			지출결의서
-		                     		</c:otherwise>
-		                     	</c:choose>
-		                     </span>
-		                     <br><br>
-		                     <span>반려의견</span>
-			                 <input type="text" class="reModal" name="apprComment">
-			                 <input type="hidden" name="insertEmpNo" value="${loginUser.empNo }">
-	             			 <input type="hidden" name="apprNo" value="${ ovt.apprNo }">		
-		                  </form>
-		                 </div>
-	                 <div class="modal-footer">
-	                   <button class="btn btn-primary" type="button" data-bs-dismiss="modal" id="aa" onclick="returnAppr();">반려</button>
-	                   <button class="btn btn-secondary" type="button" data-bs-dismiss="modal">취소</button>
-	                 </div>
-	               </div>
-	             </div>
-	           </div>
 
              <div class="app-form1">
 	             <input type="hidden" name="empNo" value="${loginUser.empNo }">
@@ -327,6 +257,5 @@
            </form>
         </div>
 	</div>
-
 </body>
 </html>
