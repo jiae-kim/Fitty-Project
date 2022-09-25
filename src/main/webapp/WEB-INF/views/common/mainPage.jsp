@@ -11,7 +11,6 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
-	<a href="userPage.cl">회원 전용 사이트 (테스트 링크)</a>
 
 	<div class="content-wrapper">
 		<div class="container-xxl flex-grow-1 container-p-y" style="padding: 0px;">

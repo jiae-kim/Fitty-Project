@@ -134,10 +134,13 @@
 		                                    <td>${u.userType}</td>
 		                                    <c:choose>
 		                                    <c:when test="${u.userType eq 'P' and u.userPt ne 'Y'}">
-		                                    	<td><a class="btn rounded-pill btn-info" href="enroll.cl?no=${ u.userNo }">PT등록</a></td>
+		                                    	<td><a class="btn rounded-pill btn-info" href="enroll.cl?no=${ u.userNo }">PT 등록</a></td>
+		                                    </c:when>
+		                                    <c:when test="${u.userType eq 'P' and u.userPt ne 'N'}">
+		                                    	<td><button type="button" class="btn rounded-pill btn-secondary" disabled>등록완료</button></td>
 		                                    </c:when>
 		                                    <c:otherwise>
-		                                    	<td><button type="button" class="btn rounded-pill btn-secondary" disabled>PT등록</button></td>
+		                                    	<td></td>
 		                                    </c:otherwise>
 		                                    </c:choose>
 		                                    
