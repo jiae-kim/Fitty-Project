@@ -446,7 +446,7 @@
               </a>
             </li>
             <li class="menu-item">
-                <a href="apprMain.ap" class="menu-link">
+                <a href="apprMain.ap?empNo=${loginUser.empNo }" class="menu-link">
                     <i class='menu-icon tf-icons bx bx-paste'></i>
                   <div data-i18n="Extended UI"  class="big-menu-label">결재</div>
                 </a>

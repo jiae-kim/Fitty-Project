@@ -227,7 +227,45 @@ public class ApprovalServiceImpl implements ApprovalService{
 		return aDao.deleteExpDetail(sqlSession, apprNo);
 	}
 
+	@Override
+	public ArrayList<Approval> selectDraftList(String empNo) {
+		return aDao.selectDraftList(sqlSession, empNo);
+	}
 
-	
+	@Override
+	public ArrayList<Approval> selectCompleteList(String empNo) {
+		return aDao.selectCompleteList(sqlSession, empNo);
+	}
+
+	@Override
+	public int updateStorage(Approval ap) {
+		return aDao.updateStorage(sqlSession, ap);
+	}
+
+	@Override
+	public int updateStorageVct(ApprVacation vct) {
+		return aDao.updateStorageVct(sqlSession, vct);
+	}
+
+	@Override
+	public int updateStorageOvt(ApprOvertime ovt) {
+		return aDao.updateStorageOvt(sqlSession, ovt);
+	}
+
+	@Override
+	public int updateStorageExp(ApprExpense exp) {
+		return aDao.updateStorageExp(sqlSession, exp);
+	}
+
+	@Override
+	public int updateStorageExpDetail(ArrayList<ApprExpDetail> dlist) {
+		return aDao.updateStorageExpDetail(sqlSession, dlist);
+	}
+
+	@Override
+	public int updateStorageFile(ArrayList<File> flist) {
+		return aDao.updateStorageFile(sqlSession, flist);
+	}
+
 
 }

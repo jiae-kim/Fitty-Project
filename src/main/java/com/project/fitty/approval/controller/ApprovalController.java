@@ -35,9 +35,15 @@ public class ApprovalController {
 	@Autowired
 	private ApprovalService aService;
 	
-	@RequestMapping("apprMain.ap")
-	public String goApproval() {
-		return "approval/approvalMainView";
+	@RequestMapping(value="apprMain.ap", produces="application/json; charset=utf-8")
+	public ModelAndView goApproval(String empNo, ModelAndView mv) {
+		
+		ArrayList<Approval> dlist = aService.selectDraftList(empNo);
+		ArrayList<Approval> clist = aService.selectCompleteList(empNo);
+		
+		mv.addObject("dlist", dlist).addObject("clist", clist).setViewName("approval/approvalMainView");
+		
+		return mv;
 	}
 	
 	@RequestMapping(value="vacation.ap", produces="application/json; charset=utf-8")
@@ -318,7 +324,7 @@ public class ApprovalController {
 	// 결재예정문서
 	@RequestMapping(value="duleList.ap", produces="application/json; charset=utf-8")
 	public ModelAndView scheduleList(@RequestParam(value="cpage", defaultValue="1") int currentPage, String empNo, ModelAndView mv) {
-		int listCount = aService.selectListCount(empNo);
+		int listCount = aService.selectScheduleListCount(empNo);
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		ArrayList<Approval> list = aService.selectScheduleList(pi, empNo);
@@ -465,24 +471,26 @@ public class ApprovalController {
 	// 임시저장상세
 	@RequestMapping(value="storageDetail.ap", produces="application/json; charset=utf-8")
 	public ModelAndView selectStorageDetail(String apprNo, String apprDocType, ModelAndView mv) {
+		ArrayList<Employee> list = aService.selectEmpList();
 		ArrayList<ApprovalMember> mlist = aService.selectMember(apprNo);
 		
 		if(apprDocType.equals("1")) {
 			ApprVacation vct = aService.selectVacation(apprNo);
-			mv.addObject("mlist", mlist).addObject("vct", vct).setViewName("approval/vacationStorageForm");
+			mv.addObject("list", list).addObject("mlist", mlist).addObject("vct", vct).setViewName("approval/vacationStorageForm");
 		}else if(apprDocType.equals("2")) {
 			ApprOvertime ovt = aService.selectOvertime(apprNo);
-			mv.addObject("mlist", mlist).addObject("ovt", ovt).setViewName("approval/overtimeStorageForm");
+			mv.addObject("list", list).addObject("mlist", mlist).addObject("ovt", ovt).setViewName("approval/overtimeStorageForm");
 		}else {
 			ApprExpense exp = aService.selectExpense(apprNo);
 			ArrayList<ApprExpDetail> elist = aService.selectExpDetail(apprNo); 
-			mv.addObject("mlist", mlist).addObject("exp", exp).addObject("elist", elist).setViewName("approval/expenseStorageForm");
+			mv.addObject("list", list).addObject("mlist", mlist).addObject("exp", exp).addObject("elist", elist).setViewName("approval/expenseStorageForm");
 
 		}
 		
 		return mv;
 	}
 	
+	// 임시저장문서삭제
 	@RequestMapping(value="deleteAppr.ap")
 	public String deleteApproval(String apprNo,String empNo, String apprDocType, HttpSession session, Model model) {
 		
@@ -524,4 +532,48 @@ public class ApprovalController {
 		}
 	}
 	
+	// 임시저장문서기안
+	@RequestMapping("updateStorage.ap")
+	public String updateStorage(Approval ap, ApprovalMember am, ApprVacation vct, ApprOvertime ovt, ApprExpense exp, ApprExpDetail expd, File f, MultipartFile[] upfile, HttpSession session, Model model) {
+		ArrayList<ApprovalMember> list = am.getMlist();
+		ArrayList<ApprExpDetail> dlist = expd.getDlist();
+		ArrayList<File> flist = new ArrayList<>();
+		
+		int result1 = aService.updateStorage(ap);
+		int result2 = aService.insertApprMember(list);
+		
+		if(ap.getApprDocType().equals("1")) {
+			int result3 = aService.updateStorageVct(vct);
+			
+			if(result1>0 && result2>0 && result3>0) {
+				session.setAttribute("alertMsg", "결재요청에 성공했습니다.");
+				return "redirect:draftList.ap?empNo=" + ap.getEmpNo();
+			}else {
+				model.addAttribute("errorMsg", "문서 삭제 실패");
+				return "common/errorPage";
+			}
+		}else if(ap.getApprDocType().equals("2")) {
+			int result4 = aService.updateStorageOvt(ovt);
+			
+			if(result1>0 && result2>0 && result4>0) {
+				session.setAttribute("alertMsg", "결재요청에 성공했습니다.");
+				return "redirect:draftList.ap?empNo=" + ap.getEmpNo();
+			}else {
+				model.addAttribute("errorMsg", "문서 삭제 실패");
+				return "common/errorPage";
+			}
+		}else {
+			int result5 = aService.updateStorageExp(exp);
+			int result6 = aService.updateStorageExpDetail(dlist);
+			int result7 = aService.updateStorageFile(flist);
+			
+			if(result1>0 && result2>0 && result5>0 && result6>0 && result7>0) {
+				session.setAttribute("alertMsg", "결재요청에 성공했습니다.");
+				return "redirect:draftList.ap?empNo=" + ap.getEmpNo();
+			}else {
+				model.addAttribute("errorMsg", "문서 삭제 실패");
+				return "common/errorPage";
+			}
+		}
+	}
 }

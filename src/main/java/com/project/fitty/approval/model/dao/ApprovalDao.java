@@ -218,4 +218,36 @@ public class ApprovalDao {
 	public int deleteExpDetail(SqlSessionTemplate sqlSession, String apprNo) {
 		return sqlSession.delete("approvalMapper.deleteExpDetail", apprNo);
 	}
+	
+	public ArrayList<Approval> selectDraftList(SqlSessionTemplate sqlSession, String empNo){
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectDraftList", empNo);
+	}
+	
+	public ArrayList<Approval> selectCompleteList(SqlSessionTemplate sqlSession, String empNo){
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectCompleteList", empNo);
+	}
+	
+	public int updateStorage(SqlSessionTemplate sqlSession, Approval ap) {
+		return sqlSession.update("approvalMapper.updateStorage", ap);
+	}
+	
+	public int updateStorageVct(SqlSessionTemplate sqlSession, ApprVacation vct) {
+		return sqlSession.update("approvalMapper.updateStorageVct", vct);
+	}
+	
+	public int updateStorageOvt(SqlSessionTemplate sqlSession, ApprOvertime ovt) {
+		return sqlSession.update("approvalMapper.updateStorageOvt", ovt);
+	}
+	
+	public int updateStorageExp(SqlSessionTemplate sqlSession, ApprExpense exp) {
+		return sqlSession.update("approvalMapper.updateStorageExp", exp);
+	}
+	
+	public int updateStorageExpDetail(SqlSessionTemplate sqlSession, ArrayList<ApprExpDetail> dlist) {
+		return sqlSession.update("approvalMapper.updateStorageExpDetail", dlist);
+	}
+	
+	public int updateStorageFile(SqlSessionTemplate sqlSession, ArrayList<File> flist) {
+		return sqlSession.update("approvalMapper.updateStorageFile", flist);
+	}
 }

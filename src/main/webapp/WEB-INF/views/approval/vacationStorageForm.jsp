@@ -395,8 +395,8 @@
                <tr>
                  <th height="40px;">기간 및 일시</th>
                  <td>
-                   <input type="date" name="vctStartDate" class="dt" onchange="countDate()"> &nbsp;~ <input type="date" name="vctEndDate" class="dt" onchange="countDate()">&nbsp;&nbsp;&nbsp;
-                   선택일수 : <input type="text" class="dnum" name="vctCount" value="" readonly>
+                   <input type="date" name="vctStartDate" class="dt" onchange="countDate()" value="${vct.vctStartDate }"> &nbsp;~ <input type="date" name="vctEndDate" class="dt" onchange="countDate()" value="${vct.vctEndDate }">&nbsp;&nbsp;&nbsp;
+                   선택일수 : <input type="text" class="dnum" name="vctCount" value="${vct.vctCount }" readonly>
                  </td>
                </tr>
                <tr>
@@ -409,13 +409,12 @@
                <tr>
                  <th height="40px;">연차 일수</th>
                  <td style="padding-left:5px;">
-                   잔여연차 : <input type="text" class="dnum" value="NaN" readonly>&nbsp;&nbsp;&nbsp;
-                   신청연차 : <input type="text" class="dnum" name="vacCount" value="" readonly>
+                   신청연차 : <input type="text" class="dnum" name="vacCount" value="${vct.vctCount }" readonly>
                  </td>
                </tr>
                <tr>
                  <th height="120px;">휴가 사유</th>
-                 <td><input type="text" class="rsn" name="vctReason"></td>
+                 <td><input type="text" class="rsn" name="vctReason" value="${ vct.vctReason }"></td>
                </tr>
                <tr>
                  <td colspan="2" height="80px;" class="cmt1">

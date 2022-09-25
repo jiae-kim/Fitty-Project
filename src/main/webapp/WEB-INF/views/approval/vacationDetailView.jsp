@@ -368,7 +368,6 @@
                   <tr>
                     <th height="40px;">연차 일수</th>
                     <td style="padding-left:5px;">
-                      잔여연차 : &nbsp;NaN &nbsp;&nbsp;&nbsp;
                       신청연차 : &nbsp;${ vct.vctCount }
                     </td>
                   </tr>

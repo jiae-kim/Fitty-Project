@@ -405,7 +405,6 @@
                <tr>
                  <th height="40px;">연차 일수</th>
                  <td style="padding-left:5px;">
-                   잔여연차 : <input type="text" class="dnum" value="NaN" readonly>&nbsp;&nbsp;&nbsp;
                    신청연차 : <input type="text" class="dnum" name="vacCount" value="" readonly>
                  </td>
                </tr>

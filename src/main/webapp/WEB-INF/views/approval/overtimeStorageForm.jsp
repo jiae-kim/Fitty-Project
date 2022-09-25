@@ -382,8 +382,8 @@
                  <tr>
                    <th width="20%" height="40px;">근무 일시</th>
                    <td>
-                     <input type="date" class="dt" name="ovtDate"> &nbsp;&nbsp;&nbsp;
-                     <input type="time" class="ti" name="ovtStartTime"> &nbsp;~ <input type="time" class="ti" name="ovtEndTime" onchange="count()">
+                     <input type="date" class="dt" name="ovtDate" value="${ovt.ovtDate }"> &nbsp;&nbsp;&nbsp;
+                     <input type="time" class="ti" name="ovtStartTime" value="${ovt.ovtStartTime }"> &nbsp;~ <input type="time" class="ti" name="ovtEndTime" onchange="count()" value="${ovt.ovtEndTime }">
                    </td>
                  </tr>
                  <tr>
@@ -399,12 +399,17 @@
                  </tr>
                  <tr>
                    <th height="120px;">신청 사유</th>
-                   <td><input type="text" class="rsn" name="ovtReason"></td>
+                   <td><input type="text" class="rsn" name="ovtReason" value="${ ovt.ovtReason }"></td>
                  </tr>
                </table>
                
                <script>
+               		$(function(){
+               			count();
+               		})
+               
                		function count(){
+               			$("#tb4").children().children().eq(1).children().eq(1).empty();
                			let hour1 = $("input[name=ovtStartTime]").val();
     	       			let hour2 = $("input[name=ovtEndTime]").val();
     	       			
@@ -413,7 +418,7 @@
     	       			
     	       			let count = (hour2 - hour1) / 100;
     	       			
-    	       			$("#tb4").children().children().eq(1).children().eq(1).append(count + '시간');
+    	       			$("#tb4").children().children().eq(1).children().eq(1).append('&nbsp;&nbsp;' + count + '시간');
                		}
                </script>
                

@@ -447,11 +447,11 @@
                      </select>
                    </td>
                    <td><input type="text" class="con" id="amount0" name="dlist[0].expAmount" onchange="sum()"></td>
-                   <td width="40%"><input type="text" class="con" name="dlist[0].expHistory"></td>
+                   <td width="40%"><input type="text" class="con" name="dlist[0].expHistory" value="${dlist.expHistory }"></td>
                    <td width="15%"><input type="text" class="con" name="dlist[0].expNote"></td>
                  </tr>
                  <tr>
-                   <td colspan="5" height="30">합계 : </td>
+                   <td colspan="5" height="30">합계 : ${expTotalAmount }</td>
                  </tr>
                </table>
                <span style="margin-left:30px;">* 영수증 별도 제출</span><br><br>
