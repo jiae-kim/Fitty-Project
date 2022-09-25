@@ -114,7 +114,7 @@ public class UserController {
 		
 	}
 	
-	// [김지애] 5. 회원 프로필이미지 변경 서비스 - ajax
+	// [김지애] 5. 회원 프로필이미지 변경 서비스 (ajax)
 	@ResponseBody
 	@RequestMapping("uploadProfile.ur") 
 	public void ajaxUploadProfile(MultipartFile uploadFile, User u, String originalFile, HttpSession session) { 
@@ -160,7 +160,7 @@ public class UserController {
 		}
 	}
 	
-	// [김지애] 7. 회원등록 시 전화번호 중복체크 - ajax
+	// [김지애] 7. 회원등록 시 전화번호 중복체크 (ajax)
 	@ResponseBody
 	@RequestMapping("telCheck.ur")
 	public String ajaxTelCheck(String checkTel) {

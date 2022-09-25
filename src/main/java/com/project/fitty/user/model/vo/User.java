@@ -31,13 +31,13 @@ public class User {
 	private String type; 	  // 검색기능
 	private String name; 	  // 검색기능
 	
-	//[정다혜] 
+	// [정다혜] 
 	private int classNo;
 	private String empNo;
 	private String classStartDate;
 	private int classCount;
 	
-	// 통계
+	// [노희영] 통계
 	private int userCount;
 	private String userCountMonth;
 	private int couCount;

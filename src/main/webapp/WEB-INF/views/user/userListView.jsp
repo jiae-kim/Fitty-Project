@@ -9,6 +9,7 @@
 <style>
 #userList>tbody>tr:hover{background:aqua; cursor:pointer;}
 
+/* 검색바 스타일 */
 #sel{
 	  width:110px; 
 	  font-size:13px; 
@@ -46,18 +47,7 @@
             <div class="col-xl-12">
                 <div class="nav-align-top mb-4">
                     <div class="tab-content" style="height: 750px;">
-                        <h5 class="text-muted">🙍‍♀️회원관리 - 회원 조회</h5>
-                        <br>
-                        <!-- 이용권별 조회 버튼 
-                        <div class="btn-group">
-                          <button type="button" class="btn btn-primary dropdown-toggle" data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">이용권별조회</button>
-                          <ul class="dropdown-menu">
-                              <li><h6 class="dropdown-header text-uppercase">조회할 이용권 선택</h6></li>
-                              <li><a class="dropdown-item" href="javascript:void(0);">헬스장</a></li>
-                              <li><a class="dropdown-item" href="javascript:void(0);">PT</a></li>
-                          </ul>
-                        </div>
-                        -->
+                        <h5 class="text-muted">🙍‍♀️ 회원관리 - 회원 조회</h5><br>
                         
                         <!-- 검색 기능 -->
                         <div align="center">
@@ -75,9 +65,9 @@
 				            </svg>
 				          </button>
 				          </form>
-				        </div>
-                        <br><br><br>
-
+				        </div><br><br><br>
+						
+						<!-- 회원 리스트 -->
                         <div class="card row">
                             <div class="table-responsive text-nowrap">
                             <table class="table table-hover" id="userList">
@@ -95,7 +85,6 @@
                                 </thead>
 
                                 <tbody class="table-border-bottom-0">
-
                                 <c:choose>
                                 	<c:when test="${empty list}">
                                 	<tr>
@@ -134,20 +123,19 @@
 		                                    <td>${u.userType}</td>
 		                                    <c:choose>
 		                                    <c:when test="${u.userType eq 'P' and u.userPt ne 'Y'}">
-		                                    	<td><a class="btn rounded-pill btn-info" href="enroll.cl?no=${ u.userNo }">PT등록</a></td>
+		                                    	<td><a class="btn rounded-pill btn-info" href="enroll.cl?no=${u.userNo}">PT등록</a></td>
 		                                    </c:when>
 		                                    <c:otherwise>
 		                                    	<td><button type="button" class="btn rounded-pill btn-secondary" disabled>PT등록</button></td>
 		                                    </c:otherwise>
 		                                    </c:choose>
-		                                    
 	                                    </tr>
 	                                    </c:forEach>
 	                                    </c:otherwise>
                                     </c:choose>
-                                
                                 </tbody>
                             </table>
+                            
                             <script>
                             	$(function(){
                             		$("#userList>tbody>tr").click(function(){
@@ -156,8 +144,7 @@
                             	})
                             </script>
                             </div>
-                        </div>
-                        <br><br><br>
+                        </div><br><br><br>
                         
                         <!-- 페이징 -->
                         <nav aria-label="Page navigation">

@@ -19,12 +19,6 @@ public class UserDao {
 		return sqlSession.insert("userMapper.insertUser", u);
 	}
 	
-	/*
-	public ArrayList<Product> selectProductList(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("userMapper.selectProductList");
-	}
-	*/
-	
 	// [김지애] 2. 회원 전체조회 서비스 (페이징)
 	public int selectListCount(SqlSessionTemplate sqlSession) {
 		return sqlSession.selectOne("userMapper.selectListCount");
@@ -48,7 +42,7 @@ public class UserDao {
 		return sqlSession.update("userMapper.updateUser", u);
 	}
 
-	// [김지애] 5. 회원 프로필이미지 변경 서비스 - ajax
+	// [김지애] 5. 회원 프로필이미지 변경 서비스 
 	public int uploadProfileImg(SqlSessionTemplate sqlSession, User u) {
 		return sqlSession.update("userMapper.uploadProfileImg", u);
 	}
@@ -58,7 +52,7 @@ public class UserDao {
 		return sqlSession.update("userMapper.deleteUser", userNo);
 	}
 
-	// [김지애] 7. 회원등록 시 전화번호 중복체크 - ajax
+	// [김지애] 7. 회원등록 시 전화번호 중복체크
 	public int telCheck(SqlSessionTemplate sqlSession, String userPhone) {
 		return sqlSession.selectOne("userMapper.telCheck", userPhone);
 	}
@@ -73,8 +67,8 @@ public class UserDao {
 	}
 
 	// [김지애] 8. 회원 검색 (페이징)
-	public ArrayList<User> selectSearchList(SqlSessionTemplate sqlSession, String condition, String keyword,
-			PageInfo pi) {
+	public ArrayList<User> selectSearchList(SqlSessionTemplate sqlSession, String condition, 
+										    String keyword, PageInfo pi) {
 		HashMap<String,String> map = new HashMap<>();
 		map.put("condition", condition);
 		map.put("keyword", keyword);
