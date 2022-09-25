@@ -77,6 +77,19 @@
 		     by user_name
 	</select>
 	
+	<select id="selectUserList2" resultMap="UserResult">
+		select
+                user_no
+              , user_name
+		   from tb_user
+           left join tb_lk_asn using(user_no)
+		  where user_status = 'Y'
+		    and start_date is not null
+		    and end_date > sysdate
+		  order
+		     by user_name
+	</select>
+	
 	<select id="selectUsedLkNo" resultMap="LockerResult">
 		select lk_no
 		  from tb_lk_asn

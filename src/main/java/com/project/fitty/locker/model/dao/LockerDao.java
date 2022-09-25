@@ -38,6 +38,10 @@ public class LockerDao {
 		return (ArrayList)sqlSession.selectList("lockerMapper.selectUserList");
 	}
 	
+	public ArrayList<User> selectUserList2(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("lockerMapper.selectUserList2");
+	}
+	
 	public ArrayList<Locker> selectUsedLkNo(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("lockerMapper.selectUsedLkNo");
 	}

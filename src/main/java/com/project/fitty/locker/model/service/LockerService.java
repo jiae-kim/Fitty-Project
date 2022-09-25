@@ -32,6 +32,10 @@ public class LockerService {
 		return lDao.selectUserList(sqlSession);
 	}
 	
+	public ArrayList<User> selectUserList2(){
+		return lDao.selectUserList2(sqlSession);
+	}
+	
 	public ArrayList<Locker> selectUsedLkNo(){
 		return lDao.selectUsedLkNo(sqlSession);
 	}

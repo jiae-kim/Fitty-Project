@@ -583,7 +583,7 @@
                               <label for="defaultSelect" class="form-label">회원 목록</label>
                               <select id="defaultSelect" class="form-select" name="strUserNo">
                               <option selected disabled>회원 이름을 선택하세요.</option>
-                                <c:forEach var="u" items="${ userList }">
+                                <c:forEach var="u" items="${ userList2 }">
                                 <option>${ u.userName }_${ u.userNo }</option>
                                 </c:forEach>
                               </select>
