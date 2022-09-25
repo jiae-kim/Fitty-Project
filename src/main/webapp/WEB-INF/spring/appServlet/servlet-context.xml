@@ -48,7 +48,7 @@
 	      <beans:bean class="com.project.fitty.common.interceptor.LoginInterceptor" />
 	   </interceptor>
 	   
-	   
+	   <!-- 어드민 인터셉터 -->
 	   <interceptor>
 	   	  <mapping path="/centerAtt.att" />
 	      <mapping path="/today.att" />
