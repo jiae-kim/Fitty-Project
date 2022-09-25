@@ -21,7 +21,7 @@
       <div class="col-xl-12">
         <div class="nav-align-top mb-4">
           <div class="tab-content" style="height: 700px;">
-            <h5 class="text-muted" style="padding-top: 3%;">🎫상품관리 - 헬스장이용권</h5>
+            <h5 class="text-muted" style="padding-top: 3%;">🎫 상품관리 - 헬스장이용권</h5>
             <div class="btn-group2" style="float: right; display: inline-block;">
             <!-- 등록 버튼 -->
             <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#ProductEnroll">이용권 등록</button>
@@ -38,7 +38,7 @@
                   
                     <label for="nameWithTitle" class="form-label">이용권 개월 수</label>
                     <select id="defaultSelect" name="pro" class="form-select" required>
-                      <option disabled selected hidden>등록할 이용권 개월수 선택</option>
+                      <option disabled selected hidden>등록할 이용권 선택</option>
 					 	<c:forEach var="p" items="${month}">
 	                      <c:choose>
 	                      	<c:when test="${p.proMonth eq p.month}">
@@ -76,8 +76,8 @@
             <!-- 삭제 버튼 -->
             <button type="button" class="btn btn-danger" onclick="deletePro();">이용권 삭제</button>
             
+            <!-- 체크박스 전체선택 기능 -->
             <script>
-            	// 체크박스 전체선택
             	function checkAll() {
             		if($("#choiceAll").is(':checked')) {
             			$("#proListTBody :checkbox").prop("checked", true);
@@ -93,12 +93,10 @@
 	        		// 체크된 요소가 있는지 확인
 	        		let $checked = $(".ckPro:checked"); // 체크상태인 체크박스 요소들 
 	        		
-	        		// 체크하지 않은 경우
-	        		if($checked.length < 1){
-	        			alertify.alert("📌 삭제할 이용권을 선택해주세요 📌").set('basic', true);
+	        		if($checked.length < 1){// 체크하지 않은 경우
+	        			alertify.alert("📌 삭제 할 이용권을 선택해주세요 📌").set('basic', true);
 	        			return false;
-	        		}else {
-	        			// 선택한 경우
+	        		}else {// 선택한 경우
 	        			if(confirm("선택한 이용권을 삭제하시겠습니까?")){
 	        				let checkArr = [];
 	        				
@@ -119,17 +117,15 @@
 	        						}
 	        					},
 	        					error: function(){
-	        						alertify.alert("❌ 헬스장 이용권 삭제에 실패했습니다 ❌\n다시 시도해주세요".set('basic', true));
+	        						alertify.alert("❌ 헬스장 이용권 삭제에 실패했습니다 ❌".set('basic', true));
 	        						console.log("헬스장 이용권 삭제 ajax통신 실패");
 	        					}
 	        				})
-	        				
 	        			}
 	        		}
 	        	}
             </script>
-          </div>
-          <br><br><br><br>
+          </div><br><br><br><br>
 
           <div class="card">
             <div class="table-responsive text-nowrap">
@@ -144,7 +140,6 @@
                 </tr>
               </thead>
               <tbody class="table-border-bottom-0" id="proListTBody">
-              
               <c:choose>
               	<c:when test="${empty list}">
               	<tr>
@@ -182,7 +177,7 @@
 					                      <input type="text" name="pro" value="${p.pro}" class="form-control" readonly>
 					                      <br>
 			                              <label for="nameWithTitle" class="form-label">이용권 가격</label>
-			                              <input type="text" name="proPrice" value='${ p.proPrice }' id="number2" class="form-control price" required>
+			                              <input type="text" name="proPrice" value='${p.proPrice}' id="number2" class="form-control price" required>
 			                              	<!-- 금액 입력 시 자동으로 천단위 콤마 찍어줌 -->
 						                    <script>
 						                      $(".price").keyup(function(){

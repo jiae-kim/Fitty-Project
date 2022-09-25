@@ -62,5 +62,4 @@ public class ProductDao {
 		return (ArrayList)sqlSession.selectList("productMapper.selectProList");
 	}
 
-
 }
