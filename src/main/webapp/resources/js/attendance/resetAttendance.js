@@ -185,17 +185,11 @@ function deleteEmpNoList(deleteEmpNo){
 }
 function resetAttBtn(){
 	
-	const ask = alertify.confirm("근태초기화는 되돌릴 수 없습니다. 정말 초기화 하시겠습니까?").setHeader('');;
 	
-	const askAgain = alertify.confirm("직원 초기화를 진행합니다.").setHeader('');;
+
 	
-	if(ask == true) {
-            if(askAgain) {
+	if(alertify.confirm("근태초기화는 되돌릴 수 없습니다. 정말 초기화 하시겠습니까?").setHeader('')) {
              $("#resetForm").submit();
-            } else {
-             alertify.alert("초기화 취소, 다시 직원명단을 만들어주세요").setHeader('');;
-             
-            }
         } else {
              alertify.alert("초기화 취소, 다시 직원명단을 만들어주세요").setHeader('');;
         }

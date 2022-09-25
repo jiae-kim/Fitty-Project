@@ -247,7 +247,7 @@ public class MachineController {
 			}
 		}else {
 			session.setAttribute("alertMsg", "하나 이상의 기구를 선택하세요");
-			return "machine/machineBrokenList";
+			return "redirect:bkList.mc";
 		}
 		
 	}

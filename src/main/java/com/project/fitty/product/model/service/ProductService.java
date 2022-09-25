@@ -19,7 +19,7 @@ public interface ProductService {
 	Product selectProduct (int proNo); 
 	int updateProduct(Product p);
 	
-	// [김지애] 4. 헬스장이용권 삭제 서비스 - ajax
+	// [김지애] 4. 헬스장이용권 삭제 서비스 (ajax)
 	int deleteProduct(String proNo);
 	
 	// [김지애] 5. 회원등록 서비스 - 이용권 조회

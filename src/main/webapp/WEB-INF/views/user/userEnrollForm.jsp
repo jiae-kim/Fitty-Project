@@ -21,7 +21,7 @@
             <div class="col-xl-12">
                 <div class="nav-align-top mb-4">
                     <div class="tab-content" style="height: 700px; padding-left: 5%;" >
-                    <h5 class="text-muted" style="padding-down: 1%">🙍‍♀️회원관리 - 신규 회원 등록</h5>
+                    <h5 class="text-muted" style="padding-down: 1%">🙍‍♀️ 회원관리 - 신규 회원 등록</h5>
 					<form action="insert.ur" method="post" id="enrollForm" enctype="multipart/form-data">
                     <!-- 회원번호 : 등록시 시퀀스 자동 생성 -->
                     
@@ -40,28 +40,22 @@
                         <input class="form-control" type="text" name="userPhone" placeholder="숫자 11자리를 입력하세요" id="userPhone" required />
                         <!-- 전화번호 중복체크 -->
                         <label id="checkResult" style="font-size:1em; display:none;"></label>
-                        <!-- <button type="button" onclick="telCheck();" class="btn btn-sm rounded-pill btn-success">중복확인</button> -->
                       </div>
                     </div>
 					
 					<!-- 전화번호 중복확인 -->
 					<script>
 						$(function(){
-							// 중복확인 버튼 클릭시 사용자가 입력한 전화번호 값을 넘겨 조회요청 (존재하는지 안하는지)
-							// => 응답데이터 (사용가능 여부) 돌려받기
-							// 1) 사용 불가능(fail)한 경우 : ALERT 메시지 출력, 다시 입력할 수 있도록 유도
-							// 2) 사용 가능한(success)인 경우 : ALERT 메시지 출력
-							
 							// 전화번호 입력하는 input 요소 객체
 							const $telInput = $("#enrollForm input[name=userPhone]");
 
 							// 키업 이벤트
 							$telInput.keyup(function(){
 								// 이벤트 적용되었는지 콘솔창 출력 확인
-								console.log($telInput.val());
+								// console.log($telInput.val());
 								
 								// 키업 이벤트 발생할 때마다 글자수 비교
-								if($telInput.val().length == 11){// 4글자 이상일 경우 (010*)
+								if($telInput.val().length == 11){// 11글자인 경우
 									$.ajax({
 										url:"telCheck.ur",
 										data:{checkTel:$telInput.val()},
@@ -70,7 +64,7 @@
 											
 											if(result == 'fail') {// 사용 불가능 => 빨간색 메시지 출력
 												$("#checkResult").show();
-												$("#checkResult").css("color", "red"). text("이미 등록된 전화번호 입니다. 다시 입력해주세요");
+												$("#checkResult").css("color", "red"). text("이미 등록된 전화번호 입니다.");
 												
 												// 버튼 비활성화
 												$("enrollForm:submit").attr("disabled", true);
@@ -87,10 +81,9 @@
 											console.log("전화번호 중복체크용 ajax 통신실패");
 										}
 									})
-								}else{// 4글자 미만일 경우 (010)
-									// 11글자 이상인 경우 => 빨간색 메시지 출력 
+								}else{// 11글자 미만 또는 이상인 경우
 									$("#checkResult").show();
-									$("#checkResult").css("color", "red"). text("전화번호 11자리를 초과하였습니다. 확인해주세요.");
+									$("#checkResult").css("color", "red"). text("올바른 전화번호를 입력해주세요");
 									// 회원 등록 버튼 비활성화
 									$("enrollForm:submit").attr("disabled", true);
 								}

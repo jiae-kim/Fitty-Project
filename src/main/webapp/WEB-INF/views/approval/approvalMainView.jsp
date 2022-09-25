@@ -7,24 +7,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-  .main{
-    width:83%;
-    height:750px;
-    float:left;
-    background-color:white;
-    margin-left:27px;
-    margin-top:30px;
-    border-radius:6px;
-    box-shadow: 0 0 0.375rem 0.25rem rgb(161 172 184 / 15%);
-    color:rgb(51, 51, 51);
-  }
   .topBox{
     border:1px solid lightgray;
     width:300px;
     height:200px;
     float:left;
     border-radius: 5px;
-    margin:30px;
+    margin-left:30px;
+    margin-bottom:30px;
   }
   .purple{
     width:50px;
@@ -65,7 +55,7 @@
     margin-top:10px;
   }
   .t1>td{font-size:13px; text-align:center; border-bottom: 1px solid lightgray;}
-  .t2>td{font-size:13px; text-align:center; padding-top:5px;}
+  .t2>td{font-size:13px; text-align:center; padding-top:7px;}
   .mBottom{margin-top:30px;float:left; width:95%;}
   .mBottom>span{margin-left:30px;}
   .list a{color:rgb(51, 51, 51);}
@@ -98,16 +88,18 @@
 	<div class="outer">
        <jsp:include page="sideMenu.jsp"/>
        <div class="main">
+       	<input type="hidden" name="empNo" value="${loginUser.empNo }">
          <div class="mTop">
            <div class="topBox">
-             <div class="purple">진행중</div> <br><br>
+             <div class="purple">대기중</div> <br><br>
              <span>휴가신청</span> <br>
-             <span class="s1">기안자 : 김구디 트레이너</span><br>
-             <span class="s1">기안일 : 2022-08-25</span><br>
+             <span class="s1">기안자 : 차준환 트레이너</span><br>
+             <span class="s1">기안일 : 2022-09-25</span><br>
              <span class="s1">결재양식 : 휴가신청</span>
              <hr>
              <div id="appr" align="center"><a>결재하기</a></div>
            </div>
+           
          </div>
          <br><br>
 
@@ -121,12 +113,33 @@
                  <td width="800">제목</td>
                  <td width="110">결재상태</td>
                </tr>
-               <tr class="t2">
-                 <td>2022-09-05</td>
-                 <td>휴가신청</td>
-                 <td>휴가신청</td>
-                 <td><div class="ing">진행</div></td>
-               </tr>
+               <c:choose>
+               	<c:when test="${ not empty dlist }">
+	               <c:forEach var="d" items="${dlist }">
+		               <tr class="t2">
+		                 <td>${d.apprEnrollDate }</td>
+		                 <td>
+		                 	<c:choose>
+		                 		<c:when test="${d.apprDocType eq 1 }">
+		                 			휴가신청
+		                 		</c:when>
+		                 		<c:when test="${d.apprDocType eq 2 }">
+		                 			연장근무신청
+		                 		</c:when>
+		                 		<c:otherwise>
+		                 			지출결의서
+		                 		</c:otherwise>
+		                 	</c:choose>
+		                 </td>
+		                 <td>${d.apprTitle }</td>
+		                 <td><div class="ing">진행</div></td>
+		               </tr>
+	               </c:forEach>
+               	</c:when>
+               	<c:otherwise>
+               		<td colspan="4" style="font-size:13px; text-align:center; margin-top:7px;">문서가 없습니다.</td>
+               	</c:otherwise>
+               </c:choose>
              </table>
            </div>
          </div>
@@ -143,18 +156,39 @@
                  <td width="140">문서번호</td>
                  <td width="110">결재상태</td>
                </tr>
-               <tr class="t2">
-                 <td>2022-07-26</td>
-                 <td>휴가신청</td>
-                 <td>휴가신청</td>
-                 <td>fitty-2022-0008</td>
-                 <td><div class="fin">완료</div></td>
-               </tr>
+               <c:choose>
+               	<c:when test="${ not empty clist }">
+	               <c:forEach var="c" items="${clist }">
+		               <tr class="t2">
+		                 <td>${c.apprEnrollDate }</td>
+		                 <td>
+		                 	<c:choose>
+		                 		<c:when test="${c.apprDocType eq 1 }">
+		                 			휴가신청
+		                 		</c:when>
+		                 		<c:when test="${c.apprDocType eq 2 }">
+		                 			연장근무신청
+		                 		</c:when>
+		                 		<c:otherwise>
+		                 			지출결의서
+		                 		</c:otherwise>
+		                 	</c:choose>
+		                 </td>
+		                 <td>${ c.apprTitle }</td>
+		                 <td>${ c.apprNo }</td>
+		                 <td><div class="fin">완료</div></td>
+		               </tr>
+	               </c:forEach>
+               	</c:when>
+	            <c:otherwise>
+	            	<td colspan="5">문서가 없습니다.</td>
+	            </c:otherwise>
+               </c:choose>
              </table>
            </div>
          </div>
        </div>
      </div>
-
+	</div>
 </body>
 </html>

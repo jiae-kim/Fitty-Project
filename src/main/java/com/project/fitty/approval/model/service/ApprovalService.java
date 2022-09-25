@@ -79,4 +79,23 @@ public interface ApprovalService {
 	// 반려
 	int updateReturnAppr(ApprovalMember am);
 	int updateReturnApprMem(ApprovalMember am);
+	
+	// 임시저장삭제
+	int deleteApproval(String apprNo);
+	int deleteVacation(String apprNo);
+	int deleteOvertime(String apprNo);
+	int deleteExpense(String apprNo);
+	int deleteExpDetail(String apprNo);
+	
+	// 메인ㅡ결재진행문서, 완료문서
+	ArrayList<Approval> selectDraftList(String empNo);
+	ArrayList<Approval> selectCompleteList(String empNo);
+	
+	// 임시저장문서기안
+	int updateStorage(Approval ap);
+	int updateStorageVct(ApprVacation vct);
+	int updateStorageOvt(ApprOvertime ovt);
+	int updateStorageExp(ApprExpense exp);
+	int updateStorageExpDetail(ArrayList<ApprExpDetail> dlist);
+	int updateStorageFile(ArrayList<File> flist);
 }

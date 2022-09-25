@@ -19,12 +19,12 @@ public class ScheduleServiceImpl implements ScheduleService{
 	@Autowired
 	private ScheduleDao bDao;
 	
-	@Override // [김지애] 1. 직원용 - 스케줄 전체조회 서비스
+	@Override // [김지애] 1. 직원용 - 스케줄 전체조회 서비스 (ajax)
 	public ArrayList<Booking> selectList() {
 		return bDao.selectList(sqlSession);
 	}
 
-	@Override // [김지애] 2. 회원용 - 스케줄 전체조회 서비스
+	@Override // [김지애] 2. 회원용 - 스케줄 전체조회 서비스 (ajax)
 	public String selectEmp(int userNo) {
 		return bDao.selectEmp(sqlSession, userNo);
 	}
@@ -34,7 +34,7 @@ public class ScheduleServiceImpl implements ScheduleService{
 		return bDao.selectUlist(sqlSession, empNo);
 	}
  
-	@Override // [김지애] 3. 회원용 - 스케줄 상세조회 서비스
+	@Override // [김지애] 3. 회원용 - 스케줄 상세조회 서비스 (ajax)
 	public Booking selectUdetailList(int bookNo) {
 		return bDao.selectUdetailList(sqlSession, bookNo);
 	}
@@ -53,6 +53,5 @@ public class ScheduleServiceImpl implements ScheduleService{
 	public int deleteBooking(Booking b) {
 		return bDao.deleteBooking(sqlSession, b);
 	}
-
 
 }

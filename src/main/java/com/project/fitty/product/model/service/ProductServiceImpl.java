@@ -49,7 +49,7 @@ public class ProductServiceImpl implements ProductService{
 		return pDao.updateProduct(sqlSession, p);
 	}
 	
-	@Override // [김지애] 4. 헬스장이용권 삭제 서비스 - ajax
+	@Override // [김지애] 4. 헬스장이용권 삭제 서비스 (ajax)
 	public int deleteProduct(String proNo) {
 		return pDao.deleteProduct(sqlSession, proNo);
 	}

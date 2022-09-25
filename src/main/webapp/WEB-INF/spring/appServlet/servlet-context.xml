@@ -34,8 +34,30 @@
 	      <!-- 인터셉터 적용시킬 url -->
 	      <mapping path="/main.fitty" />
 	      <mapping path="/myAtt.att" />
+	      <mapping path="/modifyList.mo" />
+	      <mapping path="/select.emp" />
+	      <mapping path="/centerAtt.att" />
+	      <mapping path="/today.att" />
+	      <mapping path="/enrollForm.emp" />
+	      <mapping path="/resetForm.att" />
+	      <mapping path="/vacControl.att" />
+	      <mapping path="/detail.vac" />
+	      <mapping path="/modifyAtt.att" />
+	      <mapping path="/chat.ch" />
 	      <!-- 사용할 인터셉터 -->
 	      <beans:bean class="com.project.fitty.common.interceptor.LoginInterceptor" />
+	   </interceptor>
+	   
+	   <!-- 어드민 인터셉터 -->
+	   <interceptor>
+	   	  <mapping path="/centerAtt.att" />
+	      <mapping path="/today.att" />
+	      <mapping path="/enrollForm.emp" />
+	      <mapping path="/resetForm.att" />
+	      <mapping path="/vacControl.att" />
+	      <mapping path="/detail.vac" />
+	      <mapping path="/modifyAtt.att" />
+	      <beans:bean class="com.project.fitty.common.interceptor.AdminInterceptor" />
 	   </interceptor>
 	</interceptors>
 	

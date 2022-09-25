@@ -7,21 +7,17 @@
 <head>
 <meta charset="UTF-8">
 <title>Fitty 스케줄 관리</title>
-
+<!-- fullcalendar -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.css">
-
 <!-- 화면 해상도에 따라 글자 크기 대응(모바일 대응) -->  
 <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">  
 <!-- jquery CDN -->  
-<!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>   -->
 <script src="https://code.jquery.com/jquery-latest.min.js"></script>
 <!-- fullcalendar CDN -->  
-<!-- <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.css' rel='stylesheet' />  
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/main.min.js'></script>   -->
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/main.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.js"></script>
 <!-- fullcalendar 언어 CDN -->  
-<!-- <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.8.0/locales-all.min.js'></script> -->
 <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.10.1/locales-all.min.js'></script>
 
 <style>
@@ -39,7 +35,6 @@ html, body{font-size: 16px;}
 
 </head>
 <body>
-
 <jsp:include page="../userClass/userHeader.jsp"/>
 
 <div class="content-wrapper">
@@ -49,7 +44,7 @@ html, body{font-size: 16px;}
         		<div class="nav-align-top mb-4">
           			<div class="tab-content" style="height: 1000px;">
           			<!-- 회원 페이지 : 스케줄 조회 / 등록 -->
-            		<h5 class="text-muted">📅 ${loginU.userName}님의 스케줄입니다 🏋️담당 트레이너 ${loginU.empName}입니다</h5>
+            		<h5 class="text-muted">📅 ${loginU.userName}님의 스케줄입니다 🏋️ 담당 트레이너 ${loginU.empName}입니다</h5>
 					<!-- 예약 등록 버튼 -->
 					<div class="btn-group2" style="float: right; display: inline-block;">
 		            <!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#scheduleEnroll">수업 예약</button> -->
@@ -114,13 +109,13 @@ html, body{font-size: 16px;}
 		            </div>
 					</div><br><br><br>	
 					
-					<!-- 예약 상세조회용 모달 (조회, 수정, 삭제 기능) -->
+					<!-- 예약 상세조회용 모달 (상세조회, 수정, 삭제 기능) -->
 					<!-- 로그인한 회원의 정보 / 어떤 직원과 어떤 수업을 언제(날짜, 시간)-->
 					<div class="modal fade" id="myModall" tabindex="-1" aria-hidden="true">
 				    <div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 					  	<div class="modal-header">
-							<h5 class="modal-title" id="modalCenterTitle" style="padding-bottom : 5px;">📅내 스케줄 관리 - 수업 예약</h5>
+							<h5 class="modal-title" id="modalCenterTitle" style="padding-bottom : 5px;">📅 수업 예약 상세조회</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				  	 	</div>
 				  	  	<form action="" method="post" id="suForm">
@@ -172,7 +167,7 @@ html, body{font-size: 16px;}
 			            <div class="modal-footer" style="display: flex; justify-content: center;">
 			              <button type="button" class="btn btn-primary"  onclick="updateS();" id="updateBtn">예약변경</button>
 			              <button type="button" class="btn btn-warning"  onclick="deleteS();" id="cancelBtn">예약취소</button>
-			              <a class="btn btn-secondary" href="listSchedule.sc" >뒤로가기</a>
+			              <a class="btn btn-secondary" href="listSchedule.sc">뒤로가기</a>
 			            </div>
 			            </form> 
 				  	</div>
@@ -195,9 +190,9 @@ html, body{font-size: 16px;}
 					
 					<!-- 캘린더 태그 -->
 					<div id="wrap">
-					<div id='calendar-container'>
-						<div id='calendar'></div>
-					</div> 
+						<div id='calendar-container'>
+							<div id='calendar'></div>
+						</div> 
 					</div>
 						
 					<c:set var="now" value="<%=new java.util.Date()%>" />
@@ -228,7 +223,7 @@ html, body{font-size: 16px;}
 												title : list[i].userName + " " + list[i].bookStime + "~" + list[i].bookEtime,
 												start : list[i].bookDate + " " + list[i].bookStime, 
 												end : list[i].bookDate + " " + list[i].bookEtime,
-												textColor : "black",
+												textColor : "white",
 												backgroundColor : "#696cff",
 												fontSize : 14
 											}
@@ -241,6 +236,7 @@ html, body{font-size: 16px;}
 											end : list[i].bookDate + " " + list[i].bookEtime,
 											textColor : "black",
 											backgroundColor : "lightgrey",
+											borderColor : "lightgrey",
 											fontSize : 12
 										}
 									}
@@ -282,10 +278,11 @@ html, body{font-size: 16px;}
 									  events : data,
 									  // 이벤트에 시간 표시
 									  displayEventTime: false,
-									  // 달력에서 모달 오픈
+									  // 달력에서 이벤트 클릭 시 상세조회용 모달 오픈
 									  eventClick:function(arg){
 										  ModalOpen(arg);
 									  },
+									  // 달력에서 날짜 클릭 시 예약 등록용 모달 오픈
 									  dateClick:function(arg){
 										  $("#scheduleEnroll").modal("show");
 									  }
@@ -301,8 +298,8 @@ html, body{font-size: 16px;}
 
 					// 예약 상세조회
 					function ModalOpen(arg){
-						console.log(arg);
-						console.log(arg.event._def.publicId);
+						// console.log(arg);
+						// console.log(arg.event._def.publicId);
 						
 						// 해당 예약번호를 넘겨서 수업예약 상세 정보 조회 ajax
 					    // ajax success function에서 조회한 정보를 #myModall의 value 값으로 뿌림
@@ -310,7 +307,7 @@ html, body{font-size: 16px;}
 					    	url:"detail.sc",
 					    	data:{bookNo: arg.event._def.publicId},
 					    	success:function(booking){
-					    		console.log(booking);
+					    		// console.log(booking);
 					    		// 예약 번호
 					    		$('#myModall input[name=bookNo]').attr('value', booking.bookNo);
 					    		// 담당 트레이너 이름
@@ -329,10 +326,9 @@ html, body{font-size: 16px;}
 					    				$(this).attr('selected', true);
 					    			}
 					    		})
-					    		// 조회된학생번호와 로그인한학생번호가 일치하지 않을 경우 : 모달버튼 비활성화 attr("disabled", true);	
+					    		// 조회된 학생번호와 로그인한 학생번호가 일치하지 않을 경우 : 모달버튼 비활성화 attr("disabled", true);	
 					    		// 현재 선택한 일정의 날짜가 오늘 날짜 이후인 예약만 변경 가능함 
 					    		// console.log(${sysdate});
-
 					    		 if(${loginU.userNo} != booking.userNo || "${sysdate}" >= booking.bookDate) { 
 				    				$("#updateBtn").attr("disabled", true);
 				    				$("#cancelBtn").attr("disabled", true);

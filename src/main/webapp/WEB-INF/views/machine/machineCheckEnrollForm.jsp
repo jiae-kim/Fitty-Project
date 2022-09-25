@@ -89,6 +89,7 @@
                             <div class="mb-3">
                               <label for="defaultFormControlInput" class="form-label">점검 기구</label>
                               <select class="form-select" id="exampleFormControlSelect1" aria-label="Default select example" name="mcNo">
+                              	<option selected disabled>점검 기구를 선택하세요.</option>
                               	<c:forEach var="m" items="${ list }">
                                 	<option value="${ m.mcNo }">${ m.mcName }</option>
                                 </c:forEach>

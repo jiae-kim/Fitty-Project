@@ -110,6 +110,4 @@
 		    by	to_number(pro_month)
 	</select>
 	
-	
 </mapper>
-

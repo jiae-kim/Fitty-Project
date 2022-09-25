@@ -38,9 +38,6 @@ public class ProductController {
 		ArrayList<Product> month = pService.selectProductList();
 		//System.out.println(month);
 		
-		// 이용권 수정, 삭제 시 이용권 번호만 받아서 한행 조회 후 model에 담은 후 페이지 포워딩
-		//model.addAttribute("p", pService.selectProduct(proNo));
-		
 		mv.addObject("pi", pi)
 		  .addObject("list", list)
 		  .addObject("month", month)
@@ -50,17 +47,6 @@ public class ProductController {
 	}
 	
 	// [김지애] 2. 헬스장이용권 등록 서비스
-	/*
-	@RequestMapping("enrollForm.pr")
-	public ModelAndView enrollForm(Product p, ModelAndView mv) {
-		// db에 있는 이용권 조회 후 model에 담아 페이지 포워딩
-		ArrayList<Product> month = pService.selectProductList();
-		System.out.println(month);
-		mv.addObject("month", month).setViewName("product/prodcutListView");
-		return mv;
-	}
-	*/
-	
 	@RequestMapping("insert.pr")
 	public String insertProduct(Product p, HttpSession session) {
 		// 이용권 금액 등록시 ,제거 후 숫자만 insert되도록
@@ -101,7 +87,7 @@ public class ProductController {
 		}
 	}
 	
-	// [김지애] 4. 헬스장이용권 삭제 서비스 - ajax
+	// [김지애] 4. 헬스장이용권 삭제 서비스 (ajax)
 	@ResponseBody
 	@RequestMapping("delete.pr")
 	public String deleteProduct(String ckPro, HttpSession session) {
@@ -109,14 +95,5 @@ public class ProductController {
 		
 		return result>0 ? "success" : "fail";
 	}
-	
-	/*
-	@RequestMapping("deleteForm.pr")
-	public String deleteForm(int proNo, Model model) {
-		// 삭제할 이용권 번호만 받아서 삭제시킴
-		model.addAttribute("p", pService.selectProduct(proNo));
-		return "product/productListView";
-	}
-	*/
 	
 }

@@ -31,7 +31,7 @@ public class ScheduleController {
 	@DateTimeFormat(pattern= "yyyy-MM-dd HH:mm:ss")
 	private LocalDateTime endDate;
 	
-	// [김지애] 1. 직원용 - 스케줄 전체조회 서비스
+	// [김지애] 1. 직원용 - 스케줄 전체조회 서비스 (ajax)
 	@RequestMapping("listSchedule.ca")
 	public String listFormCalendar() {
 		return "schedule/scheduleListView";
@@ -44,7 +44,7 @@ public class ScheduleController {
 		return new Gson().toJson(list); // "[{}, {}, {}, ...]"
 	}
 	
-	// [김지애] 2. 회원용 - 스케줄 전체/상세조회 서비스
+	// [김지애] 2. 회원용 - 스케줄 전체/상세조회 서비스 (ajax)
 	@RequestMapping("listSchedule.sc")
 	public String listFormSchedule() {
 		return "schedule/scheduleUlistView";
@@ -58,7 +58,7 @@ public class ScheduleController {
 		return new Gson().toJson(list);
 	}
 	
-	// [김지애] 3. 회원용 - 스케줄 상세조회 서비스
+	// [김지애] 3. 회원용 - 스케줄 상세조회 서비스 (ajax)
 	@ResponseBody
 	@RequestMapping(value="detail.sc", produces="application/json; charset=UTF-8")
 	public String selectUdetailList(int bookNo) {
@@ -85,7 +85,8 @@ public class ScheduleController {
 	@RequestMapping("update.sc")
 	public String updateBooking(Booking b, HttpSession session) {
 		int result = bService.updateBooking(b);
-		System.out.println(b);
+		// System.out.println(b);
+		
 		if(result > 0) {// 수정 성공
 			session.setAttribute("alertMsg", "✔ 성공적으로 예약 변경되었습니다 ✔");
 			return "redirect:listSchedule.sc";

@@ -96,7 +96,7 @@ public class ModifyAttController {
 	
 	@RequestMapping("insertMoAtt.mo")
 	public String insertMoAtt(ModifyAtt m, HttpSession session) {
-		System.out.println("인서트시 : " + m);
+		//System.out.println("인서트시 : " + m);
 		//m.setAttDate(m.getMoAttModifyD());
 		m.setAttNo(aService.selectAttNo(m));
 		//System.out.println("AttNo있니? : " + m);
@@ -138,13 +138,13 @@ public class ModifyAttController {
 		int updateAttOut = 0;
 		
 		m.setMoAttModifyTime(m.getMoAttModifyTime() + ":00");
-		System.out.println(m.getMoAttModifyTime());
+		//System.out.println(m.getMoAttModifyTime());
 		if(m.getMoAttType().equals("출근")) {
 			//int updateAttIn = 
 			m.setMoAttType("I");
 			a.setAttIn(m.getMoAttModifyTime());
-			System.out.println(m);
-			System.out.println(a);
+			//System.out.println(m);
+			//System.out.println(a);
 			//System.out.println("1번 : " + m.getMoAttModifyTime());
 			//System.out.println("1번m : " + m);
 			//System.out.println("1번a : " + a);

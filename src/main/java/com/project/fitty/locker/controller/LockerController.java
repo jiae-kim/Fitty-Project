@@ -32,12 +32,14 @@ public class LockerController {
 		ArrayList<Locker> list = lService.selectList(pi);
 		
 		ArrayList<User> userList = lService.selectUserList(); // 전체 회원 조회
+		ArrayList<User> userList2 = lService.selectUserList2(); // 현재 사용중인 락커의 회원이름 조회
 		ArrayList<Locker> nList1 = lService.selectUsedLkNo(); // 현재 사용중인 락커 번호 조회
 		ArrayList<Locker> nList2 = lService.selectNotUsedLkNo(); // 현재 사용하지 않는 중인 락커 번호 조회
 		
 		model.addAttribute("pi", pi);
 		model.addAttribute("list" , list);
 		model.addAttribute("userList", userList);
+		model.addAttribute("userList2", userList2);
 		model.addAttribute("nList1", nList1);
 		model.addAttribute("nList2", nList2);
 		
@@ -93,9 +95,9 @@ public class LockerController {
 	public String assignLocker(String strUserNo, Locker l, HttpSession session) {
 		
 		
-		String[] arr = strUserNo.split("\\.");
-		int userNo = Integer.parseInt(arr[0].replace(" ", ""));
-		
+		String[] arr = strUserNo.split("_");
+		int userNo = Integer.parseInt(arr[1]);
+	
 		l.setUserNo(userNo);
 		int result = lService.assignLocker(l);
 		
@@ -111,8 +113,8 @@ public class LockerController {
 	@RequestMapping("move.lk") /** 락커 자리 이동 **/
 	public String moveLocker(String strUserNo, Locker l, HttpSession session) {
 		
-		String[] arr = strUserNo.split("\\.");
-		int userNo = Integer.parseInt(arr[0].replace(" ", ""));
+		String[] arr = strUserNo.split("_");
+		int userNo = Integer.parseInt(arr[1]);
 		
 		l.setUserNo(userNo);
 		

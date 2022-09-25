@@ -86,17 +86,17 @@
 	                
 	                <c:forEach var="p" begin="${ pi.startPage }" end="${ pi.endPage }">
 	                	<c:choose>
-	                		<c:when test="${ p eq pi.currentPage }">
-				                <li class="page-item active disabled">
-				                  <a class="page-link" href="duleList.ap?empNo=${loginUser.empNo }&cpage=${ p }">${ p }</a>
-				                </li>
-				            </c:when>
-				            <c:otherwise>
-				            	<li class="page-item">
-				                  <a class="page-link" href="duleList.ap?empNo=${loginUser.empNo }&cpage=${ p }">${ p }</a>
-				                </li>
-				            </c:otherwise>
-		                </c:choose>
+		                		<c:when test="${ p eq pi.currentPage }">
+					                <li class="page-item active disabled">
+					                  <a class="page-link" href="duleList.ap?empNo=${loginUser.empNo }&cpage=${ p }">${ p }</a>
+					                </li>
+					            </c:when>
+					            <c:otherwise>
+					            	<li class="page-item">
+					                  <a class="page-link" href="duleList.ap?empNo=${loginUser.empNo }&cpage=${ p }">${ p }</a>
+					                </li>
+					            </c:otherwise>
+			                </c:choose>
 	                </c:forEach>
 	                
 	                <c:choose>

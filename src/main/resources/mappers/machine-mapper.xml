@@ -38,7 +38,7 @@
 			  , to_char(mc_enroll_date, 'YYYY-MM-DD') AS "mc_enroll_date"
 		   from tb_machine
 		  order
-		     by mc_no	
+		     by mc_no desc	
 	</select>
 	
 	<insert id="insertMachine">
@@ -95,6 +95,9 @@
 				mc_no
 			  , mc_name
 		   from tb_machine
+		  where mc_status = '1'
+		   order
+		      by mc_no
 	</select>
 	
 	<insert id="insertCheck">

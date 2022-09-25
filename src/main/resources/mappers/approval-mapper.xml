@@ -82,6 +82,7 @@
 			 , gr_appr_grade
 		  from tb_emp
 		  join tb_grade using (emp_grade)
+		 where emp_status='Y'
 		 order by gr_name, emp_name
 	</select>
 	
@@ -599,5 +600,116 @@
 		   and emp_no = #{empNo}
 	</update>
 	
+	<delete id="deleteApproval">
+		delete
+		  from tb_approval
+		 where appr_no = #{apprNo}
+	</delete>
+	
+	<delete id="deleteVacation">
+		delete
+		  from tb_appr_vacation
+		 where appr_no = #{apprNo}
+	</delete>
+	
+	<delete id="deleteOvertime">
+		delete
+		  from tb_appr_overtime
+		 where appr_no = #{apprNo}
+	</delete>
+	
+	<delete id="deleteExpense">
+		delete
+		  from tb_appr_exp
+		 where appr_no = #{apprNo}
+	</delete>
+	
+	<delete id="deleteExpDetail">
+		delete
+		  from tb_exp_detail
+		 where appr_no = #{apprNo}
+	</delete>
+	
+	<select id="selectDraftList" resultMap="approvalResult">
+		select *
+		  from (select appr_enroll_date
+		             , appr_doc_type
+		             , appr_title
+		             , appr_status
+		          from tb_approval
+		         where appr_status = 2
+		           and emp_no = #{empNo})
+		 where rownum between 1 and 5
+	</select>
+	
+	<select id="selectCompleteList" resultMap="approvalResult">
+		  select *
+		  from (select appr_enroll_date
+		             , appr_doc_type
+		             , appr_title
+		             , appr_no
+		             , appr_status
+		          from tb_approval
+		         where appr_status = 3
+		           and emp_no = #{empNo}
+		         order
+		            by appr_no desc)
+		 where rownum between 1 and 5
+	</select>
 
+	<update id="updateStorage">
+		update tb_approval
+		   set appr_status = 1
+		     , appr_storage = 'N'
+		     , appr_mem_count = #{apprMemCount}
+		 where appr_no = #{apprNo}
+	</update>
+	
+	<update id="updateStorageVct">
+		update tb_appr_vacation
+		   set vct_status = #{vctStatus}
+		     , vct_start_date = #{vctStartDate}
+		     , vct_end_Date = #{vctEndDate}
+		     , vct_reason = #{vct_reason}
+		     , vct_count = #{vctCount}
+		 where appr_no = #{apprNo}
+	</update>
+	
+	<update id="updateStorageOvt">
+		update tb_appr_overtime
+		   set ovt_date = #{ovtDate}
+		     , ovt_start_time = #{ovtStartTime}
+		     , ovt_end_time = #{ovtEndTime}
+		     , ovt_reason = #{ovtReason}
+		 where appr_no = #{apprNo}
+	</update>
+	
+	<update id="updateStorageExp">
+		update tb_appr_exp
+		   set exp_mem = #{expMem}
+		     , exp_date = #{expDate}
+		     , exp_total_amount = #{expTotalAmount}
+		     , exp_reason = #{expReason}
+		 where appr_no = #{apprNo}
+	</update>
+	
+	<update id="updateStorageExpDetail">
+		update tb_exp_detail
+		   set exp_date = #{expDate}
+		     , exp_status = #{expStatus}
+		     , exp_amount = #{expAmount}
+		     , exp_history = #{expHistory}
+		     , exp_note = #{expNote}
+		 where appr_no = #{apprNo}
+	</update>
+	
+	<update id="updateStorageFile">
+		update tb_file
+		   set file_no = #{fileNo}
+			 , origin_name = #{originName}
+			 , change_name = #{changeName}
+			 , file_re_type = 'A'
+			 , file_re_no = #{apprNo}
+		 where appr_no = #{apprNo}
+	</update>
 </mapper>

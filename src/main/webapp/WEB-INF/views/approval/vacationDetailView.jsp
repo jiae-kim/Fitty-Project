@@ -46,7 +46,7 @@
 	             <div class="modal-dialog modal-dialog-scrollable">
 	               <div class="modal-content">
 	                 <div class="modal-header">
-	                   <h5 class="modal-title" id="modalToggleLabel" style="color:rgb(51, 51, 51);">결재양식 선택</h5>
+	                   <h5 class="modal-title" id="modalToggleLabel" style="color:rgb(51, 51, 51);">결재정보</h5>
 	                   <button
 	                     type="button"
 	                     class="btn-close"
@@ -368,7 +368,6 @@
                   <tr>
                     <th height="40px;">연차 일수</th>
                     <td style="padding-left:5px;">
-                      잔여연차 : &nbsp;NaN &nbsp;&nbsp;&nbsp;
                       신청연차 : &nbsp;${ vct.vctCount }
                     </td>
                   </tr>

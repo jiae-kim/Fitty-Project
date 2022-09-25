@@ -24,7 +24,7 @@
             <div class="col-xl-12">
                 <div class="nav-align-top mb-4">
                     <div class="tab-content" style="height: 880px;">
-                        <h5 class="text-muted">🙍‍♀️회원관리 - 상세페이지</h5>
+                        <h5 class="text-muted">🙍‍♀️ 회원관리 - 상세페이지</h5>
 						<form action="update.ur" id="updateForm" method="post" enctype="multipart/form-data">
                          <!-- 회원번호 -->
                         <div class="mb-3 row">

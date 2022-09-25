@@ -21,7 +21,7 @@
            
            <c:choose>
                   	<c:when test="${ empty list }">
-                  		<span>📃 리스트가 없습니다. 📃</span>
+                  		<span>　 📃 리스트가 없습니다. 📃</span>
                   	</c:when>
                   	<c:otherwise>
                   		<c:forEach var="m" items="${ list }">
