@@ -11,7 +11,7 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
-	<a href="userPage.cl">회원 전용 사이트 (테스트 링크)</a>
+	<!-- <a href="userPage.cl">회원 전용 사이트 (테스트 링크)</a> -->
 
 	<div class="content-wrapper">
 		<div class="container-xxl flex-grow-1 container-p-y" style="padding: 0px;">
@@ -56,6 +56,26 @@
 
 					</div>
 				</div>
+				
+				<div class="col-lg-12 col-md-4 order-1">
+				<div class="col-xl-12">
+
+					<div class="nav-align-top mb-4">
+						<div class="tab-content " style="width: 100%; height: 100%">
+							<div class="tab-pane fade show active"
+								id="navs-pills-justified-home" role="tabpanel">
+								<h5>트레이너별 누적 수업 수</h5>
+								<canvas id="myChart1"></canvas>
+
+
+
+							</div>
+						</div>
+					</div>
+					
+				
+				</div>
+			</div>
 			</div>
 		</div>
 		</div>
@@ -130,14 +150,14 @@
 							datasets : [{
 								label : '개월별 이용권 비율',
 								data : couCount,
-								backgroundColor:['rgb(105, 108, 255)',
-									'rgb(3, 195, 236)',
-									'rgb(32, 201, 151)',
+								backgroundColor:['rgb(255, 171, 0)',
 									'rgb(113, 221, 55)',
-									'rgb(255, 171, 0)',
+									'rgb(32, 201, 151)',
+									'rgb(3, 195, 236)',
+									'rgb(105, 108, 255)',
+									'rgb(102, 16, 242)',
 									'rgb(253, 126, 20)',
-									'rgb(0, 123, 255)',
-									'rgb(102, 16, 242)'
+									'rgb(0, 123, 255)'
 									
 								]
 							}]
@@ -149,6 +169,44 @@
 					console.log("ajax3 실패");
 				}
 			})
+			
+			let empName = [];
+			let classCount = [];
+			
+			$.ajax({
+					url:"clist.st",
+					type:"post",
+					success:function(list2){
+						console.log(list2);
+						for(let i=0; i<list2.length; i++){
+							empName.push(list2[i].empName);
+							classCount.push(list2[i].classCount);
+						}
+						//console.log(empName);
+
+						new Chart(document.getElementById('myChart1').getContext('2d'),{
+
+							type : 'bar', //pie, line, doughnut, polarArea
+							data : {
+								labels : empName,
+								datasets : [{
+									label : '트레이너별 누적 수업 수',
+									data : classCount,
+									backgroundColor:['rgb(105, 108, 255, 0.5)',
+										'rgb(3, 195, 236, 0.5)',
+										'rgb(255, 171, 0, 0.5)',
+										'rgb(32, 201, 151, 0.5)'
+									]
+								}]
+							}
+
+						})
+					},
+					error:function(){
+						console.log("ajax2 실패");
+					}
+
+				})
 		})
 	
 	</script>
