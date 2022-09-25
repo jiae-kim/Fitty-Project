@@ -115,7 +115,7 @@ html, body{font-size: 16px;}
 				    <div class="modal-dialog modal-dialog-centered" role="document">
 					<div class="modal-content">
 					  	<div class="modal-header">
-							<h5 class="modal-title" id="modalCenterTitle" style="padding-bottom : 5px;">📅 ${loginU.userName}님 스케줄 관리 - 수업 예약</h5>
+							<h5 class="modal-title" id="modalCenterTitle" style="padding-bottom : 5px;">📅 수업 예약 상세조회</h5>
 							<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 				  	 	</div>
 				  	  	<form action="" method="post" id="suForm">
