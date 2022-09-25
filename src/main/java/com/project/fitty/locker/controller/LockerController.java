@@ -93,9 +93,9 @@ public class LockerController {
 	public String assignLocker(String strUserNo, Locker l, HttpSession session) {
 		
 		
-		String[] arr = strUserNo.split("\\.");
-		int userNo = Integer.parseInt(arr[0].replace(" ", ""));
-		
+		String[] arr = strUserNo.split("_");
+		int userNo = Integer.parseInt(arr[1]);
+	
 		l.setUserNo(userNo);
 		int result = lService.assignLocker(l);
 		
@@ -111,8 +111,8 @@ public class LockerController {
 	@RequestMapping("move.lk") /** 락커 자리 이동 **/
 	public String moveLocker(String strUserNo, Locker l, HttpSession session) {
 		
-		String[] arr = strUserNo.split("\\.");
-		int userNo = Integer.parseInt(arr[0].replace(" ", ""));
+		String[] arr = strUserNo.split("_");
+		int userNo = Integer.parseInt(arr[1]);
 		
 		l.setUserNo(userNo);
 		

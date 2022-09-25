@@ -445,9 +445,9 @@
                             <div class="mb-3">
                               <label for="defaultSelect" class="form-label">회원 목록</label>
                               <select id="defaultSelect" class="form-select" name="strUserNo">
-                              	<option selected disabled>회원 이름</option>
+                              	<option selected disabled>회원을 선택하세요.</option>
                                 <c:forEach var="u" items="${ userList }">
-                                <option>${ u.userNo } . ${ u.userName }
+                                <option>${ u.userName }_${ u.userNo }
                                 </option>
                                 </c:forEach>
                               </select>
@@ -582,14 +582,16 @@
                             <div class="mb-3">
                               <label for="defaultSelect" class="form-label">회원 목록</label>
                               <select id="defaultSelect" class="form-select" name="strUserNo">
+                              <option selected disabled>회원 이름을 선택하세요.</option>
                                 <c:forEach var="u" items="${ userList }">
-                                <option>${ u.userNo } . ${ u.userName }</option>
+                                <option>${ u.userName }_${ u.userNo }</option>
                                 </c:forEach>
                               </select>
                             </div>
                             <div class="mb-3">
                               <label for="defaultSelect" class="form-label">현재 자리 번호</label>
                               <select id="defaultSelect" class="form-select" name="lkNo">
+                              <option selected disabled>현재 자리번호를 선택하세요.</option>
                                 <c:forEach var="l" items="${ nList1 }">
                                 <option>${ l.lkNo }</option>
                                 </c:forEach>
@@ -598,6 +600,7 @@
                             <div class="mb-3">
                               <label for="defaultSelect" class="form-label">이동할 자리 번호</label>
                               <select id="defaultSelect" class="form-select" name="mvLkNo">
+                              <option selected disabled>이동할 자리번호를 선택하세요.</option>
                                 <c:forEach var="l" items="${ nList2 }">
                                 <option>${ l.lkNo }</option>
                                 </c:forEach>

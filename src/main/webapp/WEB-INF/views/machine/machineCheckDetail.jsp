@@ -71,7 +71,7 @@
                   </table>
                   <br>
 
-                  <table class="table table-bordered" id="tb1" style="text-align:left;">
+                  <table class="table table-bordered" id="tb1" style="text-align:left; table-layout:fixed;">
                   	<tr>
                   		<th>점검 제목</th>
                   		<td colspan="3">${ m.ckTitle }</td>
@@ -92,7 +92,7 @@
                     </tr>
                     <tr>
                       <th>사진</th>
-                      <td colspan="3"><img src="${ m.ckImg }" alt=""></td>
+                      <td colspan="3"><img src="${ m.ckImg }" width=100%;></td>
                     </tr>
                   </table>
 
@@ -136,7 +136,7 @@
             			
 	            	}
 	            	
-	            	function selectAlertList(){ // 안읽은 알림 조회용 ajax 함수 (후에 header에 넣어줄거임)
+	            	/* function selectAlertList(){ // 안읽은 알림 조회용 ajax 함수 (후에 header에 넣어줄거임)
 	            		
 	            		$.ajax({
 	            			url:"alist.at",
@@ -169,7 +169,7 @@
 	            				
 	            			}
 	            		})
-	            	}
+	            	} */
 	              </script>
 
                   <br>
