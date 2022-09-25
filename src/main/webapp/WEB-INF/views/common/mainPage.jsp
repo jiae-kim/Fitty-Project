@@ -44,7 +44,7 @@
 							<div class="tab-content " style="width: 100%; height: 100%">
 								<div class="tab-pane fade show active"
 									id="navs-pills-justified-home" role="tabpanel">
-									<h5>이용권 개월별 선호도</h5>
+									<h5>헬스장 이용권 개월별 선호도</h5>
 									<canvas id="myChart2"></canvas>
 									<br>
 
