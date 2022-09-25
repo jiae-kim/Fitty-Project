@@ -30,7 +30,7 @@
           <div class="card-body row">
             <div class="vacSimple">
               <div id="loginUserDiv">
-                <img src="<c:out value='${loginUser.empPhoto}' default='resources/profile_images/defaultProfile.png' />" alt="Avatar" class="rounded-circle" width="120px;" height="120px;"/>
+                <img src="<c:out value='${loginUser.empPhoto}' default='resources/profile_images/defaultProfile.png' />" alt="Avatar" class="rounded-circle" width="150px;" height="150px;"/>
                 <br><span class="myName"><b>${loginUser.empName}</b></span>
                 <br><span class="myName">${loginUser.grName }</span>
                 <input type="hidden" value="${loginUser.empNo }" id="loginUserEmp">
@@ -39,7 +39,7 @@
               </div>
             </div>
             
-            <table id="todayWork" style="font-size:15px; margin-top:30px;">
+            <table id="todayWork" style="font-size:15px; margin-top:50px;">
               <tr>
                   <td id="intervalTime" colspan="3"><span id="hour"></span>:<span id="minute"></span>:<span id="second"></span></td>
               </tr>
@@ -53,13 +53,11 @@
               </tr>
             </table>
             <a class="btn btn-primary modifyBtn myAttBtn" style="margin-top : 20px;" href="modifyList.mo?empNo=${loginUser.empNo }">근태수정요청</a>
-            <a class="btn btn-info modifyBtn myAttBtn" onclick="go('select.emp')" style="color:white;">내 정보 수정</a>
-            <a class="btn btn-secondary modifyBtn myAttBtn" style="margin-bottom:20px;">엑셀다운로드</a>
+            <a class="btn btn-info modifyBtn myAttBtn" onclick="go('select.emp')" style="color:white; margin-bottom:20px;">내 정보 수정</a>
 
-            <div class="vacation">
-              <button class="yearVac" type="button">
+            <div class="vacation"  >
+              <button class="yearVac" type="button" style="height:180px;">
               	<a href="detail.vac?no=${loginUser.empNo } ">
-              	<div style="height:6px;"></div>
                 <span style="font-size:25px;">🎁<br></span>
                 <span>올해의 연차<br></span>
                 <span class="gapSpan">${ myAtt.gapYearVac }<br></span>
@@ -68,8 +66,7 @@
               </button>
               <div class="emptyVac" style="width:12px; background-color: white;">
               </div>
-              <button class="realVac" type="button">
-              <div style="height:6px;"></div>
+              <button class="realVac" type="button" style="height:180px;">
               	<a href="detail.vac?no=${loginUser.empNo } ">
                 <span style="font-size:25px;">🎉<br></span>
                 <span>올해의 휴가<br></span>

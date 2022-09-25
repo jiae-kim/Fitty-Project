@@ -8,7 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 public class LoginInterceptor implements HandlerInterceptor {
 
-	/*
+	
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object object) throws Exception {
 		
@@ -25,6 +25,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 			return false;
 		}
 		
-	}*/
+	}
 
 }
