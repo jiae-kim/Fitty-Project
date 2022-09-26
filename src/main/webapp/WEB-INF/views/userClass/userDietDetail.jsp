@@ -104,7 +104,7 @@
 		<li class="nav-item">
 	    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-home" 
 	    aria-controls="navs-pills-justified-home" aria-selected="false"
-	    onclick="location.href='userEx.cl?classNo=${classNo}&exDate=${exDate}';"
+	    onclick="location.href='userEx.cl?classNo=${classNo}&exDate=${d.dietDate}';"
 	    >
 	      🔥 오늘의 운동
 	    <!-- <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">3</span> -->
