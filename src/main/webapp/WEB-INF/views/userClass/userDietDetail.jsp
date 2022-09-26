@@ -96,6 +96,37 @@
 
 <jsp:include page="userHeader.jsp" />
 
+<div class="col-md-12">
+	<div class="nav-align-top mb-4">
+	
+		<!-- 내용위에 분류버튼 (* 수정해도 되는 부분) -->
+		<ul class="nav nav-pills mb-3 nav-fill" role="tablist">
+		<li class="nav-item">
+	    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-home" 
+	    aria-controls="navs-pills-justified-home" aria-selected="false"
+	    onclick="location.href='userEx.cl?classNo=${classNo}&exDate=${exDate}';"
+	    >
+	      🔥 오늘의 운동
+	    <!-- <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">3</span> -->
+	    </button>
+		</li>
+		
+	    <li class="nav-item">
+	    <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-profile" 
+	    aria-controls="navs-pills-justified-profile" aria-selected="true" 
+	    style="text-weight:700"
+	    >
+	      🌮 식단관리
+	    </button>
+	    </li>
+		</ul>
+		
+		
+	
+	
+	
+<!-- 오늘의 운동 -->
+<div class="tab-pane fade show active" id="navs-pills-justified-profile" role="tabpanel">
 
 <div class="row">
     <div class="col-md-12">
@@ -104,22 +135,24 @@
 		<div class="card-body row" align="center">
 		
 		
-      	<div class="di-date" align="center">
+      	<div class="didate" align="center">
         <a href="" style="color:#696CFF; font-size:20px">◀️</a> &nbsp;&nbsp;
-        <label style="font-weight: 700; font-size:25px;"></label>  &nbsp;&nbsp;
+        <label style="font-weight: 700; font-size:25px;">"${d.dietDate }"</label>  &nbsp;&nbsp;
         <a href="" style="color:#696CFF; font-size:20px">▶️</a>
         </div><br>
         
-        <button type="button" class="btn btn-sm rounded-pill btn-outline-primary" onclick="window.history.back();" style="float:right">
+        <button type="button" class="btn btn-sm rounded-pill btn-outline-primary" onclick="location.href='userPage.cl?classNo=${classNo}';" style="float:right">
 	       	<span class="tf-icons bx bx-calendar-check"></span>&nbsp; 달력보기
 	    </button><br>
 
 		<script>
 			$(function(){
-				let dateArr = "${d.dietDate}".split("/");
-				let date = "20" + dateArr[0] + "년 " + dateArr[1] + "월 " + dateArr[2] + "일";
 				
-				$(".di-date label").text(date);
+				let drr = "${d.dietDate}".split("/");
+				let ddd = "20" + drr[0] + "년 " + drr[1] + "월 " + drr[2] + "일";
+				console.log(ddd);
+				
+				$(".didate label").text(ddd);
 				
 				var today = new Date();
 				
@@ -463,14 +496,14 @@
       
 	<script>
 		$(function(){
-			selectReplyList();
+			//selectReplyList();
 		})
 		
 		//댓글 조회
 		function selectReplyList(){
 			
 			$.ajax({
-				url:"rlist.di",
+				url:"relist.di",
 				data:{no:"${d.dietNo}"},
 				success:function(list){
 					
@@ -564,7 +597,7 @@
 		//댓글 수정에 필요한 값 
 		$(document).on("click", ".u", function(){
 			let replyNo = $(this).parent().parent().parent().children().eq(0).text();
-			let replyContent = $(this).parent().parent().parent().prev().children().eq(3).children().text();
+			let replyContent = $(this).parent().parent().parent().prev().children().children().eq(3).children().text();
 			replyUpdateForm(replyNo, replyContent);
 		})
 		
@@ -619,7 +652,7 @@
 		$(document).on("click", ".d", function(){
 			
 			$.ajax({
-				url:"rdelete.di";
+				url:"rdelete.di",
 				data:{replyNo:$(".replyNo").text()},
 				success:function(result){
 					
@@ -632,7 +665,7 @@
 					console.log("댓글 삭제용 ajax 통신 실패");
 				}
 			})
-		}
+		})
 	</script>
 		
 		

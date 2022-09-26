@@ -1,142 +1,128 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
-<html
-  lang="utf-8"
-  class="light-style layout-menu-fixed"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="../assets/"
-  data-template="vertical-menu-template-free"
->
+<html lang="utf-8" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="../assets/" data-template="vertical-menu-template-free">
 <head>
 <meta charset="UTF-8">
-<meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
 <title>Fitty</title>
+
 <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="resources/bootTemplate/sneat-1.0.0/assets/img/favicon/favicon.ico" />
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
+<link rel="icon" type="image/x-icon" href="resources/bootTemplate/sneat-1.0.0/assets/img/favicon/favicon.ico" />
 
-    <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="resources/bootTemplate/sneat-1.0.0/assets/vendor/fonts/boxicons.css" />
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap" rel="stylesheet"/>
 
-    <!-- Core CSS -->
-    <link rel="stylesheet" href="resources/bootTemplate/sneat-1.0.0/assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="resources/bootTemplate/sneat-1.0.0/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="resources/bootTemplate/sneat-1.0.0/assets/css/demo.css" />
+<!-- Icons. Uncomment required icon fonts -->
+<link rel="stylesheet" href="resources/bootTemplate/sneat-1.0.0/assets/vendor/fonts/boxicons.css" />
 
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="resources/bootTemplate/sneat-1.0.0/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+<!-- Core CSS -->
+<link rel="stylesheet" href="resources/bootTemplate/sneat-1.0.0/assets/vendor/css/core.css" class="template-customizer-core-css" />
+<link rel="stylesheet" href="resources/bootTemplate/sneat-1.0.0/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+<link rel="stylesheet" href="resources/bootTemplate/sneat-1.0.0/assets/css/demo.css" />
 
-    <link rel="stylesheet" href="resources/bootTemplate/sneat-1.0.0/assets/vendor/libs/apex-charts/apex-charts.css" />
+<!-- Vendors CSS -->
+<link rel="stylesheet" href="resources/bootTemplate/sneat-1.0.0/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+<link rel="stylesheet" href="resources/bootTemplate/sneat-1.0.0/assets/vendor/libs/apex-charts/apex-charts.css" />
 
-    <!-- Page CSS -->
+<!-- Helpers -->
+<script src="resources/bootTemplate/sneat-1.0.0/assets/vendor/js/helpers.js"></script>
 
-    <!-- Helpers -->
-    <script src="resources/bootTemplate/sneat-1.0.0/assets/vendor/js/helpers.js"></script>
+<!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+<!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+<script src="resources/bootTemplate/sneat-1.0.0/assets/js/config.js"></script>
 
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="resources/bootTemplate/sneat-1.0.0/assets/js/config.js"></script>
-        <!-- jQuery 라이브러리 -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    
-    
-    <!-- 구글폰트 notosans -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>	
-	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
-    
-    <style>
-    *{
+<!-- jQuery 라이브러리 -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+<!-- 구글폰트 notosans -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>	
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+	*{
     	font-family: 'Noto Sans KR', sans-serif;
-    }
+	}
     	
-        #helloMan, #about-time {
-            color:rgb(50, 50, 50);
-            font-size: 11px;
-            margin : 5px;
-        }
+	#helloMan, #about-time {
+    	color:rgb(50, 50, 50);
+    	font-size: 11px;
+    	margin : 5px;
+	}
 
-        #navbar-collapse {
-            margin : 0px;
-        }
+	#navbar-collapse {
+    	margin : 0px;
+	}
 
-        #init-btn, #out-btn {
-            margin : 5px;
-        }
+	#init-btn, #out-btn {
+    	margin : 5px;
+	}
 
-        .bx-envelope, .bx-envelope-open, .bx-message-rounded-dots, .bx-bell {
-            font-size:25px;
-            color: #696CFF;
-            margin : 2px;
-        }
+	.bx-envelope, .bx-envelope-open, .bx-message-rounded-dots, .bx-bell {
+    	font-size:25px;
+    	color: #696CFF;
+    	margin : 2px;
+	}
 
-        .big-menu-label{
-            color:rgb(50, 50, 50);
-            font-size: 14px;
-        }
+	.big-menu-label{
+    	color:rgb(50, 50, 50);
+    	font-size: 14px;
+	}
 
-        .small-menu-label{
-            font-size: 12px;
-        }
-		
-		
-		body::-webkit-scrollbar {
-		  width: 20px;
-		}
-		
-		body::-webkit-scrollbar-track {
-		  background-color: #e4e4e4;
-		  border-radius: 100px;
-		}
-		
-		body::-webkit-scrollbar-thumb {
-		  border-radius: 100px;
-		  border: 6px solid rgba(0, 0, 0, 0.18);
-		  border-left: 0;
-		  border-right: 0;
-		  background-color: #696CFF;
-		}
-		
-		body *::-webkit-scrollbar {
-		  width: 10px;
-		}
-		
-		body *::-webkit-scrollbar-track {
-		  background-color: #e4e4e4;
-		  border-radius: 100px;
-		}
-		
-		body *::-webkit-scrollbar-thumb {
-		  border-radius: 100px;
-		  border: 6px solid rgba(0, 0, 0, 0.18);
-		  border-left: 0;
-		  border-right: 0;
-		  background-color: #696CFF;
-		}
-		#socketContent a {
-			color:white !important;
-		}
-        
-    </style>
+    .small-menu-label{
+        font-size: 12px;
+    }
+	
+	
+	body::-webkit-scrollbar {
+	  width: 20px;
+	}
+	
+	body::-webkit-scrollbar-track {
+	  background-color: #e4e4e4;
+	  border-radius: 100px;
+	}
+	
+	body::-webkit-scrollbar-thumb {
+	  border-radius: 100px;
+	  border: 6px solid rgba(0, 0, 0, 0.18);
+	  border-left: 0;
+	  border-right: 0;
+	  background-color: #696CFF;
+	}
+	
+	body *::-webkit-scrollbar {
+	  width: 10px;
+	}
+	
+	body *::-webkit-scrollbar-track {
+	  background-color: #e4e4e4;
+	  border-radius: 100px;
+	}
+	
+	body *::-webkit-scrollbar-thumb {
+	  border-radius: 100px;
+	  border: 6px solid rgba(0, 0, 0, 0.18);
+	  border-left: 0;
+	  border-right: 0;
+	  background-color: #696CFF;
+	}
+	#socketContent a {
+		color:white !important;
+	}
+    
+</style>
 <meta name="description" content="" />
 
 <!-- jQuery 라이브러리 -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 <!-- 부트스트랩에서 제공하고 있는 스타일
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
--->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">-->
+
 <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
@@ -264,23 +250,23 @@
               </ul>
             </li>
             
+            <script>
+            	let td = new Date();
+            	
+            	ty = td.getFullYear().toString().substring(2);
+            	tm = td.getMonth()+1;
+            	td = td.getDate();
+            	
+            	tdate = ty + "/" + tm + "/" + td;
+            	
+            	
+            </script>
+            
             <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
+              <a href="userDiDetail.cl?classNo=${classNo}&exDate=' + tdate +'" class="menu-link menu-toggle">
                 <i class='menu-icon tf-icons bx bxs-camera'></i>
                 <div data-i18n="Account Settings" class="big-menu-label">식단일기</div>
               </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="userDi.cl" class="menu-link">
-                    <div data-i18n="Account" class="small-menu-label">#</div>
-                  </a>
-                </li>
-                <!-- <li class="menu-item">
-                  <a href="centerAtt.att" class="menu-link">
-                    <div data-i18n="Notifications" class="small-menu-label">#</div>
-                  </a>
-                </li> -->
-              </ul>
             </li>
             
             <li class="menu-item">
@@ -339,69 +325,16 @@
                                     <img src="resources/bootTemplate/sneat-1.0.0/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
                                 </div>
                                 </div>
-                                <div class="flex-grow-1">
-                                <span class="fw-semibold d-block">${ loginUser.empName }</span>
-                                <small class="text-muted">
-                                	<c:choose>
-				                  		<c:when test="${ loginUser.empGrade eq 'T' }">
-				                  			트레이너님💜
-				                  		</c:when>
-				                  		<c:otherwise>
-				                  			관리자님💜
-				                  		</c:otherwise>
-				                  	</c:choose>
-                                </small>
-                                </div>
                             </div>
-                            </a>
-                        </li>
-                        <li>
-                            <div class="dropdown-divider"></div>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">
-                            <i class="bx bx-user me-2"></i>
-                            <span class="align-middle">My Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">
-                            <i class="bx bx-cog me-2"></i>
-                            <span class="align-middle">Settings</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="#">
-                            <span class="d-flex align-items-center align-middle">
-                                <i class="flex-shrink-0 bx bx-credit-card me-2"></i>
-                                <span class="flex-grow-1 align-middle">Billing</span>
-                                <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
-                            </span>
-                            </a>
-                        </li>
-                        <li>
-                            <div class="dropdown-divider"></div>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="auth-login-basic.html">
-                            <i class="bx bx-power-off me-2"></i>
-                            <span class="align-middle">Logout</span>
                             </a>
                         </li>
                         </ul>
                     </li>
                   <!--/ User -->
-                  <span id="helloMan"><b>USERNAME</b></span>
+                  <label id="helloMan" style='font-size:15px'>${loginU.userName} 회원님 환영합니다 😍</label>
 
                 </div>
               </div>
-              <form action="workIn.att" method="post" id="workInform">
-              	<input type="hidden" value="${loginUser.empNo}" name="empNo" id="empNo">
-              </form>
-              
-               <form action="workOut.att" method="post" id="workOutform">
-              	<input type="hidden" value="${loginUser.empNo}" name="empNo">
-              </form>
               
                
               <!-- /Search -->
@@ -412,8 +345,6 @@
                   
                 </li>
                 <li class="nav-item lh-1 me-3">
-                	<input type="hidden" id="hiddenAttIn" value="${ loginUser.attIn }">
-                	<input type="hidden" id="hiddenAttOut" value="${ loginUser.attOut }">
                     <button type="button" class="btn btn-sm btn-info" onclick="logOut();">로그아웃</button>
                 </li>
                 <li class="nav-item lh-1 me-3">
@@ -434,16 +365,6 @@
           <div class="content-wrapper">
           	<div class="container-xxl flex-grow-1 container-p-y">
           	
-          	<!-- 템플릿 적용을 위해 일부러 지운 div
-         	</div>
-          </div>
-      </div>
-      // Overlay
-      <div class="layout-overlay layout-menu-toggle"></div>
-    </div>
-    //Layout wrapper
-
--->
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="resources/bootTemplate/sneat-1.0.0/assets/vendor/libs/jquery/jquery.js"></script>

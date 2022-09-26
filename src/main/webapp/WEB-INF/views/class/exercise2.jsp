@@ -1,14 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%-- <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> --%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	body{
+body{
     margin: 1% 10%;
 }
 input{
@@ -52,28 +52,28 @@ h1{
     height: 1.25rem;
 }
 .todo-header{
-    height: 32px;
+    height: 40px;
+    border-bottom: 1px solid #bdc3c7;
 }
 .todo-header-item{
     float: left;
 }
+
+/* 운동카드 한 줄 비율 */
 .title{
     padding-left: 10px;
     padding-right: 5px;
-    width: 40%;
+    width:30%;
 }
-.weight{width:15%; text-align:right; margin-top:6px}
+.count{width:10%; text-align: right;}
 
-.count{width:15%; text-align: right; margin-top:6px}
-
-.set{width:15%; text-align: right; margin-top:6px}
-
-.check{float:right; margin-right:1px; margin-top:-1px; width:70px; height:35px;}
+.set{width:10%; text-align: right;}
 
 .coment{
     padding: 10px;
     color: #787878;
 }
+
 
 .todo-done-text{
     text-decoration: line-through;
@@ -89,22 +89,43 @@ h1{
 	/* margin-top: 6px; */
 }
 
-.custom-control-label{width:100%; height:100%;}
+.custom-control-label{width:95%}
 
 .custom-conrtol{
 	padding:0.75rem 0.25rem;
 }
 
 .custom-control-input{width:20px; height:20px}
-	
+
 </style>
 </head>
 <body>
 
-<jsp:include page="userHeader.jsp" />
+<jsp:include page="../common/header.jsp" />
 
-<!-- 2. 내용카드 -->
-	<div class="col-md-12">
+<!-- 내용 감싸는 전체 wrap -->
+<div class="content-wrapper" style="margin-top: -20px;">
+<div class="container-xxl flex-grow-1 container-p-y">
+<div class="row">
+<div class="col-xl-12">
+<div class="nav-align-top mb-4"><br>
+	
+<div class="row">
+	
+	
+	<!-- 1. 회원카드 -->
+	<div class="col-md-2 col-12 mb-md-0 mb-4" style="height:700px">
+	<div class="card" align="center">
+		<div class="card-header">회원정보</div>
+        <div class="card-body">내용</div>
+	</div>
+	</div>
+	<!-- /회원카드 -->
+	
+	
+	
+	<!-- 2. 내용카드 -->
+	<div class="col-md-10">
 	<div class="nav-align-top mb-4">
 	
 		<!-- 내용위에 분류버튼 (* 수정해도 되는 부분) -->
@@ -114,6 +135,7 @@ h1{
 	    aria-controls="navs-pills-justified-home" aria-selected="true" style="text-weight:700"
 	    >
 	      🔥 오늘의 운동
+	    <!-- <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">3</span> -->
 	    </button>
 		</li>
 		
@@ -121,71 +143,56 @@ h1{
 	    <li class="nav-item">
 	    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-profile" 
 	    aria-controls="navs-pills-justified-profile" aria-selected="false"
-	    onclick="location.href='userDiDetail.cl?dietDate=${exDate }&classNo=${classNo}';"
+	    onclick="location.href='dietDetail.cl?dietDate=${exDate }&classNo=${classNo}';"
 	    >
 	      🌮 식단관리
 	    </button>
 	    </li>
 	    
+	    <!-- 
+	    <li class="nav-item">
+	    <button type="button" class="nav-link" role="tab" data-bs-toggle="tab" data-bs-target="#navs-pills-justified-messages" 
+	    aria-controls="navs-pills-justified-messages" aria-selected="false"
+	    >
+	      ✏️ 출결확인
+	    </button>
+		</li> -->
 		</ul>
 		<!-- / 내용위에 분류버튼 -->
 
 
-<div class="row">
-    <div class="col-md-12">
-    <div class="card mb-4">
-		<div class="card-body row" style="height:700px">
-		
-		
-      <div>
 
- 			 <!-- 해당 날짜 -->
-	        <div id='date' style="font-size:22px; font-weight:700; margin-bottom:30px" align="center"></div>
-	        <button type="button" class="btn btn-sm rounded-pill btn-outline-primary" onclick="location.href='userPage.cl?classNo=${classNo}';" style="float:left;">
-			     <span class="tf-icons bx bx-calendar-check"></span>&nbsp; 달력보기
-			</button><br>
+
+	          
+        <!-- 내용 넣을 부분 (* 수정해도 되는 부분)-->
+		<div class="tab-content" style="min-height: 695px;">
+	
+	
+	
+<!-- 오늘의 운동 -->
+<div class="tab-pane fade show active" id="navs-pills-justified-home" role="tabpanel" style='width:100%'>
 	        
+	        <!-- 해당 날짜 -->
+	        <div id='date' style="font-size:20px; font-wieght:900;" align="center">${exDate}</div>
 	        
-	        <script>
-				$(function(){
-					let dArr = "${exDate}".split("/");
-					let d = "20" + dArr[0] + "년 " + dArr[1] + "월 " + dArr[2] + "일";
-					
-					$("#date").text(d);
-					
-					var today = new Date();
-					
-				})
-			</script>
-	        
-	       
-		    <!-- 추가 버튼 -->
-		    <div id="add-btn-div" style="margin-right:10px; margin-bottom:30px">
-		        <button type="button" class="btn btn-primary add-btn" style='width:110px; margin-right:15px; margin-top:15px;' data-bs-toggle="modal" data-bs-target="#backDropModal">
-		            + 운동추가
-		        </button>
-		        <button type="button" class="btn btn-primary feedback" style='width:130px; margin-right:15px; margin-top:15px; float:right' data-bs-toggle="modal" data-bs-target="#feedbackForm">
-		            피드백확인
+	        <!-- 추가 버튼 -->
+		    <div id="add-btn-div" style="margin-right:10px; ">
+		        <button type="button" class="btn btn-outline-primary add-btn" style='width:160px' data-bs-toggle="modal" data-bs-target="#backDropModal">
+		            + 운동 추가
 		        </button>
 		    </div>
-		    
-		    
 		    
 		    <!-- 운동 진행률 -->
-		    <div style='width:99%;'><i class='bx bxs-battery-charging' style='font-size:26px !important'></i>&nbsp;<label style='font-size:16px; font-weight:500'> 진행률</label>
-		    <div class='progress' style='background:none; font-size:15px; margin-bottom:30px; width:99%; background:rgba(67,89,113,.1); height:20px; margin-top:2px; margin-right:60px'>
-		        <div class="progress-bar bg-info" role="progressbar" style="height:20px" aria-valuemin="0" aria-valuemax="100  margin-right:60px"></div>
-		    </div>
+		    <div class='progress' style='background:none; font-size:15px; margin-left:10px; margin-bottom:20px; width:99%;'>
+		        <div class="progress-bar bg-success" role="progressbar" style="height:20px" aria-valuemin="0" aria-valuemax="100"></div>
 		    </div>
 		    
 		    
 		    
-	        <!-- 목록 --> 
-	        <i class='bx bx-layer-plus' style='font-size:26px'></i>&nbsp;<label style='font-size:16px; font-weight:500'> 운동목록</label>
-		    <div id="todo-list" style='width:100%; height:100%;'>
+	        <!-- 목록 -->
+		    <div id="todo-list">
 	        
 		    </div>
-		    
 		    
 		    
 		    <!--  등록 폼 --> 
@@ -201,8 +208,7 @@ h1{
 		
 		                <!-- Modal body -->
 		                <div class="modal-body">
-		                <input type="hidden" id="writer" value="U">
-		                <input type="hidden" id="exDate" value="${exDate }">
+		                <input type="hidden" id="writer" value="E">
 		                    <div class="form-group">
 		                        <label for="form-title" class="col-form-label">운동명 : </label>
 		                        <input type="text" class="form-control" id="title"  maxlength="40">
@@ -221,46 +227,17 @@ h1{
 			                      <input type="number" class="form-control" id="set" min="1" value="1">
 			                    </div>
 			                </div>
-		                    <!-- <div class="form-group">
+		                    <div class="form-group">
 		                        <label for="form-desc" class="col-form-label">내용 : </label> 
 		                        <textarea class="form-control" id="coment" maxlength="300" required></textarea>
-		                        아무것도 입력하지 않았을 때 undefined가 출력되어 일단은 required로 막아둠
-		                    </div> -->
-		                </div>
-		
-		                <!-- Modal footer -->
-		                <div class="modal-footer">
-		                	<button type="button" class="btn btn-outline-secondary x" data-bs-dismiss="modal">취소</button>
-		                    <button type="button" class="btn btn-primary" id="insert">추가</button>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		    
-		    
-		    <!-- 피드백 폼 -->
-		    <div class="modal fade" id="feedbackForm" data-bs-backdrop="static" tabindex="-1" style="display: none;" aria-hidden="true">
-		        <div class="modal-dialog">
-		            <div class="modal-content">
-		
-		                <!-- Modal Header -->
-		                <div class="modal-header">
-		                    <h4 class="modal-title">트레이너 피드백</h4>
-		                </div>
-		
-		                <!-- Modal body -->
-		                <div class="modal-body">
-		                <input type="hidden" id="writer" value="E">
-		                    <div class="form-group">
-		                        <label for="form-title" class="col-form-label">내용 : </label>
-		                        <textarea class="form-control" id="feedback" maxlength="300" required></textarea>
+		                        <!-- 아무것도 입력하지 않았을 때 undefined가 출력되어 일단은 required로 막아둠 -->
 		                    </div>
 		                </div>
 		
 		                <!-- Modal footer -->
 		                <div class="modal-footer">
 		                	<button type="button" class="btn btn-outline-secondary x" data-bs-dismiss="modal">취소</button>
-		                    <button type="button" class="btn btn-primary" id="insertFeedback">추가</button>
+		                    <button type="button" class="btn btn-primary" id="insert">추가</button>
 		                </div>
 		            </div>
 		        </div>
@@ -298,10 +275,10 @@ h1{
 			                      <input type="number" class="form-control" id="update-set" min="1" value="1">
 			                    </div>
 			                </div>
-		                   <!--  <div class="form-group">
+		                    <div class="form-group">
 		                        <label for="form-desc" class="col-form-label">내용 : </label>
 		                        <textarea class="form-control" id="update-coment" maxlength="300"></textarea>
-		                    </div> -->
+		                    </div>
 		                </div>
 		
 		                <!-- Modal footer -->
@@ -327,6 +304,7 @@ h1{
 				
 				load();
 				progress();
+				
 			})
 			
 			
@@ -346,40 +324,47 @@ h1{
 	                	
 	                	var html = "";
 
+	                	
 	                	for(let i in list){
 	                		
 		                	if(list[i].exStatus == 'N'){
-			    				html += "<div style='height:10%;'><div class='todo-div' style='width:98%; margin:5px 0px; float:left; text-align:middle;'>";
+			    				html += "<div class='todo-div'>";
 		                	}else{
-		                		html += "<div style='height:10%'><div class='todo-div' style='width:98%; margin:5px 0px; float:left; text-align:middle; background:lavender;'>";
+		                		html += "<div class='todo-div' style='background:lavender'>";
 		                	}
 		                	
 			    				html  +=    "<input type='hidden' id='exNo' value='" + list[i].exNo + "'>"
 			    				      +     "<div class='todo-header'>"
+			    				      +         "<div class='custom-control form-control-lg custom-checkbox col-sm-12 todo-header-item' style='padding: 0.25rem 0.25rem;'>"
 			    				      +             "<div class='custom-control-label todo-header-item' for='customCheck0'>"
 			    				      +             	"<label class='title'>" + list[i].exTitle + "</label>"
 			    				      +             	"<label class='weight'>" + list[i].exWeight + " kg</label>"
 			    				      +             	"<label class='count'>" + list[i].exCount + "회</label>"
-			    				      +             	"<label class='set'>" + list[i].exSet + "set</label>";
-			    				      
-			    				      if(list[i].exStatus == 'N'){
-								html  += 				"<button type='button' class='btn btn-sm btn-outline-primary check' style='font-size:14px;'>미완료</button>";
-			    				      }
-			    				      
-			    			    html  +=        	"</div>"
+			    				      +             	"<label class='set'>" + list[i].exSet + "set</label>"
+								      + 			    "<div class='btn-group'>"
+								      + 		           "<button type='button' class='btn btn-sm btn-icon rounded-pill dropdown-toggle hide-arrow' data-bs-toggle='dropdown' aria-expanded='false'>"
+								      +						 "<i class='bx bx-dots-vertical-rounded' style='color:black'></i>"
+								      +					   "</button>"
+								      + 		           "<ul class='dropdown-menu dropdown-menu-end'>"
+								      + 		             "<li><button type='button' class='btn upbtn' data-toggle='modal' data-target='#updateModal'>수정</button></li>"
+								      + 		             "<li><button type='button' class='btn debtn';'>삭제</button></li>"
+								      + 		           "</ul>"
+								      + 		        "</div>"
+			    			          +         	"</div>"
+			    				      +         "</div>"
 			    				      +     "</div>";
 		    				      
-			    				html += "</div>";
-			    				
-			    				html += "<div class='btn-group' style='width:2%; float:left; top:10px; top:21px; '>"
-									 +  	"<button type='button' class='btn btn-sm btn-icon rounded-pill dropdown-toggle hide-arrow' data-bs-toggle='dropdown' aria-expanded='false'>"
-									 +	 		"<i class='bx bx-dots-vertical-rounded' style='color:black'></i>"
-									 + 		"</button>"
-									 + 		"<ul class='dropdown-menu dropdown-menu-end'>"
-									 +   		"<li><button type='button' class='btn upbtn' data-toggle='modal' data-target='#updateModal'>수정</button></li>"
-									 +   		"<li><button type='button' class='btn debtn';'>삭제</button></li>"
-									 + 		"</ul>"
-								     + "</div></div>";
+			    				    html += "<div class='coment' align='left'>" + list[i].exComent;
+			    				    html += 	"<div style='width:8%; float:right;'>";
+			    				    
+			    				    	if(list[i].exStatus == 'N'){
+				    						html += "<button type='button' class='btn btn-outline-primary check'>완료</button>";
+				    					}
+			    				    
+			    				    html += 	"</div>";
+			    				    	  + "</div>";
+			    				    	  
+			    				html  +="</div></div>";
 		                	}
 	                	
 	    				$("#todo-list").html(html);
@@ -431,10 +416,10 @@ h1{
 	                data: {exTitle:$("#title").val(), 
 	                		exCount:$("#count").val(), 
 	                		exSet:$("#set").val(), 
+	                		exComent:$("#coment").val(), 
 	                		classNo:${classNo}, 
 	                		exWriter:$("#writer").val(),
-	                		exWeight:$("#weight").val(),
-	                		exDate:"${exDate}"
+	                		exWeight:$("#weight").val()
                 		  },
 	                success: function (result) {
 	                	
@@ -446,6 +431,7 @@ h1{
 				            $("#title").val('');
 				            $("#count").val('');
 				            $("#set").val('');
+				            $("#coment").val('');
 				            $("#weight").val('');
 				            $('#backDropModal').modal('toggle');
 	                		
@@ -466,47 +452,11 @@ h1{
 			
 			
 	        
-	        //트레이너 피드백 추가
-	        $("#insertFeedback").click(function(){
-	        	
-	        	console.log($("#feedback").val());
-	        	
-	        	$.ajax({
-	        		url:"feedback.cl",
-	        		data:{exDate:"${exDate}", classNo:${classNo}, exComent:$("#feedback").val()},
-	        		success:function(result){
-	        			
-	        			alertify.alert("피드백이 등록되었습니다.");
-	        			
-	        		},
-	        		error:function(){
-	        			console.log("피드백 추가용 ajax 통신 실패");
-	        		}
-	        	})
-	        })
-	        
-	        function selectFeedback(){
-	        	$.ajax({
-	        		url:"selectFeedback.cl",
-	        		data:{exDate:"${exDate}", classNo:${classNo}},
-	        		success:function(ee){
-	        			
-	        			$("#feedback").val(ee.exComent);
-	        			
-	        		},
-	        		error:function(){
-	        			console.log("피드백 조회용 ajax 통신 실패");
-	        		}
-	        	})
-	        }
-	        
 
-	        
-	        
 	        //운동완료 체크시 상태변경
 	        $(document).on("click", ".check", function(){
 	        	
-	        	var exNo = $(this).parent().parent().parent().children().eq(0).val();
+	        	var exNo = $(this).parent().parent().children().eq(1).val(); //여기수정필요
 	        	
 	        	console.log(exNo);
 	        	
@@ -534,7 +484,7 @@ h1{
 	        //운동 삭제
 	        $(document).on("click", ".debtn", function(){
 	        	
-	        	var exNo = $(this).parent().parent().parent().prev().children().eq(0).val();
+	        	var exNo = $(this).parent().parent().parent().parent().parent().parent().parent().children().eq(0).val();
 	        	
 
 	            $.ajax({
@@ -566,7 +516,7 @@ h1{
 	        //수정 버튼 클릭시 해당 글 내용 조회
 	        $(document).on("click", ".upbtn", function(){
 	        	
-	        	var exNo = $(this).parent().parent().parent().prev().children().eq(0).val();
+	        	var exNo = $(this).parent().parent().parent().parent().parent().parent().parent().children().eq(0).val();
 	        	
 	        	console.log("수정버튼 클릭시 : " + exNo);
 	        	
@@ -638,14 +588,45 @@ h1{
 	        });
 	        </script>
 	        
-		
-		
-		
-          
+	        
+	        
+	        
+	        
+	        
+	        
+	
+	
+	
+	
+	
+	    	<!-- 오늘의식단 -->
+			<div class="tab-pane fade" id="navs-pills-justified-profile" role="tabpanel" style="height:100%; width:100%">
+			</div>
+			<!-- /식단 -->
+	                
+	
+	        <!-- 출결 -->
+			<div class="tab-pane fade" id="navs-pills-justified-messages" role="tabpanel">
+			</div>
+
+
+	              
 		</div>
+		<!-- / 내용 넣을 부분 -->
+	
     </div>
     </div>
+
+	    
 </div>
+	
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- /내용 감싸는 전체 wrap -->
+
 
 
 </body>
