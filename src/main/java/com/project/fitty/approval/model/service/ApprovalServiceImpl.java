@@ -228,13 +228,13 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 
 	@Override
-	public ArrayList<Approval> selectDraftList(String empNo) {
-		return aDao.selectDraftList(sqlSession, empNo);
+	public ArrayList<Approval> selectMainDraftList(String empNo) {
+		return aDao.selectMainDraftList(sqlSession, empNo);
 	}
 
 	@Override
-	public ArrayList<Approval> selectCompleteList(String empNo) {
-		return aDao.selectCompleteList(sqlSession, empNo);
+	public ArrayList<Approval> selectMainCompleteList(String empNo) {
+		return aDao.selectMainCompleteList(sqlSession, empNo);
 	}
 
 	@Override

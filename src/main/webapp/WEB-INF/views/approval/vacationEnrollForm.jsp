@@ -23,7 +23,7 @@
              결재요청
            </button>
            <button class="f-btn" type="button" onclick="insertStorage();">
-             <i class='bx bx-download' onclick="storageAppr();" type="button"></i>
+             <i class='bx bx-download'></i>
              임시저장
            </button>
            <button class="f-btn" onclick="cancel();" type="button">
