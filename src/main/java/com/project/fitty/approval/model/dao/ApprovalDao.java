@@ -183,8 +183,8 @@ public class ApprovalDao {
 		return sqlSession.update("approvalMapper.updateAtt1", vct);
 	}
 	
-	public int updateAtt2(SqlSessionTemplate sqlSession, ApprVacation vct) {
-		return sqlSession.update("approvalMapper.updateAtt2", vct);
+	public int updateAtt2(SqlSessionTemplate sqlSession, ApprOvertime ovt) {
+		return sqlSession.update("approvalMapper.updateAtt2", ovt);
 	}
 	
 	public int insertVacation(SqlSessionTemplate sqlSession, ApprVacation vct) {

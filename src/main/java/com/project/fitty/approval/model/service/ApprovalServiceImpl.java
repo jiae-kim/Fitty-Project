@@ -183,8 +183,8 @@ public class ApprovalServiceImpl implements ApprovalService{
 	}
 	
 	@Override
-	public int updateAtt2(ApprVacation vct) {
-		return aDao.updateAtt2(sqlSession, vct);
+	public int updateAtt2(ApprOvertime ovt) {
+		return aDao.updateAtt2(sqlSession, ovt);
 	}
 
 	@Override

@@ -552,7 +552,7 @@
 		update tb_att
 		   set att_status = 'P'
 		     , att_plus_work = 'P'
-		 where empNo = #{empNo}
+		 where emp_no = #{empNo}
 		   and att_date = #{ovtDate}
 	</update>
 	

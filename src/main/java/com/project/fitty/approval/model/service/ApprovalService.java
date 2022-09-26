@@ -73,7 +73,7 @@ public interface ApprovalService {
 	
 	// 최종승인
 	int updateAtt1(ApprVacation vct);
-	int updateAtt2(ApprVacation vct);
+	int updateAtt2(ApprOvertime ovt);
 	int insertVacation(ApprVacation vct);
 	
 	// 반려

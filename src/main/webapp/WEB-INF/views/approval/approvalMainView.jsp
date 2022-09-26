@@ -89,18 +89,47 @@
        <jsp:include page="sideMenu.jsp"/>
        <div class="main">
        	<input type="hidden" name="empNo" value="${loginUser.empNo }">
-         <div class="mTop">
-           <div class="topBox">
-             <div class="purple">대기중</div> <br><br>
-             <span>휴가신청</span> <br>
-             <span class="s1">기안자 : 차준환 트레이너</span><br>
-             <span class="s1">기안일 : 2022-09-25</span><br>
-             <span class="s1">결재양식 : 휴가신청</span>
-             <hr>
-             <div id="appr" align="center"><a>결재하기</a></div>
-           </div>
-           
-         </div>
+       	<c:choose>
+       		<c:when test="${loginUser.empNo eq 'CEO100'}">
+	         <div class="mTop">
+	           <div class="topBox">
+	             <div class="purple">진행중</div> <br><br>
+	             <span>휴가신청</span> <br>
+	             <span class="s1">기안자 : 차준환 트레이너</span><br>
+	             <span class="s1">기안일 : 2022-09-25</span><br>
+	             <span class="s1">결재양식 : 휴가신청</span>
+	             <hr>
+	             <div id="appr" align="center"><a>결재하기</a></div>
+	           </div>
+	           
+	         </div>
+       		</c:when>
+       		<c:when test="${loginUser.empNo eq 'ADM101'}">
+	         <div class="mTop">
+	           <div class="topBox">
+	             <div class="purple">대기중</div> <br><br>
+	             <span>휴가신청</span> <br>
+	             <span class="s1">기안자 : 차준환 트레이너</span><br>
+	             <span class="s1">기안일 : 2022-09-25</span><br>
+	             <span class="s1">결재양식 : 휴가신청</span>
+	             <hr>
+	             <div id="appr" align="center"><a>결재하기</a></div>
+	           </div>
+	           
+	         </div>
+       		</c:when>
+       		<c:otherwise>
+       			<div class="topBox">
+	             <div class="purple">대기중</div> <br><br>
+	             <span>휴가신청</span> <br>
+	             <span class="s1">기안자 : 차준환 트레이너</span><br>
+	             <span class="s1">기안일 : 2022-09-25</span><br>
+	             <span class="s1">결재양식 : 휴가신청</span>
+	             <hr>
+	             <div id="appr" align="center"><a>상세보기</a></div>
+	           </div>
+       		</c:otherwise>
+       	</c:choose>
          <br><br>
 
          <div class="mMiddle">
@@ -189,6 +218,5 @@
          </div>
        </div>
      </div>
-	</div>
 </body>
 </html>

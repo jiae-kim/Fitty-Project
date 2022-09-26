@@ -375,7 +375,7 @@ public class ApprovalController {
 	
 	// 결재승인
 	@RequestMapping("approve.ap")
-	public String updateStatus(ApprovalMember am, ApprVacation vct, String apprDocType, HttpSession session, Model model) {
+	public String updateStatus(ApprovalMember am, ApprVacation vct, ApprOvertime ovt, String apprDocType, HttpSession session, Model model) {
 		if(am.getApprLevel() == am.getApprMemCount()) {
 			// 최종승인
 			am.setApprStatus("3");
@@ -393,7 +393,7 @@ public class ApprovalController {
 					return "common/errorPage";
 				}
 			}else if(apprDocType.equals("2")){
-				int result3 = aService.updateAtt2(vct);
+				int result3 = aService.updateAtt2(ovt);
 				
 				if(result1>0 && result2>0&&result3>0) {
 					session.setAttribute("alertMsg", "결재가 승인되었습니다.");
