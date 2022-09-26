@@ -38,8 +38,8 @@ public class ApprovalController {
 	@RequestMapping(value="apprMain.ap", produces="application/json; charset=utf-8")
 	public ModelAndView goApproval(String empNo, ModelAndView mv) {
 		
-		ArrayList<Approval> dlist = aService.selectDraftList(empNo);
-		ArrayList<Approval> clist = aService.selectCompleteList(empNo);
+		ArrayList<Approval> dlist = aService.selectMainDraftList(empNo);
+		ArrayList<Approval> clist = aService.selectMainCompleteList(empNo);
 		
 		mv.addObject("dlist", dlist).addObject("clist", clist).setViewName("approval/approvalMainView");
 		
@@ -356,9 +356,11 @@ public class ApprovalController {
 		
 		if(apprDocType.equals("1")) {
 			ApprVacation vct = aService.selectVacation(apprNo);
+			vct.setApprDocType(apprDocType);
 			mv.addObject("mlist", mlist).addObject("vct", vct).setViewName("approval/vacationDetailView");
 		}else if(apprDocType.equals("2")) {
 			ApprOvertime ovt = aService.selectOvertime(apprNo);
+			ovt.setApprDocType(apprDocType);
 			mv.addObject("mlist", mlist).addObject("ovt", ovt).setViewName("approval/overtimeDetailView");
 		}else {
 			ApprExpense exp = aService.selectExpense(apprNo);
@@ -373,20 +375,19 @@ public class ApprovalController {
 	
 	// 결재승인
 	@RequestMapping("approve.ap")
-	public String updateStatus(ApprovalMember am, ApprVacation vct, String apprDocType, int apprMemCount, HttpSession session, Model model, String insertEmpNo) {
+	public String updateStatus(ApprovalMember am, ApprVacation vct, String apprDocType, HttpSession session, Model model) {
 		if(am.getApprLevel() == am.getApprMemCount()) {
 			// 최종승인
 			am.setApprStatus("3");
 			int result1 = aService.updateApproval(am);
 			int result2 = aService.updateApprovalMem(am);
-			vct.setEmpNo(insertEmpNo);
 			
 			if(apprDocType.equals("1")) {
 				int result3 = aService.updateAtt1(vct);
 				int result4 = aService.insertVacation(vct);
 				if(result1>0 && result2>0 && result3>0 && result4>0) {
 					session.setAttribute("alertMsg", "결재가 승인되었습니다.");
-					return "redirect:signList.ap?empNo=" + am.getEmpNo();
+					return "redirect:signList.ap";
 				}else {
 					model.addAttribute("errorMsg", "결재실패");
 					return "common/errorPage";
@@ -396,7 +397,7 @@ public class ApprovalController {
 				
 				if(result1>0 && result2>0&&result3>0) {
 					session.setAttribute("alertMsg", "결재가 승인되었습니다.");
-					return "redirect:signList.ap?empNo=" + am.getEmpNo();
+					return "redirect:signList.ap";
 				}else {
 					model.addAttribute("errorMsg", "결재실패");
 					return "common/errorPage";
@@ -404,7 +405,7 @@ public class ApprovalController {
 			}else {
 				if(result1>0 && result2>0) {
 					session.setAttribute("alertMsg", "결재가 승인되었습니다.");
-					return "redirect:signList.ap?empNo=" + am.getEmpNo();
+					return "redirect:signList.ap";
 				}else {
 					model.addAttribute("errorMsg", "결재실패");
 					return "common/errorPage";
@@ -421,7 +422,7 @@ public class ApprovalController {
 			int result2 = aService.updateApprovalMem(am);
 			if(result1>0 && result2>0) {
 				session.setAttribute("alertMsg", "결재가 승인되었습니다.");
-				return "redirect:signList.ap?empNo=" + am.getEmpNo();
+				return "redirect:signList.ap";
 			}else {
 				model.addAttribute("errorMsg", "결재실패");
 				return "common/errorPage";
@@ -538,6 +539,7 @@ public class ApprovalController {
 		ArrayList<ApprovalMember> list = am.getMlist();
 		ArrayList<ApprExpDetail> dlist = expd.getDlist();
 		ArrayList<File> flist = new ArrayList<>();
+		
 		
 		int result1 = aService.updateStorage(ap);
 		int result2 = aService.insertApprMember(list);

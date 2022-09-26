@@ -88,8 +88,8 @@ public interface ApprovalService {
 	int deleteExpDetail(String apprNo);
 	
 	// 메인ㅡ결재진행문서, 완료문서
-	ArrayList<Approval> selectDraftList(String empNo);
-	ArrayList<Approval> selectCompleteList(String empNo);
+	ArrayList<Approval> selectMainDraftList(String empNo);
+	ArrayList<Approval> selectMainCompleteList(String empNo);
 	
 	// 임시저장문서기안
 	int updateStorage(Approval ap);

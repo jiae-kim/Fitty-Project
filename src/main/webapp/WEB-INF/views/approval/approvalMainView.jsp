@@ -181,7 +181,7 @@
 	               </c:forEach>
                	</c:when>
 	            <c:otherwise>
-	            	<td colspan="5">문서가 없습니다.</td>
+	            	<td colspan="5" style="font-size:13px; text-align:center; margin-top:7px;">문서가 없습니다.</td>
 	            </c:otherwise>
                </c:choose>
              </table>

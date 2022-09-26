@@ -222,9 +222,15 @@ public class ApprovalDao {
 	public ArrayList<Approval> selectDraftList(SqlSessionTemplate sqlSession, String empNo){
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectDraftList", empNo);
 	}
+	public ArrayList<Approval> selectMainDraftList(SqlSessionTemplate sqlSession, String empNo){
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectMainDraftList", empNo);
+	}
 	
 	public ArrayList<Approval> selectCompleteList(SqlSessionTemplate sqlSession, String empNo){
 		return (ArrayList)sqlSession.selectList("approvalMapper.selectCompleteList", empNo);
+	}
+	public ArrayList<Approval> selectMainCompleteList(SqlSessionTemplate sqlSession, String empNo){
+		return (ArrayList)sqlSession.selectList("approvalMapper.selectMainCompleteList", empNo);
 	}
 	
 	public int updateStorage(SqlSessionTemplate sqlSession, Approval ap) {
