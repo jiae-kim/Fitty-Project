@@ -356,7 +356,7 @@
       
 			<script>
 				$(function(){
-					//selectReplyList();
+					selectReplyList();
 				})
 				
 				//댓글 조회
@@ -541,14 +541,17 @@
 				//댓글 삭제
 				$(document).on("click", ".d", function(){
 					
+					console.log($(this).parent().parent().parent().children().eq(0).text());
+					
 					$.ajax({
 						url:"rdelete.di",
-						data:{replyNo:$(".replyNo").text()},
+						data:{replyNo:$(this).parent().parent().parent().children().eq(0).text()},
 						success:function(result){
 							
 							console.lig(result);
 							
 							alertify.alert("댓글이 삭제되었습니댜.");
+							selectReplyList();
 							
 						},
 						error:function(){

@@ -142,18 +142,14 @@ public class ClassController {
 		
 		ArrayList<Exercise> e = cService.selectExercise(classNo);
 		ArrayList<Diet> d = cService.selectDiet(classNo);
-		System.out.println(e);
-		System.out.println(d);
 		map.put("e", e);
 		map.put("d", d);
 		
 		ArrayList<Exercise> all = cService.selectAll(classNo);
 		map.put("all", all);
-		System.out.println(all);
 		
 		ArrayList<Exercise> com = cService.selectCom(classNo);
 		map.put("com", com);
-		System.out.println(com);
 		
 		return new Gson().toJson(map);
 	}
@@ -317,10 +313,8 @@ public class ClassController {
 	@ResponseBody
 	@RequestMapping("rinsert.di")
 	public int ajaxInsertReply(Reply r) {
-		System.out.println(r);
 		
 		int result = cService.insertReply(r);
-		System.out.println(result);
 		return result;
 	}
 
@@ -336,9 +330,11 @@ public class ClassController {
 	
 	//댓글 삭제 (직원 : rdelete.di)
 	@ResponseBody
-	@RequestMapping("delete.di")
+	@RequestMapping("rdelete.di")
 	public int ajaxDeleteReply(int replyNo) {
+		System.out.println(replyNo);
 		int result  = cService.deleteReply(replyNo);
+		System.out.println(result);
 		return result;
 	}
 	
