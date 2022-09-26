@@ -25,5 +25,6 @@ public class Exercise {
 	private String exLink;
 	private String exStatus;
 	private int exNo;
+	private String exWeight;
 
 }

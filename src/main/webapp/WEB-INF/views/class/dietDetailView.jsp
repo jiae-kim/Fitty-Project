@@ -96,7 +96,7 @@
 
 <!-- 내용 감싸는 전체 wrap -->
 <div class="content-wrapper" style="margin-top: -20px;">
-<div class="container-xxl flex-grow-1 container-p-y">
+<div class="container-xxl flex-grow-1 container-p-y" style="padding:0px; margin-top:-25px">
 <div class="row">
 <div class="col-xl-12">
 <div class="nav-align-top mb-4"><br>
@@ -105,10 +105,31 @@
 	
 	
 	<!-- 1. 회원카드 -->
-	<div class="col-md-2 col-12 mb-md-0 mb-4" style="height:700px">
+	<div class="col-md-2 col-12 mb-md-0 mb-4" style="min-height:700px">
 	<div class="card" align="center">
-		<div class="card-header">회원정보</div>
-        <div class="card-body">내용</div>
+		<div class="card-header">
+			<div style='font-size:17px; font-weight:600; background:lavender'>회원정보</div><br>
+			<img src="resources/upload_profileImg/22092315545910883.jpg" class="w-px-50 h-auto rounded-circle" style='width:100px !important'><br>
+			<label>김제니</label> (<label id="age">26</label> / <label>F</label>) <br>
+			<label id="phone" style='font-size:15px'>010 - 2345 - 3456</label><br>
+			<label style='font-size:15px'>160 cm</label>
+			<label style='font-size:15px'>45 kg</label><br><br>
+			<label style='font-size:15px; font-weight:600'>예약일 : 2022-09-26</label><br>
+			<button type="button" class="btn btn-primary">출석</button>
+			<button type="button" class="btn btn-secondary">결석</button>
+			
+		</div>
+		
+        <div class="card-body">
+        	<div style='font-size:17px; font-weight:600; background:lavender'>수업정보 및 목표</div><br>
+        	<label>남은회차 : 27/30</label><br><br>
+        	<label>수업시작일 : 2022-09-01</label><br><br>
+        	<label style='font-size:15px; font-weight:600'>수업목표 : ${c.classGoal }</label><br>
+        	<label style='font-size:15px; font-weight:600'>기대결과 :  ${c.classResult}</label><br><br>
+        	<div class="progress" style='height:30px'>
+	          <div class="progress-bar bg-info" role="progressbar" style="width: 87%;" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100">87%</div>
+	        </div>
+        </div>
 	</div>
 	</div>
 	<!-- /회원카드 -->
@@ -127,7 +148,7 @@
 	    onclick="location.href='exercise.cl?classNo=${classNo}&exDate=${exDate}';"
 	    >
 	      🔥 오늘의 운동
-	    <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">3</span>
+	    <!-- <span class="badge rounded-pill badge-center h-px-20 w-px-20 bg-danger">3</span> -->
 	    </button>
 		</li>
 		
@@ -170,7 +191,7 @@
 		        </div><br>
 		        
 		        				
-				<button type="button" class="btn btn-sm rounded-pill btn-outline-primary" onclick="window.history.back();" style="float:right">
+				<button type="button" class="btn btn-sm rounded-pill btn-outline-primary" onclick="location.href='main.cl?classNo=${classNo}';" style="float:right">
 			       	<span class="tf-icons bx bx-calendar-check"></span>&nbsp; 달력보기
 			    </button><br>
 		        
@@ -298,14 +319,23 @@
 		        	
 				</div>
 				</div>
+				
+				<!-- 입력된 글이 하나도 없을 때 보여지는 문구 -->
+				<c:if test="${ d.bfImage eq null and d.lcImage eq null and d.dnImage eq null and d.reImage eq null}">
+					<div style='background:lavender; width:100%; padding:10px; font-weight:600'>아직 등록된 식단 내역이 없습니다 🙂</div>
+				</c:if>
+				
 
-			</div>
+				</div>
+			<br>
 		
 				
 
 			<!-- 댓글 -->
 			<div class="reply-wrap" style="height: 30%;">
-	    		<label>댓글 <span id="rcount"></span></label><br>
+			
+				<!-- 댓글 갯수 -->
+	    		<div><span style='float:left'>댓글</span> <label id="rr"></label></div><br>
 	
 				<!-- 내용 -->
 				<div class="r">
@@ -326,20 +356,23 @@
       
 			<script>
 				$(function(){
-					selectReplyList();
+					//selectReplyList();
 				})
 				
 				//댓글 조회
 				function selectReplyList(){
 					
 					$.ajax({
-						url:"rlist.di",
+						url:"relist.di",
 						data:{no:"${d.dietNo}"},
 						success:function(list){
+							
+							console.log(list);
 							
 							let value = "";
 							let type = "";
 							let replyNo = "";
+							
 							for(let i=0; i<list.length; i++){
 								
 
@@ -383,7 +416,7 @@
 								
 							}
 							$(".r").html(value);
-							$("#rcount").text(list.length);
+							$("#rr").text(list.length);
 						},
 						error:function(){
 							console.log("댓글 리스트 조회용 ajax통신 실패");
@@ -398,6 +431,7 @@
 				$(document).on("click", ".u", function(){
 					let replyNo = $(this).parent().parent().parent().children().eq(0).text();
 					let replyContent = $(this).parent().parent().parent().prev().children().children().eq(3).children().text();
+					console.log("수정" + replyNo);
 					replyUpdateForm(replyNo, replyContent);
 				})
 				
@@ -460,6 +494,11 @@
 				//댓글 등록
 				function addReply(){
 					
+					console.log(${d.dietNo});
+					console.log($(".content").val());
+					console.log('${loginUser.empNo}');
+					console.log('${loginUser.empName}');
+					
 					if( $(".content").val().trim().length != 0 ){
 						
 						$.ajax({
@@ -484,6 +523,7 @@
 		    						socket.send(socketMsg);
 		    						
 		    					}
+								
 							},
 							error:function(){
 								console.log("댓글 등록용 ajax통신 실패");
@@ -502,7 +542,7 @@
 				$(document).on("click", ".d", function(){
 					
 					$.ajax({
-						url:"rdelete.di";
+						url:"rdelete.di",
 						data:{replyNo:$(".replyNo").text()},
 						success:function(result){
 							
@@ -515,7 +555,7 @@
 							console.log("댓글 삭제용 ajax 통신 실패");
 						}
 					})
-				}
+				})
 			</script>
 			
 			</div>

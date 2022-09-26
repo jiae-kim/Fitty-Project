@@ -22,5 +22,11 @@ public class PtClass {
 	private int classCount;
 	private String classGoal;
 	private String classResult;
+	
+	private String userName;
+	private String userPhone;
+	private String userGender;
+	private String userBirth;
+	private String uProfile;
 
 }

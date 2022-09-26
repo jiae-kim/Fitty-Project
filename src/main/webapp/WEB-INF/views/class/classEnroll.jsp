@@ -37,7 +37,7 @@
 
          
 	<div class="content-wrapper">
-		<div class="container-xxl flex-grow-1 container-p-y">
+		<div class="container-xxl flex-grow-1 container-p-y" style="padding:0px; margin-top:-25px">
            	<div class="row">
 
 			<div class="col-md-6">
@@ -56,22 +56,24 @@
 	                     
 	                     
 						<script>
-							$(function(){
-								$(".userNo").keyup(function(){
-									if($("userNo").val().length >= 1){
-										$.ajax({
-											url:"selectUser.cl",
-											data:{userNo:$(".userNo").val()},
-											success:function(u){
-												console.log(u);
-											},
-											error:function(){
-												
-											}
-										})
-									}
-								})
+						$(function(){
+							$(".userNo").keyup(function(){
+								if($("userNo").val().length >= 1){
+									
+									$.ajax({
+										url:"selectUser.cl",
+										data:{userNo:$(".userNo").val()},
+										success:function(u){
+											console.log(u);
+										},
+										error:function(){
+											
+										}
+									})
+									
+								}
 							})
+						})
 						</script>
 	                     
 	                     
@@ -159,13 +161,13 @@
 	                        </div>
 	                    </div>
 	
-						<div class="mb-3 row" id="input-box">
-							<label for="html5-text-input" class="col-md-3 col-form-label" style="padding-right:0px">
-		                       	<span>기대결과</span>
-		                       	<span id="plus" class="badge badge-center rounded-pill bg-label-primary" style="float:right;"><i class='bx bx-plus-medical'></i></span>
-		                    </label>
-	                        <div class="col-md-9">
-	                        	<input class="form-control" name="classResult" type="text" id="html5-text-input" />
+						<div class="mb-3 row input-box">
+							<div for='html5-text-input' class='col-md-3 col-form-label' style='padding-right:0px'>
+		                       	<label style='width:70%'>기대결과</label>
+		                       	<i class='bx bxs-plus-circle' style='font-size:25px; color:purple'></i>
+		                    </div>
+	                        <div class="col-md-9" style='margin-bottom:15px'>
+	                        	<input class="form-control" name="classResult" type="text" />
 	                        </div>
 	                    </div>
                     </div> 
@@ -185,11 +187,26 @@
 					}
 					
 					
+					//기대결과 input 추가
 					$(function(){
-						$("#plus").click(function() {
-						    $("#input-box").append("<div class='col-md-9'><input class='form-control' type='text' id='html5-text-input' /></div>");
+						$(".bxs-plus-circle").click(function() {
+							
+							var html = "";
+							html += "<div for='html5-text-input' class='col-md-3 col-form-label' style='padding-right:0px'><label style='width:72%'></label>"
+							      + "<i class='bx bxs-minus-circle' style='font-size:25px; color:purple'></i></div>"
+							      + "<div class='col-md-9' style='margin-bottom:15px'><input class='form-control' name='classResult' type='text' /></div>";
+							      
+						    $(".input-box").append(html);
 						})
-					}	
+					})	
+					
+					//기대결과 input 삭제
+					$(document).on("click", ".bxs-minus-circle", function(){
+						
+						$(this).parent().next().remove();
+						$(this).parent().remove();
+						
+					})
 					</script>	
 					
 					

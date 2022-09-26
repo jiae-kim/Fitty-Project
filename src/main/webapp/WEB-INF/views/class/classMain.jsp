@@ -86,6 +86,8 @@
   .cal{
   	height:90%
   }	
+  
+  .arrow:hover{color:purple; cursor:pointer};
 	
 </style>
 </head>
@@ -96,26 +98,84 @@
 
 <!-- 내용 감싸는 전체 wrap -->
 <div class="content-wrapper">
-<div class="container-xxl flex-grow-1 container-p-y" style="padding:0px;">
+<div class="container-xxl flex-grow-1 container-p-y" style="padding:0px; margin-top:-45px">
 <div class="row">
 <div class="col-xl-12">
 <div class="nav-align-top mb-4"><br>
 	
 <div class="row">
 	
-	
-
-	
+	<%-- 
+	<c:set var="date" value="<%=new java.util.Date()%>" />
+	<fmt:formatDate var="exDate" value="${date}" pattern="yy/MM/dd" />
+	 --%>
+	 
 	 <!-- 1. 회원카드 -->
-	<div class="col-md-2 col-12 mb-md-0 mb-4" style="height:758px">
-	<div class="card" align="center">
+	<div class="col-md-2 col-12 mb-md-0 mb-4">
+	<div class="card" align="center" style="min-height:758px">
 		<div class="card-header">
-			<img src="resources/profile_images/defaultProfile.png" alt="" class="w-px-50 h-auto rounded-circle"> 
-			<label></label>
+			<div style='font-size:17px; font-weight:600; background:lavender'>회원정보</div><br>
+			<img src="resources/upload_profileImg/22092315545910883.jpg" class="w-px-50 h-auto rounded-circle" style='width:100px !important'><br>
+			<label>${c.userName }</label> (<label id="age"></label> / <label>${c.userGender }</label>) <br>
+			<label id="phone" style='font-size:15px'></label><br>
+			<label style='font-size:15px'>160 cm</label>
+			<label style='font-size:15px'>45 kg</label><br><br>
+			<label style='font-size:15px; font-weight:600'>예약일 : 2022-09-26</label><br>
+			<button type="button" class="btn btn-primary">출석</button>
+			<button type="button" class="btn btn-secondary">결석</button>
+			
 		</div>
-        <div class="card-body">내용</div>
+		
+        <div class="card-body">
+        	<div style='font-size:17px; font-weight:600; background:lavender'>수업정보 및 목표</div><br>
+        	<label>남은회차 : 27/30</label><br><br>
+        	<label>수업시작일 : 2022-09-01</label><br><br>
+        	<label style='font-size:15px; font-weight:600'>수업목표 : ${c.classGoal }</label><br>
+        	<label style='font-size:15px; font-weight:600'>기대결과 :  ${c.classResult}</label><br><br>
+        	<div class="progress" style='height:30px'>
+	          <div class="progress-bar bg-info" role="progressbar" style="width: 87%;" aria-valuenow="87" aria-valuemin="0" aria-valuemax="100">87%</div>
+	        </div>
+        </div>
 	</div>
 	</div>
+	
+	
+	
+	
+	<script>
+	
+		//생년월일로 만나이 계산
+		let birth = "${c.userBirth}";
+
+		let year = birth.substr(0, 2);
+		let y = Number("19" + year);
+		let m = Number(birth.substr(2, 2));
+		let d = Number(birth.substr(4, 2));
+		
+		let tod = new Date();
+		let birthDate = new Date(y, m-1, d); // 2000년 8월 10일 
+		console.log(birthDate);
+		
+	
+		let age = tod.getFullYear() - birthDate.getFullYear();
+		const mon = tod.getMonth() - birthDate.getMonth();
+		if (mon < 0 || (mon === 0 && tod.getDate() < birthDate.getDate())) {
+		    age--;
+		}
+		
+		$("#age").text(age);
+		
+		//
+		let phone = "${c.userPhone}";
+		let a = phone.substr(0, 3);
+		let b = phone.substr(4, 4);
+		let c = phone.substr(5, 4);
+		
+		let userPhone = a + " - " + b + " - " + c;
+		
+		$("#phone").text(userPhone);
+	</script>
+	
 	
 	 
 	
@@ -151,7 +211,7 @@
            		calrendarMaker();
             })
 		
-            $(document).on("click", ".next", function() { // 이전달
+            $(document).on("click", ".next", function() { // 다음달
                 today = new Date ( today.getFullYear(), today.getMonth()+1, today.getDate());
                 dd = today.getDate(); //오늘의 일
                 mm = today.getMonth()+1;  //오늘에 해당하는 월
@@ -189,9 +249,17 @@
 				var d = data.d; //diet리스트
 				var e = data.e; //exercise리스트
 				
+				var all = data.all; //각 일자별 전체 운동 갯수
+				var com = data.com; //각 일자별 운동완료한 갯수
+				
 				console.log(d);
 				console.log(e);
+				console.log(all);
+				console.log(com);
 				
+				
+				var now = new Date();	// 현재 날짜 및 시간
+				var mn = now.getMonth()+1;
 				
 					// 달력 연도
 		            var calendarYear = today.getFullYear();
@@ -214,10 +282,11 @@
 		            var html = "";
 		                html += "<div align='center' class='calMove'>";
 		                
-		                html += "<button type='button' class='pre'><i class='tf-icon bx bx-chevron-left'></i></button> &nbsp;&nbsp;&nbsp;";
-		                html += "<label class='mm'>" + calendarMonth + "월</label> &nbsp;&nbsp;&nbsp;";
-		                html += "<button type='button' class='next'><i class='tf-icon bx bx-chevron-right'></i></button>";
 		                
+		                html += "<button type='button' class='pre' style='border:none; background:none;'><i class='bx bxs-left-arrow arrow' style='color:lavender'></i></button>";
+		                html += " &nbsp;&nbsp;&nbsp;<label class='mm'>" + calendarMonth + "월</label> &nbsp;&nbsp;&nbsp;";
+		                html += "<button type='button' class='next' style='border:none; background:none;'><i class='bx bxs-right-arrow arrow' style='color:lavender'></i></button>";
+
 		                html += "</div><br>";
 		                
 		                html += "<table class='calrendar'>";
@@ -240,18 +309,19 @@
 		                    if (calendarMonthStartDay <= calendarPos && calendarDay < calendarMonthLastDate) {
 		                    	calendarDay++;
 		                      
-		                      	if(calendarDay == calendarToday){
-		                      		html += "<div class='div' style='background-color:lavender'>"
+		                      	if(calendarDay == calendarToday && calendarMonth == mn){
+		                      		html += "<div class='div' style='width: 99%; height: 103%; border: 5px solid #9a9cf76e;'>"
 		                      			  + "<span>" + calendarDay + "</span>";
 		                      	}else{
 			                      	html += "<div class='div'><span>" + calendarDay + "</span>";
 		                      	}
 		                      	
-		                      	html += "<div class='day'>";
+		                      	html += "<div class='day'><div class='diet' style='background:#fcffceab;'>";
 		                      	
-		                      	//조회해온 리스트의 각 날짜와 div 안의 날짜가 같을 경우 반복문을 돌려 뿌려지도록
+		                      		//조회해온 리스트의 각 날짜와 div 안의 날짜가 같을 경우 반복문을 돌려 뿌려지도록
 			                      	for(let i in d){
-			                      		if( (yy + "/" + mm + "/" + calendarDay) == d[i].dietDate){
+			                      		if( (yy + "/" + mm + "/" + calendarDay) == d[i].dietDate ){
+ 			                      	/* html += "식단 "; */
 			                      			if(d[i].bfImage != null){
 			                      				html += "🍋";
 			                      			}				                      			
@@ -267,6 +337,22 @@
 			                      			/* html += "<div style='background:purple; border-radius:70%; width:15px; height:15px; margin:auto; float:left'></div>" */
 			                      		}
 			                      	}
+		                        html += "</div><div class='exercise' style='background:#c75ef621'>";
+		                      		
+		                      		//각 일자별 진행률 보여주기
+	                      			//완료
+		                      		for(let i in com){ 
+		                      			if( (yy + "/" + mm + "/" + calendarDay) == com[i].exDate ){
+		                      				html += "운동 <label style='font-weight:500'>" + com[i].exSet + "</label> / ";
+		                      			}
+		                      		}
+	                      			//전체
+		                      		for(let i in all){ 
+		                      			if( (yy + "/" + mm + "/" + calendarDay) == all[i].exDate ){
+		                      				html += "<label style='font-weight:500'>" + all[i].exCount + "</label>";
+		                      			}
+		                      		}
+		                      	html += "</div>";
 		                      	
 		                       	html += "</div>"
 		                              + "</div></div>";
@@ -280,11 +366,9 @@
 		                }
 		                html += "</tbody>";
 		                html += "</table></div>";
+		                console.log(html);
 		                
 		                $("#calendar").html(html);
-		                
-		                
-		                
 		                
 		                
 		                $(".div").click(function(){
@@ -314,8 +398,6 @@
 		                    
 		                    
 		                    
-		                    /* location.href = 'dietDetail.cl?dietDate=' + dietDate + '&classNo=${classNo}'; */
-		                    
 		                    
 		                    if(clickDate < t){ //오늘 이후의 날짜는 클릭되지 않도록
 		                       	location.href = 'exercise.cl?classNo=${classNo}&exDate=' + clDate;
@@ -332,6 +414,8 @@
 			})
                 
 		}
+		
+		
 		
         </script>
 		

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.project.fitty.ptclass.model.vo.Exercise;
 import com.project.fitty.ptclass.model.vo.PtClass;
 import com.project.fitty.ptclass.model.vo.Reply;
+import com.project.fitty.schedule.model.vo.Booking;
 import com.project.fitty.user.model.vo.User;
 import com.project.fitty.userClass.model.vo.Diet;
 
@@ -14,12 +15,18 @@ public interface ClassService {
 	//수업등록 페이지 내 회원조회
 	User selectUser(int userNo);
 	
+	
 	//수업등록
 	int insertClass(PtClass pt);
 	
+	
 	//수업등록 완료 상태로 변경
 	int updateStatus(int userNo);
+	
 
+	//내 예약확인
+	ArrayList<Booking> selectBooking(String empNo);
+	
 	
 	//내 회원 리스트 조회
 	ArrayList<User> selectUserList(String empNo);
@@ -29,12 +36,37 @@ public interface ClassService {
 	int insertExercise(Exercise e);
 	
 	
+	//트레이너 피드백 등록
+	int updateFeedback(Exercise e);
+	
+	
+	//피드백 조회
+	Exercise selectFeedback(Exercise e);
+	
+	
+	//회원카드 조회
+	PtClass selectUserInfo(int classNo);
+	
+	
 	//해당 회원의 모든 운동내역 조회 (달력에 뿌릴)
 	ArrayList<Exercise> selectExercise(int classNo);
 	
 	
+	//달력에 뿌릴 각 일자별 운동 진행률
+	ArrayList<Exercise> selectAll(int classNo);
+	ArrayList<Exercise> selectCom(int classNo);
+	
+	
 	//특정 회원의 운동내역 중 선택된 날짜의 운동만을 조회
 	ArrayList<Exercise> selectExerciseList(Exercise e);
+	
+	
+	//운동 진행률 조회
+	int selectExAll(Exercise e);
+	
+	
+	//완료된 운동 조회
+	int selectComplete(Exercise e);
 	
 	
 	//운동 수정을 위한 조회

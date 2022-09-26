@@ -19,8 +19,6 @@
 		<typeAlias type="com.project.fitty.machine.model.vo.Machine" alias="Machine"/>
 		<typeAlias type="com.project.fitty.locker.model.vo.Locker" alias="Locker"/>
 		<typeAlias type="com.project.fitty.alert.model.vo.Alert" alias="Alert"/>
-		<!-- <typeAlias type="com.project.fitty.mail.model.vo.Semail" alias="Semail"/> -->
-		<!-- <typeAlias type="com.project.fitty.mail.model.vo.Remail" alias="Remail"/> -->
 		<typeAlias type="com.project.fitty.email.model.vo.Email" alias="Email"/>
 		<typeAlias type="com.project.fitty.email.model.vo.EmailStatus" alias="EmailStatus"/>
 		<typeAlias type="com.project.fitty.email.model.vo.File" alias="Efile"/>
@@ -28,10 +26,10 @@
 		<typeAlias type="com.project.fitty.approval.model.vo.ApprovalMember" alias="ApprovalMember"/>
 		<typeAlias type="com.project.fitty.vacation.model.vo.Vacation" alias="Vacation"/>
 		<typeAlias type="com.project.fitty.userClass.model.vo.UserClass" alias="UserClass" />
-		<typeAlias type="com.project.fitty.userClass.model.vo.UserClass" alias="UserClass" />
 		<typeAlias type="com.project.fitty.userClass.model.vo.Diet" alias="Diet" />
 		<typeAlias type="com.project.fitty.ptclass.model.vo.Reply" alias="Reply" />
 		<typeAlias type="com.project.fitty.ptclass.model.vo.Exercise" alias="Exercise" />
+		<typeAlias type="com.project.fitty.ptclass.model.vo.PtClass" alias="PtClass" />
 		<typeAlias type="com.project.fitty.approval.model.vo.ApprVacation" alias="ApprVacation"/>
 		<typeAlias type="com.project.fitty.approval.model.vo.ApprOvertime" alias="ApprOvertime"/>
 		<typeAlias type="com.project.fitty.approval.model.vo.ApprExpense" alias="ApprExpense"/>

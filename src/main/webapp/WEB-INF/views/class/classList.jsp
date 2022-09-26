@@ -18,7 +18,7 @@ justify-content: center;
 
 	<!-- 내용 감싸는 전체 wrap -->
 	<div class="content-wrapper">
-	  <div class="container-xxl flex-grow-1 container-p-y" style="padding:0px;">
+	  <div class="container-xxl flex-grow-1 container-p-y" style="padding:0px; margin-top:-25px">
 	    <div class="row">
 	      <div class="col-xl-12">
 	
@@ -38,10 +38,10 @@ justify-content: center;
 	                        	<th width="5%">회원번호</th>
 	                        	<th width="10%">이름</th>
 	                        	<th width="10%">성별</th>
-	                        	<th width="10%">나이</th>
+	                        	<th width="10%">생년월일</th>
 	                        	<th width="20%">전화번호</th>
-	                        	<th width="20%">최근방문일</th>
-	                        	<th width="20%">잔여횟수</th>
+	                        	<th width="20%">수업등록일</th>
+	                        	<th width="20%">등록횟수</th>
 	                        </tr>
                         </thead>
 
@@ -97,13 +97,13 @@ justify-content: center;
 		              <li class="page-item prev">
 		                <a class="page-link" href="javascript:void(0);"><i class="tf-icon bx bx-chevron-left"></i></a>
 		              </li>
-		              <li class="page-item">
+		              <li class="page-item active">
 		                <a class="page-link" href="javascript:void(0);">1</a>
 		              </li>
 		              <li class="page-item">
 		                <a class="page-link" href="javascript:void(0);">2</a>
 		              </li>
-		              <li class="page-item active">
+		              <li class="page-item">
 		                <a class="page-link" href="javascript:void(0);">3</a>
 		              </li>
 		              <li class="page-item">

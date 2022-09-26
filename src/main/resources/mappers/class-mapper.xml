@@ -33,6 +33,43 @@
 	</resultMap>
 	
 	
+	<resultMap type="PtClass" id="classResult">
+		<result column="user_no" property="userNo" />
+		<result column="cl_no" property="classNo" />
+		<result column="emp_no" property="empNo" />
+		<result column="user_height" property="userHeight" />
+		<result column="user_weight" property="userWeight" />
+		<result column="cl_sdate" property="classStartDate" />
+		<result column="cl_count" property="classCount" />
+		<result column="cl_goal" property="classGoal" />
+		<result column="cl_result" property="classResult" />
+		<result column="user_name" property="userName" />
+		<result column="user_phone" property="userPhone" />
+		<result column="user_gender" property="userGender" />
+		<result column="user_birth" property="userBirth" />
+		<result column="user_profile_url" property="uProfile" />
+	</resultMap>
+	
+	
+	
+	
+	<resultMap type="Exercise" id="exerciseResult">
+		<result column="cl_no" property="classNo" />
+		<result column="ex_date" property="exDate" />
+		<result column="ex_writer" property="exWriter" />
+		<result column="ex_title" property="exTitle" />
+		<result column="ex_count" property="exCount" />
+		<result column="ex_set" property="exSet" />
+		<result column="ex_coment" property="exComent" />
+		<result column="ex_link" property="exLink" />
+		<result column="ex_status" property="exStatus" />
+		<result column="ex_no" property="exNo" />
+		<result column="ex_weight" property="exWeight" />
+	</resultMap>
+	
+	
+	
+	
 	<resultMap type="Diet" id="dietResult">
 		<result column="di_no" property="dietNo" />
 		<result column="cl_no" property="classNo" />
@@ -48,19 +85,20 @@
 		<result column="di_re_img" property="reImage" />
 		<result column="user_no" property="userNo" />
 	</resultMap>
-
-
-	<resultMap type="Exercise" id="exerciseResult">
-		<result column="cl_no" property="classNo" />
-		<result column="ex_date" property="exDate" />
-		<result column="ex_writer" property="exWriter" />
-		<result column="ex_title" property="exTitle" />
-		<result column="ex_count" property="exCount" />
-		<result column="ex_set" property="exSet" />
-		<result column="ex_coment" property="exComent" />
-		<result column="ex_link" property="exLink" />
-		<result column="ex_status" property="exStatus" />
-		<result column="ex_no" property="exNo" />
+	
+	
+	
+	<resultMap type="Booking" id="bookingResult">
+		<result column="book_no" property="bookNo" />
+		<result column="cl_no" property="clNo" />
+		<result column="user_no" property="userNo" />
+		<result column="emp_no" property="empNo" />
+		<result column="book_date" property="bookDate" />
+		<result column="book_stime" property="bookStime" />
+		<result column="book_etime" property="bookEtime" />
+		<result column="cl_status" property="clStatus" />
+		<result column="user_name" property="userName" />
+		<result column="emp_name" property="empName" />
 	</resultMap>
 
 
@@ -117,6 +155,27 @@
 	</update>
 	
 	
+	<!-- 예약확인 -->
+	<select id="selectBooking" resultMap="bookingResult">
+		select   
+			   book_no    
+	         , user_no
+	         , user_name
+	         , emp_name
+	         , cl_no
+	         , book_date
+	         , book_stime
+	         , book_etime
+	         , book_status
+	         , cl_status
+	      from tb_booking
+	      join tb_user using(user_no)
+		  join tb_emp using(emp_no)
+		 where emp_no = #{empNo}
+	      
+	</select>
+	
+	
 	
 	<select id="selectUserList" resultMap="userResult">
 		select 
@@ -136,6 +195,30 @@
 	
 	
 	
+	<!-- 회원 카드에 담길 내용 조회 -->
+	<select id="selectUserInfo" resultMap="classResult">
+		select user_no
+			 , cl_no
+			 , emp_no
+			 , user_height
+			 , user_weight
+			 , cl_sdate
+			 , cl_count
+			 , cl_goal
+			 , cl_result
+			 , user_name
+			 , user_phone
+			 , user_gender
+			 , user_birth
+			 , user_profile_url
+		  from tb_class
+		  join tb_user using(user_no)
+		 where cl_no = #{classNo}
+		   and user_status = 'Y'
+	</select>
+	
+	
+	
 	<!-- 해당 회원의 모든 운동내역 조회 (달력에 뿌릴)-->
 	<select id="selectExercise" resultMap="exerciseResult">
 		select cl_no
@@ -148,10 +231,33 @@
 			 , ex_link
 			 , ex_status
 			 , ex_no
+			 , ex_weight
 		  from tb_exercise
 		 where cl_no = #{classNo}
 		 order
 		    by ex_no
+	</select>
+	
+	
+	<!-- 각 일자별 진행률을 위한 조회 -->
+	<select id="selectAll" resultMap="exerciseResult">
+		select count(*) as ex_count
+		     , ex_date
+		  from tb_exercise
+		 group 
+		    by ex_date
+	    having count(*) > 0
+	</select>
+	
+	<select id="selectCom" resultMap="exerciseResult">
+		select count(*) as ex_set
+		     , ex_date
+		     , ex_status
+		  from tb_exercise
+		 where ex_status = 'Y'
+		 group 
+		    by ex_date, ex_status
+		having count(*) > 0
 	</select>
 	
 	
@@ -169,12 +275,34 @@
 			 , ex_link
 			 , ex_status
 			 , ex_no
+			 , ex_weight
 		  from tb_exercise
 		 where cl_no = #{classNo}
 		   and ex_date = #{exDate}
 		 order
 		    by ex_no
 	</select>
+	 
+	 
+	 
+	 <!-- 전체 운동 갯수 조회 -->
+	 <select id="selectExAll" resultType="_int">
+	 	select count(*)
+	 	  from tb_exercise
+	 	 where cl_no = #{classNo}
+	 	   and ex_date = #{exDate}
+	 </select>
+	 
+	 <!-- 완료된 운동 갯수 조회 -->
+	 <select id="selectComplete" resultType="_int">
+	 	select count(*)
+	 	  from tb_exercise
+	 	 where cl_no = #{classNo}
+	 	   and ex_date = #{exDate}
+	 	   and ex_status = 'Y'
+	 </select>
+	 
+	 
 	 
 	 
 	<!-- 수정을 위해 특정 운동만을 조회 -->
@@ -185,16 +313,31 @@
 			 , ex_title
 			 , ex_count
 			 , ex_set
-			 , ex_coment
 			 , ex_link
 			 , ex_status
 			 , ex_no
+			 , ex_weight
 		  from tb_exercise
 		 where ex_no = #{exNo}
 	</select>
 	
 	 
 	 
+	<!-- 트레이너 피드백 등록 -->
+	<update id="updateFeedback">
+		update tb_exercise
+		   set ex_coment = #{exComent}
+		 where cl_no = #{classNo}
+		   and ex_date = #{exDate}
+	</update>
+	
+	<select id="selectFeedback" resultMap="exerciseResult">
+		select distinct ex_coment
+		  from tb_exercise
+		 where ex_date = #{exDate}
+		   and cl_no = #{classNo}
+	</select>
+	
 	 
 	<insert id="insertExercise">
 		insert
@@ -206,25 +349,26 @@
 		  , ex_title
 		  , ex_count
 		  , ex_set
-		  , ex_coment
 		  , ex_link
 		  , ex_status
 		  , ex_no
+		  , ex_weight
 		  )
 		  values
 		  (
 		  	#{classNo}
-		  , to_char(sysdate, 'YY/MM/DD')
+		  , #{exDate}
 		  , #{exWriter}
 		  , #{exTitle}
 		  , #{exCount}
 		  , #{exSet}
-		  , #{exComent}
 		  , #{exLink}
 		  , 'N'
 		  , seq_exno.nextval
+		  , #{exWeight}
 		  )
 	</insert>
+	
 	
 	
 	<update id="updateCheck">
@@ -250,6 +394,7 @@
 		     , ex_set = #{exSet}
 		     , ex_coment = #{exComent}
 		     , ex_status = 'N'
+		     , ex_weight = #{exWeight}
 		 where ex_no = #{exNo}
 	</update>
 	

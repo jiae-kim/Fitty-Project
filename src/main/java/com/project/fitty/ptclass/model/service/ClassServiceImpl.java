@@ -10,6 +10,7 @@ import com.project.fitty.ptclass.model.dao.ClassDao;
 import com.project.fitty.ptclass.model.vo.Exercise;
 import com.project.fitty.ptclass.model.vo.PtClass;
 import com.project.fitty.ptclass.model.vo.Reply;
+import com.project.fitty.schedule.model.vo.Booking;
 import com.project.fitty.user.model.vo.User;
 import com.project.fitty.userClass.model.vo.Diet;
 
@@ -40,11 +41,24 @@ public class ClassServiceImpl implements ClassService{
 	public int updateStatus(int userNo) {
 		return cDao.updateStatus(sqlSession, userNo);
 	}
+	
+	//예약확인
+	@Override
+	public ArrayList<Booking> selectBooking(String empNo) {
+		return cDao.selectBooking(sqlSession, empNo);
+	}
+
 
 	//내 회원 리스트 조회
 	@Override
 	public ArrayList<User> selectUserList(String empNo) {
 		return cDao.selectUserList(sqlSession, empNo);
+	}
+	
+	//회원카드 조회
+	@Override
+	public PtClass selectUserInfo(int classNo) {
+		return cDao.selectUserInfo(sqlSession, classNo);
 	}
 	
 	
@@ -55,10 +69,37 @@ public class ClassServiceImpl implements ClassService{
 	}
 
 	
+	//달력에 뿌릴 각 일자별 운동 진행률
+	@Override
+	public ArrayList<Exercise> selectAll(int classNo) {
+		return cDao.selectAll(sqlSession, classNo);
+	}
+	@Override
+	public ArrayList<Exercise> selectCom(int classNo) {
+		return cDao.selectCom(sqlSession, classNo);
+	}
+
+	
+
+	
 	//운동 리스트 조회 (오늘날짜)
 	@Override
 	public ArrayList<Exercise> selectExerciseList(Exercise e) {
 		return cDao.selectExerciseList(sqlSession, e);
+	}
+	
+	
+	//운동 진행률 조회
+	@Override
+	public int selectExAll(Exercise e) {
+		return cDao.selectExAll(sqlSession, e);
+	}
+	
+	
+	//완료된 운동 갯수 조회
+	@Override
+	public int selectComplete(Exercise e) {
+		return cDao.selectComplete(sqlSession, e);
 	}
 	
 	
@@ -69,6 +110,18 @@ public class ClassServiceImpl implements ClassService{
 	}
 
 	
+	//트레이너 피드백 등록
+	@Override
+	public int updateFeedback(Exercise e) {
+		return cDao.updateFeedback(sqlSession, e);
+	}
+
+	//피드백 조회
+	@Override
+	public Exercise selectFeedback(Exercise e) {
+		return cDao.selectFeedback(sqlSession, e);
+	}
+
 	//운동 등록
 	@Override
 	public int insertExercise(Exercise e) {
@@ -130,5 +183,4 @@ public class ClassServiceImpl implements ClassService{
 		return cDao.deleteReply(sqlSession, replyNo);
 	}
 
-	
 }
