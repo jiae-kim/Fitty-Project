@@ -313,8 +313,7 @@
                </table>
                <span style="margin-left:30px;">* 영수증 별도 제출</span><br><br>
                <div>
-                 <span style="margin-left:40px;">파일 첨부</span>
-                 <div class="addfile"><span style="color:gray; font-size:small;">파일선택</span></div>
+                 <span style="margin-left:40px;">첨부파일</span>
                </div>
                <br><br><br>
              </div>
