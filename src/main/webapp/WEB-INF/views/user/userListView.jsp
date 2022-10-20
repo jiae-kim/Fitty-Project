@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -11,11 +10,11 @@
 
 /* 검색바 스타일 */
 #sel{
-	  width:110px; 
-	  font-size:13px; 
-	  height:45px;
-	  border:1px solid lightgray;
-	  border-radius:5px;
+  width:110px; 
+  font-size:13px; 
+  height:45px;
+  border:1px solid lightgray;
+  border-radius:5px;
 }
 	
 #search{
@@ -51,20 +50,20 @@
                         
                         <!-- 검색 기능 -->
                         <div align="center">
-                          <form action="search.ur" method="post">
-                          <input type="hidden" name="cpage" value="1">
-                          <!-- 검색 카테고리 -->
-				          <select class="custom-select" name="condition" id="sel">
-		                        <option value="name">이름</option>
-		                        <option value="type">이용권</option>
-		                    </select>
-		                    <!-- 검색 창, 버튼 -->
-				          	<input type="text" name="keyword" id="search" value="${keyword}" placeholder="검색 내용을 입력하세요"><button type="submit" id="s-btn" class="btn-primary">
-				            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-				            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-				            </svg>
-				          </button>
-				          </form>
+							<form action="search.ur" method="post">
+							<input type="hidden" name="cpage" value="1">
+							<!-- 검색 카테고리 -->
+							<select class="custom-select" name="condition" id="sel">
+								<option value="name">이름</option>
+								<option value="type">이용권</option>
+							</select>
+							<!-- 검색 창, 버튼 -->
+							<input type="text" name="keyword" id="search" value="${keyword}" placeholder="검색 내용을 입력하세요"><button type="submit" id="s-btn" class="btn-primary">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+								<path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+							</svg>
+							</button>
+							</form>
 				        </div><br><br><br>
 						
 						<!-- 회원 리스트 -->
@@ -152,7 +151,6 @@
                         <!-- 페이징 -->
                         <nav aria-label="Page navigation">
                             <ul class="pagination justify-content-center">
-                            <!-- 현재 내가 보고있는 페이지가 1페이지가 아닐경우에만 [이전]버튼 보임 -->
                             <c:choose>
                             	<c:when test="${pi.currentPage eq 1}">
 	                                <li class="page-item disabled">
@@ -160,14 +158,13 @@
 	                                </li>
 	                            </c:when>
 	                            <c:otherwise>
-	                            	 <li class="page-item prev">
+									<li class="page-item prev">
 	                                    <a class="page-link" href="list.ur?cpage=${pi.currentPage - 1}"><i class="tf-icon bx bx-chevrons-left"></i></a>
 	                                </li>
 	                            </c:otherwise>
-	                         </c:choose>
+							</c:choose>
 	                         
-	                         <!-- 반복문 돌려서 페이지 숫자 생성 -->
-	                         <c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
+							<c:forEach var="p" begin="${pi.startPage}" end="${pi.endPage}">
 	                         	<c:choose>
 	                         		<c:when test="${empty condition}">
                                 		<li class="page-item"><a class="page-link" href="list.ur?cpage=${p}">${p}</a></li>
@@ -179,7 +176,6 @@
                                 </c:choose>
 							</c:forEach>
 							
-							<!-- 현재 내가 보고있는 페이지가 마지막 페이지가 아닐경우에만 [다음]버튼 보임 -->
 							<c:choose>
 								<c:when test="${pi.currentPage eq pi.maxPage}">                                
 	                                <li class="page-item disabled">
@@ -194,7 +190,6 @@
 	                        </c:choose>
                             </ul>
                         </nav>
-                        
                     </div>
                 </div>
             </div>
