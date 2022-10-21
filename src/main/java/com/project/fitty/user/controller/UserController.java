@@ -38,7 +38,6 @@ public class UserController {
 		// db에 있는 이용권 조회해서 mv에 담아 등록페이지 포워딩
 		ArrayList<Product> product = pService.selectProList();
 		
-		//System.out.println(product);
 		mv.addObject("product", product)
 		  .setViewName("user/userEnrollForm");
 		
@@ -48,8 +47,7 @@ public class UserController {
 	// [김지애] 1. 회원등록 서비스 (FileUpload)
 	@RequestMapping("insert.ur")
 	public String insertUser(User u, MultipartFile upfile, Model model, HttpSession session) {
-		
-		if(!upfile.getOriginalFilename().equals("")) {
+	    if(!upfile.getOriginalFilename().equals("")) {
 			String saveFilePath = FileUpload.saveFile(upfile, session, "resources/upload_profileImg/");
 			u.setUserProfileUrl(saveFilePath);
 		}
@@ -72,8 +70,6 @@ public class UserController {
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		ArrayList<User> list = uService.selectList(pi);
-		
-		//System.out.println(list);
 		
 		mv.addObject("pi", pi)
 		  .addObject("list", list)
@@ -111,16 +107,12 @@ public class UserController {
 			session.setAttribute("alertMsg", "❌ 회원정보 수정에 실패했습니다 ❌");
 			return "common/errorPage";
 		}
-		
 	}
 	
 	// [김지애] 5. 회원 프로필이미지 변경 서비스 (ajax)
 	@ResponseBody
 	@RequestMapping("uploadProfile.ur") 
 	public void ajaxUploadProfile(MultipartFile uploadFile, User u, String originalFile, HttpSession session) { 
-		//System.out.println(u.getUserNo());
-		//System.out.println(uploadFile);
-	  
 		if(uploadFile != null) {// 넘어온 파일이 있을 경우
 			// 저장경로 : 넘기려는 파일, session, 저장위치
 			String saveFilePath = FileUpload.saveFile(uploadFile, session, "resources/upload_profileImg/");
@@ -129,9 +121,6 @@ public class UserController {
 			int result = uService.uploadProfileImg(u);
 			
 			if(result > 0) {// db에 사진 변경 성공
-				// db에 업데이트 :번호, 사진만 
-				//u.setUserNo(result);
-
 				// 기존 프로필 이미지가 있었을 경우 : 기존 프로필 이미지 삭제
 				if(!originalFile.equals("")){ 
 					new File(session.getServletContext().getRealPath(originalFile)).delete();
@@ -145,13 +134,11 @@ public class UserController {
 	public String deleteUser(int userNo, String filePath, HttpSession session) {
 		int result = uService.deleteUser(userNo);
 		
-		if(result >0) {// db에서 삭제 성공 ('N'으로 변경)
-			
+		if(result >0) {// 회원번호 전달 받아 'N'으로 변경
 			if(!filePath.equals("")) {
 				// 첨부파일이 있을 경우 => 파일 삭제
 				new File(session.getServletContext().getRealPath(filePath)).delete();
 			}
-			
 			session.setAttribute("alertMsg", "✔ 성공적으로 회원정보가 삭제되었습니다 ✔");
 			return "redirect:list.ur";
 		}else {
@@ -166,7 +153,6 @@ public class UserController {
 	public String ajaxTelCheck(String checkTel) {
 		// 사용자가 입력했던 전화번호값 == 중복확인해볼 전화번호
 		int count = uService.telCheck(checkTel);
-		
 		return count > 0 ? "fail" : "success";
 	}
 	

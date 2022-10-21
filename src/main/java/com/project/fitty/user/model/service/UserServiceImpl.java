@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	private UserDao uDao;
 
-	@Override // [김지애] 1. 회원등록 서비스
+	@Override // [김지애] 1. 회원등록 서비스 (FileUpload)
 	public int insertUser(User u) {
 		return uDao.insertUser(sqlSession, u);
 	}

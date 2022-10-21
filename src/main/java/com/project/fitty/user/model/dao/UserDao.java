@@ -14,7 +14,7 @@ import com.project.fitty.user.model.vo.User;
 @Repository
 public class UserDao {
 
-	// [김지애] 1. 회원등록 서비스
+	// [김지애] 1. 회원등록 서비스 (FileUpload)
 	public int insertUser(SqlSessionTemplate sqlSession, User u) {
 		return sqlSession.insert("userMapper.insertUser", u);
 	}
@@ -42,7 +42,7 @@ public class UserDao {
 		return sqlSession.update("userMapper.updateUser", u);
 	}
 
-	// [김지애] 5. 회원 프로필이미지 변경 서비스 
+	// [김지애] 5. 회원 프로필이미지 변경 서비스 (ajax)
 	public int uploadProfileImg(SqlSessionTemplate sqlSession, User u) {
 		return sqlSession.update("userMapper.uploadProfileImg", u);
 	}
@@ -52,12 +52,12 @@ public class UserDao {
 		return sqlSession.update("userMapper.deleteUser", userNo);
 	}
 
-	// [김지애] 7. 회원등록 시 전화번호 중복체크
+	// [김지애] 7. 회원등록 시 전화번호 중복체크 (ajax)
 	public int telCheck(SqlSessionTemplate sqlSession, String userPhone) {
 		return sqlSession.selectOne("userMapper.telCheck", userPhone);
 	}
 
-	// [김지애] 8. 회원 검색
+	// [김지애] 8. 회원 검색 (페이징)
 	public int selectSearchCount (SqlSessionTemplate sqlSession, String condition, String keyword) {
 		HashMap<String,String> map = new HashMap<>();
 		map.put("condition", condition);
@@ -66,7 +66,6 @@ public class UserDao {
 		return sqlSession.selectOne("userMapper.selectSearchCount", map);
 	}
 
-	// [김지애] 8. 회원 검색 (페이징)
 	public ArrayList<User> selectSearchList(SqlSessionTemplate sqlSession, String condition, 
 										    String keyword, PageInfo pi) {
 		HashMap<String,String> map = new HashMap<>();
