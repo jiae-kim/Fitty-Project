@@ -10,30 +10,28 @@
 
 /* 검색바 스타일 */
 #sel{
-  width:110px; 
-  font-size:13px; 
-  height:45px;
-  border:1px solid lightgray;
-  border-radius:5px;
+	width:110px; 
+	font-size:13px; 
+	height:45px;
+	border:1px solid lightgray;
+	border-radius:5px;
 }
-	
 #search{
-  width:300px;
-  font-size:14px; 
-  height:45px;
-  border:1px solid lightgray;
-  border-top-left-radius:5px;
-  border-bottom-left-radius:5px;
-  border-right:0px;
+	width:300px;
+	font-size:14px; 
+	height:45px;
+	border:1px solid lightgray;
+	border-top-left-radius:5px;
+	border-bottom-left-radius:5px;
+	border-right:0px;
 }
-
 #s-btn{
-  width:35px;
-  height:45px;
-  border:1px solid lightgray;
-  border-top-right-radius:5px;
-  border-bottom-right-radius:5px;
-  border-left:0px;
+	width:35px;
+	height:45px;
+	border:1px solid lightgray;
+	border-top-right-radius:5px;
+	border-bottom-right-radius:5px;
+	border-left:0px;
 }
 </style>
 </head>
@@ -46,7 +44,7 @@
             <div class="col-xl-12">
                 <div class="nav-align-top mb-4">
                     <div class="tab-content" style="height: 750px;">
-                        <h5 class="text-muted">🙍‍♀️ 회원관리 - 회원 조회</h5><br>
+                        <h5 class="text-muted">🙍‍♀️ 회원관리 - 회원 조회</h5><br><br>
                         
                         <!-- 검색 기능 -->
                         <div align="center">
@@ -57,6 +55,7 @@
 								<option value="name">이름</option>
 								<option value="type">이용권</option>
 							</select>
+							&nbsp;
 							<!-- 검색 창, 버튼 -->
 							<input type="text" name="keyword" id="search" value="${keyword}" placeholder="검색 내용을 입력하세요"><button type="submit" id="s-btn" class="btn-primary">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
@@ -64,7 +63,7 @@
 							</svg>
 							</button>
 							</form>
-				        </div><br><br><br>
+				        </div><br><br><br><br>
 						
 						<!-- 회원 리스트 -->
                         <div class="card row">
@@ -101,7 +100,7 @@
 		                                    <td>
 		                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
 		                                            <li data-bs-toggle="tooltip" data-popup="tooltip-custom" data-bs-placement="top" class="avatar avatar-xs pull-up" title="${u.userGender}">
-		                                            <img src="<c:out value='${u.userProfileUrl}' default='resources/profile_images/defaultProfile.png' />" alt="Avatar" class="rounded-circle" />
+		                                            <img src="<c:out value='${u.userProfileUrl}' default='resources/profile_images/defaultProfile.png' />" alt="profile" class="rounded-circle" />
 		                                            </li>
 		                                        </ul>
 		                                    </td>
@@ -111,30 +110,30 @@
 		                                    <td>${u.userSdate}</td>
 		                                    <!-- 만료일 -->
 		                                    <c:choose>
-		                                    <c:when test="${u.userType eq 'P'}">
-		                                    	<td></td>
-		                                    </c:when>
-		                                    <c:otherwise>
-			                                    <td>${u.userEdate}</td>
-		                                    </c:otherwise>
+												<c:when test="${u.userType eq 'P'}">
+													<td></td>
+												</c:when>
+												<c:otherwise>
+													<td>${u.userEdate}</td>
+												</c:otherwise>
 		                                    </c:choose>
 		                                    <!-- 이용권 구분 -->
 		                                    <td>${u.userType}</td>
 		                                    <c:choose>
-		                                    <c:when test="${u.userType eq 'P' and u.userPt ne 'Y'}">
-		                                    	<td><a class="btn rounded-pill btn-info" href="enroll.cl?no=${ u.userNo }">PT 등록</a></td>
-		                                    </c:when>
-		                                    <c:when test="${u.userType eq 'P' and u.userPt ne 'N'}">
-		                                    	<td><button type="button" class="btn rounded-pill btn-secondary" disabled>등록완료</button></td>
-		                                    </c:when>
-		                                    <c:otherwise>
-		                                    	<td></td>
-		                                    </c:otherwise>
+												<c:when test="${u.userType eq 'P' and u.userPt ne 'Y'}">
+													<td><a class="btn rounded-pill btn-info" href="enroll.cl?no=${u.userNo}">PT 등록</a></td>
+												</c:when>
+												<c:when test="${u.userType eq 'P' and u.userPt ne 'N'}">
+													<td><button type="button" class="btn rounded-pill btn-secondary" disabled>등록완료</button></td>
+												</c:when>
+												<c:otherwise>
+													<td></td>
+												</c:otherwise>
 		                                    </c:choose>
 	                                    </tr>
 	                                    </c:forEach>
-	                                    </c:otherwise>
-                                    </c:choose>
+									</c:otherwise>
+								</c:choose>
                                 </tbody>
                             </table>
                             
