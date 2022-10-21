@@ -44,10 +44,10 @@ public class ProductDao {
 		return sqlSession.update("productMapper.updateProduct", p);
 	}
 
-	// [김지애] 4. 헬스장이용권 삭제 서비스
+	// [김지애] 4. 헬스장이용권 삭제 서비스 (ajax)
 	public int deleteProduct(SqlSessionTemplate sqlSession, String proNo) {
 		// 체크한 String값 배열에 담음
-		String[] arr = proNo.split(","); // ["13", "12"]
+		String[] arr = proNo.split(","); 
 		
 		// arr을 HashMap으로 담아서 mapper에 넘겨줌
 		// mapper에서 foreach 반복문 돌릴 떄 item은 변수, collection은 반복문 돌릴 변수

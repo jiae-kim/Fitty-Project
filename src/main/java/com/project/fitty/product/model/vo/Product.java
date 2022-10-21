@@ -13,6 +13,7 @@ import lombok.ToString;
 @ToString
 public class Product {
 
+    // [김지애]
 	private int proNo; 
 	private String pro; //DB에는 PRODUCT로 되어있음
 	private String proPrice;

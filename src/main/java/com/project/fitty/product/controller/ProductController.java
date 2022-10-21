@@ -32,11 +32,9 @@ public class ProductController {
 		
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		ArrayList<Product> list = pService.selectList(pi);
-		//System.out.println(list);
 		
 		// 이용권 등록 시 db에 존재하는 이용권 조회해서 비교
 		ArrayList<Product> month = pService.selectProductList();
-		//System.out.println(month);
 		
 		mv.addObject("pi", pi)
 		  .addObject("list", list)
@@ -54,10 +52,10 @@ public class ProductController {
 		
 		int result = pService.insertProduct(p);
 		
-		if(result > 0) {// 상품등록 성공
+		if(result > 0) {
 			session.setAttribute("alertMsg", "✔ 성공적으로 헬스장 이용권이 등록되었습니다 ✔");
 			return "redirect:list.pr";
-		}else {// 상품등록 실패
+		}else {
 			session.setAttribute("alertMsg", "❌ 헬스장 이용권 등록에 실패했습니다 ❌");
 			return "common/errorPage";
 		}
@@ -73,15 +71,15 @@ public class ProductController {
 	
 	@RequestMapping("update.pr")
 	public String updateProduct(Product p, HttpSession session) {
-		// 이용권 금액 등록시 ,제거 후 숫자만 insert되도록
+		// 이용권 금액 등록시 ,제거 후 숫자만 update되도록
 		p.setProPrice(p.getProPrice().replace(",", ""));
 				
 		int result = pService.updateProduct(p);
 		
-		if(result > 0) {// 수정 성공
+		if(result > 0) {
 			session.setAttribute("alertMsg", "✔ 성공적으로 헬스장 이용권이 수정되었습니다 ✔");
 			return "redirect:list.pr";
-		}else {// 수정 실패
+		}else {
 			session.setAttribute("alertMsg", "❌ 헬스장 이용권 수정에 실패했습니다 ❌");
 			return "common/errorPage";
 		}
@@ -92,7 +90,6 @@ public class ProductController {
 	@RequestMapping("delete.pr")
 	public String deleteProduct(String ckPro, HttpSession session) {
 		int result = pService.deleteProduct(ckPro);
-		
 		return result>0 ? "success" : "fail";
 	}
 	
