@@ -69,13 +69,12 @@ public class ScheduleController {
 	// [김지애] 4. 회원용 - 스케줄 등록 서비스
 	@RequestMapping("insert.sc")
 	public String insertSchedule(Booking b, HttpSession session) {
-		//System.out.println(b);
 		int result = bService.insertBooking(b);
 		
-		if(result > 0) {// 일정등록 성공
+		if(result > 0) {
 			session.setAttribute("alertMsg", "✔ 성공적으로 수업이 예약되었습니다 ✔");
 			return "redirect:listSchedule.sc";
-		}else {// 일정등록 실패
+		}else {
 			session.setAttribute("alertMsg", "❌ 수업 예약에 실패했습니다 ❌");
 			return "common/errorPage";
 		}
@@ -85,12 +84,11 @@ public class ScheduleController {
 	@RequestMapping("update.sc")
 	public String updateBooking(Booking b, HttpSession session) {
 		int result = bService.updateBooking(b);
-		// System.out.println(b);
 		
-		if(result > 0) {// 수정 성공
+		if(result > 0) {
 			session.setAttribute("alertMsg", "✔ 성공적으로 예약 변경되었습니다 ✔");
 			return "redirect:listSchedule.sc";
-		}else {// 수정 실패
+		}else {
 			session.setAttribute("alertMsg", "❌ 예약변경에 실패했습니다 ❌");
 			return "common/errorPage";
 		}
@@ -101,10 +99,10 @@ public class ScheduleController {
 	public String deleteBooking(Booking b, HttpSession session) {
 		int result = bService.deleteBooking(b);
 		
-		if(result > 0) {// 삭제 성공
+		if(result > 0) {
 			session.setAttribute("alertMsg", "✔ 성공적으로 예약이 취소되었습니다 ✔");
 			return "redirect:listSchedule.sc";
-		}else {// 삭제 실패
+		}else {
 			session.setAttribute("alertMsg", "❌ 예약취소에 실패했습니다 ❌");
 			return "common/errorPage";
 		}

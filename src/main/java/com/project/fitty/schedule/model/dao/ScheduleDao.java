@@ -10,12 +10,12 @@ import com.project.fitty.schedule.model.vo.Booking;
 @Repository
 public class ScheduleDao {
 
-	// [김지애] 1. 직원용 - 스케줄 전체조회 서비스
+	// [김지애] 1. 직원용 - 스케줄 전체조회 서비스 (ajax)
 	public ArrayList<Booking> selectList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("scheduleMapper.selectList");
 	}
 
-	// [김지애] 2. 회원용 - 스케줄 전체조회 서비스
+	// [김지애] 2. 회원용 - 스케줄 전체조회 서비스 (ajax)
 	public String selectEmp(SqlSessionTemplate sqlSession, int userNo) {
 		return sqlSession.selectOne("scheduleMapper.selectEmp", userNo);
 	}
@@ -24,7 +24,7 @@ public class ScheduleDao {
 		return (ArrayList)sqlSession.selectList("scheduleMapper.selectUlist", empNo);
 	}
 
-	// [김지애] 3. 회원용 - 스케줄 상세조회 서비스
+	// [김지애] 3. 회원용 - 스케줄 상세조회 서비스 (ajax)
 	public Booking selectUdetailList(SqlSessionTemplate sqlSession, int bookNo) {
 		return sqlSession.selectOne("scheduleMapper.selectUdetailList", bookNo);
 	}
