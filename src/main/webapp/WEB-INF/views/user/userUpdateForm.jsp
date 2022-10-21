@@ -227,17 +227,16 @@
                 </div>
               </div>
             </div>
-                          
             <script>
               function postFormSubmit(url) {
                 $("#postForm").attr("action", url).submit();
               }
             </script>
-                          
-              <!-- 목록 버튼 -->
-              <a class="btn btn-secondary" href="list.ur">목록으로</a>
-              </div>
-            </form>
+
+            <!-- 목록 버튼 -->
+            <a class="btn btn-secondary" href="list.ur">목록으로</a>
+          </div>
+          </form>
           </div>
         </div>
         <!-- 회원 삭제시 전달값 : 회원번호, 파일 저장 위치 -->
@@ -249,7 +248,6 @@
     </div>
   </div>
 </div>
-
 
 </body>
 </html>
