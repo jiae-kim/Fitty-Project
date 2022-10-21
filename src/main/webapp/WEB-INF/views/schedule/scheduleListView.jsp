@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -51,73 +50,73 @@ html, body{font-size: 16px;}
 						</div> 
 					</div>
 					
-					<!-- 캘린더 DB와 연동해서 뿌려주는 코드 -->
+					<!-- 캘린더 DB와 연동 -->
 					<script>
-					$(function(){
-						$.ajax({
-							url: "list.ca",
-							success: function(list){
-								// console.log(list);
-								
-								// 넘겨주고자 하는 값 리스트로 담아줌
-								let data = [];
-								for(let i=0; i<list.length; i++){
-									let obj = {
-									    id : list[i].bookNo,
-										title : list[i].empName + " " + list[i].bookStime + "~" + list[i].bookEtime,
-										start : list[i].bookDate + " " + list[i].bookStime, 
-										end : list[i].bookDate + " " + list[i].bookEtime,
-										textColor : 'white',
-										backgroundColor : '#696cff',
-										fontSize : 14
-									};
-									data.push(obj);
+						$(function(){
+							$.ajax({
+								url: "list.ca",
+								success: function(list){
+									// console.log(list);
+									
+									// 넘겨주고자 하는 값 리스트로 담아줌
+									let data = [];
+									for(let i=0; i<list.length; i++){
+										let obj = {
+											id : list[i].bookNo,
+											title : list[i].empName + " " + list[i].bookStime + "~" + list[i].bookEtime,
+											start : list[i].bookDate + " " + list[i].bookStime, 
+											end : list[i].bookDate + " " + list[i].bookEtime,
+											textColor : 'white',
+											backgroundColor : '#696cff',
+											fontSize : 14
+										};
+										data.push(obj);
+									}
+									// -------------------- 캘린더 렌더링 --------------------
+									var initialLocaleCode = 'ko';
+									var calendarEl = document.getElementById('calendar');
+									var calendar = new FullCalendar.Calendar(calendarEl, {
+										// calendar 높이 설정
+										height: '750px',
+										// 화면에 맞게 높이 재설정
+										expandRows: true,
+										// 초기 로드 될때 보이는 캘린더 화면 (기본설정 : 달)
+										initialView : 'dayGridMonth',
+										// 한주를 월요일부터 시작
+										firstDay : 1,
+										// 한국어 설정
+										locale : 'ko', 
+										// 시간 설정
+										timeZone : 'UTC',
+										// 헤더에 표시할 툴바
+										headerToolbar: {
+											left: 'prev,next today',
+											center: 'title',
+											right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+										},
+										// Day 캘린더에서 시작 시간
+										slotMinTime: '09:00',
+										// Day 캘린더에서 종료 시간
+										slotMaxTime: '22:00',
+										// 날짜를 선택하면 day 캘린더나 week캘린더로 링크
+										navLinks: true,
+										// 현재 시간 마크
+										nowIndicator: true,
+										// 이벤트가 오버되면 높이 제한 (+ 몇개 식으로 표현)
+										dayMaxEvents: true,
+										// DB 이벤트로 추가
+										events : data,
+										// 이벤트에 시간 표시
+										displayEventTime: false
+									});
+									calendar.render();
+								// ------------------------------------------------------------
+								},
+								error: function(){
+									console.log("ajax 통신 실패");
 								}
-								// -------------------- 캘린더 렌더링 --------------------
-								   var initialLocaleCode = 'ko';
-								   var calendarEl = document.getElementById('calendar');
-								   var calendar = new FullCalendar.Calendar(calendarEl, {
-									  // calendar 높이 설정
-									  height: '750px',
-									  // 화면에 맞게 높이 재설정
-									  expandRows: true,
-									  // 초기 로드 될때 보이는 캘린더 화면 (기본설정 : 달)
-									  initialView : 'dayGridMonth',
-									  // 한주를 월요일부터 시작
-									  firstDay : 1,
-									  // 한국어 설정
-									  locale : 'ko', 
-									  // 시간 설정
-									  timeZone : 'UTC',
-									  // 헤더에 표시할 툴바
-									  headerToolbar: {
-										  left: 'prev,next today',
-										  center: 'title',
-										  right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
-									  },
-									  // Day 캘린더에서 시작 시간
-									  slotMinTime: '09:00',
-									  // Day 캘린더에서 종료 시간
-									  slotMaxTime: '22:00',
-									  // 날짜를 선택하면 day 캘린더나 week캘린더로 링크
-									  navLinks: true,
-									  // 현재 시간 마크
-									  nowIndicator: true,
-									  // 이벤트가 오버되면 높이 제한 (+ 몇개 식으로 표현)
-								      dayMaxEvents: true,
-								      // DB 이벤트로 추가
-									  events : data,
-									  // 이벤트에 시간 표시
-									  displayEventTime: false
-								   });
-								   calendar.render();
-							   // ------------------------------------------------------------
-							},
-							error: function(){
-								console.log("ajax 통신 실패");
-							}
+							})
 						})
-					})
 					</script>
           			</div>
         		</div>
@@ -125,6 +124,7 @@ html, body{font-size: 16px;}
     	</div>
 	</div>
 </div>
+
 </body>
 </html>
 
