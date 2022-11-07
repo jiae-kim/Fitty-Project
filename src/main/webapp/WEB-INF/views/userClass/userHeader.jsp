@@ -310,7 +310,7 @@
               <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center" id="navbar-profile-btns">
                     <!-- User -->
-                    <li class="nav-item navbar-dropdown dropdown-user dropdown">
+                    <!-- <li class="nav-item navbar-dropdown dropdown-user dropdown">
                         <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                         <div class="avatar avatar-online">
                             <img src="resources/bootTemplate/sneat-1.0.0/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
@@ -329,7 +329,7 @@
                             </a>
                         </li>
                         </ul>
-                    </li>
+                    </li> -->
                   <!--/ User -->
                   <label id="helloMan" style='font-size:15px'>${loginU.userName} 회원님 환영합니다 😍</label>
 
